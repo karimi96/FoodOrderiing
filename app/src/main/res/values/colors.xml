@@ -7,4 +7,17 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+    <color name="tosi_lite">#DBDBDB</color>
+    <color name="white_text">#f8f3f7</color>
+    <color name="red_toolbar">#ef4224</color>
+
+    <color name="white_serch">#ececec</color>
+
+
+    <color name="design_default_color_shadow_light">#ffffff</color>
+    <color name="design_default_color_shadow_dark">#d9d9d9</color>
+
+
 </resources>

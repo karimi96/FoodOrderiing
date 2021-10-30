@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodOrderiing">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.product.ProductActivity" android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".activity.home.HomeActivity" />
+        <activity android:name=".activity.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
