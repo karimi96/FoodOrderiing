@@ -40,10 +40,10 @@ public class ProductActivity extends AppCompatActivity {
 //        });
 
         imageView = findViewById(R.id.img_ke);
-        i2 = findViewById(R.id.img_fastfo);
-        i3 = findViewById(R.id.img_fastfod4);
-        i4 = findViewById(R.id.img_ke);
-        i5 = findViewById(R.id.img_fastfod);
+//        i2 = findViewById(R.id.img_fastfo);
+//        i3 = findViewById(R.id.img_fastfod4);
+//        i4 = findViewById(R.id.img_ke);
+//        i5 = findViewById(R.id.img_fastfod);
 //        Bitmap bm = BitmapFactory.decodeResource(getResources(),R.drawable.food_orang );
 //        Bitmap bit_kebab = BlureImage.blur18(getApplicationContext(),bm,10f);
 //        imageView.setImageBitmap(bit_kebab);
