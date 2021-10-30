@@ -18,30 +18,27 @@
             android:layout_height="35dp"
             app:cardCornerRadius="18dp"
             android:layout_marginTop="5dp"
-            android:foregroundGravity="center"
             android:backgroundTint="@color/red_toolbar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints">
 
-            <TextView
-                android:text="49"
-                android:textSize="20dp"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:fontFamily="@font/iran_sans"
-                android:textColor="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+
+                <TextView
+                    android:text="120"
+                    android:textSize="16dp"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/iran_sans"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
         </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_marginVertical="20dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/border_card"
-            android:padding="4dp"
+            android:layout_marginVertical="15dp"
+            android:background="@color/white_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -49,6 +46,9 @@
                 android:id="@+id/cardView_product"
                 android:backgroundTint="@color/white"
                 android:orientation="vertical"
+                android:layout_marginVertical="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:layout_editor_absoluteX="20dp"
@@ -92,9 +92,10 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints">
             <TextView
-                android:text="49"
-                android:textSize="20dp"
+                android:text="57"
+                android:textSize="16dp"
                 android:gravity="center"
+                android:layout_marginTop="5dp"
                 android:fontFamily="@font/iran_sans"
                 android:textColor="@color/white"
                 android:layout_width="match_parent"
@@ -104,10 +105,9 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:padding="4dp"
-            android:background="@drawable/border_card"
+            android:background="@color/white_text"
             android:layout_marginHorizontal="5dp"
-            android:layout_marginVertical="20dp"
+            android:layout_marginVertical="15dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -115,6 +115,12 @@
                 android:id="@+id/cardView_customer"
                 android:backgroundTint="@color/white"
                 android:orientation="vertical"
+                android:elevation="6dp"
+                app:cardCornerRadius="8dp"
+                android:layout_marginVertical="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:outlineSpotShadowColor="@color/red_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:layout_editor_absoluteX="20dp"
@@ -156,12 +162,15 @@
             android:backgroundTint="@color/red_toolbar"
             app:cardCornerRadius="18dp"
             android:layout_marginTop="5dp"
+            android:elevation="6dp"
+            android:outlineSpotShadowColor="@color/red_toolbar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
             <TextView
                 android:text="49"
-                android:textSize="20dp"
+                android:textSize="16dp"
                 android:gravity="center"
+                android:layout_marginTop="5dp"
                 android:layout_gravity="center"
                 android:fontFamily="@font/iran_sans"
                 android:textColor="@color/white"
@@ -173,11 +182,9 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:background="@drawable/border_card"
-            android:padding="4dp"
-            android:layout_marginVertical="20dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="5dp"
+            android:background="@color/white_text"
+            android:layout_marginVertical="15dp"
+
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -185,6 +192,12 @@
                 android:id="@+id/cardView_grouging"
                 android:backgroundTint="@color/white"
                 android:orientation="vertical"
+                android:elevation="6dp"
+                app:cardCornerRadius="8dp"
+                android:layout_marginVertical="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                android:outlineSpotShadowColor="@color/red_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:layout_editor_absoluteX="20dp"

@@ -21,12 +21,37 @@ import java.util.ArrayList;
 public class HomeActivity extends AppCompatActivity {
 
     CardView cardView_product;
+    CardView cardView_grouping;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+       create_chart();
+
+
+        cardView_product = findViewById(R.id.cardView_product);
+        cardView_product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                startActivity(new Intent(HomeActivity.this, ProductActivity.class));
+                Intent intent = new Intent(HomeActivity.this,ProductActivity.class);
+                startActivity(intent);
+            }
+        });
+
+//        cardView_grouping = findViewById(R.id.)
+        
+
+
+
+    }
+
+
+
+    public void create_chart(){
 
         BarChart bar_chart = findViewById(R.id.chart_bar);
         ArrayList<BarEntry> visitor = new ArrayList<>();
@@ -54,18 +79,6 @@ public class HomeActivity extends AppCompatActivity {
         bar_chart.setData(barData);
         bar_chart.getDescription().setText("Bar chart example");
         bar_chart.animateY(2000);
-
-
-
-        cardView_product = findViewById(R.id.cardView_product);
-        cardView_product.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                startActivity(new Intent(HomeActivity.this, ProductActivity.class));
-                Intent intent = new Intent(HomeActivity.this,ProductActivity.class);
-                startActivity(intent);
-            }
-        });
 
 
     }

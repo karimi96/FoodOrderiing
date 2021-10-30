@@ -9,7 +9,6 @@
     tools:context=".activity.home.HomeActivity">
 
 
-
     <include layout="@layout/toolbar" />
 
     <ScrollView
@@ -23,6 +22,8 @@
             android:orientation="vertical">
 
             <include layout="@layout/chart"/>
+
+            <include layout="@layout/nemodar"/>
 
             <include layout="@layout/list_pcg" />
 
