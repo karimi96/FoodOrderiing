@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_text"
+    tools:context=".activity.grouping.GroupingActivity">
+
+
+     <androidx.recyclerview.widget.RecyclerView
+         android:id="@+id/recycler_grouping"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/list_item_grouping" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_add_grouping"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:backgroundTint="@color/red_toolbar"
+        android:src="@drawable/ic_round_add_24"
+        app:maxImageSize="35dp"
+        android:layout_width="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:layout_height="wrap_content"/>
+
+
+</RelativeLayout>

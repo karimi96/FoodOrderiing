@@ -43,7 +43,6 @@
             android:layout_height="match_parent">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_product"
                 android:backgroundTint="@color/white"
                 android:orientation="vertical"
                 android:layout_marginVertical="5dp"
@@ -112,7 +111,7 @@
             android:layout_height="match_parent">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_customer"
+
                 android:backgroundTint="@color/white"
                 android:orientation="vertical"
                 android:elevation="6dp"
@@ -189,7 +188,7 @@
             android:layout_height="match_parent">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_grouging"
+
                 android:backgroundTint="@color/white"
                 android:orientation="vertical"
                 android:elevation="6dp"

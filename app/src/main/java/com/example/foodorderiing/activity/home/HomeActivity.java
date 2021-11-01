@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.foodorderiing.R;
+import com.example.foodorderiing.activity.grouping.GroupingActivity;
 import com.example.foodorderiing.activity.product.ProductActivity;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -36,14 +37,21 @@ public class HomeActivity extends AppCompatActivity {
         cardView_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(HomeActivity.this, ProductActivity.class));
                 Intent intent = new Intent(HomeActivity.this,ProductActivity.class);
                 startActivity(intent);
             }
         });
 
-//        cardView_grouping = findViewById(R.id.)
-        
+        cardView_grouping = findViewById(R.id.cardView_grouping);
+        cardView_grouping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, GroupingActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
 
 
 

@@ -19,5 +19,14 @@
     <color name="design_default_color_shadow_light">#ffffff</color>
     <color name="design_default_color_shadow_dark">#d9d9d9</color>
 
+    <color name="pink">#d35949</color>
+    <color name="pink_dark">#ff1f37</color>
+    <color name="pink2">#cc525e</color>
+    <color name="pink3">#c75a56</color>
+
+
+    <color name="pink4">#fff5f5</color>
+
+
 
 </resources>

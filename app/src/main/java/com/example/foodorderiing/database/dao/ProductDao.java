@@ -12,13 +12,13 @@ import java.util.List;
 
 @Dao
 public interface ProductDao {
-    @Query("Select * from product")
-    List<Product> getProductList();
-    @Insert
-    void insertProduct(Product product);
-    @Update
-    void updateProduct(Product person);
-    @Delete
-    void deletePerson(Product person);
+//    @Query("Select * from product")
+//    List<Product> getProductList();
+//    @Insert
+//    void insertProduct(Product product);
+//    @Update
+//    void updateProduct(Product person);
+//    @Delete
+//    void deletePerson(Product person);
 
 }

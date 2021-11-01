@@ -2,7 +2,10 @@ package com.example.foodorderiing.activity.product;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -11,26 +14,53 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodorderiing.R;
+import com.example.foodorderiing.adapter.ProductAdapter;
 import com.example.foodorderiing.design.BlureImage;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ProductActivity extends AppCompatActivity {
 
-    ImageView imageView , i2,i3,i4,i5 , img_menu;
-    TextView tt;
+//    ImageView imageView , i2,i3,i4,i5 , img_menu;
+//    TextView tt;
+
+    RecyclerView recyclerView;
+    FloatingActionButton fab;
+    ProductAdapter adapter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
+        recyclerView = findViewById(R.id.recycler_product);
+        recyclerView.setHasFixedSize(true);
+        adapter = new ProductAdapter();
+        recyclerView.setAdapter(adapter);
 
-        img_menu = findViewById(R.id.img_menu);
-        tt = findViewById(R.id.textView43);
-        registerForContextMenu(tt);
+        fab = findViewById(R.id.fab_product);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(ProductActivity.this,AddNewProductActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+    }
+
+
+    public void info(){
+//        img_menu = findViewById(R.id.img_menu);
+//        tt = findViewById(R.id.textView43);
+//        registerForContextMenu(tt);
 //        tt.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -39,7 +69,7 @@ public class ProductActivity extends AppCompatActivity {
 //            }
 //        });
 
-        imageView = findViewById(R.id.img_ke);
+//        imageView = findViewById(R.id.img_ke);
 //        i2 = findViewById(R.id.img_fastfo);
 //        i3 = findViewById(R.id.img_fastfod4);
 //        i4 = findViewById(R.id.img_ke);
@@ -67,32 +97,33 @@ public class ProductActivity extends AppCompatActivity {
 
 
 
-    }
 
-//    @Override
+//        @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        getMenuInflater().inflate(R.menu.menu_product,menu);
 //return true;
 //    }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        getMenuInflater().inflate(R.menu.menu_product,menu);
-
-    }
+//    @Override
+//    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+//        super.onCreateContextMenu(menu, v, menuInfo);
+//        getMenuInflater().inflate(R.menu.menu_product,menu);
+//
+//    }
 //
 //    @Override
 //    public boolean onContextItemSelected(@NonNull MenuItem item) {
 //        return super.onContextItemSelected(item);
 //    }
 
-    //    @Override
+        //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        getMenuInflater().inflate(R.menu.menu_product,menu);
 //        return true;
 //    }
 
 
+
+    }
 
 }

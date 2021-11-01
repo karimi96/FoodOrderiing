@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@drawable/food_orang"
+    tools:context=".activity.grouping.AddNewGroupingActivity">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ccc"
+        android:layout_centerInParent="true"
+        app:cardCornerRadius="12dp"
+        android:backgroundTint="#aa000000"
+        android:layout_width="300dp"
+        android:layout_height="420dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:padding="10dp"
+                android:src="@drawable/ic_outline_add_a_photo_24"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"/>
+
+
+
+            <EditText
+                android:id="@+id/et_get_name_grouping"
+                android:background="@drawable/border_editext_product"
+                android:layout_marginHorizontal="20dp"
+                android:hint="اسم محصول"
+                android:drawablePadding="10dp"
+                android:padding="5dp"
+                android:textStyle="normal"
+                android:textSize="16dp"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/iran_sans"
+                android:inputType="textPersonName"
+                android:drawableRight="@drawable/ic_round_fastfood_24"
+                android:layout_marginTop="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+            <!--            <EditText-->
+            <!--                android:background="@drawable/border_editext_product"-->
+            <!--                android:layout_marginHorizontal="20dp"-->
+            <!--                android:hint="دسته بندی"-->
+            <!--                android:padding="5dp"-->
+            <!--                android:textStyle="normal"-->
+            <!--                android:fontFamily="@font/iran_sans"-->
+            <!--                android:inputType="textPersonName"-->
+            <!--                android:drawablePadding="10dp"-->
+            <!--                android:textSize="16dp"-->
+            <!--                android:gravity="right|center_vertical"-->
+            <!--                style="@style/Widget.AppCompat.Light.DropDownItem.Spinner"-->
+            <!--                android:drawableRight="@drawable/ic_baseline_category_24"-->
+            <!--                android:layout_marginTop="20dp"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="50dp"/>-->
+
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_marginTop="20dp"
+                android:spinnerMode="dropdown"
+                android:background="@drawable/border_spinner"
+                android:layout_marginHorizontal="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+
+
+            <EditText
+                android:background="@drawable/border_editext_product"
+                android:layout_marginHorizontal="20dp"
+                android:hint=" قیمت"
+                android:padding="5dp"
+                android:textStyle="normal"
+                android:fontFamily="@font/iran_sans"
+                android:inputType="number"
+                android:drawablePadding="10dp"
+                android:textSize="16dp"
+                android:gravity="center_vertical"
+                android:drawableRight="@drawable/ic_baseline_attach_money_24"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+            <LinearLayout
+                android:layout_marginTop="25dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:id="@+id/tv_save_group"
+                    android:text="ذخیره"
+                    android:textColor="@color/white_text"
+                    android:fontFamily="@font/iran_sans"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/border_save_pro"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:text="لغو"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/border_cancel_pro"
+                    android:textColor="@color/red_toolbar"
+                    android:fontFamily="@font/iran_sans"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+
+
+
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+</LinearLayout>
