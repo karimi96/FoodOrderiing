@@ -33,6 +33,46 @@ public class CustomerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_customer);
 
         init();
+        set_fab();
+        hide_fab();
+
+        db = DatabaseHelper.getInstance(getApplicationContext());
+        dao = db.customerDao();
+        set_recyclerView();
+
+    }
+
+
+    public void set_recyclerView(){
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new CustomerAdapter( new ArrayList<>(), this);
+        recyclerView.setAdapter(adapter);
+    }
+
+
+    public void init(){
+        recyclerView = findViewById(R.id.recycler_customer);
+        fab = findViewById(R.id.floating_customer);
+    }
+
+
+    public void hide_fab(){
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if(dy >0 ){
+                    fab.hide();
+                }else {
+                    fab.show();
+                }
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+    }
+
+
+    public void set_fab(){
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,20 +80,8 @@ public class CustomerActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        db = DatabaseHelper.getInstance(getApplicationContext());
-        dao = db.customerDao();
-
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new CustomerAdapter( new ArrayList<>(), this);
-        recyclerView.setAdapter(adapter);
     }
 
-    public void init(){
-        recyclerView = findViewById(R.id.recycler_customer);
-        fab = findViewById(R.id.floating_customer);
-    }
 
     @Override
     protected void onDestroy() {

@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 
 public class GroupingActivity extends AppCompatActivity {
-
     FloatingActionButton fab_grouping;
     RecyclerView recyclerView_grouping;
     GroupingAdapter groupingAdapter;
@@ -29,29 +28,24 @@ public class GroupingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grouping);
 
-        recyclerView_grouping = findViewById(R.id.recycler_grouping);
-        recyclerView_grouping.setHasFixedSize(true);
+        set_recyclerView();
+        set_fab();
+        hide_fab();
+    }
+
+
+    public void set_recyclerView(){
         db = DatabaseHelper.getInstance(getApplicationContext());
         dao_group = db.groupingDao();
 
-
+        recyclerView_grouping = findViewById(R.id.recycler_grouping);
+        recyclerView_grouping.setHasFixedSize(true);
         groupingAdapter = new GroupingAdapter(new ArrayList<>(),this);
         recyclerView_grouping.setAdapter(groupingAdapter);
-//
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-////                List<Grouping> g = new ArrayList<>();
-//////                g.add(new Grouping("test"));
-//////                g.add(new Grouping("test"));
-//////                g.add(new Grouping("test"));
-//////                g.add(new Grouping("test"));
-//////                groupingAdapter.addList(g);
-//////                groupingAdapter.addList(db.groupingDao().getGroupingList());
-//            }
-//        });
+    }
 
 
+    public void set_fab(){
         fab_grouping = findViewById(R.id.floating_add_grouping);
         fab_grouping.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,17 +53,32 @@ public class GroupingActivity extends AppCompatActivity {
                 Intent intent = new Intent(GroupingActivity.this,AddNewGroupingActivity.class);
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
-
             }
         });
-
     }
+
+
+    public void hide_fab(){
+        recyclerView_grouping.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if(dy >0 ){
+                    fab_grouping.hide();
+                }else {
+                    fab_grouping.show();
+                }
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+    }
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         if (db != null) db.close();
     }
+
 
     @Override
     protected void onResume() {
@@ -78,5 +87,4 @@ public class GroupingActivity extends AppCompatActivity {
             groupingAdapter.addList(dao_group.getGroupingList());
         }
     }
-
 }

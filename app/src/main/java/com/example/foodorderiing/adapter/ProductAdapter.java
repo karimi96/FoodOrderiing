@@ -193,7 +193,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
 
-
+    //  For search
     @Override
     public Filter getFilter() {
         return newsFilter;

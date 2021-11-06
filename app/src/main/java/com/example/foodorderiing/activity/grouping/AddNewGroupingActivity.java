@@ -35,7 +35,6 @@ public class AddNewGroupingActivity extends AppCompatActivity {
 
         click_save();
         click_cancel();
-
     }
 
 
@@ -51,15 +50,15 @@ public class AddNewGroupingActivity extends AppCompatActivity {
                 mp.setLooping(true);
             }
         });
-
     }
+
 
     public void click_save(){
         tv_save = findViewById(R.id.tv_save_group);
         tv_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-// اگه تکراری بود چک شود
+                // اگه تکراری بود چک شود
                 String name = editText_category.getText().toString();
 
                 if(TextUtils.isEmpty(name)){
@@ -94,6 +93,7 @@ public class AddNewGroupingActivity extends AppCompatActivity {
         videoView.resume();
         super.onResume();
     }
+
 
     @Override
     protected void onPause() {

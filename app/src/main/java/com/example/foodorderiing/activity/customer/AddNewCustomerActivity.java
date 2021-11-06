@@ -9,14 +9,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.foodorderiing.R;
-import com.example.foodorderiing.activity.grouping.AddNewGroupingActivity;
 import com.example.foodorderiing.adapter.CustomerAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.CustomerDao;
 import com.example.foodorderiing.model.Customer;
-import com.example.foodorderiing.model.Grouping;
+
 
 public class AddNewCustomerActivity extends AppCompatActivity {
 
@@ -39,31 +37,27 @@ public class AddNewCustomerActivity extends AppCompatActivity {
         init();
         db = DatabaseHelper.getInstance(getApplicationContext());
         dao = db.customerDao();
-//        int positionn = viewHolder.getAdapterPosition();
-
 
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String cName = name.getText().toString();
                 String cPhone = phone.getText().toString();
                 String cAddress = address.getText().toString();
 
                 if(TextUtils.isEmpty(cName) || TextUtils.isEmpty(cPhone) || TextUtils.isEmpty(cAddress)){
-
                     Toast.makeText(getApplicationContext(), "فیلد مورد نظر را پرکنید!!!", Toast.LENGTH_SHORT).show();
 
                 }else {
                     Customer customer = new Customer(cName , cPhone , cAddress);
                     dao.insertCustomer(customer);
                     finish();
-//                    customerAdapter.notifyItemChanged(positionn);
 
                 }
             }
         });
+
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +65,9 @@ public class AddNewCustomerActivity extends AppCompatActivity {
                 finish();
             }
         });
+
     }
+
 
     public void init(){
         name = findViewById(R.id.et_get_name_customer);

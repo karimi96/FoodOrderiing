@@ -5,12 +5,14 @@
     android:orientation="horizontal"
     android:weightSum="3"
     android:paddingHorizontal="5dp"
+    android:background="@drawable/ripple_all"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView_product"
+        android:outlineSpotShadowColor="@color/red_toolbar"
         android:layout_width="170dp"
         android:layout_weight="1"
         android:layout_height="170dp"
@@ -54,6 +56,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:layout_marginTop="5dp"
+                    android:outlineSpotShadowColor="@color/red_toolbar"
                     app:cardBackgroundColor="@color/white_text"
                     >
 
@@ -80,6 +83,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview_customer"
+        android:outlineSpotShadowColor="@color/red_toolbar"
         android:layout_width="170dp"
         android:layout_weight="1"
         android:layout_height="170dp"
@@ -146,6 +150,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView_grouping"
+        android:outlineSpotShadowColor="@color/red_toolbar"
         android:layout_width="170dp"
         android:layout_height="170dp"
         android:layout_weight="1"
