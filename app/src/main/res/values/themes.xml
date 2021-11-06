@@ -4,7 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/red_toolbar</item>
         <item name="colorPrimaryVariant">@color/red_toolbar</item>
-        <item name="colorOnPrimary">@color/tosi_lite</item>
+        <item name="colorOnPrimary">@color/red_toolbar</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/tosi_lite</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
@@ -13,23 +13,25 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
 
+<!--        add to search-->
+        <item name="android:textColorSecondary">@color/white_text</item>
+        <item name="android:editTextColor">@color/white_text</item>
+
 
         <item name="android:direction">left_to_right</item>
         <item name="android:layoutDirection">rtl</item>
     </style>
 
-
     <style
-
-    name="CustomShapeAppearance">
-    <item name="neumorph_cornerFamily">rounded</item>
-    <item name="neumorph_cornerSize">20dp</item>
-    <!-- Or if wants different radii depending on the corner. -->
-    <item name="neumorph_cornerSizeTopLeft">16dp</item>
-    <item name="neumorph_cornerSizeTopRight">16dp</item>
-    <item name="neumorph_cornerSizeBottomLeft">16dp</item>
-    <item name="neumorph_cornerSizeBottomRight">16dp</item>
-</style>
+        name="CustomShapeAppearance">
+        <item name="neumorph_cornerFamily">rounded</item>
+        <item name="neumorph_cornerSize">20dp</item>
+        <!-- Or if wants different radii depending on the corner. -->
+        <item name="neumorph_cornerSizeTopLeft">16dp</item>
+        <item name="neumorph_cornerSizeTopRight">16dp</item>
+        <item name="neumorph_cornerSizeBottomLeft">16dp</item>
+        <item name="neumorph_cornerSizeBottomRight">16dp</item>
+    </style>
 
    <style
        name="CustomRation" parent="Widget.AppCompat.RatingBar.Small">
@@ -37,19 +39,10 @@
        <item name="android:maxWidth">26dp</item>
    </style>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
+    <style name="DialogAnimationSheet">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom_sheet</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom_sheet</item>
+    </style>
+    
 </resources>

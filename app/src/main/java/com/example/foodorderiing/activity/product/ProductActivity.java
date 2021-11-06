@@ -1,37 +1,33 @@
 package com.example.foodorderiing.activity.product;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.ArrayAdapter;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.adapter.ProductAdapter;
-import com.example.foodorderiing.design.BlureImage;
+import com.example.foodorderiing.database.DatabaseHelper;
+import com.example.foodorderiing.database.dao.ProductDao;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class ProductActivity extends AppCompatActivity {
 
-//    ImageView imageView , i2,i3,i4,i5 , img_menu;
-//    TextView tt;
-
+    Toolbar toolbar;
     RecyclerView recyclerView;
     FloatingActionButton fab;
     ProductAdapter adapter;
-
+    DatabaseHelper db;
+    ProductDao dao;
 
 
     @Override
@@ -39,10 +35,22 @@ public class ProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
+        toolbar = findViewById(R.id.toolbar_search);
+        toolbar.setTitle("محصولات");
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white_text));
+        setSupportActionBar(toolbar);
+
         recyclerView = findViewById(R.id.recycler_product);
         recyclerView.setHasFixedSize(true);
-        adapter = new ProductAdapter();
+
+        db = DatabaseHelper.getInstance(getApplicationContext());
+        dao = db.productDao();
+
+        adapter = new ProductAdapter(new ArrayList<>(), this );
         recyclerView.setAdapter(adapter);
+//        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, Collections.singletonList(dao.getProductList().get(0).name));
+        adapter.notifyDataSetChanged();
+
 
         fab = findViewById(R.id.fab_product);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +60,6 @@ public class ProductActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
     }
 
@@ -69,61 +76,41 @@ public class ProductActivity extends AppCompatActivity {
 //            }
 //        });
 
-//        imageView = findViewById(R.id.img_ke);
-//        i2 = findViewById(R.id.img_fastfo);
-//        i3 = findViewById(R.id.img_fastfod4);
-//        i4 = findViewById(R.id.img_ke);
-//        i5 = findViewById(R.id.img_fastfod);
-//        Bitmap bm = BitmapFactory.decodeResource(getResources(),R.drawable.food_orang );
-//        Bitmap bit_kebab = BlureImage.blur18(getApplicationContext(),bm,10f);
-//        imageView.setImageBitmap(bit_kebab);
-
-//        Bitmap bmm = BitmapFactory.decodeResource(getResources(),R.drawable.food_honey );
-//        Bitmap bit_kebabb = BlureImage.blur18(getApplicationContext(),bmm,10f);
-//        i2.setImageBitmap(bit_kebabb);
-//
-//        Bitmap bm2 = BitmapFactory.decodeResource(getResources(),R.drawable.food_kebab );
-//        Bitmap bit_kebab2 = BlureImage.blur18(getApplicationContext(),bm2,10f);
-//        i3.setImageBitmap(bit_kebab2);
-//
-//        Bitmap bm3 = BitmapFactory.decodeResource(getResources(),R.drawable.food_egg );
-//        Bitmap bit_kebab3 = BlureImage.blur18(getApplicationContext(),bm3,10f);
-//        i4.setImageBitmap(bit_kebab3);
-//
-//        Bitmap bm4 = BitmapFactory.decodeResource(getResources(),R.drawable.food_toast );
-//        Bitmap bit_kebab4 = BlureImage.blur18(getApplicationContext(),bm4,10f);
-//        i5.setImageBitmap(bit_kebab4);
-
-
-
-
-
-//        @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_product,menu);
-//return true;
-//    }
-
-//    @Override
-//    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-//        super.onCreateContextMenu(menu, v, menuInfo);
-//        getMenuInflater().inflate(R.menu.menu_product,menu);
-//
-//    }
-//
-//    @Override
-//    public boolean onContextItemSelected(@NonNull MenuItem item) {
-//        return super.onContextItemSelected(item);
-//    }
-
-        //    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_product,menu);
-//        return true;
-//    }
-
-
-
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search , menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setMaxWidth(Integer.MAX_VALUE
+        );
+//        searchView.setQueryHint("جستوجو کنید...");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                    adapter.getFilter().filter(newText);
+
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(adapter != null){
+            adapter.addList(dao.getProductList());
+
+        }
+    }
 }

@@ -25,7 +25,6 @@
 
             <include layout="@layout/nemodar"/>
 
-<!--            <include layout="@layout/list_pcg" />-->
             <include layout="@layout/list_pcg2"/>
 
             <include layout="@layout/list_sending" />

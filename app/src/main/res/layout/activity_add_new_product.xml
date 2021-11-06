@@ -5,13 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/food_egg"
     tools:context=".activity.product.AddNewProductActivity">
 
-<!--    <VideoView-->
-<!--        android:id="@+id/vedio"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"/>-->
+    <VideoView
+        android:id="@+id/vedio"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/ccc"
@@ -19,7 +18,7 @@
         app:cardCornerRadius="12dp"
         android:backgroundTint="#aa000000"
         android:layout_width="300dp"
-        android:layout_height="420dp">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:orientation="vertical"
@@ -27,14 +26,21 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:padding="10dp"
+                android:padding="15dp"
                 android:src="@drawable/ic_outline_add_a_photo_24"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"/>
 
+            <LinearLayout
+                android:layout_below="@id/img_grouping"
+                android:background="@color/white_text"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
+
 
 
             <EditText
+                android:id="@+id/et_get_name_product"
                 android:background="@drawable/border_editext_product"
                 android:layout_marginHorizontal="20dp"
                 android:hint="اسم محصول"
@@ -42,6 +48,7 @@
                 android:padding="5dp"
                 android:textStyle="normal"
                 android:textSize="16dp"
+                android:textColor="@color/black"
                 android:gravity="center_vertical"
                 android:fontFamily="@font/iran_sans"
                 android:inputType="textPersonName"
@@ -68,10 +75,11 @@
 <!--                android:layout_height="50dp"/>-->
 
 
-            <Spinner
-                android:id="@+id/spinner"
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinner_product"
                 android:layout_marginTop="20dp"
-                android:background="@color/white_text"
+                android:spinnerMode="dropdown"
+                android:background="@drawable/border_spinner"
                 android:layout_marginHorizontal="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"/>
@@ -79,6 +87,7 @@
 
 
             <EditText
+                android:id="@+id/et_get_price_product"
                 android:background="@drawable/border_editext_product"
                 android:layout_marginHorizontal="20dp"
                 android:hint=" قیمت"
@@ -88,22 +97,45 @@
                 android:inputType="number"
                 android:drawablePadding="10dp"
                 android:textSize="16dp"
+                android:textColor="@color/black"
                 android:gravity="center_vertical"
                 android:drawableRight="@drawable/ic_baseline_attach_money_24"
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"/>
 
+
+
+
+<!--            <androidx.appcompat.widget.AppCompatSpinner-->
+<!--                android:id="@+id/material_spinner1"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="Select Here"-->
+<!--                app:met_floatingLabel="normal"-->
+<!--                android:textColorHint="#CFD8DC"/>-->
+
+
+
+<!--            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner-->
+<!--                android:id="@+id/spinner1"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="BetterSpinner" />-->
+
+
+
             <LinearLayout
                 android:layout_marginTop="25dp"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="35dp"
                 android:orientation="horizontal"
                 android:weightSum="2"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
 
                 <TextView
+                    android:id="@+id/tv_save_product"
                     android:text="ذخیره"
                     android:textColor="@color/white_text"
                     android:fontFamily="@font/iran_sans"
@@ -115,6 +147,7 @@
                     android:layout_height="match_parent"/>
 
                 <TextView
+                    android:id="@+id/tv_cancel_product"
                     android:text="لغو"
                     android:gravity="center"
                     android:layout_weight="1"
@@ -127,16 +160,8 @@
 
             </LinearLayout>
 
-
-
-
-
-
         </LinearLayout>
 
-
     </androidx.cardview.widget.CardView>
-
-
 
 </RelativeLayout>

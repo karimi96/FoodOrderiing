@@ -7,12 +7,14 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.foodorderiing.database.dao.CustomerDao;
 import com.example.foodorderiing.database.dao.GroupingDao;
 import com.example.foodorderiing.database.dao.ProductDao;
+import com.example.foodorderiing.model.Customer;
 import com.example.foodorderiing.model.Grouping;
 import com.example.foodorderiing.model.Product;
 
-@Database(entities = {Grouping.class, Product.class} , exportSchema = false , version = 1)
+@Database(entities = {Grouping.class, Product.class, Customer.class} , exportSchema = false , version = 1)
 public abstract class DatabaseHelper extends RoomDatabase {
     private static final String DB_NAME = "db_name";
     private static DatabaseHelper instance;
@@ -32,8 +34,6 @@ public abstract class DatabaseHelper extends RoomDatabase {
 
     public abstract ProductDao productDao();
     public abstract GroupingDao groupingDao();
-
-
-
+    public abstract CustomerDao customerDao();
 
 }
