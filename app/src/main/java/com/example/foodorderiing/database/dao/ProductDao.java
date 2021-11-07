@@ -17,8 +17,10 @@ public interface ProductDao {
 
     @Insert
     void insertProduct(Product product);
+
     @Update
     void updateProduct(Product product);
+
     @Delete
     void deleteProduct(Product product);
 

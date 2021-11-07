@@ -7,20 +7,25 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.foodorderiing.R;
+import com.example.foodorderiing.activity.grouping.AddNewGroupingActivity;
 import com.example.foodorderiing.adapter.ProductAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
 import com.example.foodorderiing.database.dao.ProductDao;
 import com.example.foodorderiing.model.Product;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,33 +39,53 @@ public class AddNewProductActivity extends AppCompatActivity {
     Spinner spinner;
     ArrayAdapter<String> adapterSp;
     String[] sp = {"فست فود","سالاد","چلوها"};
-    Product product;
     DatabaseHelper db;
     ProductDao dao_product;
     GroupingDao dao_grouping;
+    Product p = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_product);
 
+
+        et_name = findViewById(R.id.et_get_name_product);
+        et_price = findViewById(R.id.et_get_price_product);
+        tv_save = findViewById(R.id.tv_save_product);
+
+        if (getIntent().getExtras() != null){
+            String getNameProduct = getIntent().getStringExtra("product");
+            p = new Gson().fromJson(getNameProduct,Product.class);
+            et_name.setText(p.name);
+            et_price.setText(p.price);
+        }
+
+
         set_VideoView();
         db = DatabaseHelper.getInstance(getApplicationContext());
         dao_product = db.productDao();
         set_Spinner();
 
-        et_name = findViewById(R.id.et_get_name_product);
-        et_price = findViewById(R.id.et_get_price_product);
-
-        tv_save = findViewById(R.id.tv_save_product);
         tv_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String nameProduct = et_name.getText().toString();
                 String priceProduct = et_price.getText().toString();
 
-                product = new Product(nameProduct ,priceProduct);
-                dao_product.insertProduct(product);
+                if (p == null){
+                    if(TextUtils.isEmpty(nameProduct) || TextUtils.isEmpty(priceProduct)){
+                        Toast.makeText(getApplicationContext(), "فیلد مورد نظر را پرکنید!!!", Toast.LENGTH_SHORT).show();
+                    }else {
+                        dao_product.insertProduct(new Product(nameProduct, priceProduct));
+                    }
+                }else {
+                    p.name = nameProduct;
+                    p.price = priceProduct;
+                    Log.e("qqqq", "onClick: update product=" + p.id );
+                    dao_product.updateProduct(p);
+                }
 
                 finish();
 
@@ -74,13 +99,6 @@ public class AddNewProductActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        Intent intent = getIntent();
-        String getNameProduct = intent.getStringExtra("nameProduct");
-        String getPriceProduct = intent.getStringExtra("priceProduct");
-        et_name.setText(getNameProduct);
-        et_price.setText(getPriceProduct);
-//        dao_product.updateProduct(new Product(getNameProduct,getPriceProduct));
     }
 
 
@@ -114,7 +132,8 @@ public class AddNewProductActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                String s = (String) parent.getItemAtPosition(position);
+                Log.e("qqqq", "onItemSelected: "+s );
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -141,7 +160,6 @@ public class AddNewProductActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         videoView.stopPlayback();
-        if (db != null) db.close();
         super.onDestroy();
     }
 }

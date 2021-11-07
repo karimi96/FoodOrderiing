@@ -5,7 +5,6 @@
     android:orientation="horizontal"
     android:weightSum="3"
     android:paddingHorizontal="5dp"
-    android:background="@drawable/ripple_all"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -15,11 +14,13 @@
         android:outlineSpotShadowColor="@color/red_toolbar"
         android:layout_width="170dp"
         android:layout_weight="1"
+        android:background="@drawable/ripple_all"
         android:layout_height="170dp"
         app:cardCornerRadius="10dp"
         android:layout_margin="5dp">
 
         <LinearLayout
+            android:background="@drawable/ripple_all"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -33,7 +34,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/ic_pnghut_hamburger_fast_food_restaurant_junk_kfc_cartoon_french_fries"
+                    android:src="@drawable/pic_product"
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
@@ -95,6 +96,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <LinearLayout
+                android:background="@drawable/ripple_all"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -103,7 +105,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/ic_pnghut_hamburger_fast_food_restaurant_junk_kfc_cartoon_french_fries"
+                    android:src="@drawable/pic_customer"
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
@@ -164,6 +166,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:background="@drawable/ripple_all"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -172,8 +175,7 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-
-                    android:src="@drawable/ic_pnghut_hamburger_fast_food_restaurant_junk_kfc_cartoon_french_fries"
+                    android:src="@drawable/categories"
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView

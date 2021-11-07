@@ -38,7 +38,7 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_margin="30dp"
+        android:layout_margin="20dp"
         app:maxImageSize="35dp"
         android:tint="@color/white"
         android:backgroundTint="@color/red_toolbar"

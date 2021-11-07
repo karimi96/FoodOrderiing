@@ -49,7 +49,11 @@ public class AddNewCustomerActivity extends AppCompatActivity {
                 if(TextUtils.isEmpty(cName) || TextUtils.isEmpty(cPhone) || TextUtils.isEmpty(cAddress)){
                     Toast.makeText(getApplicationContext(), "فیلد مورد نظر را پرکنید!!!", Toast.LENGTH_SHORT).show();
 
+                }else if(cPhone.length() != 11) {
+                    Toast.makeText(getApplicationContext(), "شماره تلفن باید 11 کاراکترباشد", Toast.LENGTH_SHORT).show();
+
                 }else {
+
                     Customer customer = new Customer(cName , cPhone , cAddress);
                     dao.insertCustomer(customer);
                     finish();

@@ -25,6 +25,8 @@ import com.example.foodorderiing.activity.product.AddNewProductActivity;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.ProductDao;
 import com.example.foodorderiing.model.Product;
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,50 +86,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             tv_name_category = itemView.findViewById(R.id.tv_kind_of_food);
             tv_price = itemView.findViewById(R.id.tv_price_product);
             img_food_bg = itemView.findViewById(R.id.img_back_product);
-
         }
     }
 
 
-//    @Override
-//    public Filter getFilter() {
-//        return filter;
-//    }
-//
-//    Filter filter = new Filter() {
-//
-//        //run on background thread
-//        @Override
-//        protected FilterResults performFiltering(CharSequence constraint) {
-//
-//            List<String> filteredlist = new ArrayList<>();
-//            if (constraint.toString().isEmpty()) {
-//                filteredlist.addAll(list_search);
-//            } else {
-//                for (String movie : list_search) {
-//                    if (movie.toLowerCase().contains(constraint.toString().toLowerCase())) {
-//                        filteredlist.add(movie);
-//                    }
-//                }
-//            }
-//            FilterResults filterResults = new FilterResults();
-//            filterResults.values = filteredlist;
-//            return filterResults;
-//        }
-//
-//        //runs on a ui thread
-//        @Override
-//        protected void publishResults(CharSequence constraint, FilterResults results) {
-//            list.clear();
-//            list.addAll((Collection<? extends Product>) results.values);
-//            notifyDataSetChanged();
-//        }
-//    };
-
-
-
     private void showDialogSheet(int pos){
-
         final Dialog dialog_sheet = new Dialog(context);
         dialog_sheet.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_sheet.setContentView(R.layout.bottom_sheet_product);
@@ -139,15 +102,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, AddNewProductActivity.class);
-                intent.putExtra("nameProduct",list.get(pos).name);
-                intent.putExtra("priceProduct",list.get(pos).price);
-//                AddNewProductActivity activity = new AddNewProductActivity();
-//                activity.et_name.setText(list.get(pos).name);
-//                activity.et_price.setText(list.get(pos).price);
+                intent.putExtra("product",new Gson().toJson(list.get(pos)));
                 context.startActivity(intent);
-
+                dialog_sheet.dismiss();
             }
         });
+
 
         delete.setOnClickListener(new View.OnClickListener() {
             @Override

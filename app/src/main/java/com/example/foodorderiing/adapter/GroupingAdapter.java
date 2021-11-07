@@ -97,7 +97,7 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
 
         final Dialog dialog_sheet = new Dialog(context);
         dialog_sheet.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog_sheet.setContentView(R.layout.bottom_sheet_product);
+        dialog_sheet.setContentView(R.layout.bottom_sheet_grouping);
 
         LinearLayout edit = dialog_sheet.findViewById(R.id.linear_edit_g);
         LinearLayout delete = dialog_sheet.findViewById(R.id.linear_delete_g);
@@ -156,8 +156,8 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
         dialog_sheet.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog_sheet.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationSheet;
         dialog_sheet.getWindow().setGravity(Gravity.BOTTOM);
-
     }
+
 
     public void addList(List<Grouping> arraylist){
         list.clear();

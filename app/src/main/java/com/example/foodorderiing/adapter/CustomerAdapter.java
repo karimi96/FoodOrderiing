@@ -146,7 +146,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
 
         dialog_sheet.show();
         dialog_sheet.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        dialog_sheet.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog_sheet.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog_sheet.getWindow().setBackgroundDrawableResource(R.color.white_text);
         dialog_sheet.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationSheet;
         dialog_sheet.getWindow().setGravity(Gravity.BOTTOM);

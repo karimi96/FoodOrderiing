@@ -24,16 +24,27 @@
             android:layout_height="match_parent">
 
 
-            <TextView
-                android:text="داشبورد"
-                android:layout_gravity="center"
-                android:textColor="@color/white_text"
-                android:textSize="14dp"
-                android:fontFamily="@font/iran_sans"
-                android:paddingRight="10dp"
+
+            <ImageView
+                android:src="@drawable/ic_round_add_shopping_cart_24"
                 android:layout_weight="0.2"
+                android:layout_gravity="right|center_vertical"
+                android:background="@drawable/ripple_all"
+                android:backgroundTint="@color/red_toolbar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
+
+
+<!--            <TextView-->
+<!--                android:text="داشبورد"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:textColor="@color/white_text"-->
+<!--                android:textSize="14dp"-->
+<!--                android:fontFamily="@font/iran_sans"-->
+<!--                android:paddingRight="10dp"-->
+<!--                android:layout_weight="0.2"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"/>-->
 
 
             <TextView
