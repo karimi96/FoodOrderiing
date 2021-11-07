@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.foodorderiing.model.Customer;
 import com.example.foodorderiing.model.Grouping;
 import com.example.foodorderiing.model.Product;
 
@@ -15,6 +16,10 @@ import java.util.List;
 public interface GroupingDao {
     @Query("Select * from grouping")
     List<Grouping> getGroupingList();
+
+    @Query("Select name from grouping")
+    List<String> getname();
+
 
     @Insert
     void insertGrouping(Grouping grouping);

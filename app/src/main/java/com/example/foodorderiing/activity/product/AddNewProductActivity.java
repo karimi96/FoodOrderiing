@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -33,12 +34,11 @@ import java.util.List;
 
 public class AddNewProductActivity extends AppCompatActivity {
 
-    public EditText et_name ,et_price ;
+    EditText et_name ,et_price ;
+    AutoCompleteTextView autoCompleteTextView;
+    ArrayAdapter<String> adapter_autocomplete;
     TextView tv_save , tv_cancel;
     VideoView videoView;
-    Spinner spinner;
-    ArrayAdapter<String> adapterSp;
-    String[] sp = {"فست فود","سالاد","چلوها"};
     DatabaseHelper db;
     ProductDao dao_product;
     GroupingDao dao_grouping;
@@ -50,22 +50,36 @@ public class AddNewProductActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_product);
 
 
+
+        db = DatabaseHelper.getInstance(getApplicationContext());
+        dao_product = db.productDao();
+        dao_grouping = db.groupingDao();
+
         et_name = findViewById(R.id.et_get_name_product);
         et_price = findViewById(R.id.et_get_price_product);
         tv_save = findViewById(R.id.tv_save_product);
+        autoCompleteTextView  = findViewById(R.id.autoComplete_tv);
+        adapter_autocomplete = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_dropdown_item_1line,dao_grouping.getname());
+        autoCompleteTextView.setThreshold(1);
+        autoCompleteTextView.setAdapter(adapter_autocomplete);
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String ff = adapter_autocomplete.getItem(position);
+                Toast.makeText(AddNewProductActivity.this, ff, Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         if (getIntent().getExtras() != null){
             String getNameProduct = getIntent().getStringExtra("product");
             p = new Gson().fromJson(getNameProduct,Product.class);
             et_name.setText(p.name);
-            et_price.setText(p.price);
-        }
+            et_price.setText(p.price); }
 
 
         set_VideoView();
-        db = DatabaseHelper.getInstance(getApplicationContext());
-        dao_product = db.productDao();
-        set_Spinner();
+//        set_Spinner();
 
         tv_save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,30 +131,30 @@ public class AddNewProductActivity extends AppCompatActivity {
         });
     }
 
+//
+//    public void set_Spinner(){
+//        List<String> nf = new ArrayList<>();
+//        dao_grouping = db.groupingDao();
+//        for (int i = 0; i < dao_grouping.getGroupingList().size(); i++) {
+//            nf = Collections.singletonList(dao_grouping.getGroupingList().get(i).name);
+//        }
 
-    public void set_Spinner(){
-        List<String> nf = new ArrayList<>();
-        dao_grouping = db.groupingDao();
-        for (int i = 0; i < dao_grouping.getGroupingList().size(); i++) {
-            nf = Collections.singletonList(dao_grouping.getGroupingList().get(i).name);
-        }
 
-
-        spinner = findViewById(R.id.spinner_product);
-        adapterSp = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,nf);
-        spinner.setAdapter(adapterSp);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String s = (String) parent.getItemAtPosition(position);
-                Log.e("qqqq", "onItemSelected: "+s );
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
+//        spinner = findViewById(R.id.spinner_product);
+//        adapterSp = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,nf);
+//        spinner.setAdapter(adapterSp);
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                String s = (String) parent.getItemAtPosition(position);
+//                Log.e("qqqq", "onItemSelected: "+s );
+//            }
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//    }
 
 
         @Override

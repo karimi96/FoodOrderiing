@@ -57,33 +57,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"/>
 
-<!--            <EditText-->
-<!--                android:background="@drawable/border_editext_product"-->
-<!--                android:layout_marginHorizontal="20dp"-->
-<!--                android:hint="دسته بندی"-->
-<!--                android:padding="5dp"-->
-<!--                android:textStyle="normal"-->
-<!--                android:fontFamily="@font/iran_sans"-->
-<!--                android:inputType="textPersonName"-->
-<!--                android:drawablePadding="10dp"-->
-<!--                android:textSize="16dp"-->
-<!--                android:gravity="right|center_vertical"-->
-<!--                style="@style/Widget.AppCompat.Light.DropDownItem.Spinner"-->
-<!--                android:drawableRight="@drawable/ic_baseline_category_24"-->
-<!--                android:layout_marginTop="20dp"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="50dp"/>-->
 
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/spinner_product"
-                android:layout_marginTop="20dp"
-                android:spinnerMode="dropdown"
-                android:background="@drawable/border_spinner"
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/autoComplete_tv"
+                android:background="@drawable/border_editext_product"
                 android:layout_marginHorizontal="20dp"
+                android:fontFamily="@font/iran_sans"
+                android:textColor="@color/black"
+                android:layout_marginTop="20dp"
+                android:drawablePadding="10dp"
+                android:singleLine="true"
+                android:textSize="16dp"
+                android:hint="دسته بندی"
+                android:drawableRight="@drawable/ic_baseline_category_24"
+                android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"/>
-
 
 
             <EditText
