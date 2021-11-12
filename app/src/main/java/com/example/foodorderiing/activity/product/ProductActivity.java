@@ -1,19 +1,30 @@
 package com.example.foodorderiing.activity.product;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ArrayAdapter;
 import com.example.foodorderiing.R;
+import com.example.foodorderiing.adapter.GroupInProductAdapter;
 import com.example.foodorderiing.adapter.ProductAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
+import com.example.foodorderiing.database.dao.GroupingDao;
 import com.example.foodorderiing.database.dao.ProductDao;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -24,11 +35,14 @@ import java.util.List;
 public class ProductActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    RecyclerView recyclerView;
+    RecyclerView recyclerView_product;
+    RecyclerView recyclerView_category;
     FloatingActionButton fab;
-    ProductAdapter adapter;
+    ProductAdapter adapter_pro;
+    GroupInProductAdapter adapter_gro;
     DatabaseHelper db;
-    ProductDao dao;
+    ProductDao dao_product;
+    GroupingDao dao_grouping;
 
 
     @Override
@@ -36,11 +50,19 @@ public class ProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
-       set_toolBar();
-       set_recyclerView();
+
 
         db = DatabaseHelper.getInstance(getApplicationContext());
-        dao = db.productDao();
+        dao_grouping = db.groupingDao();
+        dao_product = db.productDao();
+
+
+       set_toolBar();
+       set_recycler_category();
+       set_recycler_product();
+
+
+
         click_fab();
         hide_fab();
 
@@ -53,6 +75,10 @@ public class ProductActivity extends AppCompatActivity {
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setMaxWidth(Integer.MAX_VALUE);
+//        searchView.setIconified(true);
+//        searchView.setIconifiedByDefault(true);
+//        searchView.getDefaultFocusHighlightEnabled();
+
 //        searchView.setQueryHint("جستوجو کنید...");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -62,7 +88,7 @@ public class ProductActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                    adapter.getFilter().filter(newText);
+                    adapter_pro.getFilter().filter(newText);
                 return false;
             }
         });
@@ -73,9 +99,8 @@ public class ProductActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(adapter != null){
-            adapter.addList(dao.getProductList());
-
+        if(adapter_pro != null){
+            adapter_pro.addList(dao_product.getProductList());
         }
     }
 
@@ -86,13 +111,24 @@ public class ProductActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-    public void set_recyclerView(){
-        recyclerView = findViewById(R.id.recycler_product);
-        recyclerView.setHasFixedSize(true);
-        adapter = new ProductAdapter(new ArrayList<>(), this );
-        recyclerView.setAdapter(adapter);
+    public void set_recycler_category(){
+        recyclerView_category = findViewById(R.id.recycler_grouping_product_page);
+        recyclerView_category.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        recyclerView_category.setLayoutManager(layoutManager);
+        adapter_gro = new GroupInProductAdapter( dao_grouping.getGroupingList(),this );
+        recyclerView_category.setAdapter(adapter_gro);
+    }
+
+    public void set_recycler_product(){
+        recyclerView_product = findViewById(R.id.recycler_product);
+        recyclerView_product.setHasFixedSize(true);
+//        recyclerView_product.setLayoutManager(new GridLayoutManager());
+        adapter_pro = new ProductAdapter( new ArrayList<>() ,this );
+        recyclerView_product.setAdapter(adapter_pro);
+
 //        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, Collections.singletonList(dao.getProductList().get(0).name));
-        adapter.notifyDataSetChanged();
+        adapter_pro.notifyDataSetChanged();
 
     }
 
@@ -103,13 +139,16 @@ public class ProductActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(ProductActivity.this,AddNewProductActivity.class);
                 startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
+
             }
         });
 
     }
 
+
     public void hide_fab(){
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        recyclerView_product.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 if(dy >0 ){
@@ -121,5 +160,18 @@ public class ProductActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    private void layoutAnimation(RecyclerView recyclerView){
+        Context context = recyclerView.getContext();
+        LayoutAnimationController layoutAnimationController = AnimationUtils.loadLayoutAnimation(context,R.anim.layout_slide_right);
+
+        recyclerView.setLayoutAnimation(layoutAnimationController);
+        recyclerView.getAdapter().notifyDataSetChanged();
+        recyclerView.scheduleLayoutAnimation();
+    }
+
+
+
 }
 

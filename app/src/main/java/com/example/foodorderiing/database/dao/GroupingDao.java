@@ -20,6 +20,9 @@ public interface GroupingDao {
     @Query("Select name from grouping")
     List<String> getname();
 
+    @Query("Select * from grouping where name = :name limit 1")
+    Grouping getOneName(String name);
+
 
     @Insert
     void insertGrouping(Grouping grouping);

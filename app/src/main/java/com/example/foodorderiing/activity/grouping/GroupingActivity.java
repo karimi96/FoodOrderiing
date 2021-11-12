@@ -2,9 +2,14 @@ package com.example.foodorderiing.activity.grouping;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.adapter.GroupingAdapter;
@@ -87,4 +92,17 @@ public class GroupingActivity extends AppCompatActivity {
             groupingAdapter.addList(dao_group.getGroupingList());
         }
     }
+
+
+
+    private void layoutAnimation(RecyclerView recyclerView){
+        Context context = recyclerView.getContext();
+        LayoutAnimationController layoutAnimationController = AnimationUtils.loadLayoutAnimation(context,R.anim.layout_fall_down);
+
+        recyclerView.setLayoutAnimation(layoutAnimationController);
+        recyclerView.getAdapter().notifyDataSetChanged();
+        recyclerView.scheduleLayoutAnimation();
+    }
+
+
 }

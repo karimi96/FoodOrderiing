@@ -95,25 +95,6 @@
 
 
 
-
-<!--            <androidx.appcompat.widget.AppCompatSpinner-->
-<!--                android:id="@+id/material_spinner1"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:hint="Select Here"-->
-<!--                app:met_floatingLabel="normal"-->
-<!--                android:textColorHint="#CFD8DC"/>-->
-
-
-
-<!--            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner-->
-<!--                android:id="@+id/spinner1"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:hint="BetterSpinner" />-->
-
-
-
             <LinearLayout
                 android:layout_marginTop="25dp"
                 android:layout_marginHorizontal="20dp"

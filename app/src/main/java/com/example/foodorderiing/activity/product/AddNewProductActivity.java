@@ -10,6 +10,7 @@ import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -43,10 +44,12 @@ public class AddNewProductActivity extends AppCompatActivity {
     ProductDao dao_product;
     GroupingDao dao_grouping;
     Product p = null;
+    String itemCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_add_new_product);
 
 
@@ -65,8 +68,7 @@ public class AddNewProductActivity extends AppCompatActivity {
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String ff = adapter_autocomplete.getItem(position);
-                Toast.makeText(AddNewProductActivity.this, ff, Toast.LENGTH_SHORT).show();
+                itemCategory = adapter_autocomplete.getItem(position);
             }
         });
 
@@ -75,6 +77,7 @@ public class AddNewProductActivity extends AppCompatActivity {
             String getNameProduct = getIntent().getStringExtra("product");
             p = new Gson().fromJson(getNameProduct,Product.class);
             et_name.setText(p.name);
+            autoCompleteTextView.setText(p.category);
             et_price.setText(p.price); }
 
 
@@ -86,22 +89,30 @@ public class AddNewProductActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 String nameProduct = et_name.getText().toString();
+                String categoryProduct = autoCompleteTextView.getText().toString();
                 String priceProduct = et_price.getText().toString();
 
+
                 if (p == null){
-                    if(TextUtils.isEmpty(nameProduct) || TextUtils.isEmpty(priceProduct)){
+                    if(TextUtils.isEmpty(nameProduct) || TextUtils.isEmpty(categoryProduct) ||TextUtils.isEmpty(priceProduct)){
                         Toast.makeText(getApplicationContext(), "فیلد مورد نظر را پرکنید!!!", Toast.LENGTH_SHORT).show();
                     }else {
-                        dao_product.insertProduct(new Product(nameProduct, priceProduct));
+                        dao_product.insertProduct(new Product(nameProduct,categoryProduct, priceProduct));
+                        Toast.makeText(getApplicationContext(), nameProduct + " با موفقیت به لیست اضافه شد ", Toast.LENGTH_LONG).show();
+                        finish();
+
                     }
                 }else {
                     p.name = nameProduct;
+                    p.category = categoryProduct;
                     p.price = priceProduct;
                     Log.e("qqqq", "onClick: update product=" + p.id );
                     dao_product.updateProduct(p);
+                    Toast.makeText(getApplicationContext()," با موفقیت تغییر کرد " , Toast.LENGTH_LONG).show();
+                    finish();
                 }
+                overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
 
-                finish();
 
             }
         });
@@ -111,6 +122,8 @@ public class AddNewProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
+
             }
         });
     }

@@ -40,6 +40,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     Product product;
 
 
+
+
     public ProductAdapter(List<Product> list, Context context ) {
         this.list_search = list;
         this.list = new ArrayList<>(list_search);
@@ -58,7 +60,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public void onBindViewHolder( ProductAdapter.ViewHolder holder, int position) {
         product = list.get(position);
         holder.tv_name_food.setText(product.name);
-//        holder.tv_name_category.setText(product.category);
+        holder.tv_name_category.setText(product.category);
         holder.tv_price.setText(product.price);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +107,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                 intent.putExtra("product",new Gson().toJson(list.get(pos)));
                 context.startActivity(intent);
                 dialog_sheet.dismiss();
+
             }
         });
 
@@ -192,8 +195,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
 
     public  void addList(List<Product> arryList){
-        list.clear();
-        list.addAll(arryList);
+        list_search.clear();
+        list_search.addAll(arryList);
+        list = new ArrayList<>(list_search);
         notifyDataSetChanged();
     }
 

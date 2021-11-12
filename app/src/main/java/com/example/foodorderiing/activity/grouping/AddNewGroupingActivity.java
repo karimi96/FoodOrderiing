@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +15,8 @@ import com.example.foodorderiing.R;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
 import com.example.foodorderiing.model.Grouping;
+import com.example.foodorderiing.model.Product;
+import com.google.gson.Gson;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,39 +25,32 @@ public class AddNewGroupingActivity extends AppCompatActivity {
     EditText editText_category;
     DatabaseHelper db;
     GroupingDao dao_grouping;
-    VideoView videoView;
     TextView tv_save , tv_cancel;
-    String name_category;
+    String name;
+    Grouping g;
+    String old_name;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_add_new_grouping);
 
-//        build_videoView();
         db = DatabaseHelper.getInstance(getApplicationContext());
         dao_grouping = db.groupingDao();
         editText_category = findViewById(R.id.et_get_category_grouping);
 
+        if(getIntent().getExtras() != null){
+            String getGrouping =getIntent().getStringExtra("grouping");
+            g = new Gson().fromJson(getGrouping, Grouping.class);
+            old_name = g.name;
+            editText_category.setText(g.name); }
+
         click_save();
         click_cancel();
+
     }
-
-
-//    public void build_videoView(){
-//        videoView = findViewById(R.id.vedio_grouping);
-//        String path = "android.resource://com.example.foodorderiing/"+R.raw.lemen;
-//        Uri u = Uri.parse(path);
-//        videoView.setVideoURI(u);
-//        videoView.start();
-//        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-//            @Override
-//            public void onPrepared(MediaPlayer mp) {
-//                mp.setLooping(true);
-//            }
-//        });
-//    }
 
 
     public void click_save(){
@@ -62,35 +58,36 @@ public class AddNewGroupingActivity extends AppCompatActivity {
         tv_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // اگه تکراری بود چک شود
-                name_category = editText_category.getText().toString();
 
-                if(TextUtils.isEmpty(name_category)){
+                name = editText_category.getText().toString();
 
-                    Toast.makeText(AddNewGroupingActivity.this, "فیلد مورد نظر را پرکنید!!!", Toast.LENGTH_SHORT).show();
+                if(g == null){
 
+                        if(TextUtils.isEmpty(name)){
+
+                            Toast.makeText(AddNewGroupingActivity.this, "فیلد مورد نظر را پرکنید!!!", Toast.LENGTH_LONG).show();
+    //
+                        }else if(dao_grouping.getOneName(name) != null){
+                            Toast.makeText(AddNewGroupingActivity.this, "این نام وجود دارد", Toast.LENGTH_LONG).show();
+
+                        } else {
+                            dao_grouping.insertGrouping(new Grouping(name));
+                            Toast.makeText(getApplicationContext(), name + " با موفقیت به لیست اضافه شد ", Toast.LENGTH_LONG).show();
+                            finish();
+
+                        }
                 }else {
-
-                    List<String> groupingList = Arrays.asList(dao_grouping.getGroupingList().toString());
-                    boolean result = groupingList.contains(name_category);
-                    if(result){
-
-                        Toast.makeText(getApplicationContext(), "این فیلد وجود دارد", Toast.LENGTH_SHORT).show();
-
-                    }else {
-                        Grouping grouping = new Grouping(name_category);
-                        dao_grouping.insertGrouping(grouping);
-                        db.close();
-                        finish();
-                    }
-
-
-
-
+                    g.name = name;
+                    dao_grouping.updateGrouping(g);
+                    Toast.makeText(getApplicationContext(),  old_name + " با موفقیت به " + name + " تغییر کرد", Toast.LENGTH_LONG).show();
+                    finish();
                 }
+
+                overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
 
             }
         });
+
     }
 
 
@@ -100,18 +97,20 @@ public class AddNewGroupingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
+
             }
         });
     }
 
+
     public void check_array(){
         for (int i = 0; i < dao_grouping.getGroupingList().size(); i++) {
-            if (name_category != dao_grouping.getGroupingList().get(i).name) {
+            if (name != dao_grouping.getGroupingList().get(i).name) {
                 
             }else {
                 Toast.makeText(this, "repetity", Toast.LENGTH_SHORT).show();
             }
-
 
         }
     }
@@ -119,22 +118,19 @@ public class AddNewGroupingActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-//        videoView.resume();
         super.onResume();
     }
 
 
     @Override
     protected void onPause() {
-//        videoView.suspend();
         super.onPause();
     }
 
 
     @Override
     protected void onDestroy() {
-//        videoView.stopPlayback();
-        if (db != null) db.close();
+//        if (db != null) db.close();
         super.onDestroy();
     }
 

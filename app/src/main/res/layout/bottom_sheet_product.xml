@@ -2,16 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:weightSum="2"
     android:background="@drawable/bottem_sheet"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="120dp">
 
 
 
     <androidx.cardview.widget.CardView
         android:layout_gravity="center"
         app:cardCornerRadius="3dp"
-        app:cardElevation="1dp"
         android:backgroundTint="@color/red_toolbar"
         android:layout_width="80dp"
         android:layout_height="4dp"/>
@@ -21,8 +21,9 @@
         android:padding="8dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp">
 
         <ImageView
             android:src="@drawable/ic_baseline_edit_24"
@@ -30,11 +31,13 @@
             android:layout_height="wrap_content"/>
 
         <TextView
+            android:background="@drawable/ripple_sheet"
             android:text="ویرایش"
             android:textSize="14sp"
+            android:textColor="#565656"
             android:fontFamily="@font/iran_sans"
             android:layout_marginStart="30dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
@@ -44,8 +47,9 @@
         android:id="@+id/linear_delete_p"
         android:padding="8dp"
         android:orientation="horizontal"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp">
 
         <ImageView
             android:src="@drawable/ic_baseline_delete_24"
@@ -55,9 +59,11 @@
         <TextView
             android:text="حذف"
             android:textSize="14sp"
+            android:background="@drawable/ripple_sheet"
             android:fontFamily="@font/iran_sans"
+            android:textColor="#676767"
             android:layout_marginStart="30dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
     </LinearLayout>

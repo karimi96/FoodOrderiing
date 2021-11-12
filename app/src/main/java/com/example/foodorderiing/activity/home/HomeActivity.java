@@ -7,12 +7,17 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.customer.CustomerActivity;
 import com.example.foodorderiing.activity.grouping.GroupingActivity;
 import com.example.foodorderiing.activity.ordering.OrderingActivity;
 import com.example.foodorderiing.activity.product.ProductActivity;
+import com.example.foodorderiing.adapter.ProductAdapter;
+import com.example.foodorderiing.database.DatabaseHelper;
+import com.example.foodorderiing.database.dao.ProductDao;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -27,6 +32,13 @@ public class HomeActivity extends AppCompatActivity {
     CardView cardView_customer;
     CardView cardView_grouping;
     CardView cardView_waiting;
+    TextView num_product;
+    TextView num_customer;
+    TextView num_grouping;
+
+    ProductAdapter productAdapter;
+    ProductDao productDao;
+    CardView cardView_reparing;
 
 
     @Override
@@ -66,7 +78,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, GroupingActivity.class);
                 startActivity(intent);
-                overridePendingTransition(android.R.anim.slide_in_left , android.R.anim.slide_out_right);
+                overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
 
             }
         });
@@ -77,9 +89,32 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, OrderingActivity.class);
                 startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
+
             }
         });
 
+
+
+        cardView_reparing = findViewById(R.id.repairing);
+        cardView_waiting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, OrderingActivity.class);
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
+
+            }
+        });
+
+        num_product = findViewById(R.id.number_of_product);
+        num_customer = findViewById(R.id.number_of_customer);
+        num_grouping = findViewById(R.id.number_of_grouping);
+//        productAdapter = new ProductAdapter();
+//        int ii = 9;
+////        DatabaseHelper databaseHelper = DatabaseHelper.getInstance(getApplicationContext());
+//        String jj = String.valueOf(productDao.getProductList().size());
+//       num_product.setText(jj);
 
 
 
@@ -124,15 +159,16 @@ public class HomeActivity extends AppCompatActivity {
         visitor.add(new BarEntry(30,800));
 
 
-        BarDataSet barDataSet = new BarDataSet(visitor,"Visitors");
+        BarDataSet barDataSet = new BarDataSet(visitor,"");
         barDataSet.setColors(Color.rgb(241,92,65));
-        barDataSet.setValueTextColor(Color.BLACK);
-//        barDataSet.setValueTextSize(16f);
+//        barDataSet.setValueTextColor(Color.BLACK);
+        barDataSet.setValueTextSize(0f);
         BarData barData = new BarData(barDataSet);
+//        barData.setBarWidth(.5f);
 
         bar_chart.setFitBars(true);
         bar_chart.setData(barData);
-//        bar_chart.getDescription().setText("Bar chart example");
+        bar_chart.getDescription().setText("");
         bar_chart.animateY(1000);
 
 

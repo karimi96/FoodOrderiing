@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Parcelable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,12 +23,14 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodorderiing.R;
+import com.example.foodorderiing.activity.grouping.AddNewGroupingActivity;
 import com.example.foodorderiing.activity.product.AddNewProductActivity;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
 import com.example.foodorderiing.design.BlureImage;
 import com.example.foodorderiing.model.Grouping;
 import com.example.foodorderiing.model.Product;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -53,7 +56,7 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(GroupingAdapter.ViewHolder holder, int position) {
-        Grouping grouping = list.get(position);
+        grouping = list.get(position);
         holder.tv_name_category.setText(grouping.name);
 
         Bitmap bm = BitmapFactory.decodeResource(context.getResources(),R.drawable.two_hamberger );
@@ -86,13 +89,6 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
     }
 
 
-
-//    public void addList2(){
-////        this.list.addAll(list);
-//        notifyDataSetChanged();
-//
-//    }
-
     private void showDialogSheet(int pos){
 
         final Dialog dialog_sheet = new Dialog(context);
@@ -105,13 +101,10 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, AddNewProductActivity.class);
-//                intent.putExtra("nameProduct",list.get(pos).name);
-//                intent.putExtra("priceProduct",list.get(pos).price);
-//                AddNewProductActivity activity = new AddNewProductActivity();
-//                activity.et_name.setText(list.get(pos).name);
-//                activity.et_price.setText(list.get(pos).price);
+                Intent intent = new Intent(context , AddNewGroupingActivity.class);
+                intent.putExtra("grouping",new Gson().toJson(list.get(pos)));
                 context.startActivity(intent);
+                dialog_sheet.dismiss();
 
             }
         });
@@ -136,8 +129,8 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
                                 notifyDataSetChanged();
                                 dialog_sheet.dismiss();
                                 Toast.makeText(context, "با موفقیت حذف شد 😉 ", Toast.LENGTH_LONG).show();
-
                             }
+
                         })
                         .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
                             @Override

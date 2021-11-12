@@ -5,7 +5,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +16,8 @@ import com.example.foodorderiing.adapter.CustomerAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.CustomerDao;
 import com.example.foodorderiing.model.Customer;
+import com.example.foodorderiing.model.Product;
+import com.google.gson.Gson;
 
 
 public class AddNewCustomerActivity extends AppCompatActivity {
@@ -25,18 +29,26 @@ public class AddNewCustomerActivity extends AppCompatActivity {
     TextView cancel;
     DatabaseHelper db;
     CustomerDao dao;
-    CustomerAdapter customerAdapter;
-    RecyclerView.ViewHolder viewHolder;
-
+    Customer c;
+    String old_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_add_new_customer);
 
         init();
         db = DatabaseHelper.getInstance(getApplicationContext());
         dao = db.customerDao();
+
+
+        if (getIntent().getExtras() != null){
+            String getCustomer = getIntent().getStringExtra("customer");
+            c = new Gson().fromJson(getCustomer, Customer.class);
+            name.setText(c.name);
+            phone.setText(c.phone);
+            address.setText(c.address); }
 
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -46,20 +58,32 @@ public class AddNewCustomerActivity extends AppCompatActivity {
                 String cPhone = phone.getText().toString();
                 String cAddress = address.getText().toString();
 
-                if(TextUtils.isEmpty(cName) || TextUtils.isEmpty(cPhone) || TextUtils.isEmpty(cAddress)){
-                    Toast.makeText(getApplicationContext(), "فیلد مورد نظر را پرکنید!!!", Toast.LENGTH_SHORT).show();
+                if(c == null){
+                    if(TextUtils.isEmpty(cName) || TextUtils.isEmpty(cPhone) || TextUtils.isEmpty(cAddress)){
+                        Toast.makeText(getApplicationContext(), "فیلد مورد نظر را پرکنید!!!", Toast.LENGTH_SHORT).show();
 
-                }else if(cPhone.length() != 11) {
-                    Toast.makeText(getApplicationContext(), "شماره تلفن باید 11 کاراکترباشد", Toast.LENGTH_SHORT).show();
+                    }else if(cPhone.length() != 11) {
+                        Toast.makeText(getApplicationContext(), "شماره تلفن باید 11 کاراکترباشد", Toast.LENGTH_SHORT).show();
+
+                    }else {
+                        dao.insertCustomer(new Customer(cName,cPhone,cAddress));
+                        Toast.makeText(getApplicationContext(), cName + " با موفقیت به لیست اضافه شد ", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
 
                 }else {
-
-                    Customer customer = new Customer(cName , cPhone , cAddress);
-                    dao.insertCustomer(customer);
+                    c.name = cName;
+                    c.phone = cPhone;
+                    c.address = cAddress;
+                    Log.e("qqqq", "onClick: update customer =" + c.id );
+                    dao.updateCustomer(c);
                     finish();
-
                 }
+                overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
+
+
             }
+
         });
 
 
@@ -67,6 +91,8 @@ public class AddNewCustomerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
+
             }
         });
 
@@ -84,6 +110,7 @@ public class AddNewCustomerActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(db != null) db.close(); }
+//        if(db != null) db.close();
+        }
 
 }

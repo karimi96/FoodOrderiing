@@ -10,12 +10,16 @@ import java.util.Locale;
 
 @Entity(tableName = "product")
 public class Product {
+
     @PrimaryKey(autoGenerate = true)
     public int id;
+
     @ColumnInfo(name = "name")
     public String name;
+
     @ColumnInfo(name = "category")
     public String category;
+
     @ColumnInfo(name = "price")
     public String price;
 
@@ -28,9 +32,11 @@ public class Product {
         this.price = price;
     }
 
+
     @Ignore
-    public Product(String name, String price) {
+    public Product(String name, String category, String price) {
         this.name = name;
+        this.category = category;
         this.price = price;
     }
 }

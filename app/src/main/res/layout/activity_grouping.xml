@@ -31,11 +31,12 @@
 
      <androidx.recyclerview.widget.RecyclerView
          android:id="@+id/recycler_grouping"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:layoutAnimation="@anim/layout_fall_down"
          android:layout_marginTop="?attr/actionBarSize"
          app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/list_item_grouping" />
+         tools:listitem="@layout/list_item_grouping" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

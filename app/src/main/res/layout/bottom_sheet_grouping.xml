@@ -32,10 +32,12 @@
         <TextView
             android:text="ویرایش"
             android:textSize="14sp"
+            android:textColor="#565656"
             android:fontFamily="@font/iran_sans"
             android:layout_marginStart="30dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ripple_sheet"/>
 
     </LinearLayout>
 
@@ -55,10 +57,13 @@
         <TextView
             android:text="حذف"
             android:textSize="14sp"
+            android:textColor="#565656"
+            android:gravity="right|center"
             android:fontFamily="@font/iran_sans"
             android:layout_marginStart="30dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ripple_sheet"/>
 
     </LinearLayout>
 

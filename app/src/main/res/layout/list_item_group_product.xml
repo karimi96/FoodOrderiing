@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/ripple_all"
+    android:backgroundTint="@color/white_text"
+    android:paddingTop="10dp"
+    android:paddingBottom="5dp"
+    android:paddingStart="10dp">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:background="@drawable/border_circular"
+        android:id="@+id/circle_groupinproduct"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:elevation="5dp"
+        android:src="@drawable/ptz" />
+
+    <TextView
+        android:id="@+id/tv_groupInproduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/iran_sans"
+        android:gravity="center"
+        android:text="فست فود"
+        android:textSize="12dp" />
+
+</LinearLayout>

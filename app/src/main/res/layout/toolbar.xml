@@ -26,6 +26,7 @@
 
 
             <ImageView
+                android:id="@+id/img_shoping"
                 android:src="@drawable/ic_round_add_shopping_cart_24"
                 android:layout_weight="0.2"
                 android:layout_gravity="right|center_vertical"

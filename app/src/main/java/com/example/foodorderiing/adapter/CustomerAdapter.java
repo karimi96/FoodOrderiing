@@ -27,6 +27,7 @@ import com.example.foodorderiing.database.dao.CustomerDao;
 import com.example.foodorderiing.model.Customer;
 import com.example.foodorderiing.model.Grouping;
 import com.example.foodorderiing.model.Product;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(CustomerAdapter.ViewHolder holder, int position) {
-       Customer customer = list.get(position);
+        customer = list.get(position);
         holder.tv_name_customer.setText(customer.name);
         holder.tv_phone.setText(customer.phone);
         holder.tv_address.setText(customer.address);
@@ -98,14 +99,9 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, AddNewCustomerActivity.class);
-                intent.putExtra("nameCustomer",list.get(pos).name);
-                intent.putExtra("phoneCustomer",list.get(pos).phone);
-                intent.putExtra("addressCustomer",list.get(pos).address);
-//                AddNewProductActivity activity = new AddNewProductActivity();
-//                activity.et_name.setText(list.get(pos).name);
-//                activity.et_price.setText(list.get(pos).price);
+                intent.putExtra("customer",new Gson().toJson(list.get(pos)));
                 context.startActivity(intent);
-
+                dialog_sheet.dismiss();
             }
         });
 
@@ -147,7 +143,6 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
         dialog_sheet.show();
         dialog_sheet.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog_sheet.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog_sheet.getWindow().setBackgroundDrawableResource(R.color.white_text);
         dialog_sheet.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationSheet;
         dialog_sheet.getWindow().setGravity(Gravity.BOTTOM);
 

@@ -31,8 +31,9 @@
         android:id="@+id/recycler_customer"
         android:layout_marginTop="?attr/actionBarSize"
         tools:listitem="@layout/list_item_customer"
+        android:layoutAnimation="@anim/layout_fall_down"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"/>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

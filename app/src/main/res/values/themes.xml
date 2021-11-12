@@ -9,6 +9,7 @@
         <item name="colorSecondary">@color/tosi_lite</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/tosi_lite</item>
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
@@ -21,6 +22,16 @@
         <item name="android:direction">left_to_right</item>
         <item name="android:layoutDirection">rtl</item>
     </style>
+
+
+    <style name="AlertDialog.AppCompat." parent="AlertDialog.AppCompat." tools:ignore="ResourceCycle">
+        <item name="fontFamily">@font/iran_sans</item>
+        <item name="android:radius">20dp</item>
+
+    </style>
+
+
+
 
     <style
         name="CustomShapeAppearance">
@@ -43,6 +54,12 @@
     <style name="DialogAnimationSheet">
         <item name="android:windowEnterAnimation">@anim/slide_in_bottom_sheet</item>
         <item name="android:windowExitAnimation">@anim/slide_out_bottom_sheet</item>
+    </style>
+
+
+
+    <style name="TextAppearance.Widget.AppCompat.Toolbar.Title." parent="TextAppearance.Widget.AppCompat.Toolbar.Title." tools:ignore="ResourceCycle">
+                <item name="fontFamily">@font/iran_sans</item>
     </style>
     
 </resources>
