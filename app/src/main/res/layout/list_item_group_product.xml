@@ -11,7 +11,6 @@
 
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:background="@drawable/border_circular"
         android:id="@+id/circle_groupinproduct"
         android:layout_width="65dp"
         android:layout_height="65dp"
