@@ -14,7 +14,7 @@ import com.example.foodorderiing.model.Customer;
 import com.example.foodorderiing.model.Grouping;
 import com.example.foodorderiing.model.Product;
 
-@Database(entities = {Grouping.class, Product.class, Customer.class} , exportSchema = false , version = 1)
+@Database(entities = {Grouping.class, Product.class, Customer.class } , exportSchema = false , version = 1)
 public abstract class DatabaseHelper extends RoomDatabase {
     private static final String DB_NAME = "db_name";
     private static DatabaseHelper instance;

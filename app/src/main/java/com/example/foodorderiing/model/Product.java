@@ -12,7 +12,7 @@ import java.util.Locale;
 public class Product {
 
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    public int product_id;
 
     @ColumnInfo(name = "name")
     public String name;
@@ -25,8 +25,8 @@ public class Product {
 
 
 
-    public Product(int id, String name, String category, String price) {
-        this.id = id;
+    public Product(int product_id, String name, String category, String price) {
+        this.product_id = product_id;
         this.name = name;
         this.category = category;
         this.price = price;

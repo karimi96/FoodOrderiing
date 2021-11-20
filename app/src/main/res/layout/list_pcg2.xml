@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    android:weightSum="3"
-    android:paddingHorizontal="5dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingHorizontal="5dp"
+    android:weightSum="3">
 
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView_product"
-        android:outlineSpotShadowColor="@color/red_toolbar"
         android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_margin="5dp"
         android:layout_weight="1"
         android:background="@drawable/ripple_all"
-        android:layout_height="170dp"
-        app:cardCornerRadius="10dp"
-        android:layout_margin="5dp">
+        android:outlineSpotShadowColor="@color/red_toolbar"
+        app:cardCornerRadius="10dp">
 
         <LinearLayout
-            android:background="@drawable/ripple_all"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/ripple_all"
             android:orientation="vertical">
 
             <LinearLayout
@@ -34,17 +33,17 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/pic_product"
-                    android:layout_gravity="center_horizontal"/>
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/pic_product" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="محصولات"
-                    android:layout_marginTop="10dp"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/iran_sans"
-                    android:textStyle="bold"/>
+                    android:text="محصولات"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -58,20 +57,19 @@
                     android:layout_height="38dp"
                     android:layout_marginTop="5dp"
                     android:outlineSpotShadowColor="@color/red_toolbar"
-                    app:cardBackgroundColor="@color/white_text"
-                    >
+                    app:cardBackgroundColor="@color/white_text">
 
                     <TextView
                         android:id="@+id/number_of_product"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="780"
-                        android:textColor="@color/red_toolbar"
-                        android:textStyle="bold"
+                        android:layout_gravity="center"
                         android:fontFamily="@font/iran_sans"
                         android:gravity="center"
-                        android:layout_gravity="center"
-                        android:textSize="16dp"/>
+                        android:text="780"
+                        android:textColor="@color/red_toolbar"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -82,20 +80,23 @@
 
     </androidx.cardview.widget.CardView>
 
+
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview_customer"
-        android:outlineSpotShadowColor="@color/red_toolbar"
         android:layout_width="170dp"
-        android:layout_weight="1"
         android:layout_height="170dp"
-        app:cardCornerRadius="10dp"
-        android:layout_margin="5dp">
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:outlineSpotShadowColor="@color/red_toolbar"
+        app:cardCornerRadius="10dp">
 
         <LinearLayout
-            android:background="@drawable/ripple_all"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/ripple_all"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -105,17 +106,17 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/pic_customer"
-                    android:layout_gravity="center_horizontal"/>
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/pic_customer" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="مشتری"
-                    android:layout_marginTop="10dp"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/iran_sans"
-                    android:textStyle="bold"/>
+                    android:text="مشتری"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -133,13 +134,13 @@
                         android:id="@+id/number_of_customer"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="80"
-                        android:textColor="@color/red_toolbar"
-                        android:textStyle="bold"
+                        android:layout_gravity="center"
                         android:fontFamily="@font/iran_sans"
                         android:gravity="center"
-                        android:layout_gravity="center"
-                        android:textSize="16dp"/>
+                        android:text="80"
+                        android:textColor="@color/red_toolbar"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -149,20 +150,21 @@
 
     </androidx.cardview.widget.CardView>
 
+
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView_grouping"
-        android:outlineSpotShadowColor="@color/red_toolbar"
         android:layout_width="170dp"
         android:layout_height="170dp"
+        android:layout_margin="5dp"
         android:layout_weight="1"
-        app:cardCornerRadius="10dp"
-        android:layout_margin="5dp">
-
+        android:outlineSpotShadowColor="@color/red_toolbar"
+        app:cardCornerRadius="10dp">
 
         <LinearLayout
-            android:background="@drawable/ripple_all"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/ripple_all"
             android:orientation="vertical">
 
             <LinearLayout
@@ -174,24 +176,23 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/categories"
-                    android:layout_gravity="center_horizontal"/>
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/categories" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="دسته بندی"
-                    android:layout_marginTop="10dp"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/iran_sans"
-                    android:textStyle="bold"/>
+                    android:text="دسته بندی"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -203,23 +204,20 @@
                         android:id="@+id/number_of_grouping"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="10"
-                        android:textColor="@color/red_toolbar"
-                        android:textStyle="bold"
+                        android:layout_gravity="center"
                         android:fontFamily="@font/iran_sans"
                         android:gravity="center"
-                        android:layout_gravity="center"
-                        android:textSize="16dp"/>
+                        android:text="10"
+                        android:textColor="@color/red_toolbar"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
 
                 </androidx.cardview.widget.CardView>
-
 
             </LinearLayout>
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
-
 
 </LinearLayout>

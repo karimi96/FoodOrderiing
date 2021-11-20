@@ -43,30 +43,26 @@ public class ProductActivity extends AppCompatActivity {
     DatabaseHelper db;
     ProductDao dao_product;
     GroupingDao dao_grouping;
-
+    GroupInProductAdapter groupInProductAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
-
-
         db = DatabaseHelper.getInstance(getApplicationContext());
         dao_grouping = db.groupingDao();
         dao_product = db.productDao();
-
+//        groupInProductAdapter =new GroupInProductAdapter();
 
        set_toolBar();
        set_recycler_category();
        set_recycler_product();
 
-
-
         click_fab();
         hide_fab();
-
     }
+
 
 
     @Override
@@ -75,6 +71,7 @@ public class ProductActivity extends AppCompatActivity {
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setBackground(getResources().getDrawable(R.drawable.ripple_all));
 //        searchView.setIconified(true);
 //        searchView.setIconifiedByDefault(true);
 //        searchView.getDefaultFocusHighlightEnabled();
@@ -101,6 +98,7 @@ public class ProductActivity extends AppCompatActivity {
         super.onResume();
         if(adapter_pro != null){
             adapter_pro.addList(dao_product.getProductList());
+//            adapter_pro.addList(dao_product.get_product_by_category(groupInProductAdapter.category_grouping));
         }
     }
 
@@ -126,11 +124,11 @@ public class ProductActivity extends AppCompatActivity {
 //        recyclerView_product.setLayoutManager(new GridLayoutManager());
         adapter_pro = new ProductAdapter( new ArrayList<>() ,this );
         recyclerView_product.setAdapter(adapter_pro);
-
+//        recyclerView_product.setAdapter(adapter_gro);
 //        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, Collections.singletonList(dao.getProductList().get(0).name));
         adapter_pro.notifyDataSetChanged();
-
     }
+
 
     public void click_fab(){
         fab = findViewById(R.id.fab_product);
@@ -170,8 +168,6 @@ public class ProductActivity extends AppCompatActivity {
         recyclerView.getAdapter().notifyDataSetChanged();
         recyclerView.scheduleLayoutAnimation();
     }
-
-
 
 }
 

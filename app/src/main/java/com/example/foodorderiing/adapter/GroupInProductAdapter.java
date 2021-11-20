@@ -5,26 +5,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodorderiing.R;
+import com.example.foodorderiing.database.DatabaseHelper;
+import com.example.foodorderiing.database.dao.ProductDao;
 import com.example.foodorderiing.model.Grouping;
 
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAdapter.ViewHolder> {
     List<Grouping> list;
     Context context;
+    public String category_grouping;
+    ProductDao dao;
+    public ProductAdapter productAdapter;
+
 
     public GroupInProductAdapter(List<Grouping> list, Context context) {
         this.list = list;
         this.context = context;
     }
-
-    //    public GroupInProductAdapter(Context context ) {
-//        this.context = context;
+//        public GroupInProductAdapter() {
+//
 //    }
 
 
@@ -40,6 +45,17 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
     public void onBindViewHolder(GroupInProductAdapter.ViewHolder holder, int position) {
         Grouping grouping = list.get(position);
         holder.tv_name_groupInproduct.setText(grouping.name);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              category_grouping = grouping.name;
+//                Toast.makeText(context, "hello", Toast.LENGTH_SHORT).show();
+//                DatabaseHelper db = DatabaseHelper.getInstance(context.getApplicationContext());
+//                dao = db.productDao();
+//                productAdapter =new ProductAdapter(dao.get_product_by_category(category_grouping),context);
+
+            }
+        });
     }
 
 
@@ -58,5 +74,8 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
 //            img = itemView.findViewById(R.id.circle_groupinproduct);
         }
     }
+
+
+
 
 }

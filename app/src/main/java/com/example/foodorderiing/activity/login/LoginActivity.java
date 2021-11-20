@@ -78,17 +78,12 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-
-
     }
 
     public void init(){
         img_back = findViewById(R.id.img_background);
 
     }
-
-
-
 
 
 //    public void full_screen(){

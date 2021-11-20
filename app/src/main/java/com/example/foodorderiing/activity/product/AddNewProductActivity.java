@@ -1,10 +1,13 @@
 package com.example.foodorderiing.activity.product;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.icu.text.DecimalFormat;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
@@ -26,6 +29,7 @@ import com.example.foodorderiing.adapter.ProductAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
 import com.example.foodorderiing.database.dao.ProductDao;
+import com.example.foodorderiing.design.NumberTextWatcherForThousand;
 import com.example.foodorderiing.model.Product;
 import com.google.gson.Gson;
 
@@ -46,6 +50,7 @@ public class AddNewProductActivity extends AppCompatActivity {
     Product p = null;
     String itemCategory;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +65,7 @@ public class AddNewProductActivity extends AppCompatActivity {
 
         et_name = findViewById(R.id.et_get_name_product);
         et_price = findViewById(R.id.et_get_price_product);
+        et_price.addTextChangedListener(new NumberTextWatcherForThousand(et_price));
         tv_save = findViewById(R.id.tv_save_product);
         autoCompleteTextView  = findViewById(R.id.autoComplete_tv);
         adapter_autocomplete = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_dropdown_item_1line,dao_grouping.getname());
@@ -71,6 +77,7 @@ public class AddNewProductActivity extends AppCompatActivity {
                 itemCategory = adapter_autocomplete.getItem(position);
             }
         });
+
 
 
         if (getIntent().getExtras() != null){
@@ -88,8 +95,11 @@ public class AddNewProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+//                DecimalFormat decimalFormat = new DecimalFormat("0,000");
+
                 String nameProduct = et_name.getText().toString();
                 String categoryProduct = autoCompleteTextView.getText().toString();
+//                String priceProduct = decimalFormat.format(et_price);
                 String priceProduct = et_price.getText().toString();
 
 
@@ -106,7 +116,7 @@ public class AddNewProductActivity extends AppCompatActivity {
                     p.name = nameProduct;
                     p.category = categoryProduct;
                     p.price = priceProduct;
-                    Log.e("qqqq", "onClick: update product=" + p.id );
+                    Log.e("qqqq", "onClick: update product=" + p.product_id );
                     dao_product.updateProduct(p);
                     Toast.makeText(getApplicationContext()," با موفقیت تغییر کرد " , Toast.LENGTH_LONG).show();
                     finish();

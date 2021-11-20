@@ -9,15 +9,15 @@ import androidx.room.PrimaryKey;
 public class Grouping {
 
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    public int grouping_id;
     @ColumnInfo(name = "name")
     public String name;
 //    @ColumnInfo(name = "picture")
 //    public String picture;
 
 
-    public Grouping(int id, String name) {
-        this.id = id;
+    public Grouping(int grouping_id, String name) {
+        this.grouping_id = grouping_id;
         this.name = name;
 //        this.picture = picture;
     }

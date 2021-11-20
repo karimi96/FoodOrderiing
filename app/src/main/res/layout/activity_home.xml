@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,16 +15,16 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:background="@color/white_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white_text"
             android:orientation="vertical">
 
-            <include layout="@layout/chart"/>
+            <include layout="@layout/chart" />
 
-            <include layout="@layout/nemodar"/>
+            <include layout="@layout/nemodar" />
 
-            <include layout="@layout/list_pcg2"/>
+            <include layout="@layout/list_pcg2" />
 
             <include layout="@layout/list_sending" />
 

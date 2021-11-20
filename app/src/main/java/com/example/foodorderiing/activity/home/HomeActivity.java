@@ -1,28 +1,26 @@
 package com.example.foodorderiing.activity.home;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import android.content.Intent;
 import android.graphics.Color;
+import android.icu.text.DecimalFormat;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.customer.CustomerActivity;
 import com.example.foodorderiing.activity.grouping.GroupingActivity;
 import com.example.foodorderiing.activity.ordering.OrderingActivity;
 import com.example.foodorderiing.activity.product.ProductActivity;
-import com.example.foodorderiing.adapter.ProductAdapter;
-import com.example.foodorderiing.database.DatabaseHelper;
-import com.example.foodorderiing.database.dao.ProductDao;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
@@ -35,19 +33,16 @@ public class HomeActivity extends AppCompatActivity {
     TextView num_product;
     TextView num_customer;
     TextView num_grouping;
-
-    ProductAdapter productAdapter;
-    ProductDao productDao;
     CardView cardView_reparing;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
        create_chart();
-
 
         cardView_product = findViewById(R.id.cardView_product);
         cardView_product.setOnClickListener(new View.OnClickListener() {
@@ -94,8 +89,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-
-
         cardView_reparing = findViewById(R.id.repairing);
         cardView_waiting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,17 +103,18 @@ public class HomeActivity extends AppCompatActivity {
         num_product = findViewById(R.id.number_of_product);
         num_customer = findViewById(R.id.number_of_customer);
         num_grouping = findViewById(R.id.number_of_grouping);
+
+        DecimalFormat decimalFormat = new DecimalFormat("0,000");
+        int ppp = 84848;
+        num_grouping.setText(decimalFormat.format(ppp));
+
 //        productAdapter = new ProductAdapter();
 //        int ii = 9;
 ////        DatabaseHelper databaseHelper = DatabaseHelper.getInstance(getApplicationContext());
 //        String jj = String.valueOf(productDao.getProductList().size());
 //       num_product.setText(jj);
 
-
-
     }
-
-
 
     public void create_chart(){
 
@@ -170,7 +164,6 @@ public class HomeActivity extends AppCompatActivity {
         bar_chart.setData(barData);
         bar_chart.getDescription().setText("");
         bar_chart.animateY(1000);
-
 
     }
 }

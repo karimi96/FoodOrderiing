@@ -75,7 +75,7 @@ public class AddNewCustomerActivity extends AppCompatActivity {
                     c.name = cName;
                     c.phone = cPhone;
                     c.address = cAddress;
-                    Log.e("qqqq", "onClick: update customer =" + c.id );
+                    Log.e("qqqq", "onClick: update customer =" + c.customer_id );
                     dao.updateCustomer(c);
                     finish();
                 }

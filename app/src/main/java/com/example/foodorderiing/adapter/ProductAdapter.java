@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.product.AddNewProductActivity;
@@ -26,20 +27,17 @@ import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.ProductDao;
 import com.example.foodorderiing.model.Product;
 import com.google.gson.Gson;
-
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> implements Filterable{
     List<Product> list;
     Context context;
     List<Product> list_search;
-
     DatabaseHelper database;
     ProductDao dao;
     Product product;
-
-
 
 
     public ProductAdapter(List<Product> list, Context context ) {
@@ -53,15 +51,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.list_item_product,parent,false);
         ViewHolder viewHolder = new ViewHolder(view);
+//        viewHolder.getAdapterPosition();
         return viewHolder;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder( ProductAdapter.ViewHolder holder, int position) {
         product = list.get(position);
         holder.tv_name_food.setText(product.name);
         holder.tv_name_category.setText(product.category);
         holder.tv_price.setText(product.price);
+//        holder.tv_price.setText(decimalFormat.format(product.price));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
