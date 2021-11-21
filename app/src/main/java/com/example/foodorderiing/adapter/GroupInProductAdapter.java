@@ -50,9 +50,9 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
             public void onClick(View v) {
               category_grouping = grouping.name;
 //                Toast.makeText(context, "hello", Toast.LENGTH_SHORT).show();
-//                DatabaseHelper db = DatabaseHelper.getInstance(context.getApplicationContext());
-//                dao = db.productDao();
-//                productAdapter =new ProductAdapter(dao.get_product_by_category(category_grouping),context);
+                DatabaseHelper db = DatabaseHelper.getInstance(context.getApplicationContext());
+                dao = db.productDao();
+                productAdapter =new ProductAdapter(dao.get_product_by_category(category_grouping),context);
 
             }
         });

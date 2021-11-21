@@ -20,7 +20,7 @@ public interface ProductDao {
     List<Product> get(int id);
 
 
-    @Query("Select * from product where category = :category limit 1" )
+    @Query("Select * from product where category = :category" )
     List<Product> get_product_by_category(String category);
 
 

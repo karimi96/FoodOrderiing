@@ -25,6 +25,7 @@ import android.widget.VideoView;
 
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.grouping.AddNewGroupingActivity;
+import com.example.foodorderiing.adapter.AutoCompleteTextView_Adapter;
 import com.example.foodorderiing.adapter.ProductAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
@@ -49,6 +50,7 @@ public class AddNewProductActivity extends AppCompatActivity {
     GroupingDao dao_grouping;
     Product p = null;
     String itemCategory;
+    AutoCompleteTextView_Adapter autoCompleteTextView_adapter;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -68,12 +70,14 @@ public class AddNewProductActivity extends AppCompatActivity {
         et_price.addTextChangedListener(new NumberTextWatcherForThousand(et_price));
         tv_save = findViewById(R.id.tv_save_product);
         autoCompleteTextView  = findViewById(R.id.autoComplete_tv);
-        adapter_autocomplete = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_dropdown_item_1line,dao_grouping.getname());
+//        adapter_autocomplete = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_dropdown_item_1line,dao_grouping.getname());
+        autoCompleteTextView_adapter = new AutoCompleteTextView_Adapter(getApplicationContext() , dao_grouping.getGroupingList());
         autoCompleteTextView.setThreshold(1);
-        autoCompleteTextView.setAdapter(adapter_autocomplete);
+        autoCompleteTextView.setAdapter(autoCompleteTextView_adapter);
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 itemCategory = adapter_autocomplete.getItem(position);
             }
         });

@@ -39,6 +39,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     ProductDao dao;
     Product product;
 
+    public ProductAdapter() {
+    }
 
     public ProductAdapter(List<Product> list, Context context ) {
         this.list_search = list;
@@ -202,5 +204,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         notifyDataSetChanged();
     }
 
+    public int count(){
+        return list.size();
+    }
 
 }

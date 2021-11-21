@@ -7,21 +7,23 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.customer.CustomerActivity;
 import com.example.foodorderiing.activity.grouping.GroupingActivity;
 import com.example.foodorderiing.activity.ordering.OrderingActivity;
 import com.example.foodorderiing.activity.product.ProductActivity;
+import com.example.foodorderiing.adapter.ProductAdapter;
+import com.example.foodorderiing.database.DatabaseHelper;
+import com.example.foodorderiing.database.dao.CustomerDao;
+import com.example.foodorderiing.database.dao.GroupingDao;
+import com.example.foodorderiing.database.dao.ProductDao;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-
 import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
@@ -34,6 +36,14 @@ public class HomeActivity extends AppCompatActivity {
     TextView num_customer;
     TextView num_grouping;
     CardView cardView_reparing;
+    ProductAdapter productAdapter;
+    DatabaseHelper db;
+    ProductDao dao_p;
+    GroupingDao dao_g;
+    CustomerDao dao_c;
+    int count_p;
+    int count_c;
+    int count_g;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -104,15 +114,30 @@ public class HomeActivity extends AppCompatActivity {
         num_customer = findViewById(R.id.number_of_customer);
         num_grouping = findViewById(R.id.number_of_grouping);
 
-        DecimalFormat decimalFormat = new DecimalFormat("0,000");
-        int ppp = 84848;
-        num_grouping.setText(decimalFormat.format(ppp));
-
 //        productAdapter = new ProductAdapter();
-//        int ii = 9;
-////        DatabaseHelper databaseHelper = DatabaseHelper.getInstance(getApplicationContext());
-//        String jj = String.valueOf(productDao.getProductList().size());
-//       num_product.setText(jj);
+//        int count = productAdapter.count();
+
+        DecimalFormat decimalFormat = new DecimalFormat("0,000");
+
+        db = DatabaseHelper.getInstance(getApplicationContext());
+        dao_p = db.productDao();
+        count_p = dao_p.getProductList().size();
+        num_product.setText(Integer.toString(count_p));
+
+        dao_c = db.customerDao();
+        count_c = dao_c.getCustomerList().size();
+        num_customer.setText(Integer.toString(count_c));
+
+        dao_g = db.groupingDao();
+        count_g = dao_g.getGroupingList().size();
+        num_grouping.setText(Integer.toString(count_g));
+
+
+
+
+
+//        int ppp = 88;
+//        num_grouping.setText(decimalFormat.format(ppp));
 
     }
 
@@ -165,5 +190,11 @@ public class HomeActivity extends AppCompatActivity {
         bar_chart.getDescription().setText("");
         bar_chart.animateY(1000);
 
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }
