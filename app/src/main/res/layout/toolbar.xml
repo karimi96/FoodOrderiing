@@ -25,16 +25,17 @@
                 android:id="@+id/img_shoping"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:padding="13dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.15"
                 android:background="@drawable/ripple_circle_shop"
-                android:src="@drawable/ic_round_add_shopping_cart_24" />
+                android:paddingVertical="15dp"
+                android:src="@drawable/add_shoping" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="0.6"
+                android:layout_weight="0.7"
                 android:fontFamily="@font/rezvan"
                 android:gravity="center"
                 android:text="غذای سرای خادم"
@@ -46,8 +47,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="0.2"
-                android:paddingRight="35dp"
+                android:layout_weight="0.15"
                 android:src="@drawable/ic_round_settings_24" />
 
         </LinearLayout>

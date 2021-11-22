@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -16,6 +17,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
@@ -26,7 +28,9 @@ import com.example.foodorderiing.adapter.ProductAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
 import com.example.foodorderiing.database.dao.ProductDao;
+import com.example.foodorderiing.model.Product;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,11 +76,10 @@ public class ProductActivity extends AppCompatActivity {
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setMaxWidth(Integer.MAX_VALUE);
         searchView.setBackground(getResources().getDrawable(R.drawable.ripple_all));
-//        searchView.setIconified(true);
+        searchView.setIconified(false);
 //        searchView.setIconifiedByDefault(true);
 //        searchView.getDefaultFocusHighlightEnabled();
 
-//        searchView.setQueryHint("جستوجو کنید...");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -104,7 +107,7 @@ public class ProductActivity extends AppCompatActivity {
 
     public void set_toolBar(){
         toolbar = findViewById(R.id.toolbar_search);
-        toolbar.setTitle("محصولات");
+        toolbar.setTitle("");
         toolbar.setTitleTextColor(getResources().getColor(R.color.white_text));
         setSupportActionBar(toolbar);
     }
@@ -122,7 +125,15 @@ public class ProductActivity extends AppCompatActivity {
         recyclerView_product = findViewById(R.id.recycler_product);
         recyclerView_product.setHasFixedSize(true);
 //        recyclerView_product.setLayoutManager(new GridLayoutManager());
-        adapter_pro = new ProductAdapter( new ArrayList<>() ,this );
+        adapter_pro = new ProductAdapter(new ArrayList<>(), this, new ProductAdapter.Listener() {
+            @Override
+            public void onClick(Product product) {
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("json_product",new Gson().toJson(product));
+                setResult(Activity.RESULT_OK,returnIntent);
+                finish();
+            }
+        });
         recyclerView_product.setAdapter(adapter_pro);
 //        recyclerView_product.setAdapter(adapter_gro);
 //        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, Collections.singletonList(dao.getProductList().get(0).name));

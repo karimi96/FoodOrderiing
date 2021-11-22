@@ -10,10 +10,20 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_search"
-        style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title."
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/red_toolbar" />
+        android:background="@color/red_toolbar" >
+
+        <TextView
+            android:text="محصولات "
+            android:fontFamily="@font/iran_sans"
+            android:textColor="@color/white_text"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </androidx.appcompat.widget.Toolbar>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

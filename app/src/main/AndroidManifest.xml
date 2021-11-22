@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodOrderiing">
-        <activity android:name=".activity.customer.AddNewCustomerActivity"></activity>
+        <activity android:name=".activity.orderDetail.OrderingDetail"></activity>
+        <activity android:name=".activity.customer.AddNewCustomerActivity" />
         <activity android:name=".activity.ordering.OrderingActivity" />
         <activity android:name=".activity.customer.CustomerActivity" />
         <activity android:name=".activity.product.AddNewProductActivity" />

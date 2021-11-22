@@ -58,8 +58,9 @@
                 android:layout_height="50dp"/>
 
 
-            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            <AutoCompleteTextView
                 android:id="@+id/autoComplete_tv"
+                android:text="0"
                 android:background="@drawable/border_editext_product"
                 android:layout_marginHorizontal="20dp"
                 android:fontFamily="@font/iran_sans"

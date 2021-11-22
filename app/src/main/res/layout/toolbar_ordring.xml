@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/red_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize">
+
+<TextView
+    android:text="سفارش"
+    android:fontFamily="@font/iran_sans"
+    android:textColor="@color/white_text"
+    android:textSize="16dp"
+    android:textStyle="bold"
+   android:layout_alignParentRight="true"
+    android:layout_centerInParent="true"
+    android:paddingStart="10dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>
+
+
+
+
+<!--    <com.andremion.counterfab.CounterFab-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_marginEnd="40dp"-->
+<!--        android:layout_width="30dp"-->
+<!--        android:layout_height="30dp"/>-->
+
+
+    <ImageView
+        android:backgroundTint="@color/red_toolbar"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:src="@drawable/add_shoping"
+        android:elevation="0dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"/>
+
+</RelativeLayout>

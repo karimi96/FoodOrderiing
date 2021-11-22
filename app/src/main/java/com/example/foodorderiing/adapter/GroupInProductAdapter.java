@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,13 +19,14 @@ import java.util.List;
 
 public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAdapter.ViewHolder> {
     List<Grouping> list;
+  int[] image ;
     Context context;
     public String category_grouping;
     ProductDao dao;
     public ProductAdapter productAdapter;
 
 
-    public GroupInProductAdapter(List<Grouping> list, Context context) {
+    public GroupInProductAdapter(List<Grouping> list, Context context ) {
         this.list = list;
         this.context = context;
     }
@@ -49,10 +51,11 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
             @Override
             public void onClick(View v) {
               category_grouping = grouping.name;
+              holder.linearLayout.setBackground(context.getDrawable(R.drawable.border_linear));
 //                Toast.makeText(context, "hello", Toast.LENGTH_SHORT).show();
-                DatabaseHelper db = DatabaseHelper.getInstance(context.getApplicationContext());
-                dao = db.productDao();
-                productAdapter =new ProductAdapter(dao.get_product_by_category(category_grouping),context);
+//                DatabaseHelper db = DatabaseHelper.getInstance(context.getApplicationContext());
+//                dao = db.productDao();
+//                productAdapter =new ProductAdapter(dao.get_product_by_category(category_grouping),context);
 
             }
         });
@@ -66,11 +69,13 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv_name_groupInproduct ;
+        LinearLayout linearLayout;
 //        CircleImageView img ;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tv_name_groupInproduct = itemView.findViewById(R.id.tv_groupInproduct);
+            linearLayout = itemView.findViewById(R.id.linear_g_p);
 //            img = itemView.findViewById(R.id.circle_groupinproduct);
         }
     }

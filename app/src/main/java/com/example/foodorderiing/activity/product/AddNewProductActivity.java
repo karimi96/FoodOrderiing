@@ -31,6 +31,7 @@ import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
 import com.example.foodorderiing.database.dao.ProductDao;
 import com.example.foodorderiing.design.NumberTextWatcherForThousand;
+import com.example.foodorderiing.model.Grouping;
 import com.example.foodorderiing.model.Product;
 import com.google.gson.Gson;
 
@@ -71,16 +72,26 @@ public class AddNewProductActivity extends AppCompatActivity {
         tv_save = findViewById(R.id.tv_save_product);
         autoCompleteTextView  = findViewById(R.id.autoComplete_tv);
 //        adapter_autocomplete = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_dropdown_item_1line,dao_grouping.getname());
-        autoCompleteTextView_adapter = new AutoCompleteTextView_Adapter(getApplicationContext() , dao_grouping.getGroupingList());
-        autoCompleteTextView.setThreshold(1);
-        autoCompleteTextView.setAdapter(autoCompleteTextView_adapter);
-        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//        autoCompleteTextView_adapter = new AutoCompleteTextView_Adapter(getApplicationContext(),
+//                R.layout.list_item_auto_complete_textview
+//                ,new ArrayList<>(dao_grouping.getGroupingList()),-1);
+//        autoCompleteTextView.setAdapter(autoCompleteTextView_adapter);
+//        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Grouping g = (Grouping) parent.getItemAtPosition(position);
+//                itemCategory = String.valueOf(g.grouping_id);
+//                autoCompleteTextView.setText(g.name);
+//            }
+//        });
 
-                itemCategory = adapter_autocomplete.getItem(position);
-            }
-        });
+//        autoCompleteTextView.setOnFocusChangeListener((v, hasFocus) -> {
+//            if (hasFocus) autoCompleteTextView.showDropDown();
+//        });
+//
+//        autoCompleteTextView.setOnClickListener(v -> {
+//            autoCompleteTextView.showDropDown();
+//        });
 
 
 

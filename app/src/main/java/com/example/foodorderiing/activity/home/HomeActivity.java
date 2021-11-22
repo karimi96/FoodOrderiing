@@ -1,18 +1,23 @@
 package com.example.foodorderiing.activity.home;
 
 import android.content.Intent;
+import android.database.DatabaseUtils;
 import android.graphics.Color;
 import android.icu.text.DecimalFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.databinding.DataBindingUtil;
+
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.customer.CustomerActivity;
 import com.example.foodorderiing.activity.grouping.GroupingActivity;
+import com.example.foodorderiing.activity.login.LoginActivity;
 import com.example.foodorderiing.activity.ordering.OrderingActivity;
 import com.example.foodorderiing.activity.product.ProductActivity;
 import com.example.foodorderiing.adapter.ProductAdapter;
@@ -44,6 +49,7 @@ public class HomeActivity extends AppCompatActivity {
     int count_p;
     int count_c;
     int count_g;
+    ImageView img_ordering;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -51,6 +57,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
 
        create_chart();
 
@@ -121,18 +128,9 @@ public class HomeActivity extends AppCompatActivity {
 
         db = DatabaseHelper.getInstance(getApplicationContext());
         dao_p = db.productDao();
-        count_p = dao_p.getProductList().size();
-        num_product.setText(Integer.toString(count_p));
-
         dao_c = db.customerDao();
-        count_c = dao_c.getCustomerList().size();
-        num_customer.setText(Integer.toString(count_c));
-
         dao_g = db.groupingDao();
-        count_g = dao_g.getGroupingList().size();
-        num_grouping.setText(Integer.toString(count_g));
-
-
+        setImageOrdering();
 
 
 
@@ -193,8 +191,30 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
+
+    private void setImageOrdering(){
+        img_ordering = findViewById(R.id.img_shoping);
+        img_ordering.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this,OrderingActivity.class));
+
+            }
+        });
+
+    }
+
+
+
+
+
     @Override
     protected void onResume() {
         super.onResume();
+
+        num_product.setText(Integer.toString(dao_p.getProductList().size()));
+        num_customer.setText(Integer.toString(dao_c.getCustomerList().size()));
+        num_grouping.setText(Integer.toString(dao_g.getGroupingList().size()));
+
     }
 }

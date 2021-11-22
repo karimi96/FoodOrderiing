@@ -32,20 +32,23 @@ import java.util.List;
 
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> implements Filterable{
-    List<Product> list;
     Context context;
+    List<Product> list;
+    Listener listener;
     List<Product> list_search;
     DatabaseHelper database;
     ProductDao dao;
     Product product;
 
-    public ProductAdapter() {
+    public ProductAdapter(List<Product> list, Context context, Listener listener ) {
+        this.context = context;
+        this.list_search = list;
+        this.listener = listener;
+        this.list = new ArrayList<>(list_search);
     }
 
-    public ProductAdapter(List<Product> list, Context context ) {
-        this.list_search = list;
-        this.list = new ArrayList<>(list_search);
-        this.context = context;
+    public interface Listener{
+        void onClick(Product product);
     }
 
     @Override
@@ -68,7 +71,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialogSheet(position);
+                listener.onClick(product);
+//                showDialogSheet(position , list.get(position).name);
             }
         });
     }
@@ -95,13 +99,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
 
-    private void showDialogSheet(int pos){
+    private void showDialogSheet(int pos , String name){
         final Dialog dialog_sheet = new Dialog(context);
         dialog_sheet.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_sheet.setContentView(R.layout.bottom_sheet_product);
 
         LinearLayout edit = dialog_sheet.findViewById(R.id.linear_edit_p);
         LinearLayout delete = dialog_sheet.findViewById(R.id.linear_delete_p);
+        TextView title = dialog_sheet.findViewById(R.id.name_sheet_p);
+        title.setText(name);
 
         edit.setOnClickListener(new View.OnClickListener() {
             @Override

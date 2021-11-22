@@ -65,7 +65,7 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialogSheet(position);
+                showDialogSheet(position , list.get(position).name);
             }
         });
     }
@@ -89,7 +89,7 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
     }
 
 
-    private void showDialogSheet(int pos){
+    private void showDialogSheet(int pos , String name){
 
         final Dialog dialog_sheet = new Dialog(context);
         dialog_sheet.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -97,6 +97,8 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
 
         LinearLayout edit = dialog_sheet.findViewById(R.id.linear_edit_g);
         LinearLayout delete = dialog_sheet.findViewById(R.id.linear_delete_g);
+        TextView title = dialog_sheet.findViewById(R.id.name_sheet_g);
+        title.setText(name);
 
         edit.setOnClickListener(new View.OnClickListener() {
             @Override

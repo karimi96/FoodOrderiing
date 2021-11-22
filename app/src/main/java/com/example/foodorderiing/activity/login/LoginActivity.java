@@ -73,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
+                finish();
 
             }
         });
@@ -101,6 +102,11 @@ public class LoginActivity extends AppCompatActivity {
 //                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 //    }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }
 
 

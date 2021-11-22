@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="wrap_content"
     android:background="@drawable/bottem_sheet"
     android:orientation="vertical"
     android:weightSum="2">
@@ -14,6 +14,23 @@
         android:layout_gravity="center"
         android:backgroundTint="@color/red_toolbar"
         app:cardCornerRadius="3dp" />
+
+    <TextView
+        android:id="@+id/name_sheet_p"
+        android:text="فست فود"
+        android:textStyle="bold"
+        android:textColor="#565656"
+        android:textSize="14sp"
+        android:layout_marginVertical="10dp"
+        android:layout_marginStart="12dp"
+        android:fontFamily="@font/iran_sans"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:background="#dbdbdb"
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"/>
 
     <LinearLayout
         android:id="@+id/linear_edit_p"

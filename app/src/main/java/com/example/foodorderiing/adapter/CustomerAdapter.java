@@ -32,15 +32,22 @@ import com.google.gson.Gson;
 import java.util.List;
 
 public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHolder> {
-    List<Customer> list;
+
     Context context;
+    List<Customer> list;
+    Listener listener;
     DatabaseHelper database;
     CustomerDao dao;
     Customer customer;
 
-    public CustomerAdapter(List<Customer> list, Context context) {
+    public CustomerAdapter(List<Customer> list, Context context, Listener listener) {
         this.list = list;
         this.context = context;
+        this.listener = listener;
+    }
+
+    public interface Listener{
+        void onClickListener(Customer customer);
     }
 
     @Override
@@ -60,7 +67,8 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialogSheet(position);
+                listener.onClickListener(customer);
+//                showDialogSheet(position , list.get(position).name);
             }
         });
 
@@ -86,7 +94,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     }
 
 
-    private void showDialogSheet(int pos){
+    private void showDialogSheet(int pos , String name){
 
         final Dialog dialog_sheet = new Dialog(context);
         dialog_sheet.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -94,6 +102,8 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
 
         LinearLayout edit = dialog_sheet.findViewById(R.id.linear_edit_c);
         LinearLayout delete = dialog_sheet.findViewById(R.id.linear_delete_c);
+        TextView title = dialog_sheet.findViewById(R.id.name_sheet_c);
+        title.setText(name);
 
         edit.setOnClickListener(new View.OnClickListener() {
             @Override

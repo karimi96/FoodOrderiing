@@ -26,7 +26,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                    android:src="@drawable/food_toast" />
+                    android:src="@drawable/lizania" />
 
 
                 <LinearLayout
@@ -65,7 +65,7 @@
                             android:layout_marginTop="5dp"
                             android:text="ایتالیایی"
                             android:textColor="@color/tosi_lite"
-                            android:textSize="9dp"
+                            android:textSize="12dp"
                             android:layout_below="@id/tv_name_food_product"
                             />
 
