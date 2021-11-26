@@ -106,39 +106,21 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(HomeActivity.this, OrderingActivity.class);
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-
             }
         });
 
-        cardView_reparing = findViewById(R.id.repairing);
-        cardView_waiting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, OrderingActivity.class);
-                startActivity(intent);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-
-            }
-        });
 
         num_product = findViewById(R.id.number_of_product);
         num_customer = findViewById(R.id.number_of_customer);
         num_grouping = findViewById(R.id.number_of_grouping);
 
-//        productAdapter = new ProductAdapter();
-//        int count = productAdapter.count();
 
         DecimalFormat decimalFormat = new DecimalFormat("0,000");
-
         db = DatabaseHelper.getInstance(getApplicationContext());
         dao_p = db.productDao();
         dao_c = db.customerDao();
         dao_g = db.groupingDao();
         setImageOrdering();
-
-
-//        int ppp = 88;
-//        num_grouping.setText(decimalFormat.format(ppp));
 
     }
 
