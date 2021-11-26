@@ -16,6 +16,8 @@ import com.example.foodorderiing.adapter.GroupingAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.r0adkll.slidr.Slidr;
+import com.r0adkll.slidr.model.SlidrInterface;
 
 import java.util.ArrayList;
 
@@ -26,13 +28,14 @@ public class GroupingActivity extends AppCompatActivity {
     GroupingAdapter groupingAdapter;
     DatabaseHelper db;
     GroupingDao dao_group;
-
+    private SlidrInterface slidr ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grouping);
 
+        slidr = Slidr.attach(this);
         set_recyclerView();
         set_fab();
         hide_fab();

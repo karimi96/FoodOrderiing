@@ -1,39 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/red_toolbar"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize">
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/red_toolbar">
 
-<TextView
-    android:text="سفارش"
-    android:fontFamily="@font/iran_sans"
-    android:textColor="@color/white_text"
-    android:textSize="16dp"
-    android:textStyle="bold"
-   android:layout_alignParentRight="true"
-    android:layout_centerInParent="true"
-    android:paddingStart="10dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/red_toolbar"
+        android:fontFamily="@font/iran_sans"
+        android:gravity="right|center"
+        android:paddingStart="10dp"
+        android:text="ثبت سفارش"
+        android:textColor="@color/white_text"
+        android:textSize="18dp"
+        android:textStyle="bold" />
 
-
-
-
-<!--    <com.andremion.counterfab.CounterFab-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_marginEnd="40dp"-->
-<!--        android:layout_width="30dp"-->
-<!--        android:layout_height="30dp"/>-->
-
-
-    <ImageView
-        android:backgroundTint="@color/red_toolbar"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
-        android:layout_centerInParent="true"
-        android:src="@drawable/add_shoping"
-        android:elevation="0dp"
-        android:layout_width="30dp"
-        android:layout_height="30dp"/>
+        app:lottie_autoPlay="false"
+        android:background="@drawable/ripple_all"
+        android:paddingBottom="17dp"
+        android:paddingTop="8dp"
+        android:paddingStart="8dp"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/lotti_7_2" />
+
 
 </RelativeLayout>
+
+
+

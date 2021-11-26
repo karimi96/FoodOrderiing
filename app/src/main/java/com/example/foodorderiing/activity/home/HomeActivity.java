@@ -6,9 +6,11 @@ import android.graphics.Color;
 import android.icu.text.DecimalFormat;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -29,6 +31,7 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+
 import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
@@ -37,6 +40,7 @@ public class HomeActivity extends AppCompatActivity {
     CardView cardView_customer;
     CardView cardView_grouping;
     CardView cardView_waiting;
+    TextView title;
     TextView num_product;
     TextView num_customer;
     TextView num_grouping;
@@ -58,16 +62,16 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
-       create_chart();
+        toolbar();
+        create_chart();
 
         cardView_product = findViewById(R.id.cardView_product);
         cardView_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this,ProductActivity.class);
+                Intent intent = new Intent(HomeActivity.this, ProductActivity.class);
                 startActivity(intent);
-                overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
             }
         });
@@ -78,7 +82,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, CustomerActivity.class);
                 startActivity(intent);
-                overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
 
             }
@@ -90,7 +94,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, GroupingActivity.class);
                 startActivity(intent);
-                overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
             }
         });
@@ -101,7 +105,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, OrderingActivity.class);
                 startActivity(intent);
-                overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
             }
         });
@@ -112,7 +116,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, OrderingActivity.class);
                 startActivity(intent);
-                overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
             }
         });
@@ -133,51 +137,50 @@ public class HomeActivity extends AppCompatActivity {
         setImageOrdering();
 
 
-
 //        int ppp = 88;
 //        num_grouping.setText(decimalFormat.format(ppp));
 
     }
 
-    public void create_chart(){
+    public void create_chart() {
 
         BarChart bar_chart = findViewById(R.id.chart_bar);
         ArrayList<BarEntry> visitor = new ArrayList<>();
-        visitor.add(new BarEntry(1,100));
-        visitor.add(new BarEntry(2,200));
-        visitor.add(new BarEntry(3,250));
-        visitor.add(new BarEntry(4,50));
-        visitor.add(new BarEntry(5,800));
-        visitor.add(new BarEntry(6,600));
-        visitor.add(new BarEntry(7,100));
-        visitor.add(new BarEntry(8,700));
-        visitor.add(new BarEntry(9,300));
-        visitor.add(new BarEntry(10,500));
-        visitor.add(new BarEntry(11,700));
-        visitor.add(new BarEntry(12,300));
-        visitor.add(new BarEntry(13,500));
-        visitor.add(new BarEntry(14,100));
-        visitor.add(new BarEntry(15,200));
-        visitor.add(new BarEntry(15,250));
-        visitor.add(new BarEntry(16,50));
-        visitor.add(new BarEntry(17,800));
-        visitor.add(new BarEntry(18,600));
-        visitor.add(new BarEntry(19,100));
-        visitor.add(new BarEntry(20,700));
-        visitor.add(new BarEntry(21,300));
-        visitor.add(new BarEntry(22,500));
-        visitor.add(new BarEntry(23,700));
-        visitor.add(new BarEntry(24,300));
-        visitor.add(new BarEntry(25,500));
-        visitor.add(new BarEntry(26,100));
-        visitor.add(new BarEntry(27,200));
-        visitor.add(new BarEntry(28,250));
-        visitor.add(new BarEntry(29,50));
-        visitor.add(new BarEntry(30,800));
+        visitor.add(new BarEntry(1, 100));
+        visitor.add(new BarEntry(2, 200));
+        visitor.add(new BarEntry(3, 250));
+        visitor.add(new BarEntry(4, 50));
+        visitor.add(new BarEntry(5, 800));
+        visitor.add(new BarEntry(6, 600));
+        visitor.add(new BarEntry(7, 100));
+        visitor.add(new BarEntry(8, 700));
+        visitor.add(new BarEntry(9, 300));
+        visitor.add(new BarEntry(10, 500));
+        visitor.add(new BarEntry(11, 700));
+        visitor.add(new BarEntry(12, 300));
+        visitor.add(new BarEntry(13, 500));
+        visitor.add(new BarEntry(14, 100));
+        visitor.add(new BarEntry(15, 200));
+        visitor.add(new BarEntry(15, 250));
+        visitor.add(new BarEntry(16, 50));
+        visitor.add(new BarEntry(17, 800));
+        visitor.add(new BarEntry(18, 600));
+        visitor.add(new BarEntry(19, 100));
+        visitor.add(new BarEntry(20, 700));
+        visitor.add(new BarEntry(21, 300));
+        visitor.add(new BarEntry(22, 500));
+        visitor.add(new BarEntry(23, 700));
+        visitor.add(new BarEntry(24, 300));
+        visitor.add(new BarEntry(25, 500));
+        visitor.add(new BarEntry(26, 100));
+        visitor.add(new BarEntry(27, 200));
+        visitor.add(new BarEntry(28, 250));
+        visitor.add(new BarEntry(29, 50));
+        visitor.add(new BarEntry(30, 800));
 
 
-        BarDataSet barDataSet = new BarDataSet(visitor,"");
-        barDataSet.setColors(Color.rgb(241,92,65));
+        BarDataSet barDataSet = new BarDataSet(visitor, "");
+        barDataSet.setColors(Color.rgb(241, 92, 65));
 //        barDataSet.setValueTextColor(Color.BLACK);
         barDataSet.setValueTextSize(0f);
         BarData barData = new BarData(barDataSet);
@@ -191,21 +194,17 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-
-    private void setImageOrdering(){
+    private void setImageOrdering() {
         img_ordering = findViewById(R.id.img_shoping);
         img_ordering.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this,OrderingActivity.class));
+                startActivity(new Intent(HomeActivity.this, OrderingActivity.class));
 
             }
         });
 
     }
-
-
-
 
 
     @Override
@@ -217,4 +216,12 @@ public class HomeActivity extends AppCompatActivity {
         num_grouping.setText(Integer.toString(dao_g.getGroupingList().size()));
 
     }
+
+    public void toolbar() {
+        title = findViewById(R.id.title_home);
+        title.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        title.setSelected(true);
+    }
+
+
 }

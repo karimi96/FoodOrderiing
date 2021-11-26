@@ -39,7 +39,7 @@ public class OrderDetail {
         this.code = code;
     }
 
-@Ignore
+    @Ignore
     public OrderDetail(String name, String category, double price, int amount, String code) {
         this.name = name;
         this.category = category;

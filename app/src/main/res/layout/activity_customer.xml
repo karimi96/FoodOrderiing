@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,43 +8,41 @@
     tools:context=".activity.customer.CustomerActivity">
 
     <LinearLayout
-        android:background="@color/red_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/red_toolbar">
 
         <TextView
-            android:text="لیست مشتری"
-            android:fontFamily="@font/iran_sans"
-            android:textColor="@color/white_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="15dp"
-            android:textStyle="bold"
+            android:fontFamily="@font/iran_sans"
+            android:text="لیست مشتری"
+            android:textColor="@color/white_text"
             android:textSize="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_customer"
-        android:layout_marginTop="?attr/actionBarSize"
-        tools:listitem="@layout/list_item_customer"
-        android:layoutAnimation="@anim/layout_fall_down"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layoutAnimation="@anim/layout_fall_down"
+        tools:listitem="@layout/list_item_customer" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="20dp"
-        app:maxImageSize="35dp"
-        android:tint="@color/white"
-        android:backgroundTint="@color/red_toolbar"
-        android:src="@drawable/ic_round_add_24"
         android:id="@+id/floating_customer"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/red_toolbar"
+        android:src="@drawable/ic_round_add_24"
+        android:tint="@color/white"
+        app:maxImageSize="35dp" />
 
 </RelativeLayout>

@@ -31,6 +31,8 @@ import com.example.foodorderiing.database.dao.ProductDao;
 import com.example.foodorderiing.model.Product;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
+import com.r0adkll.slidr.Slidr;
+import com.r0adkll.slidr.model.SlidrInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,15 +51,18 @@ public class ProductActivity extends AppCompatActivity {
     GroupingDao dao_grouping;
     GroupInProductAdapter groupInProductAdapter;
 
+    private Boolean for_order = false ;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
+//        for_order = getIntent().getExtras().getBoolean("for_order" , false);
         db = DatabaseHelper.getInstance(getApplicationContext());
         dao_grouping = db.groupingDao();
         dao_product = db.productDao();
-//        groupInProductAdapter =new GroupInProductAdapter();
 
        set_toolBar();
        set_recycler_category();
@@ -77,8 +82,6 @@ public class ProductActivity extends AppCompatActivity {
         searchView.setMaxWidth(Integer.MAX_VALUE);
         searchView.setBackground(getResources().getDrawable(R.drawable.ripple_all));
         searchView.setIconified(false);
-//        searchView.setIconifiedByDefault(true);
-//        searchView.getDefaultFocusHighlightEnabled();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -105,12 +108,13 @@ public class ProductActivity extends AppCompatActivity {
         }
     }
 
+
     public void set_toolBar(){
         toolbar = findViewById(R.id.toolbar_search);
         toolbar.setTitle("");
         toolbar.setTitleTextColor(getResources().getColor(R.color.white_text));
-        setSupportActionBar(toolbar);
-    }
+        setSupportActionBar(toolbar); }
+
 
     public void set_recycler_category(){
         recyclerView_category = findViewById(R.id.recycler_grouping_product_page);
@@ -118,25 +122,37 @@ public class ProductActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
         recyclerView_category.setLayoutManager(layoutManager);
         adapter_gro = new GroupInProductAdapter( dao_grouping.getGroupingList(),this );
-        recyclerView_category.setAdapter(adapter_gro);
-    }
+        recyclerView_category.setAdapter(adapter_gro); }
+
 
     public void set_recycler_product(){
         recyclerView_product = findViewById(R.id.recycler_product);
         recyclerView_product.setHasFixedSize(true);
-//        recyclerView_product.setLayoutManager(new GridLayoutManager());
-        adapter_pro = new ProductAdapter(new ArrayList<>(), this, new ProductAdapter.Listener() {
+        adapter_pro = new ProductAdapter(new ArrayList<>(), this , new ProductAdapter.Listener() {
             @Override
-            public void onClick(Product product) {
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("json_product",new Gson().toJson(product));
-                setResult(Activity.RESULT_OK,returnIntent);
-                finish();
+            public void onClick(Product product , int pos , String name ) {
+//                Intent returnIntent = new Intent();
+//                returnIntent.putExtra("json_product",new Gson().toJson(product));
+//                setResult(Activity.RESULT_OK,returnIntent);
+//                finish();
+
+
+                if(getIntent().getExtras() != null){
+                    for_order = getIntent().getBooleanExtra("for_order",false);
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("json_product", new Gson().toJson(product));
+                    setResult(Activity.RESULT_OK, returnIntent);
+                    finish();
+                }else {
+//                    Toast.makeText(CustomerActivity.this, "dddd", Toast.LENGTH_SHORT).show();
+//                    showDialogSheet( pos , list.get(pos).name , list , customer);
+                    adapter_pro.showDialogSheet(pos , name );
+                }
+
             }
         });
         recyclerView_product.setAdapter(adapter_pro);
 //        recyclerView_product.setAdapter(adapter_gro);
-//        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, Collections.singletonList(dao.getProductList().get(0).name));
         adapter_pro.notifyDataSetChanged();
     }
 
@@ -182,3 +198,4 @@ public class ProductActivity extends AppCompatActivity {
 
 }
 
+    // arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, Collections.singletonList(dao.getProductList().get(0).name));

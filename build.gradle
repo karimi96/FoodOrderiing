@@ -18,11 +18,8 @@ allprojects {
         mavenCentral()
         jcenter() // Warning: this repository is going to shut down soon
 
-        maven {
-            url 'https://maven.google.com'
-        }
+        maven { url 'https://maven.google.com'}
             maven { url 'https://jitpack.io' }
-
 
         }
 }

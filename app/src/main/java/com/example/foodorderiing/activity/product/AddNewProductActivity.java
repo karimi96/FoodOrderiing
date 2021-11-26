@@ -61,15 +61,12 @@ public class AddNewProductActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_product);
 
 
-
+        initID();
         db = DatabaseHelper.getInstance(getApplicationContext());
         dao_product = db.productDao();
         dao_grouping = db.groupingDao();
 
-        et_name = findViewById(R.id.et_get_name_product);
-        et_price = findViewById(R.id.et_get_price_product);
         et_price.addTextChangedListener(new NumberTextWatcherForThousand(et_price));
-        tv_save = findViewById(R.id.tv_save_product);
         autoCompleteTextView  = findViewById(R.id.autoComplete_tv);
 //        adapter_autocomplete = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_dropdown_item_1line,dao_grouping.getname());
 //        autoCompleteTextView_adapter = new AutoCompleteTextView_Adapter(getApplicationContext(),
@@ -100,23 +97,19 @@ public class AddNewProductActivity extends AppCompatActivity {
             p = new Gson().fromJson(getNameProduct,Product.class);
             et_name.setText(p.name);
             autoCompleteTextView.setText(p.category);
-            et_price.setText(p.price); }
+            et_price.setText(p.price);
+        }
 
 
         set_VideoView();
-//        set_Spinner();
 
         tv_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-//                DecimalFormat decimalFormat = new DecimalFormat("0,000");
-
                 String nameProduct = et_name.getText().toString();
                 String categoryProduct = autoCompleteTextView.getText().toString();
-//                String priceProduct = decimalFormat.format(et_price);
                 String priceProduct = et_price.getText().toString();
-
 
                 if (p == null){
                     if(TextUtils.isEmpty(nameProduct) || TextUtils.isEmpty(categoryProduct) ||TextUtils.isEmpty(priceProduct)){
@@ -130,7 +123,7 @@ public class AddNewProductActivity extends AppCompatActivity {
                 }else {
                     p.name = nameProduct;
                     p.category = categoryProduct;
-                    p.price = priceProduct;
+                    p.price = priceProduct ;
                     Log.e("qqqq", "onClick: update product=" + p.product_id );
                     dao_product.updateProduct(p);
                     Toast.makeText(getApplicationContext()," با موفقیت تغییر کرد " , Toast.LENGTH_LONG).show();
@@ -154,6 +147,11 @@ public class AddNewProductActivity extends AppCompatActivity {
     }
 
 
+    private void initID(){
+        tv_save = findViewById(R.id.tv_save_product);
+        et_name = findViewById(R.id.et_get_name_product);
+        et_price = findViewById(R.id.et_get_price_product);
+    }
 
     public void set_VideoView(){
         videoView = findViewById(R.id.vedio);

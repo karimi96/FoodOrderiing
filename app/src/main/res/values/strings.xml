@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">FoodOrderiing</string>
+
+    <string name="messageWithLink"><a href=""></a>
+    </string>
+
 </resources>

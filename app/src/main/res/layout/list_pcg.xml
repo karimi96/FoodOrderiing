@@ -55,7 +55,6 @@
 
 
                 <ImageView
-                    android:src="@drawable/product_colorfull"
                     android:layout_gravity="top|center_horizontal"
                     android:layout_marginTop="20dp"
                     android:layout_width="64dp"
@@ -127,7 +126,6 @@
 
 
                 <ImageView
-                    android:src="@drawable/customer"
                     android:layout_gravity="top|center_horizontal"
                     android:layout_marginTop="20dp"
                     android:layout_width="64dp"
@@ -204,7 +202,6 @@
 
 
                 <ImageView
-                    android:src="@drawable/grouping"
                     android:layout_gravity="top|center_horizontal"
                     android:layout_marginTop="20dp"
                     android:layout_width="64dp"

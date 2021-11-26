@@ -6,7 +6,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.fonts.Font;
+import android.graphics.fonts.FontFamily;
+import android.graphics.fonts.FontStyle;
 import android.os.Build;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -27,6 +31,9 @@ import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.ProductDao;
 import com.example.foodorderiing.model.Product;
 import com.google.gson.Gson;
+
+import org.intellij.lang.annotations.JdkConstants;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,8 +55,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
     public interface Listener{
-        void onClick(Product product);
+        void onClick(Product product , int pos , String name );
     }
+
 
     @Override
     public ProductAdapter.ViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
@@ -60,7 +68,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         return viewHolder;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+
     @Override
     public void onBindViewHolder( ProductAdapter.ViewHolder holder, int position) {
         product = list.get(position);
@@ -71,8 +79,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClick(product);
-//                showDialogSheet(position , list.get(position).name);
+//                    showDialogSheet(position , list.get(position).name);
+                    listener.onClick(product , position , list.get(position).name );
+
             }
         });
     }
@@ -82,7 +91,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public int getItemCount() {
         return list.size();
     }
-
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -99,7 +107,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
 
-    private void showDialogSheet(int pos , String name){
+    public void showDialogSheet(int pos , String name){
         final Dialog dialog_sheet = new Dialog(context);
         dialog_sheet.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_sheet.setContentView(R.layout.bottom_sheet_product);
@@ -125,7 +133,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             @Override
             public void onClick(View v) {
 
-                new AlertDialog.Builder(context)
+                new AlertDialog.Builder(context,R.font.iran_sans)
                         .setTitle("حذف")
                         .setMessage("ایا مایلید این مورد را حذف کنید؟")
                         .setPositiveButton("بله", new DialogInterface.OnClickListener() {

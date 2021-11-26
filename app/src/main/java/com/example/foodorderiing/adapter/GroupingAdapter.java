@@ -58,10 +58,7 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
     public void onBindViewHolder(GroupingAdapter.ViewHolder holder, int position) {
         grouping = list.get(position);
         holder.tv_name_category.setText(grouping.name);
-
-        Bitmap bm = BitmapFactory.decodeResource(context.getResources(),R.drawable.two_hamberger );
-        Bitmap pic = BlureImage.blur18(context.getApplicationContext(),bm,10);
-        holder.img_food_grouping.setImageBitmap(pic);
+//        holder.tv_name_category.setSelected(true);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,9 +112,10 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
             @Override
             public void onClick(View v) {
 
-                new AlertDialog.Builder(context)
+                new AlertDialog.Builder( context )
                         .setTitle("حذف")
                         .setMessage("ایا مایلید این مورد را حذف کنید؟")
+                        .setIcon(R.drawable.ic_baseline_delete_24)
                         .setPositiveButton("بله", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

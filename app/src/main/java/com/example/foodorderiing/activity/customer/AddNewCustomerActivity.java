@@ -3,11 +3,13 @@ package com.example.foodorderiing.activity.customer;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +41,7 @@ public class AddNewCustomerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_customer);
 
         init();
+        hideInputtype();
         db = DatabaseHelper.getInstance(getApplicationContext());
         dao = db.customerDao();
 
@@ -105,6 +108,18 @@ public class AddNewCustomerActivity extends AppCompatActivity {
         address = findViewById(R.id.et_get_address_customer);
         save = findViewById(R.id.tv_save_customer);
         cancel = findViewById(R.id.tv_cancel_customer); }
+
+        private void hideInputtype(){
+            address.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(v.getWindowToken() , 0);
+                    }
+                }
+            });
+        }
 
 
     @Override

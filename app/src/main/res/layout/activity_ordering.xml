@@ -14,27 +14,38 @@
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll"
-        android:layout_below="@+id/toolbar"
-        android:layout_above="@+id/record_order"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ggg"
+        android:layout_below="@+id/toolbar">
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <include
                 android:id="@+id/box_customer"
                 layout="@layout/user_detail" />
 
             <TextView
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="5dp"
+                android:elevation="5dp"
+                android:shadowColor="@color/red_toolbar"
                 android:id="@+id/add_order"
-                android:padding="10dp"
-                android:drawableRight="@drawable/ic_red_add_24"
-                android:textSize="20sp"
-                android:text="افزودن محصول"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_add_product_ordring"
+                android:drawableRight="@drawable/ic_red_add_24"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/iran_sans"
+                android:paddingHorizontal="10dp"
+                android:textColor="#676767"
+                android:paddingVertical="15dp"
+                android:text="افزودن محصول"
+                android:textSize="16dp" />
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_ordering"
@@ -46,20 +57,21 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-
-
-
-    <TextView
-        android:id="@+id/record_order"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_alignParentBottom="true"
-        android:background="#dbdbdb"
-        android:fontFamily="@font/iran_sans"
-        android:gravity="center"
-        android:text="ثبت سفارش(20)"
-        android:textColor="@color/black"
-        android:textStyle="bold" />
+        android:layout_height="0.75dp"
+        android:layout_above="@id/ggg"
+        android:background="#cccccc" />
 
+    <RelativeLayout
+        android:id="@+id/ggg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white_text">
+
+        <include layout="@layout/total_order" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -7,6 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.text.method.LinkMovementMethod;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.DrawableRes;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodorderiing.R;
@@ -47,7 +51,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     }
 
     public interface Listener{
-        void onClickListener(Customer customer);
+        void onClickListener(Customer customer , List<Customer> list , int pos);
     }
 
     @Override
@@ -64,11 +68,23 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
         holder.tv_name_customer.setText(customer.name);
         holder.tv_phone.setText(customer.phone);
         holder.tv_address.setText(customer.address);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClickListener(customer);
+                listener.onClickListener(customer , list , position);
 //                showDialogSheet(position , list.get(position).name);
+            }
+        });
+
+
+        holder.tv_phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String phonnumber = customer.phone;
+                Intent call = new Intent(Intent.ACTION_DIAL);
+                call.setData(Uri.parse("tel:" + phonnumber));
+                context.startActivity(call);
             }
         });
 
@@ -119,7 +135,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
             @Override
             public void onClick(View v) {
 
-                new AlertDialog.Builder(context)
+                new AlertDialog.Builder(context , R.font.iran_sans )
                         .setTitle("حذف")
                         .setMessage("ایا مایلید این مورد را حذف کنید؟")
                         .setPositiveButton("بله", new DialogInterface.OnClickListener() {
@@ -163,7 +179,5 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
         list.addAll(arraylist);
         notifyDataSetChanged();
     }
-
-
 
 }
