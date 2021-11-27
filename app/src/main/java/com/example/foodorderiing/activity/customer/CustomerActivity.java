@@ -54,7 +54,9 @@ public class CustomerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_customer);
 
         slidr = Slidr.attach(this);
-//        for_order = getIntent().getExtras().getBoolean("for_order");
+        if (getIntent() != null){
+            for_order = getIntent().getBooleanExtra("for_order",false);
+        }
 
         init();
         set_fab();
@@ -81,18 +83,7 @@ public class CustomerActivity extends AppCompatActivity {
         adapter = new CustomerAdapter(new ArrayList<>(), this, new CustomerAdapter.Listener() {
             @Override
             public void onClickListener(Customer customer , List<Customer> list , int pos) {
-//                if (for_order == true ){
-//                    Intent returnIntent = new Intent();
-//                returnIntent.putExtra("json_customer", new Gson().toJson(customer));
-//                setResult(Activity.RESULT_OK, returnIntent);
-//                    finish();
-//            }else if(for_order == false){
-//                    Toast.makeText(CustomerActivity.this, "سلام", Toast.LENGTH_SHORT).show();
-//                }
-
-                
-                if(getIntent().getExtras() != null){
-                    for_order = getIntent().getBooleanExtra("for_order",false);
+                if(for_order){
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra("json_customer", new Gson().toJson(customer));
                     setResult(Activity.RESULT_OK, returnIntent);

@@ -39,20 +39,14 @@ public class HomeActivity extends AppCompatActivity {
     CardView cardView_product;
     CardView cardView_customer;
     CardView cardView_grouping;
-    CardView cardView_waiting;
     TextView title;
     TextView num_product;
     TextView num_customer;
     TextView num_grouping;
-    CardView cardView_reparing;
-    ProductAdapter productAdapter;
     DatabaseHelper db;
     ProductDao dao_p;
     GroupingDao dao_g;
     CustomerDao dao_c;
-    int count_p;
-    int count_c;
-    int count_g;
     ImageView img_ordering;
 
 
@@ -99,15 +93,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        cardView_waiting = findViewById(R.id.cardview_waiting);
-        cardView_waiting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, OrderingActivity.class);
-                startActivity(intent);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            }
-        });
 
 
         num_product = findViewById(R.id.number_of_product);

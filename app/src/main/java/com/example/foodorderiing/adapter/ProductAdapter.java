@@ -45,7 +45,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     List<Product> list_search;
     DatabaseHelper database;
     ProductDao dao;
-    Product product;
 
     public ProductAdapter(List<Product> list, Context context, Listener listener ) {
         this.context = context;
@@ -71,7 +70,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public void onBindViewHolder( ProductAdapter.ViewHolder holder, int position) {
-        product = list.get(position);
+        Product product = list.get(position);
         holder.tv_name_food.setText(product.name);
         holder.tv_name_category.setText(product.category);
         holder.tv_price.setText(product.price);
@@ -142,7 +141,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
                                 database = DatabaseHelper.getInstance(context.getApplicationContext());
                                 dao = database.productDao();
-                                dao.deleteProduct(product);
+                                dao.deleteProduct(list.get(pos));
                                 list.remove(pos);
                                 notifyItemRemoved(pos);
                                 notifyItemRangeChanged(pos,list.size());

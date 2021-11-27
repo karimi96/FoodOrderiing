@@ -51,6 +51,8 @@
                 android:id="@+id/recycler_ordering"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingBottom="5dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/list_item_ordering" />
 
@@ -59,9 +61,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0.75dp"
+        android:layout_height="0.5dp"
         android:layout_above="@id/ggg"
-        android:background="#cccccc" />
+        android:background="#dbdbdb" />
 
     <RelativeLayout
         android:id="@+id/ggg"

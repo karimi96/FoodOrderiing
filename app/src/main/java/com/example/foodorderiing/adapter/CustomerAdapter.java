@@ -42,7 +42,6 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     Listener listener;
     DatabaseHelper database;
     CustomerDao dao;
-    Customer customer;
 
     public CustomerAdapter(List<Customer> list, Context context, Listener listener) {
         this.list = list;
@@ -64,7 +63,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(CustomerAdapter.ViewHolder holder, int position) {
-        customer = list.get(position);
+        Customer customer = list.get(position);
         holder.tv_name_customer.setText(customer.name);
         holder.tv_phone.setText(customer.phone);
         holder.tv_address.setText(customer.address);
@@ -144,7 +143,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
 
                                 database = DatabaseHelper.getInstance(context.getApplicationContext());
                                 dao = database.customerDao();
-                                dao.deleteCustomer(customer);
+                                dao.deleteCustomer(list.get(pos));
                                 list.remove(pos);
                                 notifyItemRemoved(pos);
                                 notifyItemRangeChanged(pos,list.size());

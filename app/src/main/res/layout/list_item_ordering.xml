@@ -18,6 +18,7 @@
         android:background="@drawable/background_card_product_withe">
 
         <TextView
+            android:id="@+id/add_to_card"
             android:layout_width="0dp"
             android:layout_height="63dp"
             android:layout_gravity="bottom"

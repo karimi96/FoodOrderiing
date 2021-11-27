@@ -59,7 +59,9 @@ public class ProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
-//        for_order = getIntent().getExtras().getBoolean("for_order" , false);
+        if(getIntent().getExtras() != null){
+            for_order = getIntent().getBooleanExtra("for_order",false);
+        }
         db = DatabaseHelper.getInstance(getApplicationContext());
         dao_grouping = db.groupingDao();
         dao_product = db.productDao();
@@ -137,7 +139,7 @@ public class ProductActivity extends AppCompatActivity {
 //                finish();
 
 
-                if(getIntent().getExtras() != null){
+                if(for_order){
                     for_order = getIntent().getBooleanExtra("for_order",false);
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra("json_product", new Gson().toJson(product));

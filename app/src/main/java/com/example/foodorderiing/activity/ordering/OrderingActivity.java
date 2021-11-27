@@ -17,6 +17,7 @@ import com.example.foodorderiing.adapter.OrdringAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.OrderDetailDao;
 import com.example.foodorderiing.database.dao.ProductDao;
+import com.example.foodorderiing.helper.Tools;
 import com.example.foodorderiing.model.Customer;
 import com.example.foodorderiing.model.OrderDetail;
 import com.example.foodorderiing.model.Product;
@@ -39,6 +40,11 @@ public class OrderingActivity extends AppCompatActivity {
     LottieAnimationView lottie;
     OrderDetail orderDetail ;
     OrderDetailDao orderDetailDao;
+    List<Product> list1 ;
+    TextView number_order;
+    TextView total ;
+    TextView save_order ;
+
 
 
     @Override
@@ -53,15 +59,40 @@ public class OrderingActivity extends AppCompatActivity {
         initID();
         initBoxCustomer();
         initBoxProduct();
+
+        list1 = new ArrayList<>();
+        ordringAdapter = new OrdringAdapter(list1, this, new OrdringAdapter.Listener() {
+            @Override
+            public void onAdded(int pos) {
+                list1.get(pos).amount = list1.get(pos).amount + 1;
+                ordringAdapter.notifyItemChanged(pos);
+                initCounter();
+            }
+
+            @Override
+            public void onRemove(int pos) {
+                if (list1.get(pos).amount > 0){
+                    list1.get(pos).amount = list1.get(pos).amount - 1;
+                    ordringAdapter.notifyItemChanged(pos);
+                }else {
+                    list1.remove(pos);
+                    ordringAdapter.notifyDataSetChanged();
+                }
+                initCounter();
+            }
+        });
+        recyclerView.setAdapter(ordringAdapter);
+        recyclerView.setHasFixedSize(true);
+
         lottie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 lottie.setRepeatCount(0);
                 lottie.playAnimation();
                 Toast.makeText(OrderingActivity.this, " welcome ", Toast.LENGTH_SHORT).show();
+
             }
         });
-
     }
 
     @Override
@@ -80,12 +111,10 @@ public class OrderingActivity extends AppCompatActivity {
                 case 200:
                     String json_product = data.getExtras().getString("json_product");
                     Product product = new Gson().fromJson(json_product,Product.class);
-                    recyclerView = findViewById(R.id.recycler_ordering);
-                    recyclerView.setHasFixedSize(true);
-                    orderDetailDao = db.orderDetailDao();
-//                  orderDetailDao.insertOrderDetail(new OrderDetail( product.name , product.category , product.price , 8 , "1" ));
-                    ordringAdapter = new OrdringAdapter(dao.getProductList(),this);
-                    recyclerView.setAdapter(ordringAdapter);
+
+                    list1.add(product);
+                    ordringAdapter.notifyDataSetChanged();
+                    initCounter();
                     break;
             }
         }
@@ -96,6 +125,10 @@ public class OrderingActivity extends AppCompatActivity {
         box_customer = findViewById(R.id.box_customer);
         name_customer = findViewById(R.id.name);
         lottie = findViewById(R.id.lottie);
+        total = findViewById(R.id.tv_total);
+        save_order = findViewById(R.id.save_order);
+        number_order = findViewById(R.id.text_number_of_order);
+        recyclerView = findViewById(R.id.recycler_ordering);
     }
 
 
@@ -116,9 +149,24 @@ public class OrderingActivity extends AppCompatActivity {
         });
     }
 
+//
+//    private void setTotal(){
+//        if(ordringAdapter.allprice != null){
+//            total.setText(ordringAdapter.allprice.toString());
+//        }
+//    }
 
-    private void setRecycler(){
+    private void initCounter(){
+        number_order.setText(list1.size()+"");
+        total.setText(getTotalPrice()+"");
+    }
 
+    private Integer getTotalPrice(){
+        int p = 0;
+        for (int i = 0; i < list1.size(); i++) {
+            p = p + (Tools.convertToPrice(list1.get(i).price) * list1.get(i).amount);
+        }
+        return p;
     }
 
 

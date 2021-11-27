@@ -23,7 +23,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         app:lottie_autoPlay="false"
-        android:background="@drawable/ripple_all"
+        android:background="@drawable/ripple_circle_shop"
         android:paddingBottom="17dp"
         android:paddingTop="8dp"
         android:paddingStart="8dp"

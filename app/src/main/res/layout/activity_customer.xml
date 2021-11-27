@@ -29,6 +29,8 @@
         android:id="@+id/recycler_customer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="7dp"
         android:layout_marginTop="?attr/actionBarSize"
         android:layoutAnimation="@anim/layout_fall_down"
         tools:listitem="@layout/list_item_customer" />

@@ -23,6 +23,9 @@ public class Product {
     @ColumnInfo(name = "price")
     public String price;
 
+    @Ignore
+    public int amount = 1;
+
 
 
 

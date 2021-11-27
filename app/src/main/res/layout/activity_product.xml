@@ -12,16 +12,16 @@
         android:id="@+id/toolbar_search"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/red_toolbar" >
+        android:background="@color/red_toolbar">
 
         <TextView
-            android:text="محصولات "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/iran_sans"
+            android:text="محصولات "
             android:textColor="@color/white_text"
             android:textSize="16dp"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -44,6 +44,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar_search"
+        android:clipToPadding="false"
+        android:paddingEnd="10dp"
         tools:listitem="@layout/list_item_group_product" />
 
     <LinearLayout
@@ -60,7 +62,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/linear_saparat"
+        android:clipToPadding="false"
         android:layoutAnimation="@anim/layout_fall_down"
+        android:paddingBottom="7dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/list_item_product" />
 
