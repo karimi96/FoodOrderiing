@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.foodorderiing">
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <application
         android:allowBackup="true"
@@ -9,30 +10,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodOrderiing">
-        <activity android:name=".activity.orderDetail.OrderingDetail"></activity>
-
-        <activity android:name=".activity.customer.AddNewCustomerActivity"
-            android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme"/>
-
-        <activity android:name=".activity.ordering.OrderingActivity"
-            android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme"/>
-
-        <activity android:name=".activity.customer.CustomerActivity"
-            android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme"/>
-
-        <activity android:name=".activity.product.AddNewProductActivity" />
-
-        <activity android:name=".activity.grouping.AddNewGroupingActivity"
-            android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme"/>
-
-        <activity android:name=".activity.grouping.GroupingActivity"
-            android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme"/>
+        <activity android:name=".activity.orderDetail.OrderDetaill"></activity>
+        <activity android:name=".activity.recordOrdring.RecordOrdring" />
 
         <activity
+            android:name=".activity.customer.AddNewCustomerActivity"
+            android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme" />
+        <activity
+            android:name=".activity.ordering.OrderingActivity"
+            android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme" />
+        <activity
+            android:name=".activity.customer.CustomerActivity"
+            android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme" />
+        <activity android:name=".activity.product.AddNewProductActivity" />
+        <activity
+            android:name=".activity.grouping.AddNewGroupingActivity"
+            android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme" />
+        <activity
+            android:name=".activity.grouping.GroupingActivity"
+            android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme" />
+        <activity
             android:name=".activity.product.ProductActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme"/>
-
+            android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activity.home.HomeActivity" />
         <activity android:name=".activity.login.LoginActivity">
             <intent-filter>

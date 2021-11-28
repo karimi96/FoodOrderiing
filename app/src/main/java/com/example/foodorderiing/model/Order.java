@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 
 import org.w3c.dom.Text;
 
-@Entity(tableName = "order")
+@Entity(tableName = "ordering")
 public class Order {
 
     @PrimaryKey(autoGenerate = true)
@@ -27,13 +27,13 @@ public class Order {
     public int statusCustomer;
 
     @ColumnInfo(name = "total")
-    public  double total;
+    public  String total;
 
     @ColumnInfo(name = "describtion")
-    public Text discrebtion;
+    public String discrebtion;
 
 
-    public Order(int order_id, String name, String code, int customerID, int statusCustomer, double total, Text discrebtion) {
+    public Order(int order_id, String name, String code, int customerID, int statusCustomer, String total, String discrebtion) {
         this.order_id = order_id;
         this.name = name;
         this.code = code;
@@ -44,7 +44,7 @@ public class Order {
     }
 
     @Ignore
-    public Order(String name, String code, int customerID, int statusCustomer, double total, Text discrebtion) {
+    public Order(String name, String code, int customerID, int statusCustomer, String total, String discrebtion) {
         this.name = name;
         this.code = code;
         this.customerID = customerID;

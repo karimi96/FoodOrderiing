@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="6dp"
+    android:outlineSpotShadowColor="@color/red_toolbar"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginBottom="10dp"
+    app:cardCornerRadius="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/iran_sans"
+                android:padding="10dp"
+                android:text="نام :"
+                android:textColor="#9c9b9b" />
+
+            <TextView
+                android:id="@+id/name_record"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/iran_sans"
+                android:paddingVertical="10dp"
+                android:paddingEnd="10dp"
+                android:text="رقیه کریمی"
+                android:textColor="#676767" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/iran_sans"
+                android:padding="10dp"
+                android:text="وضعیت مشتری :"
+                android:textColor="#9c9b9b" />
+
+            <TextView
+                android:id="@+id/status_record"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/iran_sans"
+                android:paddingVertical="10dp"
+                android:paddingEnd="10dp"
+                android:text="در حال ارسال"
+                android:textColor="#676767" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/iran_sans"
+                android:padding="10dp"
+                android:text="جمع کل :"
+                android:textColor="#9c9b9b" />
+
+            <TextView
+                android:id="@+id/total_record"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/irsansfanum"
+                android:paddingVertical="10dp"
+                android:paddingEnd="10dp"
+                android:text="88,88"
+                android:textColor="#676767" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/iran_sans"
+                android:padding="10dp"
+                android:text="توضیحات :"
+                android:textColor="#9c9b9b" />
+
+            <TextView
+                android:id="@+id/explain_record"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/iran_sans"
+                android:paddingVertical="10dp"
+                android:paddingEnd="10dp"
+                android:text="توضیحات بیشتر"
+                android:textColor="#676767" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

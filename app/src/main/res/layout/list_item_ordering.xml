@@ -145,7 +145,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="3dp"
-                    android:fontFamily="@font/iran_sans"
+                    android:fontFamily="@font/irsansfanum"
                     android:text="T67"
                     android:textColor="@color/white_text"
                     android:textSize="23dp" />

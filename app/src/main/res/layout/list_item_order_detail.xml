@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="6dp"
+    android:outlineSpotShadowColor="@color/red_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:src="@drawable/ptz"
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/name_detail"
+                    android:text="سالاد سزار"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/iran_sans"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/price_detail"
+                    android:text="88,999"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/irsansfanum"
+                    android:padding="10dp"
+                    android:gravity="end"
+                    android:layout_gravity="left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/category_detail"
+                android:text="سالاد"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/iran_sans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

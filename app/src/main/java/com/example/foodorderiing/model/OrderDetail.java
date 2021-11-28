@@ -21,7 +21,7 @@ public class OrderDetail {
     public String category;
 
     @ColumnInfo(name = "price")
-    public double price;
+    public String price;
 
     @ColumnInfo(name = "amount")
     public int amount;
@@ -30,7 +30,7 @@ public class OrderDetail {
     public String code;
 
 
-    public OrderDetail(int orderdetail_id, String name, String category, double price, int amount, String code) {
+    public OrderDetail(int orderdetail_id, String name, String category, String price, int amount, String code) {
         this.orderdetail_id = orderdetail_id;
         this.name = name;
         this.category = category;
@@ -40,7 +40,7 @@ public class OrderDetail {
     }
 
     @Ignore
-    public OrderDetail(String name, String category, double price, int amount, String code) {
+    public OrderDetail(String name, String category, String price, int amount, String code) {
         this.name = name;
         this.category = category;
         this.price = price;

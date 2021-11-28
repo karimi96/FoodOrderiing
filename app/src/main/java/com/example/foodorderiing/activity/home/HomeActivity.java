@@ -22,6 +22,7 @@ import com.example.foodorderiing.activity.grouping.GroupingActivity;
 import com.example.foodorderiing.activity.login.LoginActivity;
 import com.example.foodorderiing.activity.ordering.OrderingActivity;
 import com.example.foodorderiing.activity.product.ProductActivity;
+import com.example.foodorderiing.activity.recordOrdring.RecordOrdring;
 import com.example.foodorderiing.adapter.ProductAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.CustomerDao;
@@ -49,6 +50,8 @@ public class HomeActivity extends AppCompatActivity {
     CustomerDao dao_c;
     ImageView img_ordering;
 
+    TextView recordOrder;
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -56,10 +59,18 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        DecimalFormat decimalFormat = new DecimalFormat("0,000");
+        db = DatabaseHelper.getInstance(getApplicationContext());
+        dao_p = db.productDao();
+        dao_c = db.customerDao();
+        dao_g = db.groupingDao();
+
+        initID();
         toolbar();
         create_chart();
+        setImageOrdering();
+        initRecordOrdering();
 
-        cardView_product = findViewById(R.id.cardView_product);
         cardView_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +81,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        cardView_customer = findViewById(R.id.cardview_customer);
         cardView_customer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +92,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        cardView_grouping = findViewById(R.id.cardView_grouping);
         cardView_grouping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,18 +104,21 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
+
+
+
+
+
+    }
+
+    private void initID(){
+        cardView_grouping = findViewById(R.id.cardView_grouping);
+        cardView_customer = findViewById(R.id.cardview_customer);
+        cardView_product = findViewById(R.id.cardView_product);
         num_product = findViewById(R.id.number_of_product);
         num_customer = findViewById(R.id.number_of_customer);
         num_grouping = findViewById(R.id.number_of_grouping);
-
-
-        DecimalFormat decimalFormat = new DecimalFormat("0,000");
-        db = DatabaseHelper.getInstance(getApplicationContext());
-        dao_p = db.productDao();
-        dao_c = db.customerDao();
-        dao_g = db.groupingDao();
-        setImageOrdering();
-
+        recordOrder = findViewById(R.id.text_record_order);
     }
 
     public void create_chart() {
@@ -177,7 +189,6 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         num_product.setText(Integer.toString(dao_p.getProductList().size()));
         num_customer.setText(Integer.toString(dao_c.getCustomerList().size()));
         num_grouping.setText(Integer.toString(dao_g.getGroupingList().size()));
@@ -188,6 +199,19 @@ public class HomeActivity extends AppCompatActivity {
         title = findViewById(R.id.title_home);
         title.setEllipsize(TextUtils.TruncateAt.MARQUEE);
         title.setSelected(true);
+    }
+
+    private void initRecordOrdering(){
+        recordOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(HomeActivity.this, RecordOrdring.class);
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+            }
+        });
     }
 
 

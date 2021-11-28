@@ -15,10 +15,12 @@ import com.example.foodorderiing.activity.customer.CustomerActivity;
 import com.example.foodorderiing.activity.product.ProductActivity;
 import com.example.foodorderiing.adapter.OrdringAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
+import com.example.foodorderiing.database.dao.RecordOrderDao;
 import com.example.foodorderiing.database.dao.OrderDetailDao;
 import com.example.foodorderiing.database.dao.ProductDao;
 import com.example.foodorderiing.helper.Tools;
 import com.example.foodorderiing.model.Customer;
+import com.example.foodorderiing.model.Order;
 import com.example.foodorderiing.model.OrderDetail;
 import com.example.foodorderiing.model.Product;
 import com.google.gson.Gson;
@@ -32,7 +34,11 @@ public class OrderingActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     OrdringAdapter ordringAdapter;
     DatabaseHelper db;
-    ProductDao dao;
+
+    ProductDao dao_product;
+    RecordOrderDao dao_order;
+    OrderDetailDao dao_detail ;
+
     TextView record_order,add_order;
     View box_customer;
     private SlidrInterface slidr;
@@ -45,6 +51,7 @@ public class OrderingActivity extends AppCompatActivity {
     TextView total ;
     TextView save_order ;
 
+    Customer customer;
 
 
     @Override
@@ -54,11 +61,14 @@ public class OrderingActivity extends AppCompatActivity {
 
         slidr = Slidr.attach(this);
         db = DatabaseHelper.getInstance(getApplicationContext());
-        dao = db.productDao();
+        dao_product = db.productDao();
+        dao_order = db.orderDao();
+        dao_detail = db.orderDetailDao();
 
         initID();
         initBoxCustomer();
         initBoxProduct();
+        initLottie();
 
         list1 = new ArrayList<>();
         ordringAdapter = new OrdringAdapter(list1, this, new OrdringAdapter.Listener() {
@@ -84,15 +94,9 @@ public class OrderingActivity extends AppCompatActivity {
         recyclerView.setAdapter(ordringAdapter);
         recyclerView.setHasFixedSize(true);
 
-        lottie.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                lottie.setRepeatCount(0);
-                lottie.playAnimation();
-                Toast.makeText(OrderingActivity.this, " welcome ", Toast.LENGTH_SHORT).show();
+        initSaveOrder();
 
-            }
-        });
+
     }
 
     @Override
@@ -103,13 +107,13 @@ public class OrderingActivity extends AppCompatActivity {
 
                 case 100:
                     String json_customer = data.getExtras().getString("json_customer");
-                    Customer customer = new Gson().fromJson(json_customer,Customer.class);
+                    customer = new Gson().fromJson(json_customer,Customer.class);
                     name_customer.setText(customer.name);
-//                    Toast.makeText(this, ""+customer.name, Toast.LENGTH_SHORT).show();
                     break;
 
                 case 200:
                     String json_product = data.getExtras().getString("json_product");
+
                     Product product = new Gson().fromJson(json_product,Product.class);
 
                     list1.add(product);
@@ -149,13 +153,6 @@ public class OrderingActivity extends AppCompatActivity {
         });
     }
 
-//
-//    private void setTotal(){
-//        if(ordringAdapter.allprice != null){
-//            total.setText(ordringAdapter.allprice.toString());
-//        }
-//    }
-
     private void initCounter(){
         number_order.setText(list1.size()+"");
         total.setText(getTotalPrice()+"");
@@ -169,5 +166,32 @@ public class OrderingActivity extends AppCompatActivity {
         return p;
     }
 
+    private void initLottie(){
+        lottie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lottie.setRepeatCount(0);
+                lottie.playAnimation();
+                Toast.makeText(OrderingActivity.this, " welcome ", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void initSaveOrder(){
+        save_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dao_order.insertOrder(new Order(customer.name , "1" , customer.customer_id , 1 , total.getText()+"" , "با تمام مخلفات " ));
+
+                for (int i = 0; i < list1.size(); i++) {
+                    dao_detail.insertOrderDetail(new OrderDetail(list1.get(i).name , list1.get(i).category , list1.get(i).price ,
+                                                Tools.convertToPrice(number_order.getText().toString()) , dao_order.getOrderList().get(i).code ));
+
+                    Toast.makeText(OrderingActivity.this, "save data", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            }
+        });
+    }
 
 }

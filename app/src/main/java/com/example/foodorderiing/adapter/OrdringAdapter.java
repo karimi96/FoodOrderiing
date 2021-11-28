@@ -62,13 +62,11 @@ public class OrdringAdapter extends RecyclerView.Adapter<OrdringAdapter.ViewHold
             }
         });
 
-
         holder.img_Dicrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onRemove(position);
             }
-
 
         });
 
