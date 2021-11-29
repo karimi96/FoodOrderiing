@@ -118,10 +118,10 @@ public class OrderActivity extends AppCompatActivity {
 
             @Override
             public void onRemove(int pos) {
-                if (orderDetailList.get(pos).amount > 0){
+                if (orderDetailList.get(pos).amount > 1){
                     orderDetailList.get(pos).amount = orderDetailList.get(pos).amount - 1;
                     ordringAdapter.notifyItemChanged(pos);
-                }else if (orderDetailList.get(pos).amount == 0 ){
+                }else {
                     orderDetailList.remove(pos);
                     ordringAdapter.notifyDataSetChanged();
 
