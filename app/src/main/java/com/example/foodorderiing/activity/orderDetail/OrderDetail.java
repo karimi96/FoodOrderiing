@@ -4,12 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.adapter.OrderDetailAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
+import com.example.foodorderiing.database.dao.CustomerDao;
 import com.example.foodorderiing.database.dao.OrderDao;
 import com.example.foodorderiing.database.dao.OrderDetailDao;
+import com.example.foodorderiing.model.Customer;
 
 public class OrderDetail extends AppCompatActivity {
 
@@ -17,8 +22,13 @@ public class OrderDetail extends AppCompatActivity {
     private DatabaseHelper db ;
     private OrderDetailDao dao_orderDetail;
     private OrderDao dao_order;
+    private CustomerDao dao_customer;
     private OrderDetailAdapter adapter ;
-    private String code;
+    private String code , customerName;
+    private int customerID;
+    private TextView name , phone ;
+    private ImageView back;
+    private Customer customer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +38,15 @@ public class OrderDetail extends AppCompatActivity {
 
         if(getIntent().getExtras() != null){
             code = getIntent().getStringExtra("code");
+            customerID = getIntent().getIntExtra("customerid" ,0 );
+            customerName = getIntent().getStringExtra("name");
         }
 
 
         initDataBase();
         initID();
         initRecycler();
+        setBoxCustomer();
 
     }
 
@@ -41,10 +54,14 @@ public class OrderDetail extends AppCompatActivity {
         db = DatabaseHelper.getInstance(getApplicationContext());
         dao_orderDetail = db.orderDetailDao();
         dao_order = db.orderDao();
+        dao_customer = db.customerDao();
     }
 
     private void initID(){
         recycler = findViewById(R.id.recycler_detail);
+        name = findViewById(R.id.customer_detail);
+        phone = findViewById(R.id.phone_detail);
+        back = findViewById(R.id.back_detail);
 
     }
 
@@ -54,5 +71,18 @@ public class OrderDetail extends AppCompatActivity {
         recycler.setAdapter(adapter);
     }
 
+
+    private void setBoxCustomer(){
+        name.setText(customerName);
+        phone.setText(dao_customer.getID(customerID).phone);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
+    }
 
 }

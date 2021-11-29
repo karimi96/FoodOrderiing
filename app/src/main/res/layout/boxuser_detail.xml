@@ -1,47 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:paddingVertical="10dp"
+    android:layout_height="wrap_content"
     android:paddingHorizontal="25dp"
-    android:layout_height="wrap_content">
+    android:paddingVertical="10dp">
 
     <ImageView
         android:id="@+id/img"
-        android:src="@drawable/ic_baseline_account_circle_24"
         android:layout_width="65dp"
-        android:layout_height="65dp"/>
+        android:layout_height="65dp"
+        android:src="@drawable/ic_baseline_account_circle_24" />
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_toEndOf="@id/img"
-        android:layout_marginStart="10dp"
-        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@id/img"
+        android:orientation="vertical">
 
         <TextView
-            android:text="رقیه کریمی"
+            android:id="@+id/customer_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/iran_sans"
-            android:textStyle="bold"
+            android:text="رقیه کریمی"
             android:textColor="@color/white_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold" />
 
         <TextView
-            android:text="09121212121"
-            android:textSize="13dp"
-            android:fontFamily="@font/irsansfanum"
-            android:textColor="@color/white_text"
+            android:id="@+id/phone_detail"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/irsansfanum"
+            android:text="09121212121"
+            android:textColor="@color/white_text"
+            android:textSize="13dp" />
     </LinearLayout>
 
     <ImageView
-        android:src="@drawable/img_back"
+        android:id="@+id/back_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:src="@drawable/img_back" />
 
 
 </RelativeLayout>
