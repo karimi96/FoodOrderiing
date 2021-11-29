@@ -205,7 +205,7 @@ public class OrderActivity extends AppCompatActivity {
 
             for (int i = 0; i < orderDetailList.size(); i++) {
                 dao_detail.insertOrderDetail(new OrderDetail(orderDetailList.get(i).name , orderDetailList.get(i).category , orderDetailList.get(i).price ,
-                                            Tools.convertToPrice(number_order.getText().toString()) ,CODE ));
+                                    orderDetailList.get(i).amount ,CODE ));
 
                 Toast.makeText(OrderActivity.this, "save data", Toast.LENGTH_SHORT).show();
                 finish();
