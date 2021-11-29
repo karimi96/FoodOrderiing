@@ -44,7 +44,7 @@ public class OrderingActivity extends AppCompatActivity {
     private SlidrInterface slidr;
     private TextView name_customer;
     private LottieAnimationView lottie;
-    private List<Product> list1 ;
+    private List<Product> orderDetailList;
     private TextView number_order, total, save_order ;
     private Customer customer;
     private CardView card_number;
@@ -84,33 +84,45 @@ public class OrderingActivity extends AppCompatActivity {
                     String json_product = data.getExtras().getString("json_product");
 
                     Product product = new Gson().fromJson(json_product,Product.class);
-
-                    list1.add(product);
-                    ordringAdapter.notifyDataSetChanged();
-                    initCounter();
+                    insertToOrderList(product);
                     break;
             }
         }
     }
 
 
+    private void insertToOrderList(Product product){
+        for (int i = 0; i < orderDetailList.size(); i++) {
+            if(orderDetailList.get(i).product_id == product.product_id){
+                orderDetailList.get(i).amount = orderDetailList.get(i).amount + 1;
+                ordringAdapter.notifyDataSetChanged();
+                initCounter();
+                return;
+            }
+        }
+        orderDetailList.add(product);
+        ordringAdapter.notifyDataSetChanged();
+        initCounter();
+    }
+
+
     private void initRecycler(){
-        list1 = new ArrayList<>();
-        ordringAdapter = new OrdringAdapter(list1, this, new OrdringAdapter.Listener() {
+        orderDetailList = new ArrayList<>();
+        ordringAdapter = new OrdringAdapter(orderDetailList, this, new OrdringAdapter.Listener() {
             @Override
             public void onAdded(int pos) {
-                list1.get(pos).amount = list1.get(pos).amount + 1;
+                orderDetailList.get(pos).amount = orderDetailList.get(pos).amount + 1;
                 ordringAdapter.notifyItemChanged(pos);
                 initCounter();
             }
 
             @Override
             public void onRemove(int pos) {
-                if (list1.get(pos).amount > 0){
-                    list1.get(pos).amount = list1.get(pos).amount - 1;
+                if (orderDetailList.get(pos).amount > 0){
+                    orderDetailList.get(pos).amount = orderDetailList.get(pos).amount - 1;
                     ordringAdapter.notifyItemChanged(pos);
-                }else if (list1.get(pos).amount == 0 ){
-                    list1.remove(pos);
+                }else if (orderDetailList.get(pos).amount == 0 ){
+                    orderDetailList.remove(pos);
                     ordringAdapter.notifyDataSetChanged();
 
                 }
@@ -157,16 +169,21 @@ public class OrderingActivity extends AppCompatActivity {
     }
 
     private void initCounter(){
-        card_number.setVisibility(View.VISIBLE);
-        number_order.setText(list1.size()+"");
-        total.setText(getTotalPrice()+"");
+        if(orderDetailList.size() > 0){
+            card_number.setVisibility(View.VISIBLE);
+            number_order.setText(orderDetailList.size()+"");
 
+        }else {
+            card_number.setVisibility(View.GONE);
+        }
+        total.setText(getTotalPrice()+"");
     }
+
 
     private Integer getTotalPrice(){
         int p = 0;
-        for (int i = 0; i < list1.size(); i++) {
-            p = p + (Tools.convertToPrice(list1.get(i).price) * list1.get(i).amount);
+        for (int i = 0; i < orderDetailList.size(); i++) {
+            p = p + (Tools.convertToPrice(orderDetailList.get(i).price) * orderDetailList.get(i).amount);
         }
         return p;
     }
@@ -186,8 +203,8 @@ public class OrderingActivity extends AppCompatActivity {
         save_order.setOnClickListener(view -> {
             dao_order.insertOrder(new Order(customer.name , CODE , customer.customer_id , 1 , total.getText()+"" , "با تمام مخلفات " ));
 
-            for (int i = 0; i < list1.size(); i++) {
-                dao_detail.insertOrderDetail(new OrderDetail(list1.get(i).name , list1.get(i).category , list1.get(i).price ,
+            for (int i = 0; i < orderDetailList.size(); i++) {
+                dao_detail.insertOrderDetail(new OrderDetail(orderDetailList.get(i).name , orderDetailList.get(i).category , orderDetailList.get(i).price ,
                                             Tools.convertToPrice(number_order.getText().toString()) ,CODE ));
 
                 Toast.makeText(OrderingActivity.this, "save data", Toast.LENGTH_SHORT).show();
