@@ -1,7 +1,6 @@
 package com.example.foodorderiing.activity.home;
 
 import android.content.Intent;
-import android.database.DatabaseUtils;
 import android.graphics.Color;
 import android.icu.text.DecimalFormat;
 import android.os.Build;
@@ -14,16 +13,13 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.databinding.DataBindingUtil;
 
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.customer.CustomerActivity;
 import com.example.foodorderiing.activity.grouping.GroupingActivity;
-import com.example.foodorderiing.activity.login.LoginActivity;
-import com.example.foodorderiing.activity.ordering.OrderingActivity;
+import com.example.foodorderiing.activity.order.OrderActivity;
 import com.example.foodorderiing.activity.product.ProductActivity;
-import com.example.foodorderiing.activity.recordOrdring.RecordOrdring;
-import com.example.foodorderiing.adapter.ProductAdapter;
+import com.example.foodorderiing.activity.listOrder.ListOrder;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.CustomerDao;
 import com.example.foodorderiing.database.dao.GroupingDao;
@@ -178,7 +174,7 @@ public class HomeActivity extends AppCompatActivity {
         img_ordering.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, OrderingActivity.class));
+                startActivity(new Intent(HomeActivity.this, OrderActivity.class));
 
             }
         });
@@ -206,7 +202,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(HomeActivity.this, RecordOrdring.class);
+                Intent intent = new Intent(HomeActivity.this, ListOrder.class);
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 

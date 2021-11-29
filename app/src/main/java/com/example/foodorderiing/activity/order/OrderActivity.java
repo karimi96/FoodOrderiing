@@ -1,4 +1,4 @@
-package com.example.foodorderiing.activity.ordering;
+package com.example.foodorderiing.activity.order;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.customer.CustomerActivity;
 import com.example.foodorderiing.activity.product.ProductActivity;
-import com.example.foodorderiing.adapter.OrdringAdapter;
+import com.example.foodorderiing.adapter.OrderAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.OrderDao;
 import com.example.foodorderiing.database.dao.OrderDetailDao;
@@ -32,9 +32,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class OrderingActivity extends AppCompatActivity {
+public class OrderActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private OrdringAdapter ordringAdapter;
+    private OrderAdapter ordringAdapter;
     private DatabaseHelper db;
     private ProductDao dao_product;
     private OrderDao dao_order;
@@ -108,7 +108,7 @@ public class OrderingActivity extends AppCompatActivity {
 
     private void initRecycler(){
         orderDetailList = new ArrayList<>();
-        ordringAdapter = new OrdringAdapter(orderDetailList, this, new OrdringAdapter.Listener() {
+        ordringAdapter = new OrderAdapter(orderDetailList, this, new OrderAdapter.Listener() {
             @Override
             public void onAdded(int pos) {
                 orderDetailList.get(pos).amount = orderDetailList.get(pos).amount + 1;
@@ -194,7 +194,7 @@ public class OrderingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 lottie.setRepeatCount(0);
                 lottie.playAnimation();
-                Toast.makeText(OrderingActivity.this, " welcome ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrderActivity.this, " welcome ", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -207,7 +207,7 @@ public class OrderingActivity extends AppCompatActivity {
                 dao_detail.insertOrderDetail(new OrderDetail(orderDetailList.get(i).name , orderDetailList.get(i).category , orderDetailList.get(i).price ,
                                             Tools.convertToPrice(number_order.getText().toString()) ,CODE ));
 
-                Toast.makeText(OrderingActivity.this, "save data", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrderActivity.this, "save data", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

@@ -10,14 +10,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodOrderiing">
-        <activity android:name=".activity.orderDetail.OrderDetaill"></activity>
-        <activity android:name=".activity.recordOrdring.RecordOrdring" />
+        <activity android:name=".activity.orderDetail.OrderDetail"></activity>
+        <activity android:name=".activity.listOrder.ListOrder" />
 
         <activity
             android:name=".activity.customer.AddNewCustomerActivity"
             android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme" />
         <activity
-            android:name=".activity.ordering.OrderingActivity"
+            android:name=".activity.order.OrderActivity"
             android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme" />
         <activity
             android:name=".activity.customer.CustomerActivity"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.recordOrdring.RecordOrdring">
+    tools:context=".activity.listOrder.ListOrder">
 
    <androidx.recyclerview.widget.RecyclerView
        tools:listitem="@layout/list_item_record_ordring"

@@ -1,4 +1,4 @@
-package com.example.foodorderiing.activity.recordOrdring;
+package com.example.foodorderiing.activity.listOrder;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import com.example.foodorderiing.R;
-import com.example.foodorderiing.adapter.RecordOrdringAdapter;
+import com.example.foodorderiing.adapter.ListOrderAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.OrderDao;
 
-public class RecordOrdring extends AppCompatActivity {
+public class ListOrder extends AppCompatActivity {
     RecyclerView recyclerView ;
-    RecordOrdring recordOrdring ;
-    RecordOrdringAdapter adapter ;
+    ListOrder recordOrdring ;
+    ListOrderAdapter adapter ;
 
     DatabaseHelper db ;
     OrderDao dao ;
@@ -40,7 +40,7 @@ public class RecordOrdring extends AppCompatActivity {
 
     private void initRecycler(){
         recyclerView.setHasFixedSize(true);
-        adapter = new RecordOrdringAdapter(this, dao.getOrderList());
+        adapter = new ListOrderAdapter(this, dao.getOrderList());
         recyclerView.setAdapter(adapter);
 //        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
 //            @Override

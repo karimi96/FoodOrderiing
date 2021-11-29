@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white_text"
-    tools:context=".activity.ordering.OrderingActivity">
+    tools:context=".activity.order.OrderActivity">
 
 
 

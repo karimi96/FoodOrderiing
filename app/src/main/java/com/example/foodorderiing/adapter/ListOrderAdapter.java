@@ -10,23 +10,19 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodorderiing.R;
-import com.example.foodorderiing.activity.orderDetail.OrderDetaill;
-import com.example.foodorderiing.activity.recordOrdring.RecordOrdring;
+import com.example.foodorderiing.activity.orderDetail.OrderDetail;
 import com.example.foodorderiing.model.Order;
-import com.example.foodorderiing.model.OrderDetail;
 
 import java.util.List;
 
 
-public class RecordOrdringAdapter extends RecyclerView.Adapter<RecordOrdringAdapter.ViewHolder> {
+public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.ViewHolder> {
     private Context context ;
     private List<Order> list ;
-//    public Listener listener;
 
-    public RecordOrdringAdapter(Context context, List<Order> list ) {
+    public ListOrderAdapter(Context context, List<Order> list ) {
         this.context = context;
         this.list = list;
-//        this.listener = listener;
     }
 
     @Override
@@ -36,25 +32,16 @@ public class RecordOrdringAdapter extends RecyclerView.Adapter<RecordOrdringAdap
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
-//
-//    public interface Listener{
-//        void onclick();
-//    }
+
 
     @Override
-    public void onBindViewHolder( RecordOrdringAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ListOrderAdapter.ViewHolder holder, int position) {
         Order order = list.get(position);
         holder.name.setText(order.name);
         holder.status.setText(String.valueOf(order.statusCustomer));
         holder.total.setText(order.total);
-        holder.name.setText(order.name);
         holder.explain.setText(order.discrebtion);
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                listener.onclick();
-//            }
-//        });
+
     }
 
 
@@ -84,7 +71,8 @@ public class RecordOrdringAdapter extends RecyclerView.Adapter<RecordOrdringAdap
 
         @Override
         public void onClick(View v) {
-            final Intent intent = new Intent(context , OrderDetaill.class);
+            final Intent intent = new Intent(context , OrderDetail.class);
+            intent.putExtra("code" , list.get(getAdapterPosition()).code);
             context.startActivity(intent);
 
         }

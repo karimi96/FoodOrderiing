@@ -16,7 +16,7 @@ import com.example.foodorderiing.model.Product;
 import java.util.List;
 
 
-public class OrdringAdapter extends RecyclerView.Adapter<OrdringAdapter.ViewHolder> {
+public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
     Context context;
     Product product ;
     List<Product> list;
@@ -25,7 +25,7 @@ public class OrdringAdapter extends RecyclerView.Adapter<OrdringAdapter.ViewHold
     public Listener listener ;
 
 
-    public OrdringAdapter(List<Product> list, Context context , Listener listener  ) {
+    public OrderAdapter(List<Product> list, Context context , Listener listener  ) {
         this.list = list;
         this.context = context;
         this.listener = listener ;
@@ -37,7 +37,7 @@ public class OrdringAdapter extends RecyclerView.Adapter<OrdringAdapter.ViewHold
     }
 
     @Override
-    public OrdringAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public OrderAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.list_item_ordering,parent,false);
         ViewHolder viewHolder = new ViewHolder(view);
@@ -47,7 +47,7 @@ public class OrdringAdapter extends RecyclerView.Adapter<OrdringAdapter.ViewHold
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void onBindViewHolder(OrdringAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(OrderAdapter.ViewHolder holder, int position) {
         product = list.get(position);
         holder.tv_name_food.setText(product.name);
         holder.tv_name_category.setText(product.category);
