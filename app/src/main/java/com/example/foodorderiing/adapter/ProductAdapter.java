@@ -132,7 +132,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             @Override
             public void onClick(View v) {
 
-                new AlertDialog.Builder(context,R.font.iran_sans)
+                new AlertDialog.Builder(context)
                         .setTitle("حذف")
                         .setMessage("ایا مایلید این مورد را حذف کنید؟")
                         .setPositiveButton("بله", new DialogInterface.OnClickListener() {

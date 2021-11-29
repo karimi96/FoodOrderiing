@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 
 import com.example.foodorderiing.database.dao.CustomerDao;
 import com.example.foodorderiing.database.dao.GroupingDao;
-import com.example.foodorderiing.database.dao.RecordOrderDao;
+import com.example.foodorderiing.database.dao.OrderDao;
 import com.example.foodorderiing.database.dao.OrderDetailDao;
 import com.example.foodorderiing.database.dao.ProductDao;
 import com.example.foodorderiing.model.Customer;
@@ -39,7 +39,7 @@ public abstract class DatabaseHelper extends RoomDatabase {
     public abstract ProductDao productDao();
     public abstract GroupingDao groupingDao();
     public abstract CustomerDao customerDao();
-    public abstract RecordOrderDao orderDao();
+    public abstract OrderDao orderDao();
     public abstract OrderDetailDao orderDetailDao();
 
 }

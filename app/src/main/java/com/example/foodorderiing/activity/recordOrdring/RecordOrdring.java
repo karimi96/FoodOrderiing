@@ -1,21 +1,14 @@
 package com.example.foodorderiing.activity.recordOrdring;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
 
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.adapter.RecordOrdringAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
-import com.example.foodorderiing.database.dao.RecordOrderDao;
-import com.example.foodorderiing.model.OrderDetail;
-
-import org.jetbrains.annotations.NotNull;
+import com.example.foodorderiing.database.dao.OrderDao;
 
 public class RecordOrdring extends AppCompatActivity {
     RecyclerView recyclerView ;
@@ -23,7 +16,7 @@ public class RecordOrdring extends AppCompatActivity {
     RecordOrdringAdapter adapter ;
 
     DatabaseHelper db ;
-    RecordOrderDao dao ;
+    OrderDao dao ;
 
 
     @Override

@@ -29,7 +29,7 @@
         android:layout_toEndOf="@id/img_person"
         android:fontFamily="@font/iran_sans"
         android:textColor="#676767"
-        android:text="کاربر" />
+        android:text="مشتری " />
 
     <ImageView
         android:layout_width="30dp"

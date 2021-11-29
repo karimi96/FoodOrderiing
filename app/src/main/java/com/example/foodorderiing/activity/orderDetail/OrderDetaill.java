@@ -8,13 +8,15 @@ import android.os.Bundle;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.adapter.OrdringDetailAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
+import com.example.foodorderiing.database.dao.OrderDao;
 import com.example.foodorderiing.database.dao.OrderDetailDao;
 
 public class OrderDetaill extends AppCompatActivity {
 
     private RecyclerView recycler;
     private DatabaseHelper db ;
-    private OrderDetailDao dao;
+    private OrderDetailDao dao_orderDetail;
+    private OrderDao dao_order;
     private OrdringDetailAdapter adapter ;
 
     @Override
@@ -28,10 +30,10 @@ public class OrderDetaill extends AppCompatActivity {
 
     }
 
-
     private void initDataBase(){
         db = DatabaseHelper.getInstance(getApplicationContext());
-        dao = db.orderDetailDao();
+        dao_orderDetail = db.orderDetailDao();
+        dao_order = db.orderDao();
     }
 
     private void initID(){
@@ -41,7 +43,8 @@ public class OrderDetaill extends AppCompatActivity {
 
     private void initRecycler(){
         recycler.setHasFixedSize(true);
-        adapter = new OrdringDetailAdapter( this );
+//        String code = dao_order.getOrderList().
+        adapter = new OrdringDetailAdapter(dao_orderDetail.getSpecificOrder("1") , this );
         recycler.setAdapter(adapter);
     }
 

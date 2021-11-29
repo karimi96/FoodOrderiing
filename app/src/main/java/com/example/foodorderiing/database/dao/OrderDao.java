@@ -12,7 +12,7 @@ import com.example.foodorderiing.model.OrderDetail;
 import java.util.List;
 
 @Dao
-public interface RecordOrderDao {
+public interface OrderDao {
     @Query("Select * from ordering")
     List<Order> getOrderList();
 

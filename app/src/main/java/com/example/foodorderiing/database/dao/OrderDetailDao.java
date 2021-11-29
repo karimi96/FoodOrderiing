@@ -17,6 +17,11 @@ public interface OrderDetailDao {
     List<OrderDetail> getOrderDetailList();
 
 
+    @Query("Select * from orderdetail where code = :code")
+    List<OrderDetail> getSpecificOrder(String code);
+
+
+
     @Insert
     void insertOrderDetail(OrderDetail orderDetail);
 

@@ -4,44 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/red_toolbar"
     tools:context=".activity.orderDetail.OrderDetaill">
 
 
-<!--    <LinearLayout-->
-<!--        android:orientation="vertical"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
-
-<!--    <LinearLayout-->
-<!--        android:id="@+id/linear1"-->
-<!--        android:background="@color/red_toolbar"-->
-<!--        android:layout_weight="1"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:orientation="vertical">-->
-
-<!--    </LinearLayout>-->
-
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_marginTop="150dp"
-            android:background="@color/white_text"
-            android:outlineSpotShadowColor="@color/red_toolbar"
+            android:id="@+id/linear1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_detail"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/list_item_order_detail"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/border_detail"
+            android:orientation="vertical">
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/linear2"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <include
+        layout="@layout/boxuser_detail" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/linear3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="100dp"
+        app:cardCornerRadius="8dp"
+        android:layout_marginBottom="25dp"
+        android:background="@color/white_text"
+        android:outlineSpotShadowColor="@color/red_toolbar">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/list_item_order_detail" />
+
+    </androidx.cardview.widget.CardView>
 
 
 </RelativeLayout>

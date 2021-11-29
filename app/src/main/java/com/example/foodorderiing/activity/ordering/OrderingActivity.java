@@ -7,6 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -15,7 +16,7 @@ import com.example.foodorderiing.activity.customer.CustomerActivity;
 import com.example.foodorderiing.activity.product.ProductActivity;
 import com.example.foodorderiing.adapter.OrdringAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
-import com.example.foodorderiing.database.dao.RecordOrderDao;
+import com.example.foodorderiing.database.dao.OrderDao;
 import com.example.foodorderiing.database.dao.OrderDetailDao;
 import com.example.foodorderiing.database.dao.ProductDao;
 import com.example.foodorderiing.helper.Tools;
@@ -30,28 +31,24 @@ import com.r0adkll.slidr.model.SlidrInterface;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class OrderingActivity extends AppCompatActivity {
-    RecyclerView recyclerView;
-    OrdringAdapter ordringAdapter;
-    DatabaseHelper db;
-
-    ProductDao dao_product;
-    RecordOrderDao dao_order;
-    OrderDetailDao dao_detail ;
-
-    TextView record_order,add_order;
-    View box_customer;
+    private RecyclerView recyclerView;
+    private OrdringAdapter ordringAdapter;
+    private DatabaseHelper db;
+    private ProductDao dao_product;
+    private OrderDao dao_order;
+    private OrderDetailDao dao_detail ;
+    private TextView add_order;
+    private View box_customer;
     private SlidrInterface slidr;
-    TextView name_customer;
-    LottieAnimationView lottie;
-    OrderDetail orderDetail ;
-    OrderDetailDao orderDetailDao;
-    List<Product> list1 ;
-    TextView number_order;
-    TextView total ;
-    TextView save_order ;
-
-    Customer customer;
+    private TextView name_customer;
+    private LottieAnimationView lottie;
+    private List<Product> list1 ;
+    private TextView number_order, total, save_order ;
+    private Customer customer;
+    private CardView card_number;
+    private String CODE = String.valueOf(System.currentTimeMillis());
 
 
     @Override
@@ -60,40 +57,12 @@ public class OrderingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ordering);
 
         slidr = Slidr.attach(this);
-        db = DatabaseHelper.getInstance(getApplicationContext());
-        dao_product = db.productDao();
-        dao_order = db.orderDao();
-        dao_detail = db.orderDetailDao();
-
+        initDataBase();
         initID();
         initBoxCustomer();
         initBoxProduct();
         initLottie();
-
-        list1 = new ArrayList<>();
-        ordringAdapter = new OrdringAdapter(list1, this, new OrdringAdapter.Listener() {
-            @Override
-            public void onAdded(int pos) {
-                list1.get(pos).amount = list1.get(pos).amount + 1;
-                ordringAdapter.notifyItemChanged(pos);
-                initCounter();
-            }
-
-            @Override
-            public void onRemove(int pos) {
-                if (list1.get(pos).amount > 0){
-                    list1.get(pos).amount = list1.get(pos).amount - 1;
-                    ordringAdapter.notifyItemChanged(pos);
-                }else {
-                    list1.remove(pos);
-                    ordringAdapter.notifyDataSetChanged();
-                }
-                initCounter();
-            }
-        });
-        recyclerView.setAdapter(ordringAdapter);
-        recyclerView.setHasFixedSize(true);
-
+        initRecycler();
         initSaveOrder();
 
 
@@ -124,6 +93,41 @@ public class OrderingActivity extends AppCompatActivity {
         }
     }
 
+
+    private void initRecycler(){
+        list1 = new ArrayList<>();
+        ordringAdapter = new OrdringAdapter(list1, this, new OrdringAdapter.Listener() {
+            @Override
+            public void onAdded(int pos) {
+                list1.get(pos).amount = list1.get(pos).amount + 1;
+                ordringAdapter.notifyItemChanged(pos);
+                initCounter();
+            }
+
+            @Override
+            public void onRemove(int pos) {
+                if (list1.get(pos).amount > 0){
+                    list1.get(pos).amount = list1.get(pos).amount - 1;
+                    ordringAdapter.notifyItemChanged(pos);
+                }else if (list1.get(pos).amount == 0 ){
+                    list1.remove(pos);
+                    ordringAdapter.notifyDataSetChanged();
+
+                }
+                initCounter();
+            }
+        });
+        recyclerView.setAdapter(ordringAdapter);
+        recyclerView.setHasFixedSize(true);
+    }
+
+    private void initDataBase(){
+        db = DatabaseHelper.getInstance(getApplicationContext());
+        dao_product = db.productDao();
+        dao_order = db.orderDao();
+        dao_detail = db.orderDetailDao();
+    }
+
     private void initID(){
         add_order = findViewById(R.id.add_order);
         box_customer = findViewById(R.id.box_customer);
@@ -133,8 +137,8 @@ public class OrderingActivity extends AppCompatActivity {
         save_order = findViewById(R.id.save_order);
         number_order = findViewById(R.id.text_number_of_order);
         recyclerView = findViewById(R.id.recycler_ordering);
+        card_number = findViewById(R.id.card_number);
     }
-
 
     private void initBoxCustomer(){
         box_customer.setOnClickListener(v ->{
@@ -143,7 +147,6 @@ public class OrderingActivity extends AppCompatActivity {
            startActivityForResult(intent,100);
         });
     }
-
 
     private void initBoxProduct(){
         add_order.setOnClickListener(v ->{
@@ -154,8 +157,10 @@ public class OrderingActivity extends AppCompatActivity {
     }
 
     private void initCounter(){
+        card_number.setVisibility(View.VISIBLE);
         number_order.setText(list1.size()+"");
         total.setText(getTotalPrice()+"");
+
     }
 
     private Integer getTotalPrice(){
@@ -178,18 +183,15 @@ public class OrderingActivity extends AppCompatActivity {
     }
 
     private void initSaveOrder(){
-        save_order.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dao_order.insertOrder(new Order(customer.name , "1" , customer.customer_id , 1 , total.getText()+"" , "با تمام مخلفات " ));
+        save_order.setOnClickListener(view -> {
+            dao_order.insertOrder(new Order(customer.name , CODE , customer.customer_id , 1 , total.getText()+"" , "با تمام مخلفات " ));
 
-                for (int i = 0; i < list1.size(); i++) {
-                    dao_detail.insertOrderDetail(new OrderDetail(list1.get(i).name , list1.get(i).category , list1.get(i).price ,
-                                                Tools.convertToPrice(number_order.getText().toString()) , dao_order.getOrderList().get(i).code ));
+            for (int i = 0; i < list1.size(); i++) {
+                dao_detail.insertOrderDetail(new OrderDetail(list1.get(i).name , list1.get(i).category , list1.get(i).price ,
+                                            Tools.convertToPrice(number_order.getText().toString()) ,CODE ));
 
-                    Toast.makeText(OrderingActivity.this, "save data", Toast.LENGTH_SHORT).show();
-                    finish();
-                }
+                Toast.makeText(OrderingActivity.this, "save data", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }

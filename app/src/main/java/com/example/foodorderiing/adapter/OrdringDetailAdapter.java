@@ -21,17 +21,14 @@ import java.util.List;
 
 public class OrdringDetailAdapter extends RecyclerView.Adapter<OrdringDetailAdapter.ViewHolder> {
     Context context;
-//    List<OrderDetail> list;
+    List<OrderDetail> list;
 
 
-//    public OrdringDetailAdapter(List<OrderDetail> list, Context context ) {
-//        this.list = list;
-//        this.context = context;
-//    }
-
-    public OrdringDetailAdapter( Context context ) {
+    public OrdringDetailAdapter(List<OrderDetail> list, Context context ) {
+        this.list = list;
         this.context = context;
     }
+
 
     @Override
     public OrdringDetailAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -43,17 +40,18 @@ public class OrdringDetailAdapter extends RecyclerView.Adapter<OrdringDetailAdap
 
     @Override
     public void onBindViewHolder(OrdringDetailAdapter.ViewHolder holder, int position) {
-//        OrderDetail orderDetail = list.get(position);
-//        holder.name_detail.setText(orderDetail.name);
-//        holder.category_detail.setText(orderDetail.category);
-//        holder.price_detail.setText(orderDetail.price);
+        OrderDetail orderDetail = list.get(position);
+        holder.name_detail.setText(orderDetail.name);
+        holder.category_detail.setText(orderDetail.category);
+        holder.price_detail.setText(orderDetail.price);
+        holder.amount_detail.setText(orderDetail.amount);
 
     }
 
 
     @Override
     public int getItemCount() {
-        return 12;
+        return list.size();
     }
 
 
@@ -62,13 +60,15 @@ public class OrdringDetailAdapter extends RecyclerView.Adapter<OrdringDetailAdap
         TextView name_detail;
         TextView category_detail;
         TextView price_detail;
+        TextView amount_detail;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
            name_detail = itemView.findViewById(R.id.name_detail);
-           category_detail = itemView.findViewById(R.id.category_detail);
-           price_detail = itemView.findViewById(R.id.price_detail);
+           category_detail = itemView.findViewById(R.id.category_detail1);
+           price_detail = itemView.findViewById(R.id.price_ordring);
+           amount_detail = itemView.findViewById(R.id.amount_detail);
         }
     }
 

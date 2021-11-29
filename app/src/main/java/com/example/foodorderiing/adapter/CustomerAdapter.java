@@ -50,7 +50,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     }
 
     public interface Listener{
-        void onClickListener(Customer customer , List<Customer> list , int pos);
+        void onClickListener(Customer customer , int pos , String name);
     }
 
     @Override
@@ -71,8 +71,8 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClickListener(customer , list , position);
-//                showDialogSheet(position , list.get(position).name);
+                listener.onClickListener(customer , position , list.get(position).name);
+//
             }
         });
 
@@ -109,7 +109,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     }
 
 
-    private void showDialogSheet(int pos , String name){
+    public void showDialogSheet(int pos , String name){
 
         final Dialog dialog_sheet = new Dialog(context);
         dialog_sheet.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -134,7 +134,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
             @Override
             public void onClick(View v) {
 
-                new AlertDialog.Builder(context , R.font.iran_sans )
+                new AlertDialog.Builder(context )
                         .setTitle("حذف")
                         .setMessage("ایا مایلید این مورد را حذف کنید؟")
                         .setPositiveButton("بله", new DialogInterface.OnClickListener() {
