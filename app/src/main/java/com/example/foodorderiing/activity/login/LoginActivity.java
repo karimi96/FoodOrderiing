@@ -30,10 +30,6 @@ public class LoginActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
-
-//        full_screen();
-
-
         init();
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.food_honey);
         Bitmap bit_kebab = BlureImage.blur18(getApplicationContext(),bm,18f);
@@ -69,7 +65,6 @@ public class LoginActivity extends AppCompatActivity {
         tv_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
@@ -85,22 +80,6 @@ public class LoginActivity extends AppCompatActivity {
         img_back = findViewById(R.id.img_background);
 
     }
-
-
-//    public void full_screen(){
-//        View decorView = getWindow().getDecorView();
-//        decorView.setSystemUiVisibility(
-//                View.SYSTEM_UI_FLAG_IMMERSIVE
-//                // Set the content to appear under the system bars so that the
-//                // content doesn't resize when the system bars hide and show.
-//                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-//                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-//                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//                // Hide the nav bar and status bar
-//                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-//                | View.SYSTEM_UI_FLAG_FULLSCREEN
-//                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-//    }
 
 
     @Override
