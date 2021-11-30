@@ -75,6 +75,7 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.View
             intent.putExtra("code" , list.get(getAdapterPosition()).code);
             intent.putExtra("customerid" , list.get(getAdapterPosition()).customerID);
             intent.putExtra("name" , list.get(getAdapterPosition()).name);
+            intent.putExtra("total" , list.get(getAdapterPosition()).total);
             context.startActivity(intent);
 
         }

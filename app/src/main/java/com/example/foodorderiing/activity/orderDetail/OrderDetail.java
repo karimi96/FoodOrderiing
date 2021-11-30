@@ -24,9 +24,9 @@ public class OrderDetail extends AppCompatActivity {
     private OrderDao dao_order;
     private CustomerDao dao_customer;
     private OrderDetailAdapter adapter ;
-    private String code , customerName;
+    private String code , customerName , total_detail;
     private int customerID;
-    private TextView name , phone ;
+    private TextView name , phone , total;
     private ImageView back;
     private Customer customer;
 
@@ -40,6 +40,7 @@ public class OrderDetail extends AppCompatActivity {
             code = getIntent().getStringExtra("code");
             customerID = getIntent().getIntExtra("customerid" ,0 );
             customerName = getIntent().getStringExtra("name");
+            total_detail = getIntent().getStringExtra("total");
         }
 
 
@@ -47,6 +48,7 @@ public class OrderDetail extends AppCompatActivity {
         initID();
         initRecycler();
         setBoxCustomer();
+        setTotal();
 
     }
 
@@ -62,15 +64,15 @@ public class OrderDetail extends AppCompatActivity {
         name = findViewById(R.id.customer_detail);
         phone = findViewById(R.id.phone_detail);
         back = findViewById(R.id.back_detail);
-
+        total = findViewById(R.id.total_detail);
     }
-
+    
     private void initRecycler(){
         recycler.setHasFixedSize(true);
         adapter = new OrderDetailAdapter( dao_orderDetail.getSpecificOrder(code), this );
         recycler.setAdapter(adapter);
-    }
 
+    }
 
     private void setBoxCustomer(){
         name.setText(customerName);
@@ -82,6 +84,10 @@ public class OrderDetail extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setTotal(){
+        total.setText(total_detail);
 
     }
 
