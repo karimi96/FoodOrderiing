@@ -18,7 +18,6 @@ import com.example.foodorderiing.adapter.OrderAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.OrderDao;
 import com.example.foodorderiing.database.dao.OrderDetailDao;
-import com.example.foodorderiing.database.dao.ProductDao;
 import com.example.foodorderiing.helper.Tools;
 import com.example.foodorderiing.model.Customer;
 import com.example.foodorderiing.model.Order;
@@ -53,7 +52,7 @@ public class OrderActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ordering);
+        setContentView(R.layout.activity_order);
 
         slidr = Slidr.attach(this);
         initDataBase();

@@ -66,7 +66,7 @@ public class OrderDetail extends AppCompatActivity {
         back = findViewById(R.id.back_detail);
         total = findViewById(R.id.total_detail);
     }
-    
+
     private void initRecycler(){
         recycler.setHasFixedSize(true);
         adapter = new OrderDetailAdapter( dao_orderDetail.getSpecificOrder(code), this );
