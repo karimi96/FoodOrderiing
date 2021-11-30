@@ -36,7 +36,6 @@ public class OrderActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private OrderAdapter ordringAdapter;
     private DatabaseHelper db;
-    private ProductDao dao_product;
     private OrderDao dao_order;
     private OrderDetailDao dao_detail ;
     private TextView add_order;
@@ -135,7 +134,6 @@ public class OrderActivity extends AppCompatActivity {
 
     private void initDataBase(){
         db = DatabaseHelper.getInstance(getApplicationContext());
-        dao_product = db.productDao();
         dao_order = db.orderDao();
         dao_detail = db.orderDetailDao();
     }
@@ -188,6 +186,7 @@ public class OrderActivity extends AppCompatActivity {
         return p;
     }
 
+
     private void initLottie(){
         lottie.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,7 +203,8 @@ public class OrderActivity extends AppCompatActivity {
             dao_order.insertOrder(new Order(customer.name , CODE , customer.customer_id , 1 , total.getText()+"" , "با تمام مخلفات " ));
 
             for (int i = 0; i < orderDetailList.size(); i++) {
-                dao_detail.insertOrderDetail(new OrderDetail(orderDetailList.get(i).name , orderDetailList.get(i).category , orderDetailList.get(i).price ,
+                dao_detail.insertOrderDetail(new OrderDetail(orderDetailList.get(i).name , orderDetailList.get(i).category ,
+                        String.valueOf(Tools.convertToPrice(orderDetailList.get(i).price) * orderDetailList.get(i).amount)  ,
                                     orderDetailList.get(i).amount ,CODE ));
 
                 Toast.makeText(OrderActivity.this, "save data", Toast.LENGTH_SHORT).show();
