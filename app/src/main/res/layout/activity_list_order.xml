@@ -4,13 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white_text"
     tools:context=".activity.listOrder.ListOrder">
 
-   <androidx.recyclerview.widget.RecyclerView
-       tools:listitem="@layout/list_item_record_ordring"
-       android:id="@+id/recycler_recordOrdring"
-       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_recordOrdring"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingTop="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/list_item_record_ordring" />
 
 </RelativeLayout>

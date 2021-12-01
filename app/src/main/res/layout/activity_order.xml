@@ -11,7 +11,6 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar_ordring" />
 
-
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
@@ -29,21 +28,21 @@
                 layout="@layout/user_detail" />
 
             <TextView
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginBottom="5dp"
-                android:elevation="5dp"
-                android:shadowColor="@color/red_toolbar"
                 android:id="@+id/add_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="5dp"
                 android:background="@drawable/border_add_product_ordring"
                 android:drawableRight="@drawable/ic_red_add_24"
                 android:drawablePadding="10dp"
+                android:elevation="5dp"
                 android:fontFamily="@font/iran_sans"
                 android:paddingHorizontal="10dp"
-                android:textColor="#676767"
                 android:paddingVertical="15dp"
+                android:shadowColor="@color/red_toolbar"
                 android:text="افزودن محصول"
+                android:textColor="#676767"
                 android:textSize="16dp" />
 
 

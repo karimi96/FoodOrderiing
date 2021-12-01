@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="6dp"
-    android:outlineSpotShadowColor="@color/red_toolbar"
-    android:layout_marginHorizontal="10dp"
-    android:layout_marginBottom="10dp"
-    app:cardCornerRadius="10dp">
+    android:orientation="vertical">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginHorizontal="10dp"
+        android:background="@drawable/border_list_order_up"
+        android:orientation="vertical"
+        android:paddingVertical="6dp"
+        android:paddingStart="6dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/iran_sans"
-                android:padding="10dp"
+                android:padding="8dp"
                 android:text="نام :"
                 android:textColor="#9c9b9b" />
 
@@ -32,8 +33,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/iran_sans"
-                android:paddingVertical="10dp"
-                android:paddingEnd="10dp"
+                android:paddingVertical="8dp"
+                android:paddingEnd="8dp"
                 android:text="رقیه کریمی"
                 android:textColor="#676767" />
 
@@ -48,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/iran_sans"
-                android:padding="10dp"
+                android:padding="8dp"
                 android:text="وضعیت مشتری :"
                 android:textColor="#9c9b9b" />
 
@@ -57,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/iran_sans"
-                android:paddingVertical="10dp"
+                android:paddingVertical="8dp"
                 android:paddingEnd="10dp"
                 android:text="در حال ارسال"
                 android:textColor="#676767" />
@@ -73,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/iran_sans"
-                android:padding="10dp"
+                android:padding="8dp"
                 android:text="جمع کل :"
                 android:textColor="#9c9b9b" />
 
@@ -82,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/irsansfanum"
-                android:paddingVertical="10dp"
+                android:paddingVertical="8dp"
                 android:paddingEnd="10dp"
                 android:text="88,88"
                 android:textColor="#676767" />
@@ -98,7 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/iran_sans"
-                android:padding="10dp"
+                android:padding="8dp"
                 android:text="توضیحات :"
                 android:textColor="#9c9b9b" />
 
@@ -107,7 +108,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/iran_sans"
-                android:paddingVertical="10dp"
+                android:paddingVertical="8dp"
                 android:paddingEnd="10dp"
                 android:text="توضیحات بیشتر"
                 android:textColor="#676767" />
@@ -117,4 +118,53 @@
     </LinearLayout>
 
 
-</androidx.cardview.widget.CardView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/border_list_order_down"
+        android:elevation="3dp"
+        android:outlineSpotShadowColor="@color/red_toolbar"
+        android:paddingStart="6dp">
+
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:padding="10dp"
+            android:src="@drawable/delete" />
+
+        <ImageView
+            android:layout_toStartOf="@id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:src="@drawable/edit" />
+
+        <TextView
+            android:id="@+id/time_listOrdring"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:fontFamily="@font/irsansfanum"
+            android:text="10:56"
+            android:textColor="#dbdbdb" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/time_listOrdring"
+            android:padding="10dp"
+            android:fontFamily="@font/irsansfanum"
+            android:text="1400.05.17"
+            android:textColor="#dbdbdb" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>
