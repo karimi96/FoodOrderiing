@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodorderiing.R;
@@ -54,6 +56,7 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.View
         TextView status;
         TextView total;
         TextView explain;
+        ImageView delete;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -62,9 +65,18 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.View
             status = itemView.findViewById(R.id.status_record);
             total = itemView.findViewById(R.id.total_record);
             explain = itemView.findViewById(R.id.explain_record);
+            delete = itemView.findViewById(R.id.delete_listOrder);
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
 
             itemView.setOnClickListener(this);
 //            itemView.setClickable(true);
+
+
 
         }
 
@@ -76,6 +88,10 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.View
             intent.putExtra("name" , list.get(getAdapterPosition()).name);
             intent.putExtra("total" , list.get(getAdapterPosition()).total);
             context.startActivity(intent);
+
+
+
+
 
         }
     }

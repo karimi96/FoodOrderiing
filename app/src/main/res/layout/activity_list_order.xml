@@ -7,7 +7,11 @@
     android:background="@color/white_text"
     tools:context=".activity.listOrder.ListOrder">
 
+    <include android:id="@+id/toolbar_listOrder"
+        layout="@layout/toolbar_list_order"/>
+
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/toolbar_listOrder"
         android:id="@+id/recycler_recordOrdring"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
