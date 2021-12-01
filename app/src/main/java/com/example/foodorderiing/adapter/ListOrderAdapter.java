@@ -12,6 +12,9 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.orderDetail.OrderDetail;
+import com.example.foodorderiing.database.DatabaseHelper;
+import com.example.foodorderiing.database.dao.OrderDao;
+import com.example.foodorderiing.database.dao.OrderDetailDao;
 import com.example.foodorderiing.model.Order;
 
 import java.util.List;
@@ -20,6 +23,8 @@ import java.util.List;
 public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.ViewHolder> {
     private Context context ;
     private List<Order> list ;
+    DatabaseHelper db = DatabaseHelper.getInstance(context.getApplicationContext());
+
 
     public ListOrderAdapter(Context context, List<Order> list ) {
         this.context = context;
@@ -69,14 +74,20 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.View
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    OrderDao dao = db.orderDao();
+                    dao.deleteOrder(list.get(getAdapterPosition()));
+                    list.remove(getAdapterPosition());
+                    notifyItemRemoved(getAdapterPosition());
+                    notifyItemRangeChanged(getAdapterPosition(),list.size());
+                    notifyDataSetChanged();
 
+                    OrderDetailDao dao_detail = db.orderDetailDao();
+                    dao_detail.deleteOneObject(list.get(getAdapterPosition()).code);
                 }
             });
 
             itemView.setOnClickListener(this);
 //            itemView.setClickable(true);
-
-
 
         }
 
@@ -88,10 +99,6 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.View
             intent.putExtra("name" , list.get(getAdapterPosition()).name);
             intent.putExtra("total" , list.get(getAdapterPosition()).total);
             context.startActivity(intent);
-
-
-
-
 
         }
     }
