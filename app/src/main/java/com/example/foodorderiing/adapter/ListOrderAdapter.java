@@ -23,7 +23,7 @@ import java.util.List;
 public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.ViewHolder> {
     private Context context ;
     private List<Order> list ;
-    DatabaseHelper db = DatabaseHelper.getInstance(context.getApplicationContext());
+    DatabaseHelper db = DatabaseHelper.getInstance(context);
 
 
     public ListOrderAdapter(Context context, List<Order> list ) {
@@ -81,8 +81,8 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.View
                     notifyItemRangeChanged(getAdapterPosition(),list.size());
                     notifyDataSetChanged();
 
-                    OrderDetailDao dao_detail = db.orderDetailDao();
-                    dao_detail.deleteOneObject(list.get(getAdapterPosition()).code);
+//                    OrderDetailDao dao_detail = db.orderDetailDao();
+//                    dao_detail.deleteOneObject(list.get(getAdapterPosition()).code);
                 }
             });
 

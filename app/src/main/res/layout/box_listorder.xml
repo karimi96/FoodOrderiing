@@ -3,16 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="10dp"
-    android:layout_marginTop="3dp"
+    android:layout_marginTop="2dp"
     android:layout_marginBottom="10dp"
     android:background="@drawable/border_list_order_down"
+    android:elevation="1dp"
+    android:outlineSpotShadowColor="@color/red_toolbar"
     android:paddingStart="5dp">
 
 
     <ImageView
         android:id="@+id/delete_listOrder"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:background="@drawable/ripple_circle_shop"
         android:padding="10dp"

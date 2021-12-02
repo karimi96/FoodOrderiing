@@ -20,11 +20,10 @@ public interface OrderDetailDao {
     @Query("Select * from orderdetail where code = :code")
     List<OrderDetail> getSpecificOrder(String code);
 
-//    @Query("delete from orderdetail where code = :code")
 
-    @Delete
-    void deleteOneObject(String code);
-
+//    @Delete
+//    void deleteOneObject(String code);
+//
 
     @Insert
     void insertOrderDetail(OrderDetail orderDetail);
