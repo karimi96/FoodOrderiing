@@ -33,7 +33,7 @@
                 android:paddingEnd="5dp"
                 android:layout_marginStart="5dp"
                 android:text="رقیه کریمی"
-                android:textColor="@color/red_toolbar" />
+                android:textColor="#676767" />
 
         </LinearLayout>
 
