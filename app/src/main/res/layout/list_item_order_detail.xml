@@ -11,8 +11,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/img"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="10dp"
         android:outlineSpotShadowColor="@color/red_toolbar"
@@ -30,20 +30,20 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="15dp"
         android:outlineSpotShadowColor="@color/red_toolbar"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="8dp"
-        app:cardElevation="6dp">
+        app:cardElevation="4dp">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="68dp"
+            android:layout_marginStart="55dp"
             android:layout_marginEnd="10dp"
             android:gravity="center"
             android:orientation="vertical">
@@ -57,27 +57,28 @@
                     android:id="@+id/name_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:fontFamily="@font/iran_sans"
-                    android:padding="10dp"
+                    android:padding="15dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
                     android:text="سالاد سزار"
                     android:textColor="#676767"
-                    android:textSize="14dp"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/price_detai1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
+                    android:layout_gravity="end"
                     android:fontFamily="@font/irsansfanum"
                     android:gravity="end"
-                    android:paddingVertical="10dp"
-                    android:paddingStart="20dp"
+                    android:layout_weight="0.5"
+                    android:paddingVertical="15dp"
                     android:paddingEnd="4dp"
                     android:text="88,999"
                     android:textColor="#676767"
-                    android:textSize="14dp"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -89,15 +90,17 @@
 
                 <TextView
                     android:id="@+id/category_detail1"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/iran_sans"
                     android:paddingHorizontal="10dp"
-                    android:paddingBottom="10dp"
+                    android:paddingBottom="15dp"
+                    android:paddingStart="15dp"
                     android:text="سالاد"
+                    android:gravity="right"
                     android:textColor="#9c9b9b"
-                    android:textSize="12dp" />
+                    android:textSize="14dp" />
 
 
                 <androidx.cardview.widget.CardView
@@ -109,14 +112,14 @@
                     <TextView
                         android:id="@+id/amount_detail"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:background="@color/red_toolbar"
                         android:fontFamily="@font/irsansfanum"
                         android:paddingHorizontal="30dp"
                         android:paddingVertical="3dp"
                         android:text="10"
                         android:textColor="@color/white_text"
-                        android:textSize="14dp"
+                        android:textSize="16dp"
                         android:textStyle="bold" />
 
                 </androidx.cardview.widget.CardView>

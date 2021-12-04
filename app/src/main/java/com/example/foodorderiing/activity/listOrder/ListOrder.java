@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.adapter.ListOrderAdapter;
@@ -11,12 +13,11 @@ import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.OrderDao;
 
 public class ListOrder extends AppCompatActivity {
-    RecyclerView recyclerView ;
-    ListOrder recordOrdring ;
-    ListOrderAdapter adapter ;
-
-    DatabaseHelper db ;
-    OrderDao dao ;
+    private RecyclerView recyclerView ;
+    private ListOrderAdapter adapter ;
+    private DatabaseHelper db ;
+    private OrderDao dao ;
+    private TextView noListOrder;
 
 
     @Override
@@ -36,35 +37,22 @@ public class ListOrder extends AppCompatActivity {
 
     private void initID (){
         recyclerView = findViewById(R.id.recycler_recordOrdring);
+        noListOrder = findViewById(R.id.noListOrder);
     }
 
     private void initRecycler(){
         recyclerView.setHasFixedSize(true);
         adapter = new ListOrderAdapter(this, dao.getOrderList());
         recyclerView.setAdapter(adapter);
-//        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-//            @Override
-//            public boolean onInterceptTouchEvent( RecyclerView rv,  MotionEvent e) {
-//                Intent intent = new Intent(RecordOrdring.this , OrderDetail.class);
-//                startActivity(intent);
-//                return false;
-//            }
-//
-//            @Override
-//            public void onTouchEvent( RecyclerView rv, MotionEvent e) {
-//
-//            }
-//
-//            @Override
-//            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-//
-//            }
-//        });
-
-
 
     }
 
-
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(dao.getOrderList().size() != 0){
+            noListOrder.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
+    }
 }

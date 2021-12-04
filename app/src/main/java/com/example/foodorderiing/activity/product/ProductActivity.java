@@ -170,7 +170,7 @@ public class ProductActivity extends AppCompatActivity {
 //            public void onClick(View v) {
 
                 recyclerView_product.setHasFixedSize(true);
-                adapter_pro = new ProductAdapter(new ArrayList<>(), getApplicationContext() , new ProductAdapter.Listener() {
+                adapter_pro = new ProductAdapter(new ArrayList<>(), this , new ProductAdapter.Listener() {
                     @Override
                     public void onClick(Product product , int pos , String name ) {
 

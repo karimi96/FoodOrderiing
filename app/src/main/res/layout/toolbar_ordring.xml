@@ -19,16 +19,12 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie"
-        android:layout_width="50dp"
+        android:layout_width="60dp"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         app:lottie_autoPlay="false"
-        android:background="@drawable/ripple_circle_shop"
-        android:paddingBottom="17dp"
-        android:paddingTop="8dp"
-        android:paddingStart="8dp"
         app:lottie_loop="false"
-        app:lottie_rawRes="@raw/lotti_7_2" />
+        app:lottie_rawRes="@raw/delet6" />
 
 
 </RelativeLayout>

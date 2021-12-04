@@ -47,12 +47,12 @@
 
             <TextView
                 android:id="@+id/noOrder"
-                android:fontFamily="@font/iran_sans"
-                android:layout_marginTop="250dp"
-                android:layout_gravity="center_horizontal"
-                android:text="سفارشی وجود ندارد"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="220dp"
+                android:fontFamily="@font/iran_sans"
+                android:text="سفارشی وجود ندارد" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_ordering"

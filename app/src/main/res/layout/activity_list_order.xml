@@ -17,7 +17,17 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:paddingTop="10dp"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/list_item_list_order" />
+
+    <TextView
+        android:id="@+id/noListOrder"
+        android:text="سفارشی ثبت نشده است"
+        android:gravity="center"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:fontFamily="@font/iran_sans"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>
