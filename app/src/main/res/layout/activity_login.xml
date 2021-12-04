@@ -48,14 +48,14 @@
             app:layout_constraintStart_toStartOf="parent" />
 
 
-<!--        <br.com.sapereaude.maskedEditText.MaskedEditText-->
-<!--            android:hint="phone"-->
-<!--            android:inputType="phone"-->
-<!--app:mask="0999999999"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            tools:ignore="MissingConstraints" />-->
+        <!--        <br.com.sapereaude.maskedEditText.MaskedEditText-->
+        <!--            android:hint="phone"-->
+        <!--            android:inputType="phone"-->
+        <!--app:mask="0999999999"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            tools:ignore="MissingConstraints" />-->
 
 
         <EditText
@@ -86,11 +86,11 @@
             android:drawablePadding="10dp"
             android:ems="10"
             android:fontFamily="@font/iran_sans"
+            android:gravity="right"
             android:hint="پسورد"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:paddingBottom="15dp"
-            android:textAlignment="textStart"
             android:textColor="@color/white_text"
             android:textColorHint="@color/tosi_lite"
             android:textSize="18dp"

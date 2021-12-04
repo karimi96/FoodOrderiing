@@ -11,6 +11,8 @@ import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.adapter.GroupingAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
@@ -23,12 +25,13 @@ import java.util.ArrayList;
 
 
 public class GroupingActivity extends AppCompatActivity {
-    FloatingActionButton fab_grouping;
-    RecyclerView recyclerView_grouping;
-    GroupingAdapter groupingAdapter;
-    DatabaseHelper db;
-    GroupingDao dao_group;
+    private FloatingActionButton fab_grouping;
+    private RecyclerView recyclerView_grouping;
+    private GroupingAdapter groupingAdapter;
+    private DatabaseHelper db;
+    private GroupingDao dao_group;
     private SlidrInterface slidr ;
+    private TextView noGrouping ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,17 +39,22 @@ public class GroupingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_grouping);
 
         slidr = Slidr.attach(this);
+        initID();
         set_recyclerView();
         set_fab();
         hide_fab();
+    }
+
+    private void initID(){
+        recyclerView_grouping = findViewById(R.id.recycler_grouping);
+        fab_grouping = findViewById(R.id.floating_add_grouping);
+        noGrouping = findViewById(R.id.noGrouping);
     }
 
 
     public void set_recyclerView(){
         db = DatabaseHelper.getInstance(getApplicationContext());
         dao_group = db.groupingDao();
-
-        recyclerView_grouping = findViewById(R.id.recycler_grouping);
         recyclerView_grouping.setHasFixedSize(true);
         groupingAdapter = new GroupingAdapter(new ArrayList<>(),this);
         recyclerView_grouping.setAdapter(groupingAdapter);
@@ -54,7 +62,6 @@ public class GroupingActivity extends AppCompatActivity {
 
 
     public void set_fab(){
-        fab_grouping = findViewById(R.id.floating_add_grouping);
         fab_grouping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +100,10 @@ public class GroupingActivity extends AppCompatActivity {
         super.onResume();
         if( groupingAdapter!= null){
             groupingAdapter.addList(dao_group.getGroupingList());
+        }
+        if(dao_group.getGroupingList().size() != 0 ){
+            noGrouping.setVisibility(View.GONE);
+            recyclerView_grouping.setVisibility(View.VISIBLE);
         }
     }
 

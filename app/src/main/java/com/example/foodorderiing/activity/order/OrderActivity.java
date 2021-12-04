@@ -3,6 +3,7 @@ package com.example.foodorderiing.activity.order;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
@@ -28,6 +29,7 @@ import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -37,16 +39,15 @@ public class OrderActivity extends AppCompatActivity {
     private DatabaseHelper db;
     private OrderDao dao_order;
     private OrderDetailDao dao_detail ;
-    private TextView add_order;
     private View box_customer;
     private SlidrInterface slidr;
-    private TextView name_customer;
     private LottieAnimationView lottie;
     private List<Product> orderDetailList;
-    private TextView number_order, total, save_order ;
+    private TextView add_order, name_customer ,number_order, total, save_order , noOrder ;
     private Customer customer;
     private CardView card_number;
     private String CODE = String.valueOf(System.currentTimeMillis());
+    private RelativeLayout relative_total;
 
 
     @Override
@@ -73,14 +74,16 @@ public class OrderActivity extends AppCompatActivity {
             switch (requestCode){
 
                 case 100:
-                    String json_customer = data.getExtras().getString("json_customer");
-                    customer = new Gson().fromJson(json_customer,Customer.class);
-                    name_customer.setText(customer.name);
-                    break;
+                        String json_customer = data.getExtras().getString("json_customer");
+                        customer = new Gson().fromJson(json_customer,Customer.class);
+                        name_customer.setText(customer.name);
+                        break;
 
                 case 200:
+                    noOrder.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    relative_total.setVisibility(View.VISIBLE);
                     String json_product = data.getExtras().getString("json_product");
-
                     Product product = new Gson().fromJson(json_product,Product.class);
                     insertToOrderList(product);
                     break;
@@ -147,6 +150,8 @@ public class OrderActivity extends AppCompatActivity {
         number_order = findViewById(R.id.text_number_of_order);
         recyclerView = findViewById(R.id.recycler_ordering);
         card_number = findViewById(R.id.card_number);
+        relative_total =findViewById(R.id.relative_order);
+        noOrder =findViewById(R.id.noOrder);
     }
 
     private void initBoxCustomer(){
@@ -190,25 +195,35 @@ public class OrderActivity extends AppCompatActivity {
         lottie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                lottie.setRepeatCount(0);
-                lottie.playAnimation();
-                Toast.makeText(OrderActivity.this, " welcome ", Toast.LENGTH_SHORT).show();
+                if(orderDetailList.size() != 0 ){
+                    lottie.setRepeatCount(0);
+                    lottie.playAnimation();
+                    orderDetailList.clear();
+                    ordringAdapter.notifyDataSetChanged();
+                    relative_total.setVisibility(View.GONE);
+                }else {
+                    Toast.makeText(OrderActivity.this, "لیست خالی است", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
     private void initSaveOrder(){
         save_order.setOnClickListener(view -> {
-            dao_order.insertOrder(new Order(customer.name , CODE , customer.customer_id , 1 , total.getText()+"" , "با تمام مخلفات " ));
-
-            for (int i = 0; i < orderDetailList.size(); i++) {
-                dao_detail.insertOrderDetail(new OrderDetail(orderDetailList.get(i).name , orderDetailList.get(i).category ,
-                        String.valueOf(Tools.convertToPrice(orderDetailList.get(i).price) * orderDetailList.get(i).amount)  ,
+                    if( customer == null ){
+                        Toast.makeText(this, "مشتری را انتخاب کنید", Toast.LENGTH_SHORT).show();
+                    }else {
+                        dao_order.insertOrder(new Order(customer.name , CODE , customer.customer_id , 1 , total.getText()+"" , "با تمام مخلفات " ));
+                        for (int i = 0; i < orderDetailList.size(); i++) {
+                            dao_detail.insertOrderDetail(new OrderDetail(orderDetailList.get(i).name , orderDetailList.get(i).category ,
+                                    String.valueOf(Tools.convertToPrice(orderDetailList.get(i).price) * orderDetailList.get(i).amount)  ,
                                     orderDetailList.get(i).amount ,CODE ));
 
-                Toast.makeText(OrderActivity.this, "save data", Toast.LENGTH_SHORT).show();
-                finish();
-            }
+                            Toast.makeText(OrderActivity.this, "save data", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }  
+                    }
+               
         });
     }
 

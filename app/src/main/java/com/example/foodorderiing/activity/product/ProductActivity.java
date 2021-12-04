@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -42,6 +44,8 @@ public class ProductActivity extends AppCompatActivity {
     private GroupingDao dao_grouping;
     private GroupInProductAdapter groupInProductAdapter;
     private Boolean for_order = false ;
+    private TextView noProduct , allProduct;
+    private String nameGrouping;
 
 
     @Override
@@ -54,6 +58,7 @@ public class ProductActivity extends AppCompatActivity {
         }
 
         initDataBase();
+        initID();
         set_toolBar();
         set_recycler_category();
         set_recycler_product();
@@ -93,9 +98,26 @@ public class ProductActivity extends AppCompatActivity {
         super.onResume();
         if(adapter_pro != null){
             adapter_pro.addList(dao_product.getProductList());
+
         }
+        if(dao_product.getProductList().size() != 0 ){
+            noProduct.setVisibility(View.GONE);
+            recyclerView_product.setVisibility(View.VISIBLE);
+        }
+//        if(dao_product.get_product_by_category(nameGrouping).size() == 0){
+//            noProduct.setVisibility(View.VISIBLE);
+//        }else {
+//            adapter_pro.addList(dao_product.get_product_by_category(nameGrouping));
+//        }
     }
 
+    private void initID(){
+        recyclerView_category = findViewById(R.id.recycler_grouping_product_page);
+        recyclerView_product = findViewById(R.id.recycler_product);
+        fab = findViewById(R.id.fab_product);
+        noProduct = findViewById(R.id.noProduct);
+        allProduct = findViewById(R.id.allProduct);
+    }
 
     private void initDataBase(){
         db = DatabaseHelper.getInstance(getApplicationContext());
@@ -113,42 +135,64 @@ public class ProductActivity extends AppCompatActivity {
 
 
     public void set_recycler_category(){
-        recyclerView_category = findViewById(R.id.recycler_grouping_product_page);
         recyclerView_category.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
         recyclerView_category.setLayoutManager(layoutManager);
-        adapter_gro = new GroupInProductAdapter( dao_grouping.getGroupingList(),this );
-        recyclerView_category.setAdapter(adapter_gro);
+        adapter_gro = new GroupInProductAdapter(dao_grouping.getGroupingList(), this, new GroupInProductAdapter.Listener() {
+            @Override
+            public void onClick(String name) {
+                Toast.makeText(ProductActivity.this, "hello", Toast.LENGTH_SHORT).show();
+//                adapter_pro = new ProductAdapter(dao_product.get_product_by_category(name), getApplicationContext() , new ProductAdapter.Listener() {
+//                    @Override
+//                    public void onClick(Product product , int pos , String name ) {
+//
+//                        if(for_order){
+//                            for_order = getIntent().getBooleanExtra("for_order",false);
+//                            Intent returnIntent = new Intent();
+//                            returnIntent.putExtra("json_product", new Gson().toJson(product));
+//                            setResult(Activity.RESULT_OK, returnIntent);
+//                            finish();
+//                        }else {
+//
+//                            adapter_pro.showDialogSheet(pos , name );
+//                        }
+//                    }
+//                });
+//                recyclerView_product.setAdapter(adapter_pro);
+            }
+        });
     }
 
 
     public void set_recycler_product(){
-        recyclerView_product = findViewById(R.id.recycler_product);
-        recyclerView_product.setHasFixedSize(true);
-        adapter_pro = new ProductAdapter(new ArrayList<>(), this , new ProductAdapter.Listener() {
-            @Override
-            public void onClick(Product product , int pos , String name ) {
+//        allProduct.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
 
-                if(for_order){
-                    for_order = getIntent().getBooleanExtra("for_order",false);
-                    Intent returnIntent = new Intent();
-                    returnIntent.putExtra("json_product", new Gson().toJson(product));
-                    setResult(Activity.RESULT_OK, returnIntent);
-                    finish();
-                }else {
+                recyclerView_product.setHasFixedSize(true);
+                adapter_pro = new ProductAdapter(new ArrayList<>(), getApplicationContext() , new ProductAdapter.Listener() {
+                    @Override
+                    public void onClick(Product product , int pos , String name ) {
 
-                    adapter_pro.showDialogSheet(pos , name );
-                }
-
+                        if(for_order){
+                            for_order = getIntent().getBooleanExtra("for_order",false);
+                            Intent returnIntent = new Intent();
+                            returnIntent.putExtra("json_product", new Gson().toJson(product));
+                            setResult(Activity.RESULT_OK, returnIntent);
+                            finish();
+                        }else {
+                            adapter_pro.showDialogSheet(pos , name );
+                        }
+                    }
+                });
+                recyclerView_product.setAdapter(adapter_pro);
             }
-        });
-        recyclerView_product.setAdapter(adapter_pro);
-        adapter_pro.notifyDataSetChanged();
-    }
+//        });
+
+//    }
 
 
     public void click_fab(){
-        fab = findViewById(R.id.fab_product);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

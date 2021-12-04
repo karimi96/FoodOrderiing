@@ -6,7 +6,7 @@
     android:layout_marginVertical="10dp"
     android:layout_marginStart="10dp"
     android:outlineSpotShadowColor="@color/red_toolbar"
-    app:cardBackgroundColor="#d5d5d5"
+    app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="11dp"
     app:cardElevation="6dp">
 

@@ -18,22 +18,24 @@ import java.util.List;
 
 
 public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAdapter.ViewHolder> {
-    List<Grouping> list;
-  int[] image ;
     Context context;
+    List<Grouping> list;
+    int[] image ;
     public String category_grouping;
     ProductDao dao;
     public ProductAdapter productAdapter;
+    Listener listener;
 
 
-    public GroupInProductAdapter(List<Grouping> list, Context context ) {
+    public GroupInProductAdapter(List<Grouping> list, Context context , Listener listener ) {
         this.list = list;
         this.context = context;
+        this.listener = listener;
     }
-//        public GroupInProductAdapter() {
-//
-//    }
 
+    public interface Listener{
+        void onClick(String name);
+    }
 
     @Override
     public GroupInProductAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -50,8 +52,9 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              category_grouping = grouping.name;
-              holder.linearLayout.setBackground(context.getDrawable(R.drawable.border_linear));
+//              category_grouping = grouping.name;
+              listener.onClick(list.get(position).name);
+//              holder.linearLayout.setBackground(context.getDrawable(R.drawable.border_linear));
 //                Toast.makeText(context, "hello", Toast.LENGTH_SHORT).show();
 //                DatabaseHelper db = DatabaseHelper.getInstance(context.getApplicationContext());
 //                dao = db.productDao();

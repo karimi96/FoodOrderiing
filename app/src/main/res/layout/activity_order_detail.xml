@@ -44,7 +44,7 @@
         android:layout_above="@id/box_total_detail"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="85dp"
-        android:background="#5CF8F3F7"
+        app:cardBackgroundColor="@color/white_text"
         android:outlineSpotShadowColor="@color/red_toolbar"
         app:cardCornerRadius="8dp">
 

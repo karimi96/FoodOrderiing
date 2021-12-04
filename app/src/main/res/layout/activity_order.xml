@@ -15,7 +15,7 @@
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/ggg"
+        android:layout_above="@+id/relative_order"
         android:layout_below="@+id/toolbar">
 
         <LinearLayout
@@ -45,6 +45,14 @@
                 android:textColor="#676767"
                 android:textSize="16dp" />
 
+            <TextView
+                android:id="@+id/noOrder"
+                android:fontFamily="@font/iran_sans"
+                android:layout_marginTop="250dp"
+                android:layout_gravity="center_horizontal"
+                android:text="سفارشی وجود ندارد"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_ordering"
@@ -52,26 +60,32 @@
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
                 android:paddingBottom="5dp"
+                android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/list_item_ordering" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_above="@id/ggg"
-        android:background="#dbdbdb" />
 
     <RelativeLayout
-        android:id="@+id/ggg"
+        android:id="@+id/relative_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/white_text">
+        android:background="@color/white_text"
+        android:visibility="gone">
 
-        <include layout="@layout/total_order" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_above="@id/qqq"
+            android:background="#dbdbdb" />
+
+        <include
+            android:id="@+id/qqq"
+            layout="@layout/total_order" />
+
 
     </RelativeLayout>
 

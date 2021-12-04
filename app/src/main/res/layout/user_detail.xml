@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="10dp"
-    android:elevation="5dp"
-    android:outlineSpotShadowColor="@color/red_toolbar"
     android:layout_marginVertical="10dp"
     android:background="@drawable/box_customer"
+    android:elevation="5dp"
     android:orientation="horizontal"
+    android:outlineSpotShadowColor="@color/red_toolbar"
     android:paddingVertical="5dp"
     android:paddingStart="5dp">
 
@@ -28,8 +28,9 @@
         android:layout_marginStart="13dp"
         android:layout_toEndOf="@id/img_person"
         android:fontFamily="@font/iran_sans"
+        android:text="مشتری "
         android:textColor="#676767"
-        android:text="مشتری " />
+        android:textSize="16dp" />
 
     <ImageView
         android:layout_width="30dp"

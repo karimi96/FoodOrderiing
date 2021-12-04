@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +32,7 @@ public class CustomerActivity extends AppCompatActivity {
     private CustomerDao dao;
     private SlidrInterface slidr ;
     private boolean for_order = false;
+    private TextView noCustomer ;
 
 
     @Override
@@ -42,7 +45,7 @@ public class CustomerActivity extends AppCompatActivity {
             for_order = getIntent().getBooleanExtra("for_order",false);
         }
 
-        init();
+        initID();
         set_fab();
         hide_fab();
         initDataBase();
@@ -56,6 +59,10 @@ public class CustomerActivity extends AppCompatActivity {
         if( adapter!= null){
             adapter.addList(dao.getCustomerList());
         }
+        if(dao.getCustomerList().size() != 0 ){
+            noCustomer.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
     }
 
 
@@ -68,26 +75,30 @@ public class CustomerActivity extends AppCompatActivity {
     private void set_recyclerView(){
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new CustomerAdapter(new ArrayList<>(), this, new CustomerAdapter.Listener() {
-            @Override
-            public void onClickListener(Customer customer , int pos , String name) {
-                if(for_order){
-                    Intent returnIntent = new Intent();
-                    returnIntent.putExtra("json_customer", new Gson().toJson(customer));
-                    setResult(Activity.RESULT_OK, returnIntent);
-                    finish();
-                }else {
-                    adapter.showDialogSheet(  pos , name );
+            adapter = new CustomerAdapter(new ArrayList<>(), this, new CustomerAdapter.Listener() {
+                @Override
+                public void onClickListener(Customer customer , int pos , String name) {
+                    if(for_order){
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra("json_customer", new Gson().toJson(customer));
+                        setResult(Activity.RESULT_OK, returnIntent);
+                        finish();
+                    }else {
+                        adapter.showDialogSheet(  pos , name );
+                    }
                 }
-            }
-        });
-        recyclerView.setAdapter(adapter);
-    }
+            });
+            recyclerView.setAdapter(adapter);
+        }
 
 
-    private void init(){
+
+
+
+    private void initID(){
         recyclerView = findViewById(R.id.recycler_customer);
         fab = findViewById(R.id.floating_customer);
+        noCustomer = findViewById(R.id.noCustomer);
     }
 
 

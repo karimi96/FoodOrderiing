@@ -8,27 +8,30 @@
     tools:context=".activity.order.OrderActivity">
 
 
+    <androidx.cardview.widget.CardView
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="5dp"
+        app:cardCornerRadius="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <LinearLayout
-        android:elevation="2dp"
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:layout_marginVertical="5dp"
-        android:layout_marginHorizontal="10dp"
         android:background="@drawable/background_card_product_withe">
 
-        <TextView
-            android:id="@+id/add_to_card"
-            android:layout_width="0dp"
-            android:layout_height="63dp"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:background="@drawable/ripple_all"
-            android:fontFamily="@font/iran_sans"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="اضافه کردن به کارت"
-            android:textColor="#676767" />
+        <!--        <TextView-->
+        <!--            android:id="@+id/add_to_card"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="63dp"-->
+        <!--            android:layout_gravity="bottom"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:background="@drawable/ripple_all"-->
+        <!--            android:fontFamily="@font/iran_sans"-->
+        <!--            android:gravity="center"-->
+        <!--            android:padding="10dp"-->
+        <!--            android:text="اضافه کردن به کارت"-->
+        <!--            android:textColor="#676767" />-->
 
         <LinearLayout
             android:layout_width="0dp"
@@ -50,7 +53,7 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_marginHorizontal="5dp"
-                android:fontFamily="@font/iran_sans"
+                android:fontFamily="@font/irsansfanum"
                 android:gravity="center"
                 android:text="9"
                 android:textColor="#676767"
@@ -58,7 +61,6 @@
                 android:textStyle="bold" />
 
             <ImageView
-
                 android:id="@+id/img_diCrease"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -71,11 +73,13 @@
 
     </LinearLayout>
 
+    </androidx.cardview.widget.CardView>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="160dp"
-        android:layout_marginVertical="5dp"
         android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="5dp"
         app:cardCornerRadius="20dp">
 
         <ImageView
@@ -96,9 +100,9 @@
                 android:padding="10dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:scaleType="centerCrop"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                     />
+                    android:layout_height="match_parent" />
 
 
             </LinearLayout>
@@ -114,10 +118,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="23dp"
+                    android:paddingEnd="8dp"
                     android:fontFamily="@font/iran_sans"
                     android:text="پیتزا چیکن"
                     android:textColor="@color/white_text"
-                    android:textSize="18dp"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -128,7 +133,7 @@
                     android:fontFamily="@font/iran_sans"
                     android:text=" فست فود"
                     android:textColor="@color/white_text"
-                    android:textSize="13dp" />
+                    android:textSize="12dp" />
 
                 <LinearLayout
                     android:layout_width="130dp"
@@ -148,7 +153,7 @@
                     android:fontFamily="@font/irsansfanum"
                     android:text="T67"
                     android:textColor="@color/white_text"
-                    android:textSize="23dp" />
+                    android:textSize="20dp" />
 
 
                 <TextView
@@ -170,7 +175,6 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
 
 
 </RelativeLayout>

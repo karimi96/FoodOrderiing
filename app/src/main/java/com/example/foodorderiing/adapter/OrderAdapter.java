@@ -20,8 +20,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     Context context;
     Product product ;
     List<Product> list;
-    public String allprice;
-    public String allnum ;
     public Listener listener ;
 
 
@@ -83,7 +81,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv_name_food, tv_name_category , tv_price , tv_number_order;
-        TextView add_to_card ;
         ImageView img_food_bg;
         ImageView img_Increase;
         ImageView img_Dicrease;
@@ -96,7 +93,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             tv_price = itemView.findViewById(R.id.price_ordring);
             img_Increase = itemView.findViewById(R.id.img_inCrease);
             img_Dicrease = itemView.findViewById(R.id.img_diCrease);
-            add_to_card = itemView.findViewById(R.id.add_to_card);
         }
     }
 
