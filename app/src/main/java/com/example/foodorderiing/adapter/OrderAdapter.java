@@ -49,7 +49,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         product = list.get(position);
         holder.tv_name_food.setText(product.name);
         holder.tv_name_category.setText(product.category);
-        holder.tv_price.setText( Tools.convertToPrice(product.price) * product.amount +"" );
+        holder.tv_price.setText( Tools.getForamtPrice(Tools.convertToPrice(product.price) * product.amount+"") );
         holder.tv_number_order.setText(product.amount+"");
 
         holder.img_Increase.setOnClickListener(new View.OnClickListener() {

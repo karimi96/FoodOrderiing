@@ -52,6 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             app:cardCornerRadius="20dp">
 
             <TextView
@@ -62,7 +63,7 @@
                 android:fontFamily="@font/iran_sans"
                 android:paddingHorizontal="30dp"
                 android:paddingVertical="10dp"
-                android:text="همه"
+                android:text="همه محصولات"
                 android:textColor="#696969"
                 android:textStyle="bold" />
 
@@ -73,7 +74,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
-            android:paddingEnd="10dp"
             tools:listitem="@layout/list_item_group_product" />
 
     </LinearLayout>

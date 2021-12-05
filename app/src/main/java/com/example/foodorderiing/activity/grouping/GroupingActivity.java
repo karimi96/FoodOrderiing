@@ -102,6 +102,7 @@ public class GroupingActivity extends AppCompatActivity {
             groupingAdapter.addList(dao_group.getGroupingList());
         }
         if(dao_group.getGroupingList().size() != 0 ){
+            groupingAdapter.notifyDataSetChanged();
             noGrouping.setVisibility(View.GONE);
             recyclerView_grouping.setVisibility(View.VISIBLE);
         }

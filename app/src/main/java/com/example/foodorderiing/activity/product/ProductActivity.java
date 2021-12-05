@@ -93,23 +93,7 @@ public class ProductActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if(adapter_pro != null){
-            adapter_pro.addList(dao_product.getProductList());
 
-        }
-        if(dao_product.getProductList().size() != 0 ){
-            noProduct.setVisibility(View.GONE);
-            recyclerView_product.setVisibility(View.VISIBLE);
-        }
-//        if(dao_product.get_product_by_category(nameGrouping).size() == 0){
-//            noProduct.setVisibility(View.VISIBLE);
-//        }else {
-//            adapter_pro.addList(dao_product.get_product_by_category(nameGrouping));
-//        }
-    }
 
     private void initID(){
         recyclerView_category = findViewById(R.id.recycler_grouping_product_page);
@@ -134,6 +118,21 @@ public class ProductActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(adapter_pro != null){
+            adapter_pro.addList(dao_product.getProductList());
+
+        }
+        if(dao_product.getProductList().size() != 0 ){
+            noProduct.setVisibility(View.GONE);
+            recyclerView_product.setVisibility(View.VISIBLE);
+        }
+
+
+    }
+
     public void set_recycler_category(){
         recyclerView_category.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
@@ -141,26 +140,10 @@ public class ProductActivity extends AppCompatActivity {
         adapter_gro = new GroupInProductAdapter(dao_grouping.getGroupingList(), this, new GroupInProductAdapter.Listener() {
             @Override
             public void onClick(String name) {
-                Toast.makeText(ProductActivity.this, "hello", Toast.LENGTH_SHORT).show();
-//                adapter_pro = new ProductAdapter(dao_product.get_product_by_category(name), getApplicationContext() , new ProductAdapter.Listener() {
-//                    @Override
-//                    public void onClick(Product product , int pos , String name ) {
-//
-//                        if(for_order){
-//                            for_order = getIntent().getBooleanExtra("for_order",false);
-//                            Intent returnIntent = new Intent();
-//                            returnIntent.putExtra("json_product", new Gson().toJson(product));
-//                            setResult(Activity.RESULT_OK, returnIntent);
-//                            finish();
-//                        }else {
-//
-//                            adapter_pro.showDialogSheet(pos , name );
-//                        }
-//                    }
-//                });
-//                recyclerView_product.setAdapter(adapter_pro);
+                nameGrouping = name ;
             }
         });
+        recyclerView_category.setAdapter(adapter_gro);
     }
 
 
@@ -170,7 +153,7 @@ public class ProductActivity extends AppCompatActivity {
 //            public void onClick(View v) {
 
                 recyclerView_product.setHasFixedSize(true);
-                adapter_pro = new ProductAdapter(new ArrayList<>(), this , new ProductAdapter.Listener() {
+                adapter_pro = new ProductAdapter(new ArrayList<>(), ProductActivity.this , new ProductAdapter.Listener() {
                     @Override
                     public void onClick(Product product , int pos , String name ) {
 
@@ -188,7 +171,7 @@ public class ProductActivity extends AppCompatActivity {
                 recyclerView_product.setAdapter(adapter_pro);
             }
 //        });
-
+//
 //    }
 
 

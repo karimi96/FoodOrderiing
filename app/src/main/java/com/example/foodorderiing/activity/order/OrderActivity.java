@@ -220,8 +220,8 @@ public class OrderActivity extends AppCompatActivity {
                                     orderDetailList.get(i).amount ,CODE ));
 
                             Toast.makeText(OrderActivity.this, "save data", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }  
+                        }
+                        finish();
                     }
                
         });
