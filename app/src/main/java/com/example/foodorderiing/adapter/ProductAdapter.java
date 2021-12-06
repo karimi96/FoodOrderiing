@@ -217,6 +217,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         notifyDataSetChanged();
     }
 
+    public  void clear(){
+        list_search.clear();
+        list.clear();
+        notifyDataSetChanged();
+    }
+
     public int count(){
         return list.size();
     }

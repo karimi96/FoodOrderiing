@@ -12,6 +12,7 @@
         android:layout_height="250dp"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="7dp"
+        android:foreground="@drawable/ripple_all"
         android:layout_marginBottom="3dp"
         android:elevation="5dp"
         android:outlineSpotShadowColor="@color/red_toolbar"
@@ -28,8 +29,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/selectableItemBackground">
+            android:layout_height="match_parent">
 
 
             <RelativeLayout

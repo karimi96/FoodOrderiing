@@ -47,33 +47,15 @@
         android:layout_below="@id/toolbar_search"
         android:orientation="horizontal">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            app:cardCornerRadius="20dp">
-
-            <TextView
-                android:id="@+id/allProduct"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:fontFamily="@font/iran_sans"
-                android:paddingHorizontal="30dp"
-                android:paddingVertical="10dp"
-                android:text="همه محصولات"
-                android:textColor="#696969"
-                android:textStyle="bold" />
-
-        </androidx.cardview.widget.CardView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_grouping_product_page"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingEnd="15dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/list_item_group_product" />
 
     </LinearLayout>
@@ -94,7 +76,8 @@
         android:layout_below="@id/linear_saparat"
         android:fontFamily="@font/iran_sans"
         android:gravity="center"
-        android:text="محصولی وجود ندارد" />
+        android:text="محصولی وجود ندارد"
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_product"
@@ -104,7 +87,6 @@
         android:clipToPadding="false"
         android:layoutAnimation="@anim/layout_fall_down"
         android:paddingBottom="7dp"
-        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/list_item_product" />
 

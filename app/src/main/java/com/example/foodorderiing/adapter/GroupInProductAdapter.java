@@ -25,7 +25,7 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
     }
 
     public interface Listener{
-        void onClick(String name);
+        void onClick(int position , Grouping grouping);
     }
 
     @Override
@@ -43,15 +43,8 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(context, "hello", Toast.LENGTH_SHORT).show();
-//              category_grouping = grouping.name;
-              listener.onClick(list.get(position).name);
-////              holder.linearLayout.setBackground(context.getDrawable(R.drawable.border_linear));
-////                Toast.makeText(context, "hello", Toast.LENGTH_SHORT).show();
-////                DatabaseHelper db = DatabaseHelper.getInstance(context.getApplicationContext());
-////                dao = db.productDao();
-////                productAdapter =new ProductAdapter(dao.get_product_by_category(category_grouping),context);
-//
+              listener.onClick(position , grouping);
+
             }
         });
     }

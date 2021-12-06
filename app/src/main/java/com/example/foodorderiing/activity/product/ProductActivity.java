@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.example.foodorderiing.adapter.ProductAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
 import com.example.foodorderiing.database.dao.ProductDao;
+import com.example.foodorderiing.model.Grouping;
 import com.example.foodorderiing.model.Product;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
@@ -37,7 +39,7 @@ public class ProductActivity extends AppCompatActivity {
     private RecyclerView recyclerView_product;
     private RecyclerView recyclerView_category;
     private FloatingActionButton fab;
-    private ProductAdapter adapter_pro;
+    private ProductAdapter adapter_pro = null;
     private GroupInProductAdapter adapter_gro;
     private DatabaseHelper db;
     private ProductDao dao_product;
@@ -46,6 +48,7 @@ public class ProductActivity extends AppCompatActivity {
     private Boolean for_order = false ;
     private TextView noProduct , allProduct;
     private String nameGrouping;
+    int pp;
 
 
     @Override
@@ -93,14 +96,12 @@ public class ProductActivity extends AppCompatActivity {
     }
 
 
-
-
+    
     private void initID(){
         recyclerView_category = findViewById(R.id.recycler_grouping_product_page);
         recyclerView_product = findViewById(R.id.recycler_product);
         fab = findViewById(R.id.fab_product);
         noProduct = findViewById(R.id.noProduct);
-        allProduct = findViewById(R.id.allProduct);
     }
 
     private void initDataBase(){
@@ -121,37 +122,56 @@ public class ProductActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(adapter_pro != null){
-            adapter_pro.addList(dao_product.getProductList());
-
-        }
-        if(dao_product.getProductList().size() != 0 ){
-            noProduct.setVisibility(View.GONE);
-            recyclerView_product.setVisibility(View.VISIBLE);
-        }
-
-
+        initListProduct();
     }
 
+
     public void set_recycler_category(){
+        ArrayList<Grouping> groupingArrayList = new ArrayList<>();
+        groupingArrayList.add(0, new Grouping("همه محصولات "));
+        groupingArrayList.addAll(dao_grouping.getGroupingList());
+
         recyclerView_category.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
         recyclerView_category.setLayoutManager(layoutManager);
-        adapter_gro = new GroupInProductAdapter(dao_grouping.getGroupingList(), this, new GroupInProductAdapter.Listener() {
+        adapter_gro = new GroupInProductAdapter(groupingArrayList , this, new GroupInProductAdapter.Listener() {
             @Override
-            public void onClick(String name) {
-                nameGrouping = name ;
+            public void onClick(int pos , Grouping g) {
+                if(pos == 0 ){
+                    nameGrouping = null ;
+                }else {
+                    nameGrouping = g.name;
+                    adapter_pro.notifyDataSetChanged();
+
+                    if(dao_product.get_product_by_category(nameGrouping).size() < 1){
+                        noProduct.setVisibility(View.VISIBLE);
+                    }else {
+                        noProduct.setVisibility(View.GONE);
+
+                    }
+                }
+                initListProduct();
             }
         });
         recyclerView_category.setAdapter(adapter_gro);
     }
 
 
-    public void set_recycler_product(){
-//        allProduct.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
+    private void initListProduct(){
+        Log.e("qqqq" , "initListProduct: " + nameGrouping );
+        if(adapter_pro != null ){
+            if(nameGrouping == null || nameGrouping.isEmpty()) {
+                adapter_pro.addList(dao_product.getProductList());
+            }else {
+                adapter_pro.addList(dao_product.get_product_by_category(nameGrouping));
 
+            }
+        }
+
+    }
+
+
+    public void set_recycler_product(){
                 recyclerView_product.setHasFixedSize(true);
                 adapter_pro = new ProductAdapter(new ArrayList<>(), ProductActivity.this , new ProductAdapter.Listener() {
                     @Override
@@ -170,9 +190,7 @@ public class ProductActivity extends AppCompatActivity {
                 });
                 recyclerView_product.setAdapter(adapter_pro);
             }
-//        });
-//
-//    }
+
 
 
     public void click_fab(){
