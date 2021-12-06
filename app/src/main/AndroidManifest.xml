@@ -33,7 +33,9 @@
             android:name=".activity.product.ProductActivity"
             android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme"
             android:windowSoftInputMode="adjustPan" />
+
         <activity android:name=".activity.home.HomeActivity" />
+
         <activity android:name=".activity.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
