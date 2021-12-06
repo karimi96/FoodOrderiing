@@ -29,24 +29,31 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+
+import saman.zamani.persiandate.PersianDate;
+import saman.zamani.persiandate.PersianDateFormat;
 
 public class HomeActivity extends AppCompatActivity {
 
-    CardView cardView_product;
-    CardView cardView_customer;
-    CardView cardView_grouping;
-    TextView title;
-    TextView num_product;
-    TextView num_customer;
-    TextView num_grouping;
-    DatabaseHelper db;
-    ProductDao dao_p;
-    GroupingDao dao_g;
-    CustomerDao dao_c;
-    ImageView img_ordering;
-
-    TextView recordOrder;
+    private CardView cardView_product;
+    private CardView cardView_customer;
+    private CardView cardView_grouping;
+    private TextView title;
+    private TextView num_product;
+    private TextView num_customer;
+    private TextView num_grouping;
+    private DatabaseHelper db;
+    private ProductDao dao_p;
+    private GroupingDao dao_g;
+    private CustomerDao dao_c;
+    private ImageView img_ordering;
+    private TextView recordOrder , month;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -66,6 +73,22 @@ public class HomeActivity extends AppCompatActivity {
         create_chart();
         setImageOrdering();
         initRecordOrdering();
+
+
+//        getCurrentTime_Date2();
+//month.setText( getCalculatedDate("06-12-2021", "dd-MM-yyyy", +6));
+
+
+
+        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        c.add(Calendar.DAY_OF_WEEK, +10);
+        long result = c.getTimeInMillis();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String datetime = dateFormat.format(result);
+        month.setText(datetime);
+
+//        month.setText((int) result);
+
 
         cardView_product.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,13 +121,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-
-
     }
 
     private void initID(){
@@ -115,6 +131,7 @@ public class HomeActivity extends AppCompatActivity {
         num_customer = findViewById(R.id.number_of_customer);
         num_grouping = findViewById(R.id.number_of_grouping);
         recordOrder = findViewById(R.id.text_record_order);
+        month = findViewById(R.id.month);
     }
 
     public void create_chart() {
@@ -141,17 +158,17 @@ public class HomeActivity extends AppCompatActivity {
         visitor.add(new BarEntry(17, 800));
         visitor.add(new BarEntry(18, 600));
         visitor.add(new BarEntry(19, 100));
-        visitor.add(new BarEntry(20, 700));
-        visitor.add(new BarEntry(21, 300));
-        visitor.add(new BarEntry(22, 500));
-        visitor.add(new BarEntry(23, 700));
-        visitor.add(new BarEntry(24, 300));
-        visitor.add(new BarEntry(25, 500));
-        visitor.add(new BarEntry(26, 100));
-        visitor.add(new BarEntry(27, 200));
-        visitor.add(new BarEntry(28, 250));
-        visitor.add(new BarEntry(29, 50));
-        visitor.add(new BarEntry(30, 800));
+//        visitor.add(new BarEntry(20, 700));
+//        visitor.add(new BarEntry(21, 300));
+//        visitor.add(new BarEntry(22, 500));
+//        visitor.add(new BarEntry(23, 700));
+//        visitor.add(new BarEntry(24, 300));
+//        visitor.add(new BarEntry(25, 500));
+//        visitor.add(new BarEntry(26, 100));
+//        visitor.add(new BarEntry(27, 200));
+//        visitor.add(new BarEntry(28, 250));
+//        visitor.add(new BarEntry(29, 50));
+//        visitor.add(new BarEntry(30, 800));
 
 
         BarDataSet barDataSet = new BarDataSet(visitor, "");
@@ -209,6 +226,76 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+    public String getCurrentTime_time(){
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss ");
+        String datetime = dateFormat.format(c.getTime());
+        return datetime;
+    }
+
+    public String getCurrentTime_Date(){
+        PersianDate c = new PersianDate();
+        PersianDateFormat dateFormat = new PersianDateFormat(" Y/m/d ");
+        String datetime = dateFormat.format(c);
+        return datetime;
+    }
+
+
+    public void getCurrentTime_Date2(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date myDate = null;
+        try {
+            myDate = dateFormat.parse(getCurrentTime_Date());
+            Date newDate = new Date(myDate.getTime() - 604800000L); // 7 * 24 * 60 * 60 * 1000
+            String date = dateFormat.format(newDate);
+            month.setText(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public String getCurrentTime_Date5() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date myDate = null;
+        String date = null;
+        try {
+            myDate = dateFormat.parse(getCurrentTime_Date());
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(myDate);
+            calendar.add(Calendar.DAY_OF_YEAR, -7);
+            Date newDate = calendar.getTime();
+            date = dateFormat.format(newDate);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
+
+    public static String getCalculatedDate(String date, String dateFormat, int days) {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat s = new SimpleDateFormat(dateFormat);
+        cal.add(Calendar.DAY_OF_YEAR, days);
+        try {
+            return s.format(new Date(s.parse(date).getTime()));
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+//            Log.e("TAG", "Error in Parsing Date : " + e.getMessage());
+        }
+        return null;
+    }
+
+
+
+
+
+
+
 
 
 }
