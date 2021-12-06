@@ -3,11 +3,13 @@ package com.example.foodorderiing.activity.customer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,11 +18,11 @@ import com.example.foodorderiing.R;
 import com.example.foodorderiing.adapter.CustomerAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.CustomerDao;
+import com.example.foodorderiing.design.RecyclerTouchListener;
 import com.example.foodorderiing.model.Customer;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
-import com.r0adkll.slidr.Slidr;
-import com.r0adkll.slidr.model.SlidrInterface;
+
 import java.util.ArrayList;
 
 
@@ -30,17 +32,15 @@ public class CustomerActivity extends AppCompatActivity {
     private CustomerAdapter adapter;
     private DatabaseHelper db;
     private CustomerDao dao;
-    private SlidrInterface slidr ;
     private boolean for_order = false;
     private TextView noCustomer ;
-
+    private RecyclerTouchListener touchListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer);
 
-        slidr = Slidr.attach(this);
         if (getIntent() != null){
             for_order = getIntent().getBooleanExtra("for_order",false);
         }
@@ -50,18 +50,28 @@ public class CustomerActivity extends AppCompatActivity {
         hide_fab();
         initDataBase();
         set_recyclerView();
+        setSwipe();
+        setText();
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
+        setText();
         if( adapter!= null){
             adapter.addList(dao.getCustomerList());
         }
-        if(dao.getCustomerList().size() != 0 ){
+
+    }
+
+
+    private void setText(){
+        if(dao.getCustomerList().size() < 1 ){
+            noCustomer.setVisibility(View.VISIBLE);
+//            recyclerView_product.setVisibility(View.GONE);
+        }else {
             noCustomer.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -89,10 +99,8 @@ public class CustomerActivity extends AppCompatActivity {
                 }
             });
             recyclerView.setAdapter(adapter);
+
         }
-
-
-
 
 
     private void initID(){
@@ -141,5 +149,45 @@ public class CustomerActivity extends AppCompatActivity {
         recyclerView.setLayoutAnimation(layoutAnimationController);
         recyclerView.getAdapter().notifyDataSetChanged();
         recyclerView.scheduleLayoutAnimation(); }
+
+
+        private void setSwipe(){
+
+            touchListener = new RecyclerTouchListener(this,recyclerView);
+            touchListener
+//                    .setClickable(new RecyclerTouchListener.OnRowClickListener() {
+//                        @Override
+//                        public void onRowClicked(int position) {
+////                            Toast.makeText(getApplicationContext(),taskList.get(position).getName(), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getApplicationContext(),"hello", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                        @Override
+//                        public void onIndependentViewClicked(int independentViewID, int position) {
+//
+//                        }
+//                    })
+                    .setSwipeOptionViews(R.id.lottie_phone)
+                    .setSwipeable(R.id.card_FG, R.id.linear_BG, new RecyclerTouchListener.OnSwipeOptionsClickListener() {
+                        @Override
+                        public void onSwipeOptionClicked(int viewID, int position) {
+
+                            switch (viewID){
+                                case R.id.lottie_phone:
+                                    String phonnumber = "0000000000";
+                                    Intent call = new Intent(Intent.ACTION_DIAL);
+                                    call.setData(Uri.parse("tel:" + phonnumber));
+                                    startActivity(call);
+                                    break;
+
+
+                            }
+                        }
+                    });
+            recyclerView.addOnItemTouchListener(touchListener);
+
+        }
+
+
 
 }

@@ -1,135 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRevealLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="10dp"
-    android:layout_marginTop="7dp"
-    android:layout_marginBottom="3dp"
-    android:outlineSpotShadowColor="@color/red_toolbar"
-    app:cardCornerRadius="10dp"
-    app:cardElevation="6dp">
+    android:orientation="vertical">
 
-
+    <!-- swipe menu -->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/ripple_all"
-        android:orientation="vertical"
-        android:paddingHorizontal="5dp"
-        android:paddingVertical="10dp"
-        android:weightSum="3">
+        android:id="@+id/linear_BG"
+        android:layout_width="70dp"
+        android:layout_height="137dp"
+        android:gravity="center"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="2dp"
+        android:background="@color/white_text">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:padding="8dp"
-            android:weightSum="1">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:drawableRight="@drawable/ic_round_person_24"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/iran_sans"
-                android:gravity="center_vertical"
-                android:text="نام و نام خانوادگی :"
-                android:textColor="#9C9B9B"
-                android:textSize="14dp" />
-
-            <TextView
-                android:id="@+id/tv_name_customer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/iran_sans"
-                android:gravity="center_vertical"
-                android:paddingRight="5dp"
-                android:singleLine="true"
-                android:text="رقیه کریمی"
-                android:textColor="#676767"
-                android:textStyle="bold" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/liner_phone"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:padding="8dp"
-            android:weightSum="1">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:drawableRight="@drawable/ic_round_phone_iphone_24"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/iran_sans"
-                android:gravity="center_vertical"
-                android:text="تلفن :"
-                android:textColor="#9C9B9B"
-                android:textSize="14dp" />
-
-            <TextView
-                android:id="@+id/tv_phone_customer"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:fontFamily="@font/iran_sans"
-                android:gravity="center_vertical"
-                android:linksClickable="true"
-                android:maxLength="11"
-                android:paddingRight="5dp"
-                android:singleLine="true"
-                android:text="09121212121"
-                android:textColor="#25c5ff"
-                android:textStyle="bold" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:padding="8dp"
-            android:weightSum="1">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:drawableRight="@drawable/ic_round_home_24"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/iran_sans"
-                android:gravity="center_vertical"
-                android:text="ادرس :"
-
-                android:textColor="#9C9B9B"
-                android:textSize="14dp" />
-
-            <TextView
-                android:id="@+id/tv_address_customer"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/iran_sans"
-                android:gravity="center_vertical"
-                android:paddingRight="5dp"
-                android:text="روحانی کوچه 30"
-                android:textColor="#676767"
-                android:textStyle="bold" />
-
-
-        </LinearLayout>
-
-
+      <com.airbnb.lottie.LottieAnimationView
+          android:id="@+id/lottie_phone"
+          app:lottie_rawRes="@raw/phone"
+          app:lottie_loop="true"
+          android:layout_gravity="center"
+          app:lottie_autoPlay="true"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"/>
     </LinearLayout>
 
 
-</androidx.cardview.widget.CardView>
+    <!-- main view -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_FG"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="@drawable/ripple_all"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="8dp"
+        android:outlineSpotShadowColor="@color/red_toolbar"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="4dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+
+            android:paddingVertical="10dp"
+            android:weightSum="3">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableRight="@drawable/ic_round_person_24"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/iran_sans"
+                    android:gravity="center_vertical"
+                    android:text="نام و نام خانوادگی :"
+                    android:textColor="#9C9B9B"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/tv_name_customer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/iran_sans"
+                    android:gravity="center_vertical"
+                    android:paddingRight="5dp"
+                    android:singleLine="true"
+                    android:text="رقیه کریمی"
+                    android:textColor="#676767"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/liner_phone"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingVertical="8dp"
+                android:paddingEnd="8dp"
+                android:weightSum="1">
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_round_double_arrow_24"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:drawableRight="@drawable/ic_round_phone_iphone_24"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/iran_sans"
+                    android:gravity="center_vertical"
+                    android:text="تلفن :"
+                    android:textColor="#9C9B9B"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/tv_phone_customer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/iran_sans"
+                    android:gravity="center_vertical"
+                    android:maxLength="11"
+                    android:paddingRight="5dp"
+                    android:singleLine="true"
+                    android:text="09121212121"
+                    android:textColor="#676767"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
+                android:padding="8dp"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:drawableRight="@drawable/ic_round_home_24"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/iran_sans"
+                    android:gravity="center_vertical"
+                    android:text="ادرس :"
+                    android:textColor="#9C9B9B"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/tv_address_customer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/iran_sans"
+                    android:gravity="center_vertical"
+                    android:paddingRight="5dp"
+                    android:text="روحانی کوچه 30"
+                    android:textColor="#676767"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
