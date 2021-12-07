@@ -3,6 +3,7 @@ package com.example.foodorderiing.activity.product;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -80,6 +81,11 @@ public class ProductActivity extends AppCompatActivity {
         searchView.setBackground(getResources().getDrawable(R.drawable.ripple_all));
         searchView.setIconified(false);
 
+//        TextView searchText = (TextView) searchView.findViewById(R.id.search_src_text);
+//        Typeface myCustomFont = Typeface.createFromAsset(getAssets(),"font/iran_sans.ttf");
+////        Typeface myCustomFontt = Typeface.create(iran_sans"")
+//        searchText.setTypeface(myCustomFont);
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -103,6 +109,7 @@ public class ProductActivity extends AppCompatActivity {
         fab = findViewById(R.id.fab_product);
         noProduct = findViewById(R.id.noProduct);
     }
+
 
     private void initDataBase(){
         db = DatabaseHelper.getInstance(getApplicationContext());
