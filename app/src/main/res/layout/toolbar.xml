@@ -28,7 +28,7 @@
                 android:layout_weight="0.15"
                 android:background="@drawable/ripple_circle_shop"
                 android:paddingVertical="15dp"
-                android:paddingEnd="8dp"
+                android:paddingEnd="6dp"
                 android:src="@drawable/add_shoping" />
 
             <TextView
