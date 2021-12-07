@@ -74,11 +74,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.tv_name_food.setText(product.name);
         holder.tv_name_category.setText(product.category);
         holder.tv_price.setText(product.price);
-//        holder.tv_price.setText(decimalFormat.format(product.price));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                    showDialogSheet(position , list.get(position).name);
                     listener.onClick(product , position , list.get(position).name );
 
             }

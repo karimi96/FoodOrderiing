@@ -62,14 +62,26 @@ public class AddNewProductActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_add_new_product);
 
+
         db = DatabaseHelper.getInstance(getApplicationContext());
         dao_product = db.productDao();
         dao_grouping = db.groupingDao();
         initID();
+
+        if (getIntent().getExtras() != null){
+            String getNameProduct = getIntent().getStringExtra("product");
+            p = new Gson().fromJson(getNameProduct,Product.class);
+            et_name.setText(p.name);
+            autoCompleteTextView.setText(p.category);
+            et_price.setText(p.price);
+        }
+
+
+
        hideInputType();
 
         et_price.addTextChangedListener(new NumberTextWatcherForThousand(et_price));
-        autoCompleteTextView  = findViewById(R.id.autoComplete_tv);
+
 //        adapter_autocomplete = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_dropdown_item_1line,dao_grouping.getname());
 //        autoCompleteTextView_adapter = new AutoCompleteTextView_Adapter(getApplicationContext(),
 //                R.layout.list_item_auto_complete_textview
@@ -94,13 +106,7 @@ public class AddNewProductActivity extends AppCompatActivity {
 
 
 
-        if (getIntent().getExtras() != null){
-            String getNameProduct = getIntent().getStringExtra("product");
-            p = new Gson().fromJson(getNameProduct,Product.class);
-            et_name.setText(p.name);
-            autoCompleteTextView.setText(p.category);
-            et_price.setText(p.price);
-        }
+
 
 
         set_VideoView();
@@ -155,6 +161,7 @@ public class AddNewProductActivity extends AppCompatActivity {
         tv_save = findViewById(R.id.tv_save_product);
         et_name = findViewById(R.id.et_get_name_product);
         et_price = findViewById(R.id.et_get_price_product);
+        autoCompleteTextView  = findViewById(R.id.autoComplete_tv);
     }
 
     public void set_VideoView(){

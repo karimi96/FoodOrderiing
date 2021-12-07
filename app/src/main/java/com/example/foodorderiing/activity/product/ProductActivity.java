@@ -81,10 +81,10 @@ public class ProductActivity extends AppCompatActivity {
         searchView.setBackground(getResources().getDrawable(R.drawable.ripple_all));
         searchView.setIconified(false);
 
-//        TextView searchText = (TextView) searchView.findViewById(R.id.search_src_text);
-//        Typeface myCustomFont = Typeface.createFromAsset(getAssets(),"font/iran_sans.ttf");
-////        Typeface myCustomFontt = Typeface.create(iran_sans"")
-//        searchText.setTypeface(myCustomFont);
+        TextView searchText = (TextView) searchView.findViewById(R.id.search_src_text);
+        Typeface myCustomFont = Typeface.createFromAsset(getAssets(),"font/iran_sans.ttf");
+        searchText.setTypeface(myCustomFont);
+        searchText.setTextSize(14);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
