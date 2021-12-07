@@ -63,7 +63,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.list_item_product,parent,false);
         ViewHolder viewHolder = new ViewHolder(view);
-//        viewHolder.getAdapterPosition();
         return viewHolder;
     }
 
@@ -203,7 +202,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             list.clear();
             list.addAll((ArrayList)results.values);
             notifyDataSetChanged();
-
         }
     };
 
@@ -214,6 +212,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         list = new ArrayList<>(list_search);
         notifyDataSetChanged();
     }
+
 
     public  void clear(){
         list_search.clear();

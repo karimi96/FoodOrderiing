@@ -7,7 +7,8 @@
     android:background="@color/white_text"
     tools:context=".activity.customer.CustomerActivity">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_customer"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/red_toolbar">
@@ -15,15 +16,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="15dp"
             android:fontFamily="@font/iran_sans"
-            android:text="لیست مشتری"
+            android:text=" مشتری "
             android:textColor="@color/white_text"
             android:textSize="16dp"
             android:textStyle="bold" />
 
-    </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
 
     <TextView
         android:id="@+id/noCustomer"

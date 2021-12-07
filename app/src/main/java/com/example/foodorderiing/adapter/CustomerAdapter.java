@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,32 +26,27 @@ import com.example.foodorderiing.activity.customer.AddNewCustomerActivity;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.CustomerDao;
 import com.example.foodorderiing.model.Customer;
+import com.example.foodorderiing.model.Product;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHolder> {
+public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHolder> implements Filterable {
     Context context;
     List<Customer> list;
+    List<Customer> list_search;
     Listener listener;
     DatabaseHelper database;
     CustomerDao dao;
-//    private final ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
 
 
     public CustomerAdapter(List<Customer> list, Context context, Listener listener) {
-        this.list = list;
+        this.list_search = list;
+        this.list = new ArrayList<>(list_search);
         this.context = context;
         this.listener = listener;
     }
-
-//    // for swipe
-//    public void setCustomer(List<Customer> list){
-//        this.list = new ArrayList<>();
-//        this.list = list ;
-//        notifyDataSetChanged();
-//    }
-
 
 
     public interface Listener{
@@ -68,12 +65,6 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(CustomerAdapter.ViewHolder holder, int position) {
-        // for swipe
-//        viewBinderHelper.setOpenOnlyOne(true);
-//        viewBinderHelper.bind(holder.swipeRevealLayout,String.valueOf(list.get(position).customer_id));
-//        viewBinderHelper.closeLayout(String.valueOf(list.get(position).name));
-//        holder.bindData(list.get(position));
-
         Customer customer = list.get(position);
         holder.tv_name_customer.setText(customer.name);
         holder.tv_phone.setText(customer.phone);
@@ -85,14 +76,6 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
 
             }
         });
-
-//
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////
-//            }
-//        });
 
     }
 
@@ -114,7 +97,6 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
             tv_address = itemView.findViewById(R.id.tv_address_customer);
             cardSwipe = itemView.findViewById(R.id.card_FG);
         }
-
     }
 
 
@@ -182,9 +164,52 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
 
 
         public void addList(List<Customer> arraylist) {
-            list.clear();
-            list.addAll(arraylist);
+            list_search.clear();
+            list_search.addAll(arraylist);
+            list = new ArrayList<>(list_search);
             notifyDataSetChanged();
         }
+
+
+    //  For search
+    @Override
+    public Filter getFilter() {
+        return newsFilter;
+    }
+
+    private final Filter newsFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            List<Customer> filterdNewList = new ArrayList<>();
+            if(constraint == null || constraint.length() == 0){
+                filterdNewList.addAll(list_search);
+            }else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for(Customer customer : list_search){
+
+                    if(customer.name.toLowerCase().contains(filterPattern))
+                        filterdNewList.add(customer);
+
+                    if(customer.phone.toLowerCase().contains(filterPattern))
+                        filterdNewList.add(customer);
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filterdNewList;
+            results.count = filterdNewList.size();
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            list.clear();
+            list.addAll((ArrayList)results.values);
+            notifyDataSetChanged();
+        }
+    };
+
+
 
 }

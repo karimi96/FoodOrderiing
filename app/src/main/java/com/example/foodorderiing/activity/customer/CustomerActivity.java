@@ -3,13 +3,18 @@ package com.example.foodorderiing.activity.customer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodorderiing.R;
@@ -24,6 +29,7 @@ import java.util.ArrayList;
 
 
 public class CustomerActivity extends AppCompatActivity {
+    private Toolbar toolbar;
     private RecyclerView recyclerView;
     private FloatingActionButton fab;
     private CustomerAdapter adapter;
@@ -42,6 +48,7 @@ public class CustomerActivity extends AppCompatActivity {
             for_order = getIntent().getBooleanExtra("for_order", false);
         }
 
+        set_toolBar();
         initID();
         set_fab();
         hide_fab();
@@ -50,6 +57,45 @@ public class CustomerActivity extends AppCompatActivity {
         setSwipe();
         setText();
     }
+
+
+    public void set_toolBar(){
+        toolbar = findViewById(R.id.toolbar_customer);
+        toolbar.setTitle("");
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white_text));
+        setSupportActionBar(toolbar);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search_customer , menu);
+        MenuItem item = menu.findItem(R.id.searchCustomer);
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setBackground(getResources().getDrawable(R.drawable.ripple_all));
+
+        TextView searchText = (TextView) searchView.findViewById(R.id.search_src_text);
+        Typeface myCustomFont = Typeface.createFromAsset(getAssets(),"font/iran_sans.ttf");
+        searchText.setTypeface(myCustomFont);
+        searchText.setTextSize(14);
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
+
 
 
     @Override

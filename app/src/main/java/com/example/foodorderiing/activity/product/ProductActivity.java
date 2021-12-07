@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -74,17 +73,51 @@ public class ProductActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search , menu);
-        MenuItem item = menu.findItem(R.id.action_search);
+        getMenuInflater().inflate(R.menu.search_product, menu);
+        MenuItem item = menu.findItem(R.id.searchProduct);
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setMaxWidth(Integer.MAX_VALUE);
         searchView.setBackground(getResources().getDrawable(R.drawable.ripple_all));
-        searchView.setIconified(false);
+
+//
+//        ImageView magImage = (ImageView) searchView.findViewById(androidx.appcompat.R.id.search_mag_icon);
+//        magImage.setVisibility(View.GONE);
+//        magImage.setImageDrawable(null);
+
+
+//        ImageView searchViewIcon = (ImageView)searchView.findViewById(androidx.appcompat.R.id.search_mag_icon);
+//        searchView.removeView(searchViewIcon);
+
+//        ViewGroup linearLayoutSearchView =(ViewGroup) searchViewIcon.getParent();
+//        linearLayoutSearchView.removeView(searchViewIcon);
+
+
+
+//        int searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
+//        View searchPlate = searchView.findViewById(searchPlateId);
+//        if (searchPlate!=null) {
+//            searchPlate.setBackgroundColor (Color.TRANSPARENT);
+//            int searchTextId = searchPlate.getContext ().getResources ().getIdentifier ("android:id/search_src_text", null, null);
+//
+//        }
+
+//        SearchManager searchManager = (SearchManager) getActivity ().getSystemService (getActivity ().SEARCH_SERVICE);
+//        searchView.setSearchableInfo (searchManager.getSearchableInfo (getActivity ().getComponentName ()));
+//
+//        //changing edittext color
+//        EditText searchEdit = ((EditText)searchView.findViewById(androidx.appcompat.R.id.search_mag_icon));
+//        searchEdit.setTextColor(Color.WHITE);
+
+//        View v = searchView.findViewById(androidx.appcompat.R.id.search_mag_icon);
+//        v.setBackgroundColor(Color.parseColor("here give actionbar color code"));
+
+
 
         TextView searchText = (TextView) searchView.findViewById(R.id.search_src_text);
         Typeface myCustomFont = Typeface.createFromAsset(getAssets(),"font/iran_sans.ttf");
         searchText.setTypeface(myCustomFont);
         searchText.setTextSize(14);
+
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -119,7 +152,7 @@ public class ProductActivity extends AppCompatActivity {
 
 
     public void set_toolBar(){
-        toolbar = findViewById(R.id.toolbar_search);
+        toolbar = findViewById(R.id.toolbar_product);
         toolbar.setTitle("");
         toolbar.setTitleTextColor(getResources().getColor(R.color.white_text));
         setSupportActionBar(toolbar);

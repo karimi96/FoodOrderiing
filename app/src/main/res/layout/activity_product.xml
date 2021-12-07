@@ -9,7 +9,7 @@
 
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_search"
+        android:id="@+id/toolbar_product"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/red_toolbar">
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
-            android:layout_below="@id/toolbar_search"
+            android:layout_below="@id/toolbar_product"
             android:orientation="horizontal"
             android:paddingEnd="10dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
