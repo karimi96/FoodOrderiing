@@ -28,9 +28,14 @@ import com.google.gson.Gson;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+
+import saman.zamani.persiandate.PersianDate;
+import saman.zamani.persiandate.PersianDateFormat;
 
 
 public class OrderActivity extends AppCompatActivity {
@@ -208,12 +213,28 @@ public class OrderActivity extends AppCompatActivity {
         });
     }
 
+    public String getCurrentTime_Date(){
+        PersianDate c = new PersianDate();
+        PersianDateFormat dateFormat = new PersianDateFormat(" Y/m/d ");
+        String datetime = dateFormat.format(c);
+        return datetime;
+    }
+
+    public String getCurrentTime_time(){
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss ");
+        String datetime = dateFormat.format(c.getTime());
+        return datetime;
+    }
+
+
     private void initSaveOrder(){
         save_order.setOnClickListener(view -> {
                     if( customer == null ){
                         Toast.makeText(this, "مشتری را انتخاب کنید", Toast.LENGTH_SHORT).show();
                     }else {
-                        dao_order.insertOrder(new Order(customer.name , CODE , customer.customer_id , 1 , total.getText()+"" , "با تمام مخلفات " ));
+                        dao_order.insertOrder(new Order(customer.name , CODE , customer.customer_id , 1 ,
+                                total.getText()+"" , "با تمام مخلفات " ,getCurrentTime_Date() , getCurrentTime_time() ));
                         for (int i = 0; i < orderDetailList.size(); i++) {
                             dao_detail.insertOrderDetail(new OrderDetail(orderDetailList.get(i).name , orderDetailList.get(i).category ,
                                     String.valueOf(Tools.convertToPrice(orderDetailList.get(i).price) * orderDetailList.get(i).amount)  ,
@@ -226,5 +247,6 @@ public class OrderActivity extends AppCompatActivity {
                
         });
     }
+
 
 }

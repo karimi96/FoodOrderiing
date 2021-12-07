@@ -37,6 +37,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/day"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1.5"
@@ -64,6 +65,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/week"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1.5"

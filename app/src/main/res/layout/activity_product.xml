@@ -40,32 +40,23 @@
         app:maxImageSize="35dp" />
 
 
-    <LinearLayout
-        android:id="@+id/linear_group_Inproduct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar_search"
-        android:orientation="horizontal">
-
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_grouping_product_page"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
+            android:layout_below="@id/toolbar_search"
             android:orientation="horizontal"
-            android:paddingEnd="15dp"
+            android:paddingEnd="10dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/list_item_group_product" />
-
-    </LinearLayout>
 
 
     <LinearLayout
         android:id="@+id/linear_saparat"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@id/linear_group_Inproduct"
+        android:layout_below="@id/recycler_grouping_product_page"
         android:background="#dbdbdb"
         android:orientation="horizontal" />
 
@@ -86,7 +77,7 @@
         android:layout_below="@id/linear_saparat"
         android:clipToPadding="false"
         android:layoutAnimation="@anim/layout_fall_down"
-        android:paddingBottom="7dp"
+        android:paddingTop="7dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/list_item_product" />
 

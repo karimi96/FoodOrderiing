@@ -15,6 +15,7 @@ import com.example.foodorderiing.activity.orderDetail.OrderDetail;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.OrderDao;
 import com.example.foodorderiing.database.dao.OrderDetailDao;
+import com.example.foodorderiing.helper.Tools;
 import com.example.foodorderiing.model.Order;
 
 import java.util.List;
@@ -45,8 +46,10 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.View
         Order order = list.get(position);
         holder.name.setText(order.name);
         holder.status.setText(String.valueOf(order.statusCustomer));
-        holder.total.setText(order.total);
+        holder.total.setText(Tools.getForamtPrice(order.total));
         holder.explain.setText(order.discrebtion);
+        holder.date.setText(order.date);
+        holder.time.setText(order.time);
 
     }
 
@@ -56,11 +59,14 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.View
         return list.size();
     }
 
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView name;
         TextView status;
         TextView total;
         TextView explain;
+        TextView time;
+        TextView date;
         ImageView delete;
 
         public ViewHolder(View itemView) {
@@ -70,6 +76,8 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.View
             status = itemView.findViewById(R.id.status_record);
             total = itemView.findViewById(R.id.total_record);
             explain = itemView.findViewById(R.id.explain_record);
+            time = itemView.findViewById(R.id.time_listOrdring);
+            date = itemView.findViewById(R.id.date_listOrdring);
             delete = itemView.findViewById(R.id.delete_listOrder);
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override

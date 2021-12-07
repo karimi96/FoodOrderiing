@@ -29,6 +29,17 @@
         android:src="@drawable/edit" />
 
     <TextView
+        android:id="@+id/date_listOrdring"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/time_listOrdring"
+        android:fontFamily="@font/irsansfanum"
+        android:padding="10dp"
+        android:text="1400.3.13"
+        android:textColor="#a2a2a2"
+        android:textSize="13dp" />
+
+    <TextView
         android:id="@+id/time_listOrdring"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,15 +50,5 @@
         android:textColor="#a2a2a2"
         android:textSize="13dp" />
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/time_listOrdring"
-        android:fontFamily="@font/irsansfanum"
-        android:padding="10dp"
-        android:text="1400.05.17"
-        android:textColor="#a2a2a2"
-        android:textSize="13dp" />
 
 </RelativeLayout>
