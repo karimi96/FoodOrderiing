@@ -1,8 +1,5 @@
 package com.example.foodorderiing.activity.customer;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,25 +10,20 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.foodorderiing.R;
-import com.example.foodorderiing.adapter.CustomerAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.CustomerDao;
 import com.example.foodorderiing.model.Customer;
-import com.example.foodorderiing.model.Product;
 import com.google.gson.Gson;
 
 
 public class AddNewCustomerActivity extends AppCompatActivity {
-
-    EditText name ;
-    EditText phone ;
-    EditText address ;
-    TextView save;
-    TextView cancel;
-    DatabaseHelper db;
-    CustomerDao dao;
-    Customer c;
+    private EditText name ,phone ,address ;
+    private TextView save ,cancel;
+    private DatabaseHelper db;
+    private CustomerDao dao;
+    private Customer c;
 
 
     @Override
@@ -40,13 +32,9 @@ public class AddNewCustomerActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_add_new_customer);
 
-
-        db = DatabaseHelper.getInstance(getApplicationContext());
-        dao = db.customerDao();
+        initDataBase();
         init();
-        hideInputType();
-
-
+        hideKayBord();
 
         if (getIntent().getExtras() != null){
             String getCustomer = getIntent().getStringExtra("customer");
@@ -55,7 +43,27 @@ public class AddNewCustomerActivity extends AppCompatActivity {
             phone.setText(c.phone);
             address.setText(c.address); }
 
+        actionSave();
+        actionCancel();
 
+    }
+
+
+    private void initDataBase(){
+        db = DatabaseHelper.getInstance(getApplicationContext());
+        dao = db.customerDao();
+    }
+
+
+    private void init(){
+        name = findViewById(R.id.et_get_name_customer);
+        phone = findViewById(R.id.et_get_phone_customer);
+        address = findViewById(R.id.et_get_address_customer);
+        save = findViewById(R.id.tv_save_customer);
+        cancel = findViewById(R.id.tv_cancel_customer); }
+
+
+    private void actionSave(){
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,35 +93,24 @@ public class AddNewCustomerActivity extends AppCompatActivity {
                     finish();
                 }
                 overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
-
-
             }
 
         });
+    }
 
 
+    private void actionCancel(){
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
                 overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
-
             }
         });
-
     }
 
 
-
-    private void init(){
-        name = findViewById(R.id.et_get_name_customer);
-        phone = findViewById(R.id.et_get_phone_customer);
-        address = findViewById(R.id.et_get_address_customer);
-        save = findViewById(R.id.tv_save_customer);
-        cancel = findViewById(R.id.tv_cancel_customer); }
-
-
-    private void hideInputType(){
+    private void hideKayBord(){
             name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
@@ -152,7 +149,6 @@ public class AddNewCustomerActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        if(db != null) db.close();
         }
 
 }

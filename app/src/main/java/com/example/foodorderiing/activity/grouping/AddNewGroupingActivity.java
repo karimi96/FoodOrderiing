@@ -1,10 +1,6 @@
 package com.example.foodorderiing.activity.grouping;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,25 +9,21 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
 import com.example.foodorderiing.model.Grouping;
-import com.example.foodorderiing.model.Product;
 import com.google.gson.Gson;
 
-import java.util.Arrays;
-import java.util.List;
 
 public class AddNewGroupingActivity extends AppCompatActivity {
-    EditText editText_category;
-    DatabaseHelper db;
-    GroupingDao dao_grouping;
-    TextView tv_save , tv_cancel;
-    String name;
-    Grouping g;
-    String old_name;
+    private EditText editText_category;
+    private DatabaseHelper db;
+    private GroupingDao dao_grouping;
+    private TextView tv_save , tv_cancel;
+    private String name ,old_name;
+    private Grouping g;
 
 
     @Override
@@ -40,11 +32,11 @@ public class AddNewGroupingActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_add_new_grouping);
 
-        db = DatabaseHelper.getInstance(getApplicationContext());
-        dao_grouping = db.groupingDao();
-        editText_category = findViewById(R.id.et_get_category_grouping);
+       initDataBase();
+       initID();
+       editText_category = findViewById(R.id.et_get_category_grouping);
 
-        if(getIntent().getExtras() != null){
+       if(getIntent().getExtras() != null){
             String getGrouping =getIntent().getStringExtra("grouping");
             g = new Gson().fromJson(getGrouping, Grouping.class);
             old_name = g.name;
@@ -52,13 +44,24 @@ public class AddNewGroupingActivity extends AppCompatActivity {
 
         click_save();
         click_cancel();
-        hideInputType();
+        hideKeyBord();
+
+    }
+
+
+    private void initDataBase(){
+        db = DatabaseHelper.getInstance(getApplicationContext());
+        dao_grouping = db.groupingDao();
+    }
+
+    private void initID(){
+        tv_save = findViewById(R.id.tv_save_group);
+        tv_cancel = findViewById(R.id.tv_cancel_group);
 
     }
 
 
     public void click_save(){
-        tv_save = findViewById(R.id.tv_save_group);
         tv_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,30 +99,17 @@ public class AddNewGroupingActivity extends AppCompatActivity {
 
 
     public void click_cancel(){
-        tv_cancel = findViewById(R.id.tv_cancel_group);
         tv_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
                 overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
-
             }
         });
     }
 
 
-    public void check_array(){
-        for (int i = 0; i < dao_grouping.getGroupingList().size(); i++) {
-            if (name != dao_grouping.getGroupingList().get(i).name) {
-                
-            }else {
-                Toast.makeText(this, "repetity", Toast.LENGTH_SHORT).show();
-            }
-
-        }
-    }
-
-    private void hideInputType(){
+    private void hideKeyBord(){
         editText_category.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -138,12 +128,10 @@ public class AddNewGroupingActivity extends AppCompatActivity {
         super.onResume();
     }
 
-
     @Override
     protected void onPause() {
         super.onPause();
     }
-
 
     @Override
     protected void onDestroy() {

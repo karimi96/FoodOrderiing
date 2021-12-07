@@ -30,7 +30,7 @@ public class GroupingActivity extends AppCompatActivity {
     private GroupingAdapter groupingAdapter;
     private DatabaseHelper db;
     private GroupingDao dao_group;
-    private SlidrInterface slidr ;
+    private SlidrInterface slider ;
     private TextView noGrouping ;
 
     @Override
@@ -38,11 +38,12 @@ public class GroupingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grouping);
 
-        slidr = Slidr.attach(this);
+        slider = Slidr.attach(this);
         initID();
         set_recyclerView();
         set_fab();
         hide_fab();
+
     }
 
     private void initID(){
@@ -107,7 +108,6 @@ public class GroupingActivity extends AppCompatActivity {
             recyclerView_grouping.setVisibility(View.VISIBLE);
         }
     }
-
 
 
     private void layoutAnimation(RecyclerView recyclerView){
