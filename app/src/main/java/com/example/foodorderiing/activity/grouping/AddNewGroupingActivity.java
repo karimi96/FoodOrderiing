@@ -1,12 +1,15 @@
 package com.example.foodorderiing.activity.grouping;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +52,7 @@ public class AddNewGroupingActivity extends AppCompatActivity {
 
         click_save();
         click_cancel();
+        hideInputType();
 
     }
 
@@ -113,6 +117,19 @@ public class AddNewGroupingActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+    private void hideInputType(){
+        editText_category.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken() , 0);
+                }
+
+            }
+        });
     }
 
 

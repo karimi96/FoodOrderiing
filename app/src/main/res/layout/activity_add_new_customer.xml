@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/food_orang"
-    android:gravity="center"
     android:clickable="true"
     android:focusableInTouchMode="true"
+    android:gravity="center"
     tools:context=".activity.customer.AddNewCustomerActivity">
 
 
@@ -48,6 +48,7 @@
                 android:fontFamily="@font/iran_sans"
                 android:gravity="right|center_vertical"
                 android:hint="نام"
+                android:imeOptions="actionNext"
                 android:inputType="textPersonName"
                 android:padding="5dp"
                 android:textColor="@color/black"
@@ -66,6 +67,7 @@
                 android:fontFamily="@font/iran_sans"
                 android:gravity="right|center_vertical"
                 android:hint="تلفن"
+                android:imeOptions="actionNext"
                 android:inputType="phone"
                 android:padding="5dp"
                 android:textColor="@color/black"
@@ -85,6 +87,7 @@
                 android:fontFamily="@font/iran_sans"
                 android:gravity="right|center_vertical"
                 android:hint="ادرس "
+                android:imeOptions="actionDone"
                 android:inputType="text"
                 android:padding="5dp"
                 android:textColor="@color/black"

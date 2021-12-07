@@ -3,6 +3,7 @@ package com.example.foodorderiing.activity.product;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.icu.text.DecimalFormat;
 import android.media.MediaPlayer;
@@ -14,6 +15,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -60,11 +62,11 @@ public class AddNewProductActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_add_new_product);
 
-
-        initID();
         db = DatabaseHelper.getInstance(getApplicationContext());
         dao_product = db.productDao();
         dao_grouping = db.groupingDao();
+        initID();
+       hideInputType();
 
         et_price.addTextChangedListener(new NumberTextWatcherForThousand(et_price));
         autoCompleteTextView  = findViewById(R.id.autoComplete_tv);
@@ -147,6 +149,8 @@ public class AddNewProductActivity extends AppCompatActivity {
     }
 
 
+
+
     private void initID(){
         tv_save = findViewById(R.id.tv_save_product);
         et_name = findViewById(R.id.et_get_name_product);
@@ -167,30 +171,42 @@ public class AddNewProductActivity extends AppCompatActivity {
         });
     }
 
-//
-//    public void set_Spinner(){
-//        List<String> nf = new ArrayList<>();
-//        dao_grouping = db.groupingDao();
-//        for (int i = 0; i < dao_grouping.getGroupingList().size(); i++) {
-//            nf = Collections.singletonList(dao_grouping.getGroupingList().get(i).name);
-//        }
 
+    private void hideInputType(){
+        et_name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken() , 0);
+                }
 
-//        spinner = findViewById(R.id.spinner_product);
-//        adapterSp = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,nf);
-//        spinner.setAdapter(adapterSp);
-//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                String s = (String) parent.getItemAtPosition(position);
-//                Log.e("qqqq", "onItemSelected: "+s );
-//            }
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
-//    }
+            }
+        });
+
+        et_price.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken() , 0);
+                }
+
+            }
+        });
+
+        autoCompleteTextView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken() , 0);
+                }
+
+            }
+        });
+    }
+
 
 
         @Override

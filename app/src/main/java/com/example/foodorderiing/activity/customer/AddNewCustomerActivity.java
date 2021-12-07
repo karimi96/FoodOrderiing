@@ -32,7 +32,7 @@ public class AddNewCustomerActivity extends AppCompatActivity {
     DatabaseHelper db;
     CustomerDao dao;
     Customer c;
-    String old_name;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +40,12 @@ public class AddNewCustomerActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_add_new_customer);
 
-        init();
-        hideInputtype();
+
         db = DatabaseHelper.getInstance(getApplicationContext());
         dao = db.customerDao();
+        init();
+        hideInputType();
+
 
 
         if (getIntent().getExtras() != null){
@@ -102,14 +104,38 @@ public class AddNewCustomerActivity extends AppCompatActivity {
     }
 
 
-    public void init(){
+
+    private void init(){
         name = findViewById(R.id.et_get_name_customer);
         phone = findViewById(R.id.et_get_phone_customer);
         address = findViewById(R.id.et_get_address_customer);
         save = findViewById(R.id.tv_save_customer);
         cancel = findViewById(R.id.tv_cancel_customer); }
 
-        private void hideInputtype(){
+
+    private void hideInputType(){
+            name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(v.getWindowToken() , 0);
+                    }
+
+                }
+            });
+
+            phone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(v.getWindowToken() , 0);
+                    }
+
+                }
+            });
+
             address.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
@@ -117,6 +143,7 @@ public class AddNewCustomerActivity extends AppCompatActivity {
                         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(v.getWindowToken() , 0);
                     }
+
                 }
             });
         }
