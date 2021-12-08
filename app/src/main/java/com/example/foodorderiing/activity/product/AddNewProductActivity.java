@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -28,7 +29,7 @@ import com.google.gson.Gson;
 
 public class AddNewProductActivity extends AppCompatActivity {
     private EditText et_name ,et_price ;
-    private AutoCompleteTextView autoCompleteTextView;
+    private AutoCompleteTextView autoTextView_grouing;
     private ArrayAdapter<String> adapter_autocomplete;
     private TextView tv_save , tv_cancel;
     private VideoView videoView;
@@ -53,7 +54,7 @@ public class AddNewProductActivity extends AppCompatActivity {
             String getNameProduct = getIntent().getStringExtra("product");
             p = new Gson().fromJson(getNameProduct,Product.class);
             et_name.setText(p.name);
-            autoCompleteTextView.setText(p.category);
+            autoTextView_grouing.setText(p.category);
             et_price.setText(p.price);
         }
 
@@ -75,7 +76,7 @@ public class AddNewProductActivity extends AppCompatActivity {
         tv_save = findViewById(R.id.tv_save_product);
         et_name = findViewById(R.id.et_get_name_product);
         et_price = findViewById(R.id.et_get_price_product);
-        autoCompleteTextView  = findViewById(R.id.autoComplete_tv);
+        autoTextView_grouing  = findViewById(R.id.autoComplete_tv);
         tv_cancel = findViewById(R.id.tv_cancel_product);
 
     }
@@ -119,7 +120,7 @@ public class AddNewProductActivity extends AppCompatActivity {
             }
         });
 
-        autoCompleteTextView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        autoTextView_grouing.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
@@ -133,19 +134,15 @@ public class AddNewProductActivity extends AppCompatActivity {
 
 
     private void initOutoTextView(){
-//        adapter_autocomplete = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_dropdown_item_1line,dao_grouping.getname());
-//        autoCompleteTextView_adapter = new AutoCompleteTextView_Adapter(getApplicationContext(),
-//                R.layout.list_item_auto_complete_textview
-//                ,new ArrayList<>(dao_grouping.getGroupingList()),-1);
-//        autoCompleteTextView.setAdapter(autoCompleteTextView_adapter);
-//        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Grouping g = (Grouping) parent.getItemAtPosition(position);
-//                itemCategory = String.valueOf(g.grouping_id);
-//                autoCompleteTextView.setText(g.name);
-//            }
-//        });
+        adapter_autocomplete = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_dropdown_item_1line,dao_grouping.getname());
+        autoTextView_grouing.setAdapter(adapter_autocomplete);
+        autoTextView_grouing.setThreshold(0);
+        autoTextView_grouing.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                parent.getItemAtPosition(position)
+            }
+        });
 
 //        autoCompleteTextView.setOnFocusChangeListener((v, hasFocus) -> {
 //            if (hasFocus) autoCompleteTextView.showDropDown();
@@ -157,23 +154,33 @@ public class AddNewProductActivity extends AppCompatActivity {
     }
 
 
+
     private void actionSave(){
         tv_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String nameProduct = et_name.getText().toString();
-                String categoryProduct = autoCompleteTextView.getText().toString();
+                String categoryProduct = autoTextView_grouing.getText().toString();
                 String priceProduct = et_price.getText().toString();
 
                 if (p == null){
                     if(TextUtils.isEmpty(nameProduct) || TextUtils.isEmpty(categoryProduct) ||TextUtils.isEmpty(priceProduct)){
                         Toast.makeText(getApplicationContext(), "فیلد مورد نظر را پرکنید!!!", Toast.LENGTH_SHORT).show();
-                    }else {
-                        dao_product.insertProduct(new Product(nameProduct,categoryProduct, priceProduct));
-                        Toast.makeText(getApplicationContext(), nameProduct + " با موفقیت به لیست اضافه شد ", Toast.LENGTH_LONG).show();
-                        finish();
 
+                    }else {
+                        if(dao_product.getOneName(nameProduct) != null){
+                            Toast.makeText(AddNewProductActivity.this, " این محصول وجود دارد ", Toast.LENGTH_SHORT).show();
+
+                        }else if(dao_grouping.getOneName(categoryProduct) == null){
+                            Toast.makeText(AddNewProductActivity.this,  " دسته بندی "+ categoryProduct + " وجود ندارد ", Toast.LENGTH_SHORT).show();
+
+                        }else {
+                            dao_product.insertProduct(new Product(nameProduct,categoryProduct, priceProduct));
+                            Toast.makeText(getApplicationContext(), nameProduct + " با موفقیت به لیست اضافه شد ", Toast.LENGTH_LONG).show();
+                            finish();
+
+                        }
                     }
                 }else {
                     p.name = nameProduct;

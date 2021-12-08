@@ -15,9 +15,10 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/ccc"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_marginHorizontal="30dp"
         android:backgroundTint="#aa000000"
         app:cardCornerRadius="12dp">
 
@@ -28,7 +29,7 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="150dp"
                 android:padding="15dp"
                 android:src="@drawable/ic_outline_add_a_photo_24" />
 
@@ -48,10 +49,10 @@
                 android:background="@drawable/border_editext_product"
                 android:drawableRight="@drawable/ic_round_fastfood_24"
                 android:drawablePadding="10dp"
-                android:imeOptions="actionNext"
                 android:fontFamily="@font/iran_sans"
                 android:gravity="right|center_vertical"
                 android:hint="اسم محصول"
+                android:imeOptions="actionNext"
                 android:inputType="textPersonName"
                 android:padding="5dp"
                 android:textColor="@color/black"
@@ -69,12 +70,11 @@
                 android:drawableRight="@drawable/ic_baseline_category_24"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/iran_sans"
-                android:gravity="right"
-                android:imeOptions="actionNext"
+                android:gravity="right|center"
                 android:hint="دسته بندی"
+                android:imeOptions="actionNext"
                 android:padding="5dp"
                 android:singleLine="true"
-                android:text="0"
                 android:textColor="@color/black"
                 android:textSize="16dp" />
 

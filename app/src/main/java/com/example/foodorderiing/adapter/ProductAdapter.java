@@ -6,12 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.fonts.Font;
-import android.graphics.fonts.FontFamily;
-import android.graphics.fonts.FontStyle;
-import android.os.Build;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.product.AddNewProductActivity;
@@ -31,8 +25,6 @@ import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.ProductDao;
 import com.example.foodorderiing.model.Product;
 import com.google.gson.Gson;
-
-import org.intellij.lang.annotations.JdkConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,6 +128,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
+
+
                                 database = DatabaseHelper.getInstance(context.getApplicationContext());
                                 dao = database.productDao();
                                 dao.deleteProduct(list.get(pos));
@@ -218,10 +212,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         list_search.clear();
         list.clear();
         notifyDataSetChanged();
-    }
-
-    public int count(){
-        return list.size();
     }
 
 }

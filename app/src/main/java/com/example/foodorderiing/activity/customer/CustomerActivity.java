@@ -38,6 +38,8 @@ public class CustomerActivity extends AppCompatActivity {
     private boolean for_order = false;
     private TextView noCustomer;
     private RecyclerTouchListener touchListener;
+    private Customer customerr;
+    private int poss;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,7 @@ public class CustomerActivity extends AppCompatActivity {
         initDataBase();
         set_recyclerView();
         setSwipe();
-        setText();
+//        setText();
     }
 
 
@@ -80,7 +82,6 @@ public class CustomerActivity extends AppCompatActivity {
         searchText.setTypeface(myCustomFont);
         searchText.setTextSize(14);
 
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -97,20 +98,28 @@ public class CustomerActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onResume() {
         super.onResume();
-        setText();
-        if (adapter != null) {
-            adapter.addList(dao.getCustomerList());
-        }
 
-    }
+            if (adapter != null) {
+                adapter.notifyDataSetChanged();
+                if(dao.getCustomerList().size() < 0 ) {
+                    noCustomer.setVisibility(View.VISIBLE);
+
+//                    recyclerView.setVisibility(View.GONE);
+                }else {
+                    noCustomer.setVisibility(View.GONE);
+                    adapter.addList(dao.getCustomerList());
+                }
+
+            }
+        }
 
 
     private void setText() {
-        if (dao.getCustomerList().size() < 1) {
+        adapter.clean();
+        if (dao.getCustomerList().size() <= 0) {
             noCustomer.setVisibility(View.VISIBLE);
 //            recyclerView_product.setVisibility(View.GONE);
         } else {
@@ -131,6 +140,8 @@ public class CustomerActivity extends AppCompatActivity {
         adapter = new CustomerAdapter(new ArrayList<>(), this, new CustomerAdapter.Listener() {
             @Override
             public void onClickListener(Customer customer, int pos, String name) {
+                customerr = customer;
+                poss = pos;
                 if (for_order) {
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra("json_customer", new Gson().toJson(customer));
@@ -219,7 +230,7 @@ public class CustomerActivity extends AppCompatActivity {
 
                         switch (viewID) {
                             case R.id.lottie_phone:
-                                String phonnumber = "0000000000";
+                                String phonnumber = dao.getCustomerList().get(position).phone;
                                 Intent call = new Intent(Intent.ACTION_DIAL);
                                 call.setData(Uri.parse("tel:" + phonnumber));
                                 startActivity(call);

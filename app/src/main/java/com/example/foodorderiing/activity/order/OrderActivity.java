@@ -139,11 +139,13 @@ public class OrderActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
     }
 
+
     private void initDataBase(){
         db = DatabaseHelper.getInstance(getApplicationContext());
         dao_order = db.orderDao();
         dao_detail = db.orderDetailDao();
     }
+
 
     private void initID(){
         add_order = findViewById(R.id.add_order);
@@ -159,6 +161,7 @@ public class OrderActivity extends AppCompatActivity {
         noOrder =findViewById(R.id.noOrder);
     }
 
+
     private void initBoxCustomer(){
         box_customer.setOnClickListener(v ->{
             Intent intent = new Intent(this, CustomerActivity.class);
@@ -166,6 +169,7 @@ public class OrderActivity extends AppCompatActivity {
            startActivityForResult(intent,100);
         });
     }
+
 
     private void initBoxProduct(){
         add_order.setOnClickListener(v ->{
@@ -175,6 +179,7 @@ public class OrderActivity extends AppCompatActivity {
         });
     }
 
+
     private void initCounter(){
         if(orderDetailList.size() > 0){
             card_number.setVisibility(View.VISIBLE);
@@ -183,7 +188,7 @@ public class OrderActivity extends AppCompatActivity {
         }else {
             card_number.setVisibility(View.GONE);
         }
-        total.setText(getTotalPrice()+"");
+        total.setText(Tools.getForamtPrice(getTotalPrice()+""));
     }
 
 
@@ -213,6 +218,7 @@ public class OrderActivity extends AppCompatActivity {
         });
     }
 
+
     public String getCurrentTime_Date(){
         PersianDate c = new PersianDate();
         PersianDateFormat dateFormat = new PersianDateFormat(" Y/m/d ");
@@ -235,18 +241,28 @@ public class OrderActivity extends AppCompatActivity {
                     }else {
                         dao_order.insertOrder(new Order(customer.name , CODE , customer.customer_id , 1 ,
                                 total.getText()+"" , "با تمام مخلفات " ,getCurrentTime_Date() , getCurrentTime_time() ));
+
                         for (int i = 0; i < orderDetailList.size(); i++) {
+
                             dao_detail.insertOrderDetail(new OrderDetail(orderDetailList.get(i).name , orderDetailList.get(i).category ,
                                     String.valueOf(Tools.convertToPrice(orderDetailList.get(i).price) * orderDetailList.get(i).amount)  ,
                                     orderDetailList.get(i).amount ,CODE ));
 
-                            Toast.makeText(OrderActivity.this, "save data", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(OrderActivity.this, " سفارش " + customer.name + " با موفقیت ثبت شد", Toast.LENGTH_SHORT).show();
                         }
+                        db.close();
                         finish();
                     }
                
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(db != null){
+            db.close();
+        }
 
+    }
 }

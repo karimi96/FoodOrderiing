@@ -46,7 +46,7 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.View
         Order order = list.get(position);
         holder.name.setText(order.name);
         holder.status.setText(String.valueOf(order.statusCustomer));
-        holder.total.setText(Tools.getForamtPrice(order.total));
+        holder.total.setText(order.total);
         holder.explain.setText(order.discrebtion);
         holder.date.setText(order.date);
         holder.time.setText(order.time);
@@ -89,8 +89,6 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.View
                     notifyItemRangeChanged(getAdapterPosition(),list.size());
                     notifyDataSetChanged();
 
-//                    OrderDetailDao dao_detail = db.orderDetailDao();
-//                    dao_detail.deleteOneObject(list.get(getAdapterPosition()).code);
                 }
             });
 

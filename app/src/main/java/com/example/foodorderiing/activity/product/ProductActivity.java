@@ -135,7 +135,6 @@ public class ProductActivity extends AppCompatActivity {
     }
 
 
-    
     private void initID(){
         recyclerView_category = findViewById(R.id.recycler_grouping_product_page);
         recyclerView_product = findViewById(R.id.recycler_product);
@@ -162,6 +161,13 @@ public class ProductActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        adapter_pro.clear();
+        if(dao_product.get_product_by_category(nameGrouping).size() < 0){
+            noProduct.setVisibility(View.VISIBLE);
+        }else {
+            noProduct.setVisibility(View.GONE);
+
+        }
         initListProduct();
     }
 
@@ -181,9 +187,7 @@ public class ProductActivity extends AppCompatActivity {
                     nameGrouping = null ;
                 }else {
                     nameGrouping = g.name;
-                    adapter_pro.notifyDataSetChanged();
-
-                    if(dao_product.get_product_by_category(nameGrouping).size() < 1){
+                    if(dao_product.get_product_by_category(nameGrouping).size() < 0){
                         noProduct.setVisibility(View.VISIBLE);
                     }else {
                         noProduct.setVisibility(View.GONE);

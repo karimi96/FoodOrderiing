@@ -53,6 +53,7 @@ public class HomeActivity extends AppCompatActivity {
     private ImageView img_ordering;
     private TextView recordOrder ,month ,week ,day ;
     private String daily;
+    String karimi;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -72,6 +73,7 @@ public class HomeActivity extends AppCompatActivity {
         setDateMiladi_daily();
         setDateShamsi_daily();
         setDateShamsi_weekly();
+//        week.setText(karimi);
 
     }
 
@@ -189,12 +191,14 @@ public class HomeActivity extends AppCompatActivity {
         long result = c.getTimeInMillis();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String datetime = dateFormat.format(result);
-        month.setText(datetime);
+//        month.setText(datetime);
     }
 
 
     private void setDateShamsi_daily(){
         PersianDate b = new PersianDate();
+//        karimi =  b.dayName();
+//        karimi = b.dayName();
         PersianDateFormat dateFormattt = new PersianDateFormat(" Y/m/d ");
         daily = dateFormattt.format(b);
     }
@@ -205,7 +209,7 @@ public class HomeActivity extends AppCompatActivity {
         PersianDateFormat dateFormatt = new PersianDateFormat(" Y/m/d ");
         a = new PersianDate(a.getTime()- 604800000L );
         String datetimee = dateFormatt.format(a);
-        month.setText(datetimee);
+//        month.setText(datetimee);
     }
 
 
@@ -227,6 +231,13 @@ public class HomeActivity extends AppCompatActivity {
         day.setText(Tools.getForamtPrice(String.valueOf(j)));
         create_chart(j);
     }
+
+
+
+
+
+
+
 
 
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="220dp"
     android:orientation="vertical">
@@ -71,9 +72,9 @@
                     android:layout_weight="1.5"
                     android:fontFamily="@font/irsansfanum"
                     android:gravity="end|center"
-                    android:text="375000"
                     android:textColor="#818080"
-                    android:textSize="14dp" />
+                    android:textSize="14dp"
+                    tools:text="375000" />
 
             </LinearLayout>
 
@@ -99,7 +100,7 @@
                     android:layout_weight="1.5"
                     android:fontFamily="@font/irsansfanum"
                     android:gravity="end|center"
-                    android:text="375000"
+                    tools:text="375000"
                     android:textColor="#818080"
                     android:textSize="14dp" />
 

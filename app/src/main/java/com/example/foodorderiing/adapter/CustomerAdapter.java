@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +17,6 @@ import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodorderiing.R;
@@ -26,7 +24,6 @@ import com.example.foodorderiing.activity.customer.AddNewCustomerActivity;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.CustomerDao;
 import com.example.foodorderiing.model.Customer;
-import com.example.foodorderiing.model.Product;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -169,6 +166,15 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
             list = new ArrayList<>(list_search);
             notifyDataSetChanged();
         }
+
+
+    public void clean() {
+        list_search.clear();
+        list.clear();
+        notifyDataSetChanged();
+    }
+
+
 
 
     //  For search

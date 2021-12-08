@@ -86,11 +86,27 @@
                 android:layout_weight="0.7"
                 android:padding="18dp">
 
-                <de.hdodenhof.circleimageview.CircleImageView
+
+                <androidx.cardview.widget.CardView
+                    app:cardElevation="4dp"
+                    android:outlineSpotShadowColor="@color/red_toolbar"
+                    app:cardCornerRadius="15dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ptz" />
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:src="@drawable/lizania"
+                        android:scaleType="centerCrop"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                </androidx.cardview.widget.CardView>
+
+<!--                <de.hdodenhof.circleimageview.CircleImageView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:scaleType="centerCrop"-->
+<!--                    android:src="@drawable/ptz" />-->
 
 
             </LinearLayout>
@@ -110,7 +126,7 @@
                     android:paddingEnd="8dp"
                     android:text="پیتزا چیکن"
                     android:textColor="@color/white_text"
-                    android:textSize="16dp"
+                    android:textSize="18dp"
                     android:textStyle="bold" />
 
                 <TextView

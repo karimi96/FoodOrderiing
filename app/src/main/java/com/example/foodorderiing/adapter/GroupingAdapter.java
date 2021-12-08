@@ -5,51 +5,49 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Parcelable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.grouping.AddNewGroupingActivity;
-import com.example.foodorderiing.activity.product.AddNewProductActivity;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
-import com.example.foodorderiing.design.BlureImage;
 import com.example.foodorderiing.model.Grouping;
-import com.example.foodorderiing.model.Product;
 import com.google.gson.Gson;
-
+import java.util.ArrayList;
 import java.util.List;
 
-public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHolder> {
-    List<Grouping> list;
+
+
+public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHolder> implements Filterable {
     Context context;
+    List<Grouping> list;
+    List<Grouping> list_search;
     DatabaseHelper database;
     GroupingDao dao;
     Grouping grouping;
 
     public GroupingAdapter(List<Grouping> list, Context context) {
-        this.list = list;
+        this.list_search = list;
+        this.list = new ArrayList<>(list_search);
         this.context = context;
     }
 
     @Override
     public GroupingAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.list_item_grouping,parent,false);
+        View view = layoutInflater.inflate(R.layout.list_item_grouping, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -58,19 +56,20 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
     public void onBindViewHolder(GroupingAdapter.ViewHolder holder, int position) {
         grouping = list.get(position);
         holder.tv_name_category.setText(grouping.name);
-//        holder.tv_name_category.setSelected(true);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialogSheet(position , list.get(position).name);
+                showDialogSheet(position, list.get(position).name);
             }
         });
     }
+
 
     @Override
     public int getItemCount() {
         return list.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv_name_category;
@@ -80,14 +79,11 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
             super(itemView);
             tv_name_category = itemView.findViewById(R.id.tv_name_of_category_group);
             img_food_grouping = itemView.findViewById(R.id.img_food_grouping);
-
-
         }
     }
 
 
-    private void showDialogSheet(int pos , String name){
-
+    private void showDialogSheet(int pos, String name) {
         final Dialog dialog_sheet = new Dialog(context);
         dialog_sheet.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_sheet.setContentView(R.layout.bottom_sheet_grouping);
@@ -100,11 +96,10 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context , AddNewGroupingActivity.class);
-                intent.putExtra("grouping",new Gson().toJson(list.get(pos)));
+                Intent intent = new Intent(context, AddNewGroupingActivity.class);
+                intent.putExtra("grouping", new Gson().toJson(list.get(pos)));
                 context.startActivity(intent);
                 dialog_sheet.dismiss();
-
             }
         });
 
@@ -112,25 +107,23 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
             @Override
             public void onClick(View v) {
 
-                new AlertDialog.Builder( context )
+                new AlertDialog.Builder(context)
                         .setTitle("حذف")
                         .setMessage("ایا مایلید این مورد را حذف کنید؟")
                         .setIcon(R.drawable.ic_baseline_delete_24)
                         .setPositiveButton("بله", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
                                 database = DatabaseHelper.getInstance(context.getApplicationContext());
                                 dao = database.groupingDao();
                                 dao.deleteGrouping(grouping);
                                 list.remove(pos);
                                 notifyItemRemoved(pos);
-                                notifyItemRangeChanged(pos,list.size());
+                                notifyItemRangeChanged(pos, list.size());
                                 notifyDataSetChanged();
                                 dialog_sheet.dismiss();
                                 Toast.makeText(context, "با موفقیت حذف شد 😉 ", Toast.LENGTH_LONG).show();
                             }
-
                         })
                         .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
                             @Override
@@ -143,7 +136,6 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
                         .show();
             }
         });
-
         dialog_sheet.show();
         dialog_sheet.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog_sheet.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -152,10 +144,47 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
     }
 
 
-    public void addList(List<Grouping> arraylist){
-        list.clear();
-        list.addAll(arraylist);
+    public void addList(List<Grouping> arraylist) {
+        list_search.clear();
+        list_search.addAll(arraylist);
+        list = new ArrayList<>(list_search);
         notifyDataSetChanged();
     }
+
+
+
+    //  For search
+    @Override
+    public Filter getFilter() {
+        return newsFilter;
+    }
+
+    private final Filter newsFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            List<Grouping> filterdNewList = new ArrayList<>();
+            if(constraint == null || constraint.length() == 0){
+                filterdNewList.addAll(list_search);
+            }else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for(Grouping grouping : list_search){
+
+                    if(grouping.name.toLowerCase().contains(filterPattern))
+                        filterdNewList.add(grouping);
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filterdNewList;
+            results.count = filterdNewList.size();
+            return results;
+        }
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            list.clear();
+            list.addAll((ArrayList)results.values);
+            notifyDataSetChanged();
+        }
+    };
 
 }
