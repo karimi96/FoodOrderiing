@@ -2,6 +2,7 @@ package com.example.foodorderiing.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,10 +46,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void onBindViewHolder(OrderAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(OrderAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         product = list.get(position);
         holder.tv_name_food.setText(product.name);
         holder.tv_name_category.setText(product.category);
+        holder.img_food_bg.setImageURI(Uri.parse(product.picture));
         holder.tv_price.setText( Tools.getForamtPrice(Tools.convertToPrice(product.price) * product.amount+"") );
         holder.tv_number_order.setText(product.amount+"");
 
@@ -67,16 +69,15 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             }
 
         });
-
-
-
     }
+
 
 
     @Override
     public int getItemCount() {
         return list.size() ;
     }
+
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -93,6 +94,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             tv_price = itemView.findViewById(R.id.price_ordring);
             img_Increase = itemView.findViewById(R.id.img_inCrease);
             img_Dicrease = itemView.findViewById(R.id.img_diCrease);
+            img_food_bg = itemView.findViewById(R.id.img_ordring);
         }
     }
 

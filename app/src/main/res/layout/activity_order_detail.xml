@@ -10,15 +10,13 @@
     <LinearLayout
         android:id="@+id/linear1"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="210dp"
         android:layout_weight="1"
         android:background="@drawable/background_detail"
         android:orientation="vertical">
-
     </LinearLayout>
 
     <include layout="@layout/boxuser_detail" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_detail"

@@ -2,6 +2,7 @@ package com.example.foodorderiing.activity.order;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -28,6 +29,9 @@ import com.google.gson.Gson;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.spi.FileTypeDetector;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -53,6 +57,7 @@ public class OrderActivity extends AppCompatActivity {
     private CardView card_number;
     private String CODE = String.valueOf(System.currentTimeMillis());
     private RelativeLayout relative_total;
+    private String edit ;
 
 
     @Override
@@ -61,6 +66,11 @@ public class OrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order);
 
         slidr = Slidr.attach(this);
+//        if(getIntent().getExtras() != null){
+//            edit = getIntent().getStringExtra("edit");
+//
+//        }
+
         initDataBase();
         initID();
         initBoxCustomer();
@@ -68,9 +78,9 @@ public class OrderActivity extends AppCompatActivity {
         initLottie();
         initRecycler();
         initSaveOrder();
-
-
     }
+
+
 
     @Override
     protected void onActivityResult( int requestCode, int resultCode , @Nullable @org.jetbrains.annotations.Nullable Intent data) {
@@ -250,19 +260,20 @@ public class OrderActivity extends AppCompatActivity {
 
                             Toast.makeText(OrderActivity.this, " سفارش " + customer.name + " با موفقیت ثبت شد", Toast.LENGTH_SHORT).show();
                         }
-                        db.close();
+//                        db.close();
                         finish();
                     }
-               
+
+
         });
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if(db != null){
-            db.close();
-        }
 
-    }
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+////        if(db != null){
+////            db.close();
+////        }
+//    }
 }

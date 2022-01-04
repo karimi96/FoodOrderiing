@@ -95,6 +95,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:id="@+id/img_ordring"
                         android:src="@drawable/lizania"
                         android:scaleType="centerCrop"
                         android:layout_width="match_parent"

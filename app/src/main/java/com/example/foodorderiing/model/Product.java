@@ -23,22 +23,27 @@ public class Product {
     @ColumnInfo(name = "price")
     public String price;
 
+    @ColumnInfo(name = "picture")
+    public String picture;
+
     @Ignore
     public int amount = 1;
 
 
-    public Product(int product_id, String name, String category, String price ) {
+    public Product(int product_id, String name, String category, String price,  String picture ) {
         this.product_id = product_id;
         this.name = name;
         this.category = category;
         this.price = price;
+        this.picture = picture;
     }
 
 
     @Ignore
-    public Product(String name, String category, String price) {
+    public Product(String name, String category, String price,  String picture) {
         this.name = name;
         this.category = category;
         this.price = price;
+        this.picture = picture;
     }
 }

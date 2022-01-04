@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.foodorderiing">
     <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -21,14 +22,16 @@
             android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme" />
         <activity
             android:name=".activity.customer.CustomerActivity"
-            android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme" />
+            android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".activity.product.AddNewProductActivity" />
         <activity
             android:name=".activity.grouping.AddNewGroupingActivity"
             android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme" />
         <activity
             android:name=".activity.grouping.GroupingActivity"
-            android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme" />
+            android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activity.product.ProductActivity"
             android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme"

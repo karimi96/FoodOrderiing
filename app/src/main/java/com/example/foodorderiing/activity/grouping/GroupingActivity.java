@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
@@ -147,10 +148,8 @@ public class GroupingActivity extends AppCompatActivity {
         if( groupingAdapter!= null){
             groupingAdapter.addList(dao_group.getGroupingList());
         }
-        if(dao_group.getGroupingList().size() != 0 ){
-            groupingAdapter.notifyDataSetChanged();
+        if(dao_group.getGroupingList().size() > 0 ){
             noGrouping.setVisibility(View.GONE);
-            recyclerView_grouping.setVisibility(View.VISIBLE);
         }
     }
 

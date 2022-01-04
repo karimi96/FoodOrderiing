@@ -1,11 +1,14 @@
 package com.example.foodorderiing.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.model.Grouping;
@@ -16,6 +19,7 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
     Context context;
     List<Grouping> list;
     Listener listener;
+    int row_index = -1;
 
 
     public GroupInProductAdapter(List<Grouping> list, Context context , Listener listener ) {
@@ -37,16 +41,33 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
     }
 
     @Override
-    public void onBindViewHolder(GroupInProductAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(GroupInProductAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Grouping grouping = list.get(position);
         holder.tv_name_groupInproduct.setText(grouping.name);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              listener.onClick(position , grouping);
+//           holder.cardView.setBackgroundDrawable(context.getDrawable(R.drawable.select_groupinproduct));
+                row_index = position ;
+                notifyDataSetChanged();
+                listener.onClick(position , grouping);
 
             }
+
         });
+
+            if(row_index==position){
+                holder.cardView.setCardBackgroundColor(Color.parseColor("#ef4224"));
+                holder.tv_name_groupInproduct.setTextColor(Color.parseColor("#f8f3f7"));
+            }
+            else
+            {
+                holder.cardView.setCardBackgroundColor(Color.parseColor("#f8f3f7"));
+                holder.tv_name_groupInproduct.setTextColor(Color.parseColor("#676767"));
+
+        }
+
     }
 
 
@@ -57,10 +78,12 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv_name_groupInproduct ;
+        CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tv_name_groupInproduct = itemView.findViewById(R.id.tv_groupInproduct);
+            cardView = itemView.findViewById(R.id.cardview_groupINproduct);
         }
     }
 

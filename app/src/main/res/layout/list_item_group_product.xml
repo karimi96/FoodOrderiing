@@ -6,6 +6,7 @@
     android:layout_marginVertical="13dp"
     android:outlineSpotShadowColor="@color/red_toolbar"
     android:layout_marginStart="10dp"
+    android:id="@+id/cardview_groupINproduct"
     android:foreground="@drawable/ripple_all"
     app:cardBackgroundColor="@color/white_text"
     app:cardCornerRadius="20dp"

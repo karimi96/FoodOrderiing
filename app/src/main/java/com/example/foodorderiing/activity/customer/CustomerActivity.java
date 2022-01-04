@@ -103,29 +103,16 @@ public class CustomerActivity extends AppCompatActivity {
         super.onResume();
 
             if (adapter != null) {
-                adapter.notifyDataSetChanged();
                 if(dao.getCustomerList().size() < 0 ) {
                     noCustomer.setVisibility(View.VISIBLE);
-
 //                    recyclerView.setVisibility(View.GONE);
                 }else {
                     noCustomer.setVisibility(View.GONE);
                     adapter.addList(dao.getCustomerList());
                 }
-
             }
-        }
 
-
-    private void setText() {
-        adapter.clean();
-        if (dao.getCustomerList().size() <= 0) {
-            noCustomer.setVisibility(View.VISIBLE);
-//            recyclerView_product.setVisibility(View.GONE);
-        } else {
-            noCustomer.setVisibility(View.GONE);
         }
-    }
 
 
     private void initDataBase() {
@@ -191,11 +178,11 @@ public class CustomerActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (db != null) db.close();
-    }
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        if (db != null) db.close();
+//    }
 
 
     private void layoutAnimation(RecyclerView recyclerView) {

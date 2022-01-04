@@ -1,6 +1,7 @@
 package com.example.foodorderiing.activity.customer;
 
 import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -8,9 +9,12 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.CustomerDao;
@@ -24,6 +28,7 @@ public class AddNewCustomerActivity extends AppCompatActivity {
     private DatabaseHelper db;
     private CustomerDao dao;
     private Customer c;
+    private RelativeLayout mainBack;
 
 
     @Override
@@ -34,6 +39,7 @@ public class AddNewCustomerActivity extends AppCompatActivity {
 
         initDataBase();
         init();
+//        initGradiant();
         hideKayBord();
 
         if (getIntent().getExtras() != null){
@@ -60,7 +66,17 @@ public class AddNewCustomerActivity extends AppCompatActivity {
         phone = findViewById(R.id.et_get_phone_customer);
         address = findViewById(R.id.et_get_address_customer);
         save = findViewById(R.id.tv_save_customer);
-        cancel = findViewById(R.id.tv_cancel_customer); }
+        cancel = findViewById(R.id.tv_cancel_customer);
+        mainBack = findViewById(R.id.mainRelative);
+    }
+
+
+    private void initGradiant(){
+        AnimationDrawable animationDrawable = (AnimationDrawable) mainBack.getBackground();
+        animationDrawable.setEnterFadeDuration(2500);
+        animationDrawable.setExitFadeDuration(5000);
+        animationDrawable.start();
+    }
 
 
     private void actionSave(){

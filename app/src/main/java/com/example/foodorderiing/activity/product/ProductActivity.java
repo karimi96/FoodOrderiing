@@ -46,7 +46,7 @@ public class ProductActivity extends AppCompatActivity {
     private GroupingDao dao_grouping;
     private GroupInProductAdapter groupInProductAdapter;
     private Boolean for_order = false ;
-    private TextView noProduct , allProduct;
+    private TextView noProduct ;
     private String nameGrouping;
     int pp;
 
@@ -79,19 +79,16 @@ public class ProductActivity extends AppCompatActivity {
         searchView.setMaxWidth(Integer.MAX_VALUE);
         searchView.setBackground(getResources().getDrawable(R.drawable.ripple_all));
 
-//
+//          Todo
 //        ImageView magImage = (ImageView) searchView.findViewById(androidx.appcompat.R.id.search_mag_icon);
 //        magImage.setVisibility(View.GONE);
 //        magImage.setImageDrawable(null);
-
 
 //        ImageView searchViewIcon = (ImageView)searchView.findViewById(androidx.appcompat.R.id.search_mag_icon);
 //        searchView.removeView(searchViewIcon);
 
 //        ViewGroup linearLayoutSearchView =(ViewGroup) searchViewIcon.getParent();
 //        linearLayoutSearchView.removeView(searchViewIcon);
-
-
 
 //        int searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
 //        View searchPlate = searchView.findViewById(searchPlateId);
@@ -166,38 +163,40 @@ public class ProductActivity extends AppCompatActivity {
             noProduct.setVisibility(View.VISIBLE);
         }else {
             noProduct.setVisibility(View.GONE);
-
         }
         initListProduct();
     }
 
 
     public void set_recycler_category(){
-        ArrayList<Grouping> groupingArrayList = new ArrayList<>();
-        groupingArrayList.add(0, new Grouping("همه محصولات "));
-        groupingArrayList.addAll(dao_grouping.getGroupingList());
+        if(dao_grouping.getGroupingList().size() >= 1){
+            ArrayList<Grouping> groupingArrayList = new ArrayList<>();
+            groupingArrayList.add(0, new Grouping("همه محصولات " , ""));
+            groupingArrayList.addAll(dao_grouping.getGroupingList());
 
-        recyclerView_category.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
-        recyclerView_category.setLayoutManager(layoutManager);
-        adapter_gro = new GroupInProductAdapter(groupingArrayList , this, new GroupInProductAdapter.Listener() {
-            @Override
-            public void onClick(int pos , Grouping g) {
-                if(pos == 0 ){
-                    nameGrouping = null ;
-                }else {
-                    nameGrouping = g.name;
-                    if(dao_product.get_product_by_category(nameGrouping).size() < 0){
-                        noProduct.setVisibility(View.VISIBLE);
+            recyclerView_category.setHasFixedSize(true);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+            recyclerView_category.setLayoutManager(layoutManager);
+            adapter_gro = new GroupInProductAdapter(groupingArrayList , this, new GroupInProductAdapter.Listener() {
+                @Override
+                public void onClick(int pos , Grouping g) {
+                    if(pos == 0 ){
+                        nameGrouping = null ;
                     }else {
-                        noProduct.setVisibility(View.GONE);
+                        nameGrouping = g.name;
+                        if(dao_product.get_product_by_category(nameGrouping).size() < 0){
+                            noProduct.setVisibility(View.VISIBLE);
+                        }else {
+                            noProduct.setVisibility(View.GONE);
 
+                        }
                     }
+                    initListProduct();
                 }
-                initListProduct();
-            }
-        });
-        recyclerView_category.setAdapter(adapter_gro);
+            });
+            recyclerView_category.setAdapter(adapter_gro);
+        }
+
     }
 
 

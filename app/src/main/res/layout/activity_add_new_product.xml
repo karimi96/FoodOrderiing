@@ -1,51 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#dbdbdb"
     android:clickable="true"
     android:focusableInTouchMode="true"
     tools:context=".activity.product.AddNewProductActivity">
 
-    <VideoView
-        android:id="@+id/vedio"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/ccc"
+    <ImageView
+        android:id="@+id/image_show_p"
         android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/pic"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:alpha="0.1"
+        android:src="@drawable/bg_product"
+        app:layout_constraintBottom_toBottomOf="@+id/image_show_p"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_p"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginHorizontal="30dp"
-        android:backgroundTint="#aa000000"
-        app:cardCornerRadius="12dp">
+        android:layout_marginStart="20dp"
+        android:src="@drawable/ic_outline_add_a_photo_24"
+        app:backgroundTint="@color/white_text"
+        app:borderWidth="0dp"
+        app:elevation="6dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:maxImageSize="30dp"
+        app:tint="@color/red_toolbar" />
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/design_add_grouping"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline2"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:padding="15dp"
-                android:src="@drawable/ic_outline_add_a_photo_24" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_below="@id/img_grouping"
-                android:background="@color/white_text" />
-
 
             <EditText
                 android:id="@+id/et_get_name_product"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="40dp"
                 android:background="@drawable/border_editext_product"
                 android:drawableRight="@drawable/ic_round_fastfood_24"
                 android:drawablePadding="10dp"
@@ -103,8 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginBottom="35dp"
+                android:layout_marginTop="30dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
@@ -118,7 +143,7 @@
                     android:fontFamily="@font/iran_sans"
                     android:gravity="center"
                     android:text="ذخیره"
-                    android:textColor="@color/white_text" />
+                    android:textColor="@color/red_toolbar" />
 
                 <TextView
                     android:id="@+id/tv_cancel_product"
@@ -130,12 +155,26 @@
                     android:fontFamily="@font/iran_sans"
                     android:gravity="center"
                     android:text="لغو"
-                    android:textColor="@color/red_toolbar" />
+                    android:textColor="@color/white_text" />
 
             </LinearLayout>
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 
-</RelativeLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

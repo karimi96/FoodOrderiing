@@ -1,5 +1,6 @@
 package com.example.foodorderiing.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -17,8 +18,10 @@ import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.customer.AddNewCustomerActivity;
 import com.example.foodorderiing.database.DatabaseHelper;
@@ -61,7 +64,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
 
 
     @Override
-    public void onBindViewHolder(CustomerAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(CustomerAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Customer customer = list.get(position);
         holder.tv_name_customer.setText(customer.name);
         holder.tv_phone.setText(customer.phone);
@@ -70,10 +73,8 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 listener.onClickListener(customer , position , list.get(position).name);
-
             }
         });
-
     }
 
 
@@ -107,6 +108,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
             TextView title = dialog_sheet.findViewById(R.id.name_sheet_c);
             title.setText(name);
 
+
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -116,7 +118,6 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
                     dialog_sheet.dismiss();
                 }
             });
-
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -137,7 +138,6 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
                                     notifyDataSetChanged();
                                     dialog_sheet.dismiss();
                                     Toast.makeText(context, "با موفقیت حذف شد 😉 ", Toast.LENGTH_LONG).show();
-
                                 }
                             })
                             .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
@@ -151,7 +151,6 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
                             .show();
                 }
             });
-
             dialog_sheet.show();
             dialog_sheet.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             dialog_sheet.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -166,15 +165,6 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
             list = new ArrayList<>(list_search);
             notifyDataSetChanged();
         }
-
-
-    public void clean() {
-        list_search.clear();
-        list.clear();
-        notifyDataSetChanged();
-    }
-
-
 
 
     //  For search
@@ -201,7 +191,6 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
                         filterdNewList.add(customer);
                 }
             }
-
             FilterResults results = new FilterResults();
             results.values = filterdNewList;
             results.count = filterdNewList.size();
@@ -215,7 +204,4 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
             notifyDataSetChanged();
         }
     };
-
-
-
 }

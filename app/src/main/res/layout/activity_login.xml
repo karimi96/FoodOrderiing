@@ -48,15 +48,6 @@
             app:layout_constraintStart_toStartOf="parent" />
 
 
-        <!--        <br.com.sapereaude.maskedEditText.MaskedEditText-->
-        <!--            android:hint="phone"-->
-        <!--            android:inputType="phone"-->
-        <!--app:mask="0999999999"-->
-        <!--            android:textColor="@color/black"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            tools:ignore="MissingConstraints" />-->
-
 
         <EditText
             android:id="@+id/et_name"
@@ -68,9 +59,9 @@
             android:ems="10"
             android:fontFamily="@font/iran_sans"
             android:hint="نام"
+            android:imeOptions="actionNext"
             android:inputType="textPersonName"
             android:paddingBottom="15dp"
-            android:imeOptions="actionNext"
             android:singleLine="true"
             android:textColor="@color/white_text"
             android:textColorHint="@color/tosi_lite"
@@ -83,14 +74,15 @@
             android:id="@+id/et_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_outline_vpn_key_24"
+            android:drawableStart="@drawable/ic_outline_phone_enabled_24"
             android:drawablePadding="10dp"
             android:ems="10"
             android:fontFamily="@font/iran_sans"
             android:gravity="right"
-            android:hint="پسورد"
+            android:hint="تلفن"
             android:imeOptions="actionDone"
-            android:inputType="textPassword"
+            android:inputType="phone"
+            android:maxLength="11"
             android:paddingBottom="15dp"
             android:textColor="@color/white_text"
             android:textColorHint="@color/tosi_lite"
@@ -98,8 +90,9 @@
             app:layout_constraintTop_toBottomOf="@+id/guideline3"
             tools:layout_editor_absoluteX="50dp" />
 
+
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/checkBox_loging"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginBottom="8dp"
@@ -114,9 +107,9 @@
             android:text="مرا به خاطر بسپار"
             android:textColor="@color/white_text"
             android:textSize="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/checkBox"
-            app:layout_constraintStart_toEndOf="@+id/checkBox"
-            app:layout_constraintTop_toTopOf="@+id/checkBox" />
+            app:layout_constraintBottom_toBottomOf="@+id/checkBox_loging"
+            app:layout_constraintStart_toEndOf="@+id/checkBox_loging"
+            app:layout_constraintTop_toTopOf="@+id/checkBox_loging" />
 
         <LinearLayout
             android:id="@+id/linear_login"
@@ -139,35 +132,45 @@
                 android:textSize="25dp"
                 android:textStyle="bold" />
 
-
         </LinearLayout>
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/tv_forgetPass"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginTop="10dp"-->
-        <!--            android:autoLink="email"-->
-        <!--            android:fontFamily="@font/iran_sans"-->
-        <!--            android:text="فراموشی رمز عبور?"-->
-        <!--            android:textColor="@color/white_text"-->
-        <!--            android:textColorLink="@android:color/holo_blue_light"-->
-        <!--            android:textSize="13dp"-->
-        <!--            app:layout_constraintEnd_toEndOf="@+id/tv_login"-->
-        <!--            app:layout_constraintStart_toStartOf="@+id/tv_login"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/tv_login" />-->
-
         <TextView
-            android:id="@+id/tv_newAcount"
+            android:id="@+id/tv_forgetPass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:autoLink="email"
             android:fontFamily="@font/iran_sans"
-            android:text="ایجاد یک حساب جدید؟"
-            android:textColor="@color/tosi_lite"
-            android:textSize="10dp"
+            android:text="فراموشی رمز عبور?"
+            android:textColor="@color/white_text"
+            android:textColorLink="@android:color/holo_blue_light"
+            android:textSize="13dp"
+            app:layout_constraintEnd_toEndOf="@+id/linear_login"
+            app:layout_constraintStart_toStartOf="@+id/linear_login"
+            app:layout_constraintTop_toBottomOf="@id/linear_login" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/guideline6"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/tv_newAcount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_new_acount"
+                android:fontFamily="@font/iran_sans"
+                android:paddingHorizontal="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
+                android:text="ایجاد یک حساب جدید؟"
+                android:textColor="@color/tosi_lite"
+                android:textSize="10dp" />
+
+        </LinearLayout>
 
 
         <androidx.constraintlayout.widget.Guideline
@@ -190,7 +193,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.99" />
+            app:layout_constraintGuide_percent="0.9917921" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

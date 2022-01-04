@@ -1,5 +1,6 @@
 package com.example.foodorderiing.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -7,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,13 +20,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.grouping.AddNewGroupingActivity;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
 import com.example.foodorderiing.model.Grouping;
 import com.google.gson.Gson;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +43,7 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
     List<Grouping> list_search;
     DatabaseHelper database;
     GroupingDao dao;
-    Grouping grouping;
+
 
     public GroupingAdapter(List<Grouping> list, Context context) {
         this.list_search = list;
@@ -53,15 +60,27 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(GroupingAdapter.ViewHolder holder, int position) {
-        grouping = list.get(position);
+    public void onBindViewHolder(GroupingAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        Grouping grouping = list.get(position);
         holder.tv_name_category.setText(grouping.name);
+
+//        Uri uri =Uri.parse(grouping.picture);
+//        File file = new File(grouping.picture);
+//        Uri uri =Uri.fromFile(file);
+
+//        Glide.with(context)
+//                .load(new File(uri.getPath()))
+//                .into(holder.img_food_grouping);
+////
+        holder.img_food_grouping.setImageURI(Uri.parse(grouping.picture));
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialogSheet(position, list.get(position).name);
             }
         });
+
     }
 
 
@@ -116,13 +135,13 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
                             public void onClick(DialogInterface dialog, int which) {
                                 database = DatabaseHelper.getInstance(context.getApplicationContext());
                                 dao = database.groupingDao();
-                                dao.deleteGrouping(grouping);
+                                dao.deleteGrouping(list.get(pos));
                                 list.remove(pos);
                                 notifyItemRemoved(pos);
                                 notifyItemRangeChanged(pos, list.size());
                                 notifyDataSetChanged();
                                 dialog_sheet.dismiss();
-                                Toast.makeText(context, "با موفقیت حذف شد 😉 ", Toast.LENGTH_LONG).show();
+                                Toast.makeText(context, name+ "با موفقیت حذف شد 😉 ", Toast.LENGTH_LONG).show();
                             }
                         })
                         .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
@@ -186,5 +205,6 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
             notifyDataSetChanged();
         }
     };
+
 
 }

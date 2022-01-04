@@ -36,20 +36,21 @@
         android:backgroundTint="@color/red_toolbar"
         android:src="@drawable/ic_round_add_24"
         android:tint="@color/red_toolbar"
+        app:borderWidth="0dp"
         app:elevation="4dp"
         app:maxImageSize="35dp" />
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_grouping_product_page"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:layout_below="@id/toolbar_product"
-            android:orientation="horizontal"
-            android:paddingEnd="10dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/list_item_group_product" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_grouping_product_page"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar_product"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:paddingEnd="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/list_item_group_product" />
 
 
     <LinearLayout

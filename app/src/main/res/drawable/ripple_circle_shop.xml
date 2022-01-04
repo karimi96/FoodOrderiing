@@ -4,7 +4,6 @@
 
     <item android:id="@android:id/mask">
         <shape android:shape="oval">
-
             <solid android:color="?android:colorPrimary"/>
         </shape>
         <color android:color="@color/white"/>

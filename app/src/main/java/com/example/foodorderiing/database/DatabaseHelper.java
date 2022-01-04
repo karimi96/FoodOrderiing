@@ -12,13 +12,15 @@ import com.example.foodorderiing.database.dao.GroupingDao;
 import com.example.foodorderiing.database.dao.OrderDao;
 import com.example.foodorderiing.database.dao.OrderDetailDao;
 import com.example.foodorderiing.database.dao.ProductDao;
+import com.example.foodorderiing.database.dao.UserDao;
 import com.example.foodorderiing.model.Customer;
 import com.example.foodorderiing.model.Grouping;
 import com.example.foodorderiing.model.Order;
 import com.example.foodorderiing.model.OrderDetail;
 import com.example.foodorderiing.model.Product;
+import com.example.foodorderiing.model.User;
 
-@Database(entities = {Grouping.class, Product.class, Customer.class , Order.class , OrderDetail.class } , exportSchema = false , version = 1)
+@Database(entities = {Grouping.class, Product.class, Customer.class , Order.class , OrderDetail.class , User.class} , exportSchema = false , version = 1)
 public abstract class DatabaseHelper extends RoomDatabase {
     private static final String DB_NAME = "db_name";
     private static DatabaseHelper instance;
@@ -41,5 +43,6 @@ public abstract class DatabaseHelper extends RoomDatabase {
     public abstract CustomerDao customerDao();
     public abstract OrderDao orderDao();
     public abstract OrderDetailDao orderDetailDao();
+    public abstract UserDao userDao();
 
 }

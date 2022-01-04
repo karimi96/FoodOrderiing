@@ -1,29 +1,42 @@
 package com.example.foodorderiing.activity.grouping;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
 import com.example.foodorderiing.model.Grouping;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
+
+import java.io.File;
 
 
 public class AddNewGroupingActivity extends AppCompatActivity {
+    private static final int PICK_IMAGE = 100;
     private EditText editText_category;
+    private ImageView imageView_show ,imageView_back;
+    private FloatingActionButton fab;
     private DatabaseHelper db;
     private GroupingDao dao_grouping;
     private TextView tv_save , tv_cancel;
     private String name ,old_name;
     private Grouping g;
+    private Uri uri;
 
 
     @Override
@@ -34,7 +47,7 @@ public class AddNewGroupingActivity extends AppCompatActivity {
 
        initDataBase();
        initID();
-       editText_category = findViewById(R.id.et_get_category_grouping);
+       initImage();
 
        if(getIntent().getExtras() != null){
             String getGrouping =getIntent().getStringExtra("grouping");
@@ -57,9 +70,65 @@ public class AddNewGroupingActivity extends AppCompatActivity {
     private void initID(){
         tv_save = findViewById(R.id.tv_save_group);
         tv_cancel = findViewById(R.id.tv_cancel_group);
-
+        imageView_show = findViewById(R.id.image_show_g);
+        imageView_back = findViewById(R.id.image_back_g);
+        fab = findViewById(R.id.fab_add_g);
+        editText_category = findViewById(R.id.et_get_category_grouping);
     }
 
+
+    private void initImage(){
+        fab.setOnClickListener(v -> {
+//            String path = Environment.getExternalStorageDirectory() + "/" + "Instagram" + "/";
+//            Uri uri = Uri.parse(path);
+//
+//            String photoDir = Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DCIM + "/" + "Camera";
+//            String photoDir = Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_PICTURES + "/" + "Images"  + "/" + "Instagram"  + "/";
+//            String photoDir = Environment.getExternalStorageDirectory() + "/" + "Pictures" + "/" + "Instagram"  + "/";
+//            Uri uri = Uri.parse(photoDir);
+
+//            Uri uri = Uri.parse(MediaStore.Images.Media.RELATIVE_PATH + "Pictures/" + "Instagram/");
+
+//            Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() + "/Pictures/" + "Instagram/");
+
+
+            Intent intent = new Intent();
+                intent.setType("image/*");
+//                intent.setDataAndType(uri , "image/*");
+                intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+//                intent.setAction(Intent.ACTION_GET_CONTENT);
+//                intent.setAction(Intent.ACTION_PICK);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+        });
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ( resultCode == RESULT_OK) {
+            if (requestCode == PICK_IMAGE){
+                uri = data.getData();
+//                uri.getPath();
+                imageView_show.setImageURI(uri);
+                imageView_back.setVisibility(View.GONE);
+            }
+        }
+    }
+
+
+    private void ff(){
+//        first way
+        String path = Environment.getExternalStorageDirectory() + "/" + "Downloads" + "/";
+        Uri uri = Uri.parse(path);
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setDataAndType(uri, "*/*");
+        startActivity(intent);
+//        second way
+       String photoDir = Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DCIM + "/";
+//       String photoDir = Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DOWNLOADS + "/";
+
+    }
 
     public void click_save(){
         tv_save.setOnClickListener(new View.OnClickListener() {
@@ -69,19 +138,23 @@ public class AddNewGroupingActivity extends AppCompatActivity {
                 name = editText_category.getText().toString();
 
                 if(g == null){
-
-                        if(TextUtils.isEmpty(name)){
-
+                        if(imageView_show.getDrawable() == null){
+                            Toast.makeText(getApplicationContext(), "لطفا یک عکس انتخاب کنید!!!", Toast.LENGTH_SHORT).show();
+                        }
+                        else if(TextUtils.isEmpty(name)){
                             Toast.makeText(AddNewGroupingActivity.this, "فیلد مورد نظر را پرکنید!!!", Toast.LENGTH_LONG).show();
-    //
+
                         }else if(dao_grouping.getOneName(name) != null){
                             Toast.makeText(AddNewGroupingActivity.this, "این نام وجود دارد", Toast.LENGTH_LONG).show();
 
                         } else {
-                            dao_grouping.insertGrouping(new Grouping(name));
+//                            File file = new File(String.valueOf(uri));
+////                            String picture = file.getPath() ;
+//                            File f = new File(uri.getPath());
+//                            dao_grouping.insertGrouping(new Grouping(name , f.toString() ));
+                            dao_grouping.insertGrouping(new Grouping(name , uri.toString()));
                             Toast.makeText(getApplicationContext(), name + " با موفقیت به لیست اضافه شد ", Toast.LENGTH_LONG).show();
                             finish();
-
                         }
                 }else {
                     g.name = name;
@@ -89,9 +162,7 @@ public class AddNewGroupingActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),  old_name + " با موفقیت به " + name + " تغییر کرد", Toast.LENGTH_LONG).show();
                     finish();
                 }
-
                 overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
-
             }
         });
 
@@ -107,6 +178,8 @@ public class AddNewGroupingActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 
     private void hideKeyBord(){

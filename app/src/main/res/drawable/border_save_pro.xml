@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="#cccccc">
+    android:color="#989898">
 
     <!--    <item android:id="@+id/maskg" android:drawable="@color/white"/>-->
     <item>
@@ -8,7 +8,7 @@
         <shape android:shape="rectangle">
 
             <corners android:radius="30dp"/>
-            <solid android:color="@color/red_toolbar"/>
+            <solid android:color="@color/white_text"/>
 
         </shape>
 

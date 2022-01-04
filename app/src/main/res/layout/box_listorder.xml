@@ -11,28 +11,57 @@
     android:paddingStart="5dp">
 
 
-    <ImageView
+<!--    <ImageView-->
+<!--        android:id="@+id/delete_listOrder"-->
+<!--        android:layout_width="20dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_alignParentRight="true"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:layout_marginStart="7dp"-->
+<!--        android:layout_marginEnd="3dp"-->
+<!--        android:paddingVertical="11dp"-->
+<!--        android:src="@drawable/bin4" />-->
+
+    <TextView
         android:id="@+id/delete_listOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:background="@drawable/ripple_circle_shop"
-        android:padding="10dp"
-        android:src="@drawable/delete" />
+        android:fontFamily="@font/iran_sans"
+        android:gravity="center"
+        android:background="?attr/selectableItemBackground"
+        android:drawableRight="@drawable/delete"
+        android:paddingVertical="10dp"
+        android:paddingEnd="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_alignParentRight="true"
+        android:text="حذف سفارش"
+        android:textColor="#a2a2a2"
+        android:textSize="12dp" />
 
-<!--    <ImageView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_toStartOf="@id/delete_listOrder"-->
-<!--        android:background="@drawable/ripple_circle_shop"-->
-<!--        android:padding="10dp"-->
-<!--        android:src="@drawable/edit" />-->
+
+    <!--    <ImageView-->
+    <!--        android:id="@+id/delete_listOrder"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentEnd="true"-->
+    <!--        android:background="@drawable/ripple_circle_shop"-->
+    <!--        android:padding="10dp"-->
+    <!--        android:src="@drawable/delete" />-->
+
+    <!--    <ImageView-->
+    <!--        android:id="@+id/edit_listOrder"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_toStartOf="@id/delete_listOrder"-->
+    <!--        android:background="@drawable/ripple_circle_shop"-->
+    <!--        android:padding="10dp"-->
+    <!--        android:src="@drawable/edit" />-->
 
     <TextView
         android:id="@+id/date_listOrdring"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/time_listOrdring"
+        android:layout_toRightOf="@id/time_listOrdring"
         android:fontFamily="@font/irsansfanum"
         android:padding="10dp"
         android:text="1400.3.13"
@@ -43,7 +72,7 @@
         android:id="@+id/time_listOrdring"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
         android:fontFamily="@font/irsansfanum"
         android:padding="10dp"
         android:text="10:56"

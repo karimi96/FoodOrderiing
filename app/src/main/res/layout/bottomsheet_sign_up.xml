@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="280dp"
+    android:background="#676767"
+    android:orientation="vertical"
+    android:padding="15dp"
+    android:rotation="180">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:rotation="180">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Design.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="نام"
+            android:textColorHint="@color/tosi_lite"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/tosi_lite"
+            app:hintTextColor="@color/tosi_lite">
+
+            <EditText
+                android:id="@+id/et_name_signup"
+                style="@style/Widget.AppCompat.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_outline_account_circle_24"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:fontFamily="@font/iran_sans"
+                android:gravity="right"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName"
+                android:paddingBottom="15dp"
+                android:singleLine="true"
+                android:textColor="@color/white_text"
+
+                android:textSize="18dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Design.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/tosi_lite"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/tosi_lite"
+            app:hintTextColor="@color/tosi_lite">
+
+            <EditText
+                android:id="@+id/et_pass_signup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_outline_vpn_key_24"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:fontFamily="@font/iran_sans"
+                android:gravity="right"
+                android:hint="پسورد"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:paddingBottom="15dp"
+                android:textColor="@color/white_text"
+                android:textColorHint="@color/tosi_lite"
+                android:textSize="18dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/sign_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/red_toolbar"
+            android:fontFamily="@font/iran_sans"
+            android:gravity="center"
+            android:paddingHorizontal="40dp"
+            android:paddingVertical="10dp"
+            android:text="ثبت نام"
+            android:textColor="@color/white_text"
+            android:textSize="18dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

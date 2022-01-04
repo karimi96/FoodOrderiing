@@ -27,22 +27,22 @@
 
     <TextView
         android:id="@+id/noCustomer"
-        android:text="مشتری وجود ندارد"
-        android:gravity="center"
-        android:visibility="gone"
-        android:fontFamily="@font/iran_sans"
-        android:layout_marginTop="?attr/actionBarSize"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:fontFamily="@font/iran_sans"
+        android:gravity="center"
+        android:text="مشتری وجود ندارد"
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_customer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingTop="10dp"
         android:layout_marginTop="?attr/actionBarSize"
+        android:clipToPadding="false"
         android:layoutAnimation="@anim/layout_fall_down"
+        android:paddingTop="10dp"
         tools:listitem="@layout/list_item_customer" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -51,10 +51,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="@color/red_toolbar"
         android:src="@drawable/ic_round_add_24"
         android:tint="@color/white"
+        app:borderWidth="0dp"
         app:maxImageSize="35dp" />
 
 </RelativeLayout>

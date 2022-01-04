@@ -1,5 +1,6 @@
 package com.example.foodorderiing.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -7,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +30,8 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.crypto.ShortBufferException;
 
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> implements Filterable{
@@ -60,11 +64,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
 
     @Override
-    public void onBindViewHolder( ProductAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ProductAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Product product = list.get(position);
         holder.tv_name_food.setText(product.name);
         holder.tv_name_category.setText(product.category);
         holder.tv_price.setText(product.price);
+        holder.img_food_bg.setImageURI(Uri.parse(product.picture));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

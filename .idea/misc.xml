@@ -1,5 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/drawable-v24/gradiant2.xml" value="0.21203703703703702" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/drawable-v24/gradiant3.xml" value="0.21203703703703702" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/drawable/border_add_customer.xml" value="0.1" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/drawable/border_cancel_pro.xml" value="0.2203125" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/drawable/border_editext_product.xml" value="0.16203703703703703" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/drawable/border_new_acount.xml" value="0.2203125" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/drawable/border_save_pro.xml" value="0.19537037037037036" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/drawable/bottom_sheet_signup.xml" value="0.2203125" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/drawable/delete.xml" value="0.2203125" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/drawable/design_add_grouping.xml" value="0.2203125" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/drawable/gradiant1.xml" value="0.21203703703703702" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/drawable/ic_baseline_person_add_alt_1_24.xml" value="0.21203703703703702" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/drawable/ic_baseline_phone_forwarded_24.xml" value="0.2203125" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/drawable/ic_outline_account_circle_24.xml" value="0.2203125" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/drawable/ic_outline_add_a_photo_24.xml" value="0.21203703703703702" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/drawable/ic_outline_vpn_key_24.xml" value="0.2203125" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/drawable/list_gradiant.xml" value="0.21203703703703702" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/drawable/ripple_all.xml" value="0.2203125" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/drawable/ripple_circle_shop.xml" value="0.2203125" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/drawable/ripple_login.xml" value="0.2203125" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/drawable/ripple_sheet.xml" value="0.2203125" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/drawable/select_groupinproduct.xml" value="0.2203125" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/drawable/tttttttttttttttttttttttttttttttt.xml" value="0.20555555555555555" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/activity_add_new_customer.xml" value="0.20416666666666666" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/activity_add_new_grouping.xml" value="0.20416666666666666" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/activity_add_new_product.xml" value="0.22" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/activity_customer.xml" value="0.20416666666666666" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/activity_grouping.xml" value="0.20416666666666666" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/activity_home.xml" value="0.13768115942028986" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/activity_list_order.xml" value="0.1743659420289855" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/activity_login.xml" value="0.2" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/activity_order.xml" value="0.1743659420289855" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/activity_order_detail.xml" value="0.20416666666666666" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/activity_product.xml" value="0.1" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/bottomsheet_sign_up.xml" value="0.19701086956521738" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/box_listorder.xml" value="0.33" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/chart.xml" value="0.17255434782608695" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/list_item_customer.xml" value="0.19293478260869565" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/list_item_group_product.xml" value="0.19701086956521738" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/list_item_grouping.xml" value="0.19293478260869565" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/list_item_list_order.xml" value="0.1743659420289855" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/list_item_order_detail.xml" value="0.19293478260869565" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/list_item_ordering.xml" value="0.1743659420289855" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/list_item_product.xml" value="0.20416666666666666" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/list_sending.xml" value="0.20416666666666666" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/mmmmmmmmmmmmmmmmmmmm.xml" value="0.19293478260869565" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/nemodar.xml" value="0.14492753623188406" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/sabt.xml" value="0.20416666666666666" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/toolbar.xml" value="0.20416666666666666" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/FoodOrdering/app/src/main/res/layout/toolbar_ordring.xml" value="0.19067028985507245" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

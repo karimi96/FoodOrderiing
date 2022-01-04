@@ -12,19 +12,20 @@ public class Grouping {
     public int grouping_id;
     @ColumnInfo(name = "name")
     public String name;
-//    @ColumnInfo(name = "picture")
-//    public String picture;
+    @ColumnInfo(name = "picture")
+    public String picture;
 
 
-    public Grouping(int grouping_id, String name) {
+    public Grouping(int grouping_id, String name, String picture) {
         this.grouping_id = grouping_id;
         this.name = name;
-//        this.picture = picture;
+        this.picture = picture;
     }
 
     @Ignore
-    public Grouping(String name) {
+    public Grouping(String name, String picture) {
         this.name = name;
+        this.picture = picture;
     }
 
 
