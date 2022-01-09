@@ -5,7 +5,7 @@
     android:gravity="center"
     android:fontFamily="@font/iran_sans"
     android:textSize="20dp"
-    android:background="#676767"
-    android:textColor="@color/white_text"
+    android:background="@color/white"
+    android:textColor="#676767"
     android:layout_height="50dp">
 </TextView>
