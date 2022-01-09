@@ -24,6 +24,10 @@
             android:orientation="vertical">
 
             <include
+                android:id="@+id/dataPicker"
+                layout="@layout/date_picker"/>
+
+            <include
                 android:id="@+id/box_customer"
                 layout="@layout/user_detail" />
 

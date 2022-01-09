@@ -1,8 +1,12 @@
 package com.example.foodorderiing.activity.order;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,6 +33,8 @@ import com.google.gson.Gson;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.spi.FileTypeDetector;
@@ -38,6 +44,10 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
+import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
+import ir.hamsaa.persiandatepicker.api.PersianPickerDate;
+import ir.hamsaa.persiandatepicker.api.PersianPickerListener;
+import ir.hamsaa.persiandatepicker.util.PersianCalendarUtils;
 import saman.zamani.persiandate.PersianDate;
 import saman.zamani.persiandate.PersianDateFormat;
 
@@ -58,7 +68,10 @@ public class OrderActivity extends AppCompatActivity {
     private String CODE = String.valueOf(System.currentTimeMillis());
     private RelativeLayout relative_total;
     private String edit ;
+    private PersianDatePickerDialog picker;
+    private static final String TAG = "OrderActivity";
 
+    private TextView datePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +91,7 @@ public class OrderActivity extends AppCompatActivity {
         initLottie();
         initRecycler();
         initSaveOrder();
+        datePicker();
     }
 
 
@@ -169,6 +183,7 @@ public class OrderActivity extends AppCompatActivity {
         card_number = findViewById(R.id.card_number);
         relative_total =findViewById(R.id.relative_order);
         noOrder =findViewById(R.id.noOrder);
+        datePicker =findViewById(R.id.datePicker);
     }
 
 
@@ -267,6 +282,46 @@ public class OrderActivity extends AppCompatActivity {
 
         });
     }
+
+
+
+    private void datePicker(){
+        datePicker.setOnClickListener(v -> {
+            picker = new PersianDatePickerDialog(this)
+                    .setPositiveButtonString("باشه")
+                    .setNegativeButton("بیخیال")
+                    .setTodayButton("امروز")
+                    .setTodayButtonVisible(true)
+                    .setMinYear(1300)
+                    .setMaxYear(PersianDatePickerDialog.THIS_YEAR)
+                    .setMaxMonth(PersianDatePickerDialog.THIS_MONTH)
+                    .setMaxDay(PersianDatePickerDialog.THIS_DAY)
+                    .setInitDate(1370, 3, 13)
+                    .setActionTextColor(Color.GRAY)
+                    .setTitleType(PersianDatePickerDialog.WEEKDAY_DAY_MONTH_YEAR)
+                    .setShowInBottomSheet(true)
+                    .setListener(new PersianPickerListener() {
+                        @Override
+                        public void onDateSelected(@NotNull PersianPickerDate persianPickerDate) {
+                            Log.d(TAG, "onDateSelected: " + persianPickerDate.getTimestamp());//675930448000
+                            Log.d(TAG, "onDateSelected: " + persianPickerDate.getGregorianDate());//Mon Jun 03 10:57:28 GMT+04:30 1991
+                            Log.d(TAG, "onDateSelected: " + persianPickerDate.getPersianLongDate());// دوشنبه  13  خرداد  1370
+                            Log.d(TAG, "onDateSelected: " + persianPickerDate.getPersianMonthName());//خرداد
+                            Log.d(TAG, "onDateSelected: " + PersianCalendarUtils.isPersianLeapYear(persianPickerDate.getPersianYear()));//true
+                            Toast.makeText(getApplicationContext() , persianPickerDate.getPersianYear() + "/" + persianPickerDate.getPersianMonth() + "/" + persianPickerDate.getPersianDay(), Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onDismissed() {
+
+                        }
+                    });
+
+            picker.show();
+        });
+    }
+
+
 
 
 //    @Override

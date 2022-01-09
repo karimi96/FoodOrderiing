@@ -26,11 +26,6 @@
         app:lottie_loop="false"
         app:lottie_rawRes="@raw/delet6" />
 
-    <DatePicker
-    android:id="@+id/simpleDatePicker"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:datePickerMode="spinner"/>
 
 
 </RelativeLayout>

@@ -22,6 +22,7 @@ import com.example.foodorderiing.activity.home.HomeActivity;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.UserDao;
 import com.example.foodorderiing.design.BlureImage;
+import com.example.foodorderiing.helper.Session;
 import com.example.foodorderiing.model.User;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -33,7 +34,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText et_name,et_password;
     private DatabaseHelper db;
     private UserDao dao;
-    private SharedPreferences shpr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,6 @@ public class LoginActivity extends AppCompatActivity {
         createNewAcount();
         hideKeyBoad();
         initLogin();
-        shpr = getSharedPreferences("shpr" , MODE_PRIVATE);
         setCheckBox();
     }
 
@@ -80,16 +79,16 @@ public class LoginActivity extends AppCompatActivity {
         checkBox.setOnClickListener(v -> {
             String name = et_name.getText().toString();
             String phone = et_password.getText().toString();
-            SharedPreferences.Editor editor = shpr.edit();
-            editor.putString("name" , name);
-            editor.putString("phone" , phone);
-            editor.apply();
+
+            Session.getInstance().putExtra("name",name);
+            Session.getInstance().putExtra("phone",phone);
+
             Toast.makeText(getApplicationContext(), "save", Toast.LENGTH_SHORT).show();
         });
-        if(shpr.contains("name") && shpr.contains("phone")){
-            et_name.setText(shpr.getString("name",null));
-            et_password.setText(shpr.getString("phone",null));
-        }
+
+
+        et_name.setText(Session.getInstance().getString("name"));
+        et_password.setText(Session.getInstance().getString("phone"));
     }
 
 

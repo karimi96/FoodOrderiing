@@ -52,16 +52,8 @@ public class ListOrder extends AppCompatActivity {
 
 
     private void initRecycler(){
-        listOrder = new ArrayList<>();
         recyclerView.setHasFixedSize(true);
-        for (int i = 0; i < dao.getOrderList().size(); i++) {
-            if(customerDao.getID(dao.getOrderList().get(i).customerID) != null){
-                listOrder.add(dao.getOrderList().get(i));
-            }
-        }
-//        order = new Order();
-//        order.numOrder = listOrder.size();
-        adapter = new ListOrderAdapter(this, listOrder);
+        adapter = new ListOrderAdapter(this, dao.getOrderList());
         recyclerView.setAdapter(adapter);
     }
 
@@ -69,9 +61,9 @@ public class ListOrder extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if( listOrder.size() > 0){
+        if( dao.getOrderList().size() > 0){
             noListOrder.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
+//            recyclerView.setVisibility(View.VISIBLE);
         }
     }
 }
