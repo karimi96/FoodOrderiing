@@ -103,16 +103,6 @@
         <item name="fontFamily">@font/iran_sans</item>
     </style>
 
-
-
-<!--    <style name="MyDatePickerDialogTheme" parent="android:Theme.Material.Light.Dialog">-->
-<!--        <item name="android:textColorSecondary">@color/white_text</item>-->
-<!--        <item name="android:editTextColor">@color/white_text</item>-->
-
-<!--        &lt;!&ndash; No need to override 'datePickerStyle' &ndash;&gt;-->
-<!--        &lt;!&ndash; <item name="android:datePickerStyle">@style/MyDatePickerStyle</item> &ndash;&gt;-->
-<!--    </style>-->
-
-
+    
 
 </resources>
