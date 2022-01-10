@@ -105,13 +105,13 @@
 
 
 
-    <style name="MyDatePickerDialogTheme" parent="android:Theme.Material.Light.Dialog">
-        <item name="android:textColorSecondary">@color/white_text</item>
-        <item name="android:editTextColor">@color/white_text</item>
+<!--    <style name="MyDatePickerDialogTheme" parent="android:Theme.Material.Light.Dialog">-->
+<!--        <item name="android:textColorSecondary">@color/white_text</item>-->
+<!--        <item name="android:editTextColor">@color/white_text</item>-->
 
-        <!-- No need to override 'datePickerStyle' -->
-        <!-- <item name="android:datePickerStyle">@style/MyDatePickerStyle</item> -->
-    </style>
+<!--        &lt;!&ndash; No need to override 'datePickerStyle' &ndash;&gt;-->
+<!--        &lt;!&ndash; <item name="android:datePickerStyle">@style/MyDatePickerStyle</item> &ndash;&gt;-->
+<!--    </style>-->
 
 
 
