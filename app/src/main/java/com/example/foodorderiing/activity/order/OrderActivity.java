@@ -1,16 +1,18 @@
 package com.example.foodorderiing.activity.order;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
+import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -35,21 +37,14 @@ import com.r0adkll.slidr.model.SlidrInterface;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.spi.FileTypeDetector;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
-
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.api.PersianPickerDate;
 import ir.hamsaa.persiandatepicker.api.PersianPickerListener;
 import ir.hamsaa.persiandatepicker.util.PersianCalendarUtils;
-import saman.zamani.persiandate.PersianDate;
-import saman.zamani.persiandate.PersianDateFormat;
 
 
 public class OrderActivity extends AppCompatActivity {
@@ -67,11 +62,13 @@ public class OrderActivity extends AppCompatActivity {
     private CardView card_number;
     private String CODE = String.valueOf(System.currentTimeMillis());
     private RelativeLayout relative_total;
-    private String edit ;
     private PersianDatePickerDialog picker;
     private static final String TAG = "OrderActivity";
-
-    private TextView datePicker;
+    private CardView card_DatePicker;
+    private CardView card_timePicker;
+//    private TimePickerDialog timePickerDialog;
+    private TextView tv_timePicker;
+    private TextView tv_datePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,11 +76,6 @@ public class OrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order);
 
         slidr = Slidr.attach(this);
-//        if(getIntent().getExtras() != null){
-//            edit = getIntent().getStringExtra("edit");
-//
-//        }
-
         initDataBase();
         initID();
         initBoxCustomer();
@@ -92,6 +84,21 @@ public class OrderActivity extends AppCompatActivity {
         initRecycler();
         initSaveOrder();
         datePicker();
+
+
+//        PersianCalendar now = new PersianCalendar();
+//        TimePickerDialog tpd = TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
+//            @Override
+//            public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
+//                String time = hourOfDay+":"+minute;
+//                tv_timePicker.setText(time);
+//            }
+//            },
+//                now.get(PersianCalendar.HOUR_OF_DAY),
+//                now.get(PersianCalendar.MINUTE),
+//                true);
+//        tpd.show(getFragmentManager(),"tpd");
+
     }
 
 
@@ -181,9 +188,12 @@ public class OrderActivity extends AppCompatActivity {
         number_order = findViewById(R.id.text_number_of_order);
         recyclerView = findViewById(R.id.recycler_ordering);
         card_number = findViewById(R.id.card_number);
-        relative_total =findViewById(R.id.relative_order);
-        noOrder =findViewById(R.id.noOrder);
-        datePicker =findViewById(R.id.datePicker);
+        relative_total = findViewById(R.id.relative_order);
+        noOrder = findViewById(R.id.noOrder);
+//        tv_datePicker =findViewById(R.id.datePicker);
+//        card_timePicker =findViewById(R.id.card_TimePicker);
+        card_DatePicker =findViewById(R.id.card_DatePicker);
+        tv_timePicker = findViewById(R.id.tv_TimePicker);
     }
 
 
@@ -244,12 +254,13 @@ public class OrderActivity extends AppCompatActivity {
     }
 
 
-    public String getCurrentTime_Date(){
-        PersianDate c = new PersianDate();
-        PersianDateFormat dateFormat = new PersianDateFormat(" Y/m/d ");
-        String datetime = dateFormat.format(c);
-        return datetime;
-    }
+//    public String getCurrentTime_Date(){
+//        PersianDate c = new PersianDate();
+//        PersianDateFormat dateFormat = new PersianDateFormat(" Y/m/d ");
+//        String datetime = dateFormat.format(c);
+//        return datetime;
+//    }
+
 
     public String getCurrentTime_time(){
         Calendar c = Calendar.getInstance();
@@ -265,7 +276,7 @@ public class OrderActivity extends AppCompatActivity {
                         Toast.makeText(this, "مشتری را انتخاب کنید", Toast.LENGTH_SHORT).show();
                     }else {
                         dao_order.insertOrder(new Order(customer.name , CODE , customer.customer_id , 1 ,
-                                total.getText()+"" , "با تمام مخلفات " ,getCurrentTime_Date() , getCurrentTime_time() ));
+                                total.getText()+"" , "با تمام مخلفات " ,"1400/10/5" , getCurrentTime_time() ));
 
                         for (int i = 0; i < orderDetailList.size(); i++) {
 
@@ -278,15 +289,15 @@ public class OrderActivity extends AppCompatActivity {
 //                        db.close();
                         finish();
                     }
-
-
         });
     }
 
 
 
     private void datePicker(){
-        datePicker.setOnClickListener(v -> {
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "shabnam-light.ttf");
+
+        card_DatePicker.setOnClickListener(v -> {
             picker = new PersianDatePickerDialog(this)
                     .setPositiveButtonString("باشه")
                     .setNegativeButton("بیخیال")
@@ -298,6 +309,7 @@ public class OrderActivity extends AppCompatActivity {
                     .setMaxDay(PersianDatePickerDialog.THIS_DAY)
                     .setInitDate(1370, 3, 13)
                     .setActionTextColor(Color.GRAY)
+                    .setTypeFace(typeface)
                     .setTitleType(PersianDatePickerDialog.WEEKDAY_DAY_MONTH_YEAR)
                     .setShowInBottomSheet(true)
                     .setListener(new PersianPickerListener() {
@@ -310,25 +322,13 @@ public class OrderActivity extends AppCompatActivity {
                             Log.d(TAG, "onDateSelected: " + PersianCalendarUtils.isPersianLeapYear(persianPickerDate.getPersianYear()));//true
                             Toast.makeText(getApplicationContext() , persianPickerDate.getPersianYear() + "/" + persianPickerDate.getPersianMonth() + "/" + persianPickerDate.getPersianDay(), Toast.LENGTH_SHORT).show();
                         }
-
                         @Override
                         public void onDismissed() {
-
                         }
                     });
-
             picker.show();
         });
+
     }
 
-
-
-
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-////        if(db != null){
-////            db.close();
-////        }
-//    }
 }

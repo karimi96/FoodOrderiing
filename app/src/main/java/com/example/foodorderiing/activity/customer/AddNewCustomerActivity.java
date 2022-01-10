@@ -67,7 +67,7 @@ public class AddNewCustomerActivity extends AppCompatActivity {
         address = findViewById(R.id.et_get_address_customer);
         save = findViewById(R.id.tv_save_customer);
         cancel = findViewById(R.id.tv_cancel_customer);
-        mainBack = findViewById(R.id.mainRelative);
+//        mainBack = findViewById(R.id.mainRelative);
     }
 
 

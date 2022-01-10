@@ -26,6 +26,8 @@ import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.customer.AddNewCustomerActivity;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.CustomerDao;
+import com.example.foodorderiing.database.dao.OrderDao;
+import com.example.foodorderiing.database.dao.OrderDetailDao;
 import com.example.foodorderiing.model.Customer;
 import com.google.gson.Gson;
 
@@ -38,7 +40,9 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     List<Customer> list_search;
     Listener listener;
     DatabaseHelper database;
-    CustomerDao dao;
+    CustomerDao customerDao;
+    OrderDao orderDao;
+    OrderDetailDao orderDetailDao;
 
 
     public CustomerAdapter(List<Customer> list, Context context, Listener listener) {
@@ -130,8 +134,8 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
                                 public void onClick(DialogInterface dialog, int which) {
 
                                     database = DatabaseHelper.getInstance(context.getApplicationContext());
-                                    dao = database.customerDao();
-                                    dao.deleteCustomer(list.get(pos));
+                                    customerDao = database.customerDao();
+                                    customerDao.deleteCustomer(list.get(pos));
                                     list.remove(pos);
                                     notifyItemRemoved(pos);
                                     notifyItemRangeChanged(pos, list.size());

@@ -40,7 +40,8 @@
 
         <activity android:name=".activity.home.HomeActivity" />
 
-        <activity android:name=".activity.login.LoginActivity">
+        <activity android:name=".activity.login.LoginActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

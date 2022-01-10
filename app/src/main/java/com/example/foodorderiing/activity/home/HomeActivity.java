@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.customer.CustomerActivity;
 import com.example.foodorderiing.activity.grouping.GroupingActivity;
@@ -31,14 +33,12 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
-import saman.zamani.persiandate.PersianDate;
-import saman.zamani.persiandate.PersianDateFormat;
-
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -72,9 +72,9 @@ public class HomeActivity extends AppCompatActivity {
         goToCustomer();
         goToGrouping();
         setDateMiladi_daily();
-        setDateShamsi_daily();
-        setDateShamsi_weekly();
-        date = setDateShamsi_daily();
+//        setDateShamsi_daily();
+//        setDateShamsi_weekly();
+//        date = setDateShamsi_daily();
 //        create_chart();
         showBarChart();
 
@@ -312,23 +312,23 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    private String setDateShamsi_daily(){
-        PersianDate b = new PersianDate();
-//        karimi =  b.dayName();
-//        karimi = b.dayName();
-        PersianDateFormat dateFormattt = new PersianDateFormat(" Y/m/d ");
-//        date = dateFormattt.format(b);
-        return dateFormattt.format(b);
-    }
+//    private String setDateShamsi_daily(){
+//        PersianDate b = new PersianDate();
+////        karimi =  b.dayName();
+////        karimi = b.dayName();
+//        PersianDateFormat dateFormattt = new PersianDateFormat(" Y/m/d ");
+////        date = dateFormattt.format(b);
+//        return dateFormattt.format(b);
+//    }
 
 
-    private void setDateShamsi_weekly(){
-        PersianDate a = new PersianDate();
-        PersianDateFormat dateFormatt = new PersianDateFormat(" Y/m/d ");
-        a = new PersianDate(a.getTime()- 604800000L );
-        String datetimee = dateFormatt.format(a);
-//        month.setText(datetimee);
-    }
+//    private void setDateShamsi_weekly(){
+//        PersianDate a = new PersianDate();
+//        PersianDateFormat dateFormatt = new PersianDateFormat(" Y/m/d ");
+//        a = new PersianDate(a.getTime()- 604800000L );
+//        String datetimee = dateFormatt.format(a);
+////        month.setText(datetimee);
+//    }
 
 
     private int getTotalOneDay(String daily){
