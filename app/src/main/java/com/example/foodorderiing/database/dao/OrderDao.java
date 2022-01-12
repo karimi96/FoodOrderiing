@@ -21,24 +21,20 @@ public interface OrderDao {
     @Query("Select total from ordering where date = :datte limit 1 " )
    String date( String datte);
 
-
     @Query("Select total from ordering where date = :datee ")
     List<String> allTotal( String datee);
 
     @Query("Select * from ordering where name = :name ")
     List<Order> listByName( String name);
 
-
-
-
-
     @Query("select * from ordering where date>=datetime('now', 'now', '-7 day')")
     List<Order> getOrderListDate();
 
+    @Query("Select * from ordering where customerID = :id limit 1 " )
+    Order getid( int id);
 
-
-
-
+    @Query("DELETE from ordering where customerID = :id " )
+    void deteteID(int id);
 
 
 //    @Query("select * from ordering where date>= datetimee('','','')")

@@ -6,10 +6,10 @@ android {
     compileSdkVersion 31
     buildToolsVersion '30.0.3'
 
-    buildFeatures{
-        dataBinding true
-//        prefab true
-    }
+//    buildFeatures{
+//        dataBinding true
+////        prefab true
+//    }
 
     defaultConfig {
         applicationId "com.example.foodorderiing"
@@ -34,8 +34,8 @@ android {
 }
 
 dependencies {
-//    implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+//    implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
     implementation 'androidx.cardview:cardview:1.0.0'
@@ -72,11 +72,8 @@ dependencies {
     implementation 'com.airbnb.android:lottie:3.6.0'
 
 
-    // Persian Date
-//    implementation 'com.github.samanzamani.persiandate:PersianDate:0.8'
-
     // Image Picker For gallery
-    implementation 'com.github.Drjacky:ImagePicker:2.1.15'
+//    implementation 'com.github.Drjacky:ImagePicker:2.1.15'
 
     // Glide For Picture
     implementation 'com.github.bumptech.glide:glide:4.12.0'
@@ -85,7 +82,8 @@ dependencies {
     // Date Picker
     implementation 'com.github.aliab:Persian-Date-Picker-Dialog:1.7.1'
 
-//    implementation 'com.mohamadamin:persianmaterialdatetimepicker:1.2.1'
+    // Time Picker
+    implementation 'com.mohamadamin:persianmaterialdatetimepicker:1.2.1'
 
 }
 

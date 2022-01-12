@@ -22,14 +22,15 @@
 
     <ImageView
         android:id="@+id/pic"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:alpha="0.1"
-        android:src="@drawable/bg_product"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:alpha="0.2"
+        android:src="@drawable/food_back_add"
         app:layout_constraintBottom_toBottomOf="@+id/image_show_p"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.39" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -37,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:src="@drawable/ic_outline_add_a_photo_24"
+        android:src="@drawable/ic_round_add_a_photo_24"
         app:backgroundTint="@color/white_text"
         app:borderWidth="0dp"
         app:elevation="6dp"
@@ -53,7 +54,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/design_add_grouping"
-        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -70,17 +70,18 @@
             <EditText
                 android:id="@+id/et_get_name_product"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:background="@drawable/border_editext_product"
                 android:drawableRight="@drawable/ic_round_fastfood_24"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/iran_sans"
-                android:gravity="right|center_vertical"
+                android:gravity="right|center"
                 android:hint="اسم محصول"
                 android:imeOptions="actionNext"
                 android:inputType="textPersonName"
-                android:padding="5dp"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="12dp"
                 android:textColor="@color/black"
                 android:textSize="16dp"
                 android:textStyle="normal" />
@@ -89,7 +90,7 @@
             <AutoCompleteTextView
                 android:id="@+id/autoComplete_tv"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/border_editext_product"
@@ -99,7 +100,8 @@
                 android:gravity="right|center"
                 android:hint="دسته بندی"
                 android:imeOptions="actionNext"
-                android:padding="5dp"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="12dp"
                 android:singleLine="true"
                 android:textColor="@color/black"
                 android:textSize="16dp" />
@@ -108,7 +110,7 @@
             <EditText
                 android:id="@+id/et_get_price_product"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/border_editext_product"
@@ -119,7 +121,8 @@
                 android:hint=" قیمت"
                 android:imeOptions="actionDone"
                 android:inputType="number"
-                android:padding="5dp"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="12dp"
                 android:textColor="@color/black"
                 android:textSize="16dp"
                 android:textStyle="normal" />

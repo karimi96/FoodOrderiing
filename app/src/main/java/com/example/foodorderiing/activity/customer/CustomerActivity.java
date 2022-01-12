@@ -3,6 +3,7 @@ package com.example.foodorderiing.activity.customer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.EditText;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -82,6 +84,12 @@ public class CustomerActivity extends AppCompatActivity {
         searchText.setTypeface(myCustomFont);
         searchText.setTextSize(14);
 
+        searchView.setQueryHint("جستو و جو...");
+        searchView.setIconifiedByDefault(false);
+        searchView.setIconified(false);
+
+
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -111,7 +119,6 @@ public class CustomerActivity extends AppCompatActivity {
                     adapter.addList(dao.getCustomerList());
                 }
             }
-
         }
 
 
@@ -135,7 +142,7 @@ public class CustomerActivity extends AppCompatActivity {
                     setResult(Activity.RESULT_OK, returnIntent);
                     finish();
                 } else {
-                    adapter.showDialogSheet(pos, name);
+                    adapter.showDialogSheet(pos, name , customer.customer_id);
                 }
             }
         });
@@ -178,13 +185,6 @@ public class CustomerActivity extends AppCompatActivity {
     }
 
 
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        if (db != null) db.close();
-//    }
-
-
     private void layoutAnimation(RecyclerView recyclerView) {
         Context context = recyclerView.getContext();
         LayoutAnimationController layoutAnimationController = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_fall_down);
@@ -195,7 +195,6 @@ public class CustomerActivity extends AppCompatActivity {
 
 
     private void setSwipe() {
-
         touchListener = new RecyclerTouchListener(this, recyclerView);
         touchListener
 //                    .setClickable(new RecyclerTouchListener.OnRowClickListener() {

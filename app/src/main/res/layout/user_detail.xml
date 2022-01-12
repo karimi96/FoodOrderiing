@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="10dp"
-    android:layout_marginVertical="10dp"
+    android:layout_marginBottom="10dp"
     android:background="@drawable/box_customer"
     android:elevation="5dp"
     android:orientation="horizontal"
@@ -14,8 +14,8 @@
 
     <ImageView
         android:id="@+id/img_person"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:src="@drawable/ic_baseline_person_circle_24" />
 
@@ -28,6 +28,7 @@
         android:layout_marginStart="13dp"
         android:layout_toEndOf="@id/img_person"
         android:fontFamily="@font/iran_sans"
+        android:paddingVertical="10dp"
         android:text="مشتری "
         android:textColor="#676767"
         android:textSize="16dp" />

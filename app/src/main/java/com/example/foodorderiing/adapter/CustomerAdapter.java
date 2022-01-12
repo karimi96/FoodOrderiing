@@ -29,6 +29,7 @@ import com.example.foodorderiing.database.dao.CustomerDao;
 import com.example.foodorderiing.database.dao.OrderDao;
 import com.example.foodorderiing.database.dao.OrderDetailDao;
 import com.example.foodorderiing.model.Customer;
+import com.example.foodorderiing.model.Order;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -102,7 +103,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     }
 
 
-        public void showDialogSheet(int pos, String name) {
+        public void showDialogSheet(int pos, String name , int id) {
             final Dialog dialog_sheet = new Dialog(context);
             dialog_sheet.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog_sheet.setContentView(R.layout.bottom_sheet_customer);
@@ -135,13 +136,32 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
 
                                     database = DatabaseHelper.getInstance(context.getApplicationContext());
                                     customerDao = database.customerDao();
-                                    customerDao.deleteCustomer(list.get(pos));
-                                    list.remove(pos);
-                                    notifyItemRemoved(pos);
-                                    notifyItemRangeChanged(pos, list.size());
-                                    notifyDataSetChanged();
-                                    dialog_sheet.dismiss();
-                                    Toast.makeText(context, "با موفقیت حذف شد 😉 ", Toast.LENGTH_LONG).show();
+                                    orderDao = database.orderDao();
+                                    List<Order> listOrder = new ArrayList<>();
+                                    listOrder.addAll(orderDao.getOrderList()) ;
+
+                                    if(orderDao.getid(id) != null){
+                                        orderDao.deteteID(id);
+
+                                        deleteOneItem(dialog_sheet , pos);
+//                                        customerDao.deleteCustomer(list.get(pos));
+//                                        list.remove(pos);
+//                                        notifyItemRemoved(pos);
+//                                        notifyItemRangeChanged(pos, list.size());
+//                                        notifyDataSetChanged();
+//                                        dialog_sheet.dismiss();
+//                                        Toast.makeText(context, "با موفقیت حذف شد 😉 ", Toast.LENGTH_LONG).show();
+                                    }else {
+                                        deleteOneItem(dialog_sheet , pos);
+
+//                                        customerDao.deleteCustomer(list.get(pos));
+//                                        list.remove(pos);
+//                                        notifyItemRemoved(pos);
+//                                        notifyItemRangeChanged(pos, list.size());
+//                                        notifyDataSetChanged();
+//                                        dialog_sheet.dismiss();
+//                                        Toast.makeText(context, "با موفقیت حذف شد 😉 ", Toast.LENGTH_LONG).show();
+                                    }
                                 }
                             })
                             .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
@@ -208,4 +228,15 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
             notifyDataSetChanged();
         }
     };
+
+
+    public void deleteOneItem(Dialog dialog_sheet , int pos){
+        customerDao.deleteCustomer(list.get(pos));
+        list.remove(pos);
+        notifyItemRemoved(pos);
+        notifyItemRangeChanged(pos, list.size());
+        notifyDataSetChanged();
+        dialog_sheet.dismiss();
+        Toast.makeText(context, "با موفقیت حذف شد 😉 ", Toast.LENGTH_LONG).show();
+    }
 }

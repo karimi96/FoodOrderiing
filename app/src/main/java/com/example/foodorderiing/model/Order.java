@@ -41,13 +41,7 @@ public class Order {
     @ColumnInfo(name = "time")
     public String time;
 
-//    @Ignore
-//    public int numOrder = 0;
-////    @Ignore
-////    public List<Integer> numOrder = new ArrayList();
-//
-//    @Ignore
-//    public Order(){};
+
 
     public Order(int order_id, String name, String code, int customerID, int statusCustomer, String total, String discrebtion , String date , String time ) {
         this.order_id = order_id;

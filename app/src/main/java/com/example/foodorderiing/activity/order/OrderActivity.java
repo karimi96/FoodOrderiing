@@ -1,23 +1,23 @@
 package com.example.foodorderiing.activity.order;
 
-import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.DatePicker;
+import android.widget.CalendarView;
+import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.customer.CustomerActivity;
@@ -32,19 +32,24 @@ import com.example.foodorderiing.model.Order;
 import com.example.foodorderiing.model.OrderDetail;
 import com.example.foodorderiing.model.Product;
 import com.google.gson.Gson;
+import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
+import com.mohamadamin.persianmaterialdatetimepicker.date.DayPickerView;
+import com.mohamadamin.persianmaterialdatetimepicker.time.RadialPickerLayout;
+import com.mohamadamin.persianmaterialdatetimepicker.time.TimePickerDialog;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
-
-import org.jetbrains.annotations.NotNull;
-
+//import org.jetbrains.annotations.NotNull;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.api.PersianPickerDate;
 import ir.hamsaa.persiandatepicker.api.PersianPickerListener;
+import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 import ir.hamsaa.persiandatepicker.util.PersianCalendarUtils;
+
 
 
 public class OrderActivity extends AppCompatActivity {
@@ -62,14 +67,16 @@ public class OrderActivity extends AppCompatActivity {
     private CardView card_number;
     private String CODE = String.valueOf(System.currentTimeMillis());
     private RelativeLayout relative_total;
+    private CardView card_DatePicker, card_timePicker;
+    private TextView tv_timePicker, tv_datePicker;
     private PersianDatePickerDialog picker;
     private static final String TAG = "OrderActivity";
-    private CardView card_DatePicker;
-    private CardView card_timePicker;
-//    private TimePickerDialog timePickerDialog;
-    private TextView tv_timePicker;
-    private TextView tv_datePicker;
 
+
+
+
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,28 +90,24 @@ public class OrderActivity extends AppCompatActivity {
         initLottie();
         initRecycler();
         initSaveOrder();
+        getCurrentDate();
         datePicker();
+        getCurrentTime();
+        timePicker();
 
-
-//        PersianCalendar now = new PersianCalendar();
-//        TimePickerDialog tpd = TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
-//            @Override
-//            public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
-//                String time = hourOfDay+":"+minute;
-//                tv_timePicker.setText(time);
-//            }
-//            },
-//                now.get(PersianCalendar.HOUR_OF_DAY),
-//                now.get(PersianCalendar.MINUTE),
-//                true);
-//        tpd.show(getFragmentManager(),"tpd");
-
+//        TODO (Change color in picker)
+//        CalendarView calendarView;
+//        NumberPicker numberPicker = new NumberPicker(this);
+//        numberPicker.setTextColor(getResources().getColor(R.color.red_toolbar));
+//        PersianDatePickerDialog dd = new PersianDatePickerDialog(this);
+//        DatePickerDialog d = new DatePickerDialog();
+//        d.setThemeDark(true);
     }
 
 
 
     @Override
-    protected void onActivityResult( int requestCode, int resultCode , @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+    protected void onActivityResult( int requestCode, int resultCode ,  Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK){
             switch (requestCode){
@@ -152,7 +155,6 @@ public class OrderActivity extends AppCompatActivity {
                 ordringAdapter.notifyItemChanged(pos);
                 initCounter();
             }
-
             @Override
             public void onRemove(int pos) {
                 if (orderDetailList.get(pos).amount > 1){
@@ -161,7 +163,6 @@ public class OrderActivity extends AppCompatActivity {
                 }else {
                     orderDetailList.remove(pos);
                     ordringAdapter.notifyDataSetChanged();
-
                 }
                 initCounter();
             }
@@ -190,8 +191,8 @@ public class OrderActivity extends AppCompatActivity {
         card_number = findViewById(R.id.card_number);
         relative_total = findViewById(R.id.relative_order);
         noOrder = findViewById(R.id.noOrder);
-//        tv_datePicker =findViewById(R.id.datePicker);
-//        card_timePicker =findViewById(R.id.card_TimePicker);
+        tv_datePicker =findViewById(R.id.tv_DatePicker);
+        card_timePicker =findViewById(R.id.card_TimePicker);
         card_DatePicker =findViewById(R.id.card_DatePicker);
         tv_timePicker = findViewById(R.id.tv_TimePicker);
     }
@@ -219,7 +220,6 @@ public class OrderActivity extends AppCompatActivity {
         if(orderDetailList.size() > 0){
             card_number.setVisibility(View.VISIBLE);
             number_order.setText(orderDetailList.size()+"");
-
         }else {
             card_number.setVisibility(View.GONE);
         }
@@ -230,7 +230,7 @@ public class OrderActivity extends AppCompatActivity {
     private Integer getTotalPrice(){
         int p = 0;
         for (int i = 0; i < orderDetailList.size(); i++) {
-            p = p + (Tools.convertToPrice(orderDetailList.get(i).price) * orderDetailList.get(i).amount);
+        p = p + (Tools.convertToPrice(orderDetailList.get(i).price) * orderDetailList.get(i).amount);
         }
         return p;
     }
@@ -254,49 +254,29 @@ public class OrderActivity extends AppCompatActivity {
     }
 
 
-//    public String getCurrentTime_Date(){
-//        PersianDate c = new PersianDate();
-//        PersianDateFormat dateFormat = new PersianDateFormat(" Y/m/d ");
-//        String datetime = dateFormat.format(c);
-//        return datetime;
-//    }
-
-
-    public String getCurrentTime_time(){
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss ");
-        String datetime = dateFormat.format(c.getTime());
-        return datetime;
-    }
-
-
     private void initSaveOrder(){
         save_order.setOnClickListener(view -> {
                     if( customer == null ){
                         Toast.makeText(this, "مشتری را انتخاب کنید", Toast.LENGTH_SHORT).show();
                     }else {
                         dao_order.insertOrder(new Order(customer.name , CODE , customer.customer_id , 1 ,
-                                total.getText()+"" , "با تمام مخلفات " ,"1400/10/5" , getCurrentTime_time() ));
+                        total.getText()+"" , "با تمام مخلفات " ,tv_datePicker.getText()+"" , tv_timePicker.getText()+"" ));
 
                         for (int i = 0; i < orderDetailList.size(); i++) {
-
                             dao_detail.insertOrderDetail(new OrderDetail(orderDetailList.get(i).name , orderDetailList.get(i).category ,
                                     String.valueOf(Tools.convertToPrice(orderDetailList.get(i).price) * orderDetailList.get(i).amount)  ,
                                     orderDetailList.get(i).amount ,CODE ));
-
                             Toast.makeText(OrderActivity.this, " سفارش " + customer.name + " با موفقیت ثبت شد", Toast.LENGTH_SHORT).show();
                         }
 //                        db.close();
                         finish();
-                    }
+                        }
         });
     }
 
 
-
     private void datePicker(){
         Typeface typeface = Typeface.createFromAsset(getAssets(), "shabnam-light.ttf");
-
         card_DatePicker.setOnClickListener(v -> {
             picker = new PersianDatePickerDialog(this)
                     .setPositiveButtonString("باشه")
@@ -304,31 +284,65 @@ public class OrderActivity extends AppCompatActivity {
                     .setTodayButton("امروز")
                     .setTodayButtonVisible(true)
                     .setMinYear(1300)
-                    .setMaxYear(PersianDatePickerDialog.THIS_YEAR)
-                    .setMaxMonth(PersianDatePickerDialog.THIS_MONTH)
-                    .setMaxDay(PersianDatePickerDialog.THIS_DAY)
-                    .setInitDate(1370, 3, 13)
+                    .setMaxYear(1450)
+                    .setMaxMonth(12)
+                    .setMaxDay(31)
+                    .setInitDate(PersianDatePickerDialog.THIS_YEAR, PersianDatePickerDialog.THIS_MONTH, PersianDatePickerDialog.THIS_DAY)
                     .setActionTextColor(Color.GRAY)
                     .setTypeFace(typeface)
                     .setTitleType(PersianDatePickerDialog.WEEKDAY_DAY_MONTH_YEAR)
                     .setShowInBottomSheet(true)
                     .setListener(new PersianPickerListener() {
                         @Override
-                        public void onDateSelected(@NotNull PersianPickerDate persianPickerDate) {
+                        public void onDateSelected( PersianPickerDate persianPickerDate) {
                             Log.d(TAG, "onDateSelected: " + persianPickerDate.getTimestamp());//675930448000
                             Log.d(TAG, "onDateSelected: " + persianPickerDate.getGregorianDate());//Mon Jun 03 10:57:28 GMT+04:30 1991
                             Log.d(TAG, "onDateSelected: " + persianPickerDate.getPersianLongDate());// دوشنبه  13  خرداد  1370
                             Log.d(TAG, "onDateSelected: " + persianPickerDate.getPersianMonthName());//خرداد
                             Log.d(TAG, "onDateSelected: " + PersianCalendarUtils.isPersianLeapYear(persianPickerDate.getPersianYear()));//true
-                            Toast.makeText(getApplicationContext() , persianPickerDate.getPersianYear() + "/" + persianPickerDate.getPersianMonth() + "/" + persianPickerDate.getPersianDay(), Toast.LENGTH_SHORT).show();
+
+                            tv_datePicker.setText(persianPickerDate.getPersianYear() + "/" + persianPickerDate.getPersianMonth() + "/" + persianPickerDate.getPersianDay() );
                         }
-                        @Override
-                        public void onDismissed() {
-                        }
-                    });
-            picker.show();
+                            @Override
+                            public void onDismissed() {
+                            }
+                          });
+                        picker.show();
         });
 
+    }
+
+
+    private void timePicker(){
+        card_timePicker.setOnClickListener(v -> {
+            PersianCalendar now = new PersianCalendar();
+            TimePickerDialog tpd = TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
+                    String time = hourOfDay+":"+minute;
+                    tv_timePicker.setText(time);
+                }
+                },
+                    now.get(PersianCalendar.HOUR_OF_DAY),
+                    now.get(PersianCalendar.MINUTE),
+                    true);
+                    tpd.show(getFragmentManager(),"tpd");
+        });
+    }
+
+
+    private void getCurrentDate(){
+        PersianCalendar now = new PersianCalendar();
+        String currentDate = now.getPersianShortDate();
+        tv_datePicker.setText(currentDate);
+    }
+
+
+    private void getCurrentTime(){
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss ");
+        String datetime = dateFormat.format(c.getTime());
+        tv_timePicker.setText(datetime);
     }
 
 }

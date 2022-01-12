@@ -108,13 +108,10 @@ public class ProductActivity extends AppCompatActivity {
 //        View v = searchView.findViewById(androidx.appcompat.R.id.search_mag_icon);
 //        v.setBackgroundColor(Color.parseColor("here give actionbar color code"));
 
-
-
         TextView searchText = (TextView) searchView.findViewById(R.id.search_src_text);
         Typeface myCustomFont = Typeface.createFromAsset(getAssets(),"font/iran_sans.ttf");
         searchText.setTypeface(myCustomFont);
         searchText.setTextSize(14);
-
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -158,18 +155,13 @@ public class ProductActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        adapter_pro.clear();
-        if(dao_product.get_product_by_category(nameGrouping).size() < 0){
-            noProduct.setVisibility(View.VISIBLE);
-        }else {
-            noProduct.setVisibility(View.GONE);
-        }
         initListProduct();
+        set_recycler_category();
     }
 
 
     public void set_recycler_category(){
-        if(dao_grouping.getGroupingList().size() >= 1){
+        if(dao_product.getProductList().size() > 0){
             ArrayList<Grouping> groupingArrayList = new ArrayList<>();
             groupingArrayList.add(0, new Grouping("همه محصولات " , ""));
             groupingArrayList.addAll(dao_grouping.getGroupingList());
@@ -184,19 +176,12 @@ public class ProductActivity extends AppCompatActivity {
                         nameGrouping = null ;
                     }else {
                         nameGrouping = g.name;
-                        if(dao_product.get_product_by_category(nameGrouping).size() < 0){
-                            noProduct.setVisibility(View.VISIBLE);
-                        }else {
-                            noProduct.setVisibility(View.GONE);
-
-                        }
                     }
                     initListProduct();
                 }
             });
             recyclerView_category.setAdapter(adapter_gro);
         }
-
     }
 
 
@@ -204,13 +189,19 @@ public class ProductActivity extends AppCompatActivity {
         Log.e("qqqq" , "initListProduct: " + nameGrouping );
         if(adapter_pro != null ){
             if(nameGrouping == null || nameGrouping.isEmpty()) {
-                adapter_pro.addList(dao_product.getProductList());
+                if(dao_product.getProductList().size() <= 0){
+                    noProduct.setVisibility(View.VISIBLE);
+                }else {
+                    adapter_pro.addList(dao_product.getProductList());
+                }
             }else {
-                adapter_pro.addList(dao_product.get_product_by_category(nameGrouping));
-
+                if(dao_product.get_product_by_category(nameGrouping).size() == 0){
+                    noProduct.setVisibility(View.VISIBLE);
+                }else {
+                    adapter_pro.addList(dao_product.get_product_by_category(nameGrouping));
+                }
             }
         }
-
     }
 
 
@@ -233,7 +224,6 @@ public class ProductActivity extends AppCompatActivity {
                 });
                 recyclerView_product.setAdapter(adapter_pro);
             }
-
 
 
     public void click_fab(){

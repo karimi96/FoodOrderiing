@@ -24,7 +24,6 @@
         android:id="@+id/noListOrder"
         android:text="سفارشی ثبت نشده است"
         android:gravity="center"
-        android:visibility="gone"
         android:layout_marginTop="?attr/actionBarSize"
         android:fontFamily="@font/iran_sans"
         android:layout_width="match_parent"
