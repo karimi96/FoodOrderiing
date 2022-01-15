@@ -99,7 +99,6 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.View
                                     notifyItemRemoved(getAdapterPosition());
                                     notifyItemRangeChanged(getAdapterPosition(),list.size());
                                     notifyDataSetChanged();
-
                                 }
                             })
                             .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
@@ -112,12 +111,6 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.View
                             .show();
                 }
             });
-
-//            edit.setOnClickListener(v -> {
-//                Intent edit = new Intent(context,Order.class);
-//                edit.putExtra("edit" , list.get(getAdapterPosition()).code);
-//                context.startActivity(edit);
-//            });
 
 
             itemView.setOnClickListener(this);
