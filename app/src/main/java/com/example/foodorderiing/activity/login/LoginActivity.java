@@ -76,19 +76,38 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void setCheckBox(){
+        Boolean checkBoxState = checkBox.isChecked();
         checkBox.setOnClickListener(v -> {
-            String name = et_name.getText().toString();
-            String phone = et_password.getText().toString();
+            if(checkBoxState == true){
+                String name = et_name.getText().toString();
+                String phone = et_password.getText().toString();
 
-            Session.getInstance().putExtra("name",name);
-            Session.getInstance().putExtra("phone",phone);
+                Session.getInstance().putExtra("name",name);
+                Session.getInstance().putExtra("phone",phone);
+                Toast.makeText(getApplicationContext(), "ذخیره شد", Toast.LENGTH_SHORT).show();
 
-            Toast.makeText(getApplicationContext(), "save", Toast.LENGTH_SHORT).show();
+            }
+            if(checkBoxState == false){
+                Session.getInstance().clearExtras();
+//                Session.getInstance().remove("name");
+//                Session.getInstance().remove("phone");
+            }
+
         });
 
+        if(Session.getInstance().getString("name") != null || Session.getInstance().getString("phone") != null ){
+            et_name.setText(Session.getInstance().getString("name"));
+            et_password.setText(Session.getInstance().getString("phone"));
+            checkBox.setChecked(true);
+        }
 
-        et_name.setText(Session.getInstance().getString("name"));
-        et_password.setText(Session.getInstance().getString("phone"));
+        if(Session.getInstance().getString("name") == null || Session.getInstance().getString("phone") == null){
+            et_name.setText("");
+            et_password.setText("");
+//            checkBox.setChecked(false);
+            checkBox.setEnabled(false);
+        }
+
     }
 
 
