@@ -63,7 +63,6 @@ public class ListOrder extends AppCompatActivity {
         super.onResume();
         if( dao.getOrderList().size() > 0){
             noListOrder.setVisibility(View.GONE);
-//            recyclerView.setVisibility(View.VISIBLE);
         }
     }
 }
