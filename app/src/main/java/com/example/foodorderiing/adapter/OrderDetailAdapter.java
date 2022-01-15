@@ -5,18 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.model.OrderDetail;
-
 import java.util.List;
 
 
 public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.ViewHolder> {
-    Context context;
-    List<OrderDetail> list;
+    private Context context;
+    private List<OrderDetail> list;
 
 
     public OrderDetailAdapter(List<OrderDetail> list, Context context ) {
@@ -33,6 +30,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         return viewHolder;
     }
 
+
     @Override
     public void onBindViewHolder(OrderDetailAdapter.ViewHolder holder, int position) {
         OrderDetail orderDetail = list.get(position);
@@ -48,7 +46,6 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
     public int getItemCount() {
         return list.size();
     }
-
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
