@@ -237,6 +237,6 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
         notifyItemRangeChanged(pos, list.size());
         notifyDataSetChanged();
         dialog_sheet.dismiss();
-        Toast.makeText(context, "با موفقیت حذف شد 😉 ", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "با موفقیت حذف شد ", Toast.LENGTH_LONG).show();
     }
 }

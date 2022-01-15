@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +20,7 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
     Context context;
     List<Grouping> list;
     Listener listener;
-    int row_index = -1;
+    int row_index = 0;
 
 
     public GroupInProductAdapter(List<Grouping> list, Context context , Listener listener ) {
@@ -48,26 +49,19 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//           holder.cardView.setBackgroundDrawable(context.getDrawable(R.drawable.select_groupinproduct));
                 row_index = position ;
                 notifyDataSetChanged();
                 listener.onClick(position , grouping);
-
             }
-
         });
 
-            if(row_index==position){
+            if(row_index == position){
                 holder.cardView.setCardBackgroundColor(Color.parseColor("#ef4224"));
                 holder.tv_name_groupInproduct.setTextColor(Color.parseColor("#f8f3f7"));
-            }
-            else
-            {
+            } else {
                 holder.cardView.setCardBackgroundColor(Color.parseColor("#f8f3f7"));
                 holder.tv_name_groupInproduct.setTextColor(Color.parseColor("#676767"));
-
         }
-
     }
 
 

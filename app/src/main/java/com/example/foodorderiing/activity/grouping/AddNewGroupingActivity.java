@@ -91,7 +91,6 @@ public class AddNewGroupingActivity extends AppCompatActivity {
 
 //            Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() + "/Pictures/" + "Instagram/");
 
-
             Intent intent = new Intent();
                 intent.setType("image/*");
 //                intent.setDataAndType(uri , "image/*");
@@ -180,8 +179,6 @@ public class AddNewGroupingActivity extends AppCompatActivity {
     }
 
 
-
-
     private void hideKeyBord(){
         editText_category.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -204,12 +201,6 @@ public class AddNewGroupingActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-    }
-
-    @Override
-    protected void onDestroy() {
-//        if (db != null) db.close();
-        super.onDestroy();
     }
 
 }

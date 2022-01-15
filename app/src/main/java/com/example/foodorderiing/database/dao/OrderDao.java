@@ -27,8 +27,9 @@ public interface OrderDao {
     @Query("Select * from ordering where name = :name ")
     List<Order> listByName( String name);
 
-    @Query("select * from ordering where date>=datetime('now', 'now', '-7 day')")
-    List<Order> getOrderListDate();
+    @Query("select * from ordering where date >= :date")
+    List<Order> getOrderListDate(String date);
+    
 
     @Query("Select * from ordering where customerID = :id limit 1 " )
     Order getid( int id);
