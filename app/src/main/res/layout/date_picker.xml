@@ -9,21 +9,22 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_TimePicker"
         android:layout_width="0dp"
-        android:layout_marginStart="10dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
         android:layout_marginVertical="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="5dp"
         android:layout_weight="1"
+        android:background="?attr/selectableItemBackground"
         app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="15dp">
+        app:cardCornerRadius="10dp">
 
         <TextView
             android:id="@+id/tv_TimePicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:drawablePadding="10dp"
             android:drawableRight="@drawable/ic_baseline_access_time_24"
+            android:drawablePadding="10dp"
             android:fontFamily="@font/irsansfanum"
             android:gravity="center"
             android:padding="8dp"
@@ -36,24 +37,25 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_DatePicker"
         android:layout_width="0dp"
-        android:layout_marginLeft="10dp"
         android:layout_height="match_parent"
         android:layout_marginVertical="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginRight="5dp"
         android:layout_weight="1"
+        android:background="?attr/selectableItemBackground"
         app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="15dp">
+        app:cardCornerRadius="10dp">
 
         <TextView
             android:id="@+id/tv_DatePicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:fontFamily="@font/irsansfanum"
-            android:padding="8dp"
-            android:gravity="center"
-            android:drawablePadding="10dp"
             android:drawableRight="@drawable/ic_baseline_today_24"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/irsansfanum"
+            android:gravity="center"
+            android:padding="8dp"
             android:text="1400/10/11"
             android:textColor="#676767"
             android:textSize="16dp" />
