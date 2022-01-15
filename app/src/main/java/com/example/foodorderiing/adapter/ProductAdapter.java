@@ -70,13 +70,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.tv_name_category.setText(product.category);
         holder.tv_price.setText(product.price);
         holder.img_food_bg.setImageURI(Uri.parse(product.picture));
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    listener.onClick(product , position , list.get(position).name );
-
-            }
-        });
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                    listener.onClick(product , position , list.get(position).name );
+//            }
+//        });
     }
 
 
@@ -86,7 +85,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tv_name_food, tv_name_category , tv_price;
         ImageView img_food_bg;
 
@@ -96,8 +95,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             tv_name_category = itemView.findViewById(R.id.tv_kind_of_food);
             tv_price = itemView.findViewById(R.id.tv_price_product);
             img_food_bg = itemView.findViewById(R.id.img_back_product);
+            itemView.setOnClickListener(this);
+        }
+        @Override
+        public void onClick(View v) {
+            Product product = list.get(getAdapterPosition());
+            listener.onClick(product , getAdapterPosition() , list.get(getAdapterPosition()).name );
         }
     }
+
 
 
     public void showDialogSheet(int pos , String name){
@@ -121,7 +127,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             }
         });
 
-
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,9 +137,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                         .setPositiveButton("بله", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
-
-
                                 database = DatabaseHelper.getInstance(context.getApplicationContext());
                                 dao = database.productDao();
                                 dao.deleteProduct(list.get(pos));
@@ -143,8 +145,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                                 notifyItemRangeChanged(pos,list.size());
                                 notifyDataSetChanged();
                                 dialog_sheet.dismiss();
-                                Toast.makeText(context, "با موفقیت حذف شد 😉 ", Toast.LENGTH_LONG).show();
-
+                                Toast.makeText(context, "با موفقیت حذف شد", Toast.LENGTH_LONG).show();
                             }
                         })
                         .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
@@ -158,13 +159,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                         .show();
             }
         });
-
         dialog_sheet.show();
         dialog_sheet.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog_sheet.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog_sheet.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationSheet;
         dialog_sheet.getWindow().setGravity(Gravity.BOTTOM);
-
     }
 
 
@@ -189,7 +188,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                         filterdNewList.add(product);
                 }
             }
-
             FilterResults results = new FilterResults();
             results.values = filterdNewList;
             results.count = filterdNewList.size();
