@@ -26,6 +26,10 @@ public interface ProductDao {
     List<Product> get_product_by_category(String category);
 
 
+    @Query("Select count(*) from product where category = :category" )
+   int count(String category);
+
+
     @Query("Select * from product where name = :name limit 1")
     Product getOneName(String name);
 
