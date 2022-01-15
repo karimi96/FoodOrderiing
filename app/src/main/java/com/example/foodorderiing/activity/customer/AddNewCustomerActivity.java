@@ -3,6 +3,7 @@ package com.example.foodorderiing.activity.customer;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -51,7 +52,7 @@ public class AddNewCustomerActivity extends AppCompatActivity {
 
         actionSave();
         actionCancel();
-
+        phone.addTextChangedListener(new PhoneNumberFormattingTextWatcher("IR"));
     }
 
 

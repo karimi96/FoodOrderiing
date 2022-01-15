@@ -85,6 +85,8 @@
                 android:fontFamily="@font/iran_sans"
                 android:gravity="right|center_vertical"
                 android:hint="تلفن"
+                android:maxLength="11"
+                android:phoneNumber="true"
                 android:imeOptions="actionNext"
                 android:inputType="phone"
                 android:paddingHorizontal="15dp"
