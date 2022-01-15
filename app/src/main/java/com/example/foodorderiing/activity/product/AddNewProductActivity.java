@@ -17,16 +17,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
 import com.example.foodorderiing.database.dao.ProductDao;
 import com.example.foodorderiing.design.NumberTextWatcherForThousand;
+import com.example.foodorderiing.model.Grouping;
 import com.example.foodorderiing.model.Product;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
@@ -64,6 +63,7 @@ public class AddNewProductActivity extends AppCompatActivity {
             autoTextView_grouing.setText(p.category);
             et_price.setText(p.price);
             img_show.setImageURI(Uri.parse(p.picture));
+            img.setVisibility(View.GONE);
         }
 
         et_price.addTextChangedListener(new NumberTextWatcherForThousand(et_price));
@@ -189,6 +189,7 @@ public class AddNewProductActivity extends AppCompatActivity {
                             Toast.makeText(AddNewProductActivity.this, " این محصول وجود دارد ", Toast.LENGTH_SHORT).show();
 
                         }else if(dao_grouping.getOneName(categoryProduct) == null){
+//                            dao_grouping.insertGrouping(new Grouping(categoryProduct, R.drawable.hamberger1));
                             Toast.makeText(AddNewProductActivity.this,  " دسته بندی "+ categoryProduct + " وجود ندارد ", Toast.LENGTH_SHORT).show();
 
                         }else {
@@ -201,13 +202,13 @@ public class AddNewProductActivity extends AppCompatActivity {
                     p.name = nameProduct;
                     p.category = categoryProduct;
                     p.price = priceProduct ;
+                    p.picture = uri.toString();
                     Log.e("qqqq", "onClick: update product=" + p.product_id );
                     dao_product.updateProduct(p);
                     Toast.makeText(getApplicationContext()," با موفقیت تغییر کرد " , Toast.LENGTH_LONG).show();
                     finish();
                 }
                 overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
-
         });
     }
 
@@ -221,5 +222,6 @@ public class AddNewProductActivity extends AppCompatActivity {
             }
         });
     }
+
 
 }

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -47,8 +48,8 @@ public class ProductActivity extends AppCompatActivity {
     private GroupInProductAdapter groupInProductAdapter;
     private Boolean for_order = false ;
     private TextView noProduct ;
-    private String nameGrouping;
-    int pp;
+    private String nameGrouping, nameIntent = null;
+    private Boolean check= false;
 
 
     @Override
@@ -59,6 +60,13 @@ public class ProductActivity extends AppCompatActivity {
         if(getIntent().getExtras() != null){
             for_order = getIntent().getBooleanExtra("for_order",false);
         }
+
+//        if(getIntent().getExtras() != null){
+//            check = true;
+//            String for_grouping = getIntent().getStringExtra("groupingToproduct");
+//            Grouping gg = new Gson().fromJson(for_grouping , Grouping.class);
+//            nameIntent = gg.name;
+//        }
 
         initDataBase();
         initID();
@@ -78,35 +86,6 @@ public class ProductActivity extends AppCompatActivity {
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setMaxWidth(Integer.MAX_VALUE);
         searchView.setBackground(getResources().getDrawable(R.drawable.ripple_all));
-
-//          Todo
-//        ImageView magImage = (ImageView) searchView.findViewById(androidx.appcompat.R.id.search_mag_icon);
-//        magImage.setVisibility(View.GONE);
-//        magImage.setImageDrawable(null);
-
-//        ImageView searchViewIcon = (ImageView)searchView.findViewById(androidx.appcompat.R.id.search_mag_icon);
-//        searchView.removeView(searchViewIcon);
-
-//        ViewGroup linearLayoutSearchView =(ViewGroup) searchViewIcon.getParent();
-//        linearLayoutSearchView.removeView(searchViewIcon);
-
-//        int searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
-//        View searchPlate = searchView.findViewById(searchPlateId);
-//        if (searchPlate!=null) {
-//            searchPlate.setBackgroundColor (Color.TRANSPARENT);
-//            int searchTextId = searchPlate.getContext ().getResources ().getIdentifier ("android:id/search_src_text", null, null);
-//
-//        }
-
-//        SearchManager searchManager = (SearchManager) getActivity ().getSystemService (getActivity ().SEARCH_SERVICE);
-//        searchView.setSearchableInfo (searchManager.getSearchableInfo (getActivity ().getComponentName ()));
-//
-//        //changing edittext color
-//        EditText searchEdit = ((EditText)searchView.findViewById(androidx.appcompat.R.id.search_mag_icon));
-//        searchEdit.setTextColor(Color.WHITE);
-
-//        View v = searchView.findViewById(androidx.appcompat.R.id.search_mag_icon);
-//        v.setBackgroundColor(Color.parseColor("here give actionbar color code"));
 
         TextView searchText = (TextView) searchView.findViewById(R.id.search_src_text);
         Typeface myCustomFont = Typeface.createFromAsset(getAssets(),"font/iran_sans.ttf");
@@ -161,7 +140,6 @@ public class ProductActivity extends AppCompatActivity {
 
 
     public void set_recycler_category(){
-        if(dao_product.getProductList().size() > 0){
             ArrayList<Grouping> groupingArrayList = new ArrayList<>();
             groupingArrayList.add(0, new Grouping("همه محصولات " , ""));
             groupingArrayList.addAll(dao_grouping.getGroupingList());
@@ -181,7 +159,6 @@ public class ProductActivity extends AppCompatActivity {
                 }
             });
             recyclerView_category.setAdapter(adapter_gro);
-        }
     }
 
 
@@ -189,20 +166,26 @@ public class ProductActivity extends AppCompatActivity {
         Log.e("qqqq" , "initListProduct: " + nameGrouping );
         if(adapter_pro != null ){
             if(nameGrouping == null || nameGrouping.isEmpty()) {
-                if(dao_product.getProductList().size() <= 0){
-                    noProduct.setVisibility(View.VISIBLE);
-                }else {
-                    adapter_pro.addList(dao_product.getProductList());
-                }
+                adapter_pro.addList(dao_product.getProductList());
             }else {
-                if(dao_product.get_product_by_category(nameGrouping).size() == 0){
-                    noProduct.setVisibility(View.VISIBLE);
-                }else {
-                    adapter_pro.addList(dao_product.get_product_by_category(nameGrouping));
-                }
+                adapter_pro.addList(dao_product.get_product_by_category(nameGrouping));
+
+//                if(check == true){
+//                    adapter_pro.addList(dao_product.get_product_by_category(nameIntent));
+//                }else {
+//                    adapter_pro.addList(dao_product.get_product_by_category(nameGrouping));
+//                }
+
+
+//                    if(nameIntent != null){
+//                        adapter_pro.addList(dao_product.get_product_by_category(nameIntent));
+//                    }else {
+//                        adapter_pro.addList(dao_product.get_product_by_category(nameGrouping));
+//                    }
             }
         }
     }
+
 
 
     public void set_recycler_product(){
