@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="10dp"
@@ -7,36 +8,44 @@
     android:layout_marginBottom="10dp"
     android:background="@drawable/border_list_order_down"
     android:elevation="1dp"
-    android:outlineSpotShadowColor="@color/red_toolbar"
-    android:paddingStart="5dp">
+    android:outlineSpotShadowColor="@color/red_toolbar">
+
+    <!--    <ImageView-->
+    <!--        android:id="@+id/delete_listOrder"-->
+    <!--        android:layout_width="20dp"-->
+    <!--        android:layout_height="40dp"-->
+    <!--        android:layout_alignParentRight="true"-->
+    <!--        android:layout_centerInParent="true"-->
+    <!--        android:layout_marginStart="7dp"-->
+    <!--        android:layout_marginEnd="3dp"-->
+    <!--        android:paddingVertical="11dp"-->
+    <!--        android:src="@drawable/bin4" />-->
 
 
-<!--    <ImageView-->
-<!--        android:id="@+id/delete_listOrder"-->
-<!--        android:layout_width="20dp"-->
-<!--        android:layout_height="40dp"-->
-<!--        android:layout_alignParentRight="true"-->
-<!--        android:layout_centerInParent="true"-->
-<!--        android:layout_marginStart="7dp"-->
-<!--        android:layout_marginEnd="3dp"-->
-<!--        android:paddingVertical="11dp"-->
-<!--        android:src="@drawable/bin4" />-->
-
-    <TextView
-        android:id="@+id/delete_listOrder"
+    <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/iran_sans"
-        android:gravity="center"
-        android:background="?attr/selectableItemBackground"
-        android:drawableRight="@drawable/delete"
-        android:paddingVertical="10dp"
-        android:paddingEnd="10dp"
-        android:layout_marginStart="5dp"
-        android:layout_alignParentRight="true"
-        android:text="حذف سفارش"
-        android:textColor="#a2a2a2"
-        android:textSize="12dp" />
+        android:outlineSpotShadowColor="@color/white_text"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="15dp">
+
+
+        <TextView
+            android:id="@+id/delete_listOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ripple_all"
+            android:drawableRight="@drawable/delete"
+            android:fontFamily="@font/iran_sans"
+            android:gravity="center"
+            android:paddingVertical="6dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:text="حذف سفارش"
+            android:textColor="#a2a2a2"
+            android:textSize="12dp" />
+    </androidx.cardview.widget.CardView>
 
 
     <!--    <ImageView-->
@@ -58,26 +67,32 @@
     <!--        android:src="@drawable/edit" />-->
 
     <TextView
+        android:id="@+id/time_listOrdring"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_toRightOf="@id/date_listOrdring"
+        android:drawableRight="@drawable/ic_baseline_access_time_24"
+        android:drawablePadding="5dp"
+        android:fontFamily="@font/irsansfanum"
+        android:padding="10dp"
+        android:text="10:22"
+        android:textColor="#a2a2a2"
+        />
+
+
+    <TextView
         android:id="@+id/date_listOrdring"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/time_listOrdring"
+        android:layout_alignParentLeft="true"
+        android:layout_centerInParent="true"
+        android:drawableRight="@drawable/ic_baseline_today_24"
+        android:drawablePadding="5dp"
         android:fontFamily="@font/irsansfanum"
         android:padding="10dp"
         android:text="1400.3.13"
         android:textColor="#a2a2a2"
-        android:textSize="13dp" />
-
-    <TextView
-        android:id="@+id/time_listOrdring"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:fontFamily="@font/irsansfanum"
-        android:padding="10dp"
-        android:text="10:56"
-        android:textColor="#a2a2a2"
-        android:textSize="13dp" />
-
+        />
 
 </RelativeLayout>
