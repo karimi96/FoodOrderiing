@@ -3,6 +3,7 @@ package com.example.foodorderiing.activity.product;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +32,7 @@ import com.example.foodorderiing.model.Grouping;
 import com.example.foodorderiing.model.Product;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 import java.util.ArrayList;
 
@@ -48,8 +51,8 @@ public class ProductActivity extends AppCompatActivity {
     private GroupInProductAdapter groupInProductAdapter;
     private Boolean for_order = false ;
     private TextView noProduct ;
-    private String nameGrouping, nameIntent = null;
-    private Boolean check= false;
+    private String nameGrouping;
+//    private int row_index = 0, position;
 
 
     @Override
@@ -57,16 +60,16 @@ public class ProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
-        if(getIntent().getExtras() != null){
-            for_order = getIntent().getBooleanExtra("for_order",false);
-        }
 
-//        if(getIntent().getExtras() != null){
-//            check = true;
-//            String for_grouping = getIntent().getStringExtra("groupingToproduct");
-//            Grouping gg = new Gson().fromJson(for_grouping , Grouping.class);
-//            nameIntent = gg.name;
-//        }
+        if(getIntent().getExtras() != null){
+            for_order = getIntent().getBooleanExtra("for_order", false);
+
+        }
+        if(getIntent().getStringExtra("groupingToproduct") != null){
+            String for_grouping = getIntent().getStringExtra("groupingToproduct");
+            Grouping grouping = new Gson().fromJson(for_grouping , Grouping.class);
+            nameGrouping = grouping.name;
+        }
 
         initDataBase();
         initID();
@@ -75,6 +78,7 @@ public class ProductActivity extends AppCompatActivity {
         set_recycler_product();
         click_fab();
         hide_fab();
+        setReverseRecycler();
     }
 
 
@@ -162,6 +166,7 @@ public class ProductActivity extends AppCompatActivity {
     }
 
 
+
     private void initListProduct(){
         Log.e("qqqq" , "initListProduct: " + nameGrouping );
         if(adapter_pro != null ){
@@ -169,19 +174,6 @@ public class ProductActivity extends AppCompatActivity {
                 adapter_pro.addList(dao_product.getProductList());
             }else {
                 adapter_pro.addList(dao_product.get_product_by_category(nameGrouping));
-
-//                if(check == true){
-//                    adapter_pro.addList(dao_product.get_product_by_category(nameIntent));
-//                }else {
-//                    adapter_pro.addList(dao_product.get_product_by_category(nameGrouping));
-//                }
-
-
-//                    if(nameIntent != null){
-//                        adapter_pro.addList(dao_product.get_product_by_category(nameIntent));
-//                    }else {
-//                        adapter_pro.addList(dao_product.get_product_by_category(nameGrouping));
-//                    }
             }
         }
     }
@@ -193,7 +185,6 @@ public class ProductActivity extends AppCompatActivity {
                 adapter_pro = new ProductAdapter(new ArrayList<>(), ProductActivity.this , new ProductAdapter.Listener() {
                     @Override
                     public void onClick(Product product , int pos , String name ) {
-
                         if(for_order){
                             for_order = getIntent().getBooleanExtra("for_order",false);
                             Intent returnIntent = new Intent();
@@ -207,6 +198,14 @@ public class ProductActivity extends AppCompatActivity {
                 });
                 recyclerView_product.setAdapter(adapter_pro);
             }
+
+
+    private void setReverseRecycler(){
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setStackFromEnd(true);
+        linearLayoutManager.setReverseLayout(true);
+        recyclerView_product.setLayoutManager(linearLayoutManager);
+    }
 
 
     public void click_fab(){
