@@ -64,8 +64,8 @@ public class AddNewGroupingActivity extends AppCompatActivity {
 
     private void initDataBase(){
         db = DatabaseHelper.getInstance(getApplicationContext());
-        dao_grouping = db.groupingDao();
-    }
+        dao_grouping = db.groupingDao(); }
+
 
     private void initID(){
         tv_save = findViewById(R.id.tv_save_group);
@@ -73,24 +73,11 @@ public class AddNewGroupingActivity extends AppCompatActivity {
         imageView_show = findViewById(R.id.image_show_g);
         imageView_back = findViewById(R.id.image_back_g);
         fab = findViewById(R.id.fab_add_g);
-        editText_category = findViewById(R.id.et_get_category_grouping);
-    }
+        editText_category = findViewById(R.id.et_get_category_grouping); }
 
 
     private void initImage(){
         fab.setOnClickListener(v -> {
-//            String path = Environment.getExternalStorageDirectory() + "/" + "Instagram" + "/";
-//            Uri uri = Uri.parse(path);
-//
-//            String photoDir = Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DCIM + "/" + "Camera";
-//            String photoDir = Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_PICTURES + "/" + "Images"  + "/" + "Instagram"  + "/";
-//            String photoDir = Environment.getExternalStorageDirectory() + "/" + "Pictures" + "/" + "Instagram"  + "/";
-//            Uri uri = Uri.parse(photoDir);
-
-//            Uri uri = Uri.parse(MediaStore.Images.Media.RELATIVE_PATH + "Pictures/" + "Instagram/");
-
-//            Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() + "/Pictures/" + "Instagram/");
-
             Intent intent = new Intent();
                 intent.setType("image/*");
 //                intent.setDataAndType(uri , "image/*");
@@ -108,7 +95,6 @@ public class AddNewGroupingActivity extends AppCompatActivity {
         if ( resultCode == RESULT_OK) {
             if (requestCode == PICK_IMAGE){
                 uri = data.getData();
-//                uri.getPath();
                 imageView_show.setImageURI(uri);
                 imageView_back.setVisibility(View.GONE);
             }
@@ -116,26 +102,12 @@ public class AddNewGroupingActivity extends AppCompatActivity {
     }
 
 
-    private void ff(){
-//        first way
-        String path = Environment.getExternalStorageDirectory() + "/" + "Downloads" + "/";
-        Uri uri = Uri.parse(path);
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setDataAndType(uri, "*/*");
-        startActivity(intent);
-//        second way
-       String photoDir = Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DCIM + "/";
-//       String photoDir = Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DOWNLOADS + "/";
-
-    }
-
     public void click_save(){
         tv_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 name = editText_category.getText().toString();
-
                 if(g == null){
                         if(imageView_show.getDrawable() == null){
                             Toast.makeText(getApplicationContext(), "لطفا یک عکس انتخاب کنید!!!", Toast.LENGTH_SHORT).show();
@@ -147,10 +119,6 @@ public class AddNewGroupingActivity extends AppCompatActivity {
                             Toast.makeText(AddNewGroupingActivity.this, "این نام وجود دارد", Toast.LENGTH_LONG).show();
 
                         } else {
-//                            File file = new File(String.valueOf(uri));
-////                            String picture = file.getPath() ;
-//                            File f = new File(uri.getPath());
-//                            dao_grouping.insertGrouping(new Grouping(name , f.toString() ));
                             dao_grouping.insertGrouping(new Grouping(name , uri.toString()));
                             Toast.makeText(getApplicationContext(), name + " با موفقیت به لیست اضافه شد ", Toast.LENGTH_LONG).show();
                             finish();
@@ -164,7 +132,6 @@ public class AddNewGroupingActivity extends AppCompatActivity {
                 overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
             }
         });
-
     }
 
 
@@ -187,7 +154,6 @@ public class AddNewGroupingActivity extends AppCompatActivity {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken() , 0);
                 }
-
             }
         });
     }
