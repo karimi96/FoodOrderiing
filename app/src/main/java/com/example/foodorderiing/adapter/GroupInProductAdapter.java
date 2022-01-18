@@ -17,10 +17,10 @@ import java.util.List;
 
 
 public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAdapter.ViewHolder> {
-    Context context;
-    List<Grouping> list;
-    Listener listener;
-    int row_index = 0;
+    private Context context;
+    private List<Grouping> list;
+    private Listener listener;
+    private int row_index = 0;
 
 
     public GroupInProductAdapter(List<Grouping> list, Context context , Listener listener ) {
@@ -32,6 +32,7 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
     public interface Listener{
         void onClick(int position , Grouping grouping);
     }
+
 
     @Override
     public GroupInProductAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -46,15 +47,6 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
         Grouping grouping = list.get(position);
         holder.tv_name_groupInproduct.setText(grouping.name);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                row_index = position ;
-                notifyDataSetChanged();
-                listener.onClick(position , grouping);
-            }
-        });
-
             if(row_index == position){
                 holder.cardView.setCardBackgroundColor(Color.parseColor("#ef4224"));
                 holder.tv_name_groupInproduct.setTextColor(Color.parseColor("#f8f3f7"));
@@ -65,12 +57,13 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
     }
 
 
+
     @Override
     public int getItemCount() {
         return list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tv_name_groupInproduct ;
         CardView cardView;
 
@@ -78,7 +71,18 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
             super(itemView);
             tv_name_groupInproduct = itemView.findViewById(R.id.tv_groupInproduct);
             cardView = itemView.findViewById(R.id.cardview_groupINproduct);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Grouping grouping = list.get(getAdapterPosition());
+            row_index = getAdapterPosition() ;
+            notifyDataSetChanged();
+            listener.onClick(getAdapterPosition() , grouping);
         }
     }
+
+
 
 }
