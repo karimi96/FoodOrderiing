@@ -2,7 +2,6 @@ package com.example.foodorderiing.activity.login;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -12,6 +11,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,7 +30,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 public class LoginActivity extends AppCompatActivity {
     private ImageView img_back;
     private CheckBox checkBox;
-    private TextView tv_login , tv_NewAcount;
+    private TextView tv_login , tv_NewAccount;
     private EditText et_name,et_password;
     private DatabaseHelper db;
     private UserDao dao;
@@ -48,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         hideKeyBoad();
         initLogin();
         setCheckBox();
+
     }
 
 
@@ -69,45 +70,39 @@ public class LoginActivity extends AppCompatActivity {
         et_password = findViewById(R.id.et_pass);
         et_name = findViewById(R.id.et_name);
         tv_login = findViewById(R.id.tv_login);
-        tv_NewAcount = findViewById(R.id.tv_newAcount);
+        tv_NewAccount = findViewById(R.id.tv_newAcount);
         checkBox = findViewById(R.id.checkBox_loging);
     }
 
 
-
     private void setCheckBox(){
-        Boolean checkBoxState = checkBox.isChecked();
-        checkBox.setOnClickListener(v -> {
-            if(checkBoxState == true){
-                String name = et_name.getText().toString();
-                String phone = et_password.getText().toString();
-
-                Session.getInstance().putExtra("name",name);
-                Session.getInstance().putExtra("phone",phone);
-                Toast.makeText(getApplicationContext(), "ذخیره شد", Toast.LENGTH_SHORT).show();
-
+        checkBox.setChecked(false);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    String name = et_name.getText().toString();
+                    String phone = et_password.getText().toString();
+                    if(TextUtils.isEmpty(name) || TextUtils.isEmpty(phone)){
+                        Toast.makeText(getApplicationContext(), "فیلد ها را پرکنید", Toast.LENGTH_SHORT).show();
+                        checkBox.setChecked(false);
+                    }else {
+                        Boolean isCheck = checkBox.isChecked();
+                        Session.getInstance().putExtra("name",name);
+                        Session.getInstance().putExtra("phone",phone);
+                        Session.getInstance().putExtra("isChecked" ,isCheck);
+                    }
+                }else if (!isChecked){
+                    Session.getInstance().clearExtras();
+                }
             }
-            if(checkBoxState == false){
-                Session.getInstance().clearExtras();
-//                Session.getInstance().remove("name");
-//                Session.getInstance().remove("phone");
-            }
-
         });
 
         if(Session.getInstance().getString("name") != null || Session.getInstance().getString("phone") != null ){
             et_name.setText(Session.getInstance().getString("name"));
             et_password.setText(Session.getInstance().getString("phone"));
-            checkBox.setChecked(true);
+            checkBox.setChecked(Session.getInstance().getBoolean("isChecked"));
         }
-
-        if(Session.getInstance().getString("name") == null || Session.getInstance().getString("phone") == null){
-            et_name.setText("");
-            et_password.setText("");
-//            checkBox.setChecked(false);
-            checkBox.setEnabled(false);
-        }
-
     }
 
 
@@ -135,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void createNewAcount(){
-        tv_NewAcount.setOnClickListener(v -> {
+        tv_NewAccount.setOnClickListener(v -> {
             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
             bottomSheetDialog.setContentView(R.layout.bottomsheet_sign_up);
 
@@ -153,10 +148,9 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "با موفقیت ثبت شد", Toast.LENGTH_SHORT).show();
                     bottomSheetDialog.dismiss();
                 }
-
             });
-            bottomSheetDialog.show();
 
+            bottomSheetDialog.show();
         });
     }
 
@@ -179,6 +173,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 
 }
 
