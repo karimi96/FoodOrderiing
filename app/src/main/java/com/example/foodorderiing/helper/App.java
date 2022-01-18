@@ -21,5 +21,12 @@ public class App extends Application {
         Log.e("qqqqapp", "onCreate: 7 day ago: " +PersianCalendarUtils.julianToPersian(Tools.getDate(-7).getTime()) );
 
 
+
+        Log.e("qqqqapp", "onCreate now: " + Tools.getCurrentDate());
+        Log.e("qqqqapp", "onCreate: 7 day ago: " +Tools.getSevenDayAgo(-7) );
+        Log.e("qqqqapp", "onCreate: today : " +Tools.dayAgo() );
+
+
+
     }
 }

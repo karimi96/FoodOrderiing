@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,9 +51,8 @@ public class HomeActivity extends AppCompatActivity {
     private CustomerDao dao_c;
     private OrderDao dao_order;
     private ImageView img_ordering;
-    private TextView numOrder ,month ,week ,day ;
+    private TextView numOrder ,monthlyTotal ,weeklyTotal , dailyTotal, dayName, titleHome;
     private String date;
-    private Order orderModel;
     private ListOrder listOrder;
 
 
@@ -73,6 +73,23 @@ public class HomeActivity extends AppCompatActivity {
         setDateMiladi_daily();
         showBarChart();
 
+        titleHome.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        titleHome.setHorizontallyScrolling(true);
+        titleHome.setMarqueeRepeatLimit(-1);
+        titleHome.setFocusable(true);
+        titleHome.setFocusableInTouchMode(true);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        num_product.setText(Integer.toString(dao_p.getProductList().size()));
+        num_customer.setText(Integer.toString(dao_c.getCustomerList().size()));
+        num_grouping.setText(Integer.toString(dao_g.getGroupingList().size()));
+        numberListOrder();
+        getTotalDaily();
+        getTotalWeekly();
+        getDayName();
     }
 
 
@@ -96,9 +113,11 @@ public class HomeActivity extends AppCompatActivity {
         num_grouping = findViewById(R.id.number_of_grouping);
         numOrder = findViewById(R.id.text_num_order);
         img_ordering = findViewById(R.id.img_shoping);
-        month = findViewById(R.id.month);
-        week = findViewById(R.id.week);
-        day = findViewById(R.id.day);
+        monthlyTotal = findViewById(R.id.month);
+        weeklyTotal = findViewById(R.id.week);
+        dailyTotal = findViewById(R.id.day);
+        dayName = findViewById(R.id.dayName);
+        titleHome = findViewById(R.id.title_home);
     }
 
 
@@ -159,7 +178,6 @@ public class HomeActivity extends AppCompatActivity {
         visitor.add(new BarEntry(3,30000));
         visitor.add(new BarEntry(4,5000));
 
-
         BarDataSet barDataSet = new BarDataSet(visitor, "");
         barDataSet.setColors(Color.rgb(241, 92, 65));
         barDataSet.setValueTextSize(0f);
@@ -176,26 +194,17 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    private void initNumberOrder(){
-//        ListOrder listOrder = new ListOrder();
-//        if (orderModel.numOrder != null){
-//            int count = orderModel.numOrder;
-//            numOrder.setText(String.valueOf(count));
-//        }else {
-//            numOrder.setText("0");
-//        }
+    private void numberListOrder(){
+        if (dao_order.getOrderList().size() >= 1){
+            int count = dao_order.getOrderList().size();
+            numOrder.setText("( " + count + " ) ");
+        }else {
+            numOrder.setText("");
+        }
     }
 
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        num_product.setText(Integer.toString(dao_p.getProductList().size()));
-        num_customer.setText(Integer.toString(dao_c.getCustomerList().size()));
-        num_grouping.setText(Integer.toString(dao_g.getGroupingList().size()));
-
-    }
 
 
     private void showBarChart(){
@@ -303,16 +312,38 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    private int getTotalOneDay(String daily){
+    private int getTotalDaily(){
         List<String> cost = new ArrayList<>();
-        cost.addAll(dao_order.allTotal(daily));
         int j = 0 ;
-        for (int i = 0; i < dao_order.getOrderList().size() ; i++) {
-            String dd = cost.get(i);
-            j = j + Tools.convertToPrice(dd);
-        }
-        day.setText(Tools.getForamtPrice(String.valueOf(j)));
+            try {
+                cost.addAll(dao_order.dailyTotal(Tools.getCurrentDate()));
+                for (int i = 0; i < dao_order.getOrderList().size() ; i++) {
+                    String dd = cost.get(i);
+                    j = j + Tools.convertToPrice(dd);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        dailyTotal.setText(Tools.getForamtPrice(String.valueOf(j)));
         return j;
     }
+
+
+    private void getTotalWeekly(){
+        List<Order> cost = new ArrayList<>();
+        cost.addAll(dao_order.getOrderListDate(Tools.dayAgo()));
+        int j = 0 ;
+        for (int i = 0; i < cost.size() ; i++) {
+            String dd = cost.get(i).total;
+            j = j + Tools.convertToPrice(dd);
+        }
+        weeklyTotal.setText(Tools.getForamtPrice(String.valueOf(j)));
+    }
+
+
+    private void getDayName(){
+        dayName.setText(" ( " + Tools.getDayName() + " ) ");
+    }
+
 
 }
