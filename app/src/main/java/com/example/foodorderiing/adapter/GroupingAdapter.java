@@ -6,9 +6,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,7 +69,30 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
     public void onBindViewHolder(GroupingAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Grouping grouping = list.get(position);
         holder.tv_name_category.setText(grouping.name);
-        holder.img_food_grouping.setImageURI(Uri.parse(grouping.picture));
+//        holder.img_food_grouping.setImageURI(Uri.parse(grouping.picture));
+
+
+
+
+        try{
+            final int takeFlags =  (Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            // Check for the freshest data.
+            context.getContentResolver().takePersistableUriPermission(Uri.parse(grouping.picture), takeFlags);
+            // convert uri to bitmap
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse(grouping.picture));
+            // set bitmap to imageview
+            holder.img_food_grouping.setImageBitmap(bitmap);
+        }
+        catch (Exception e){
+            //handle exception
+            e.printStackTrace();
+        }
+
+
+
+
+
 
 
 //        if(grouping.picture.isEmpty() || grouping.picture == null){
@@ -162,9 +187,9 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
 
     private void setTextAlertDialog(){
         if(count >= 1 ){
-            text =  "این دسته بندی "+ " ( "+ count + " ) "+ " محصول دارد ؛ ایا مایلید انرا حذف کنید؟ ";
+            text =  " این دسته بندی "+ " ( "+ count + " ) "+ " محصول دارد ؛ ایا مایلید انرا حذف کنید؟ ";
         }else {
-            text = "ایا مایلید این مورد را حذف کنید؟";
+            text = " ایا مایلید این مورد را حذف کنید؟";
         }
     }
 
@@ -204,7 +229,7 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
         notifyItemRangeChanged(pos, list.size());
         notifyDataSetChanged();
         dialog_sheet.dismiss();
-        Toast.makeText(context, name+ "با موفقیت حذف شد", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, name + " با موفقیت حذف شد", Toast.LENGTH_LONG).show();
     }
 
 
