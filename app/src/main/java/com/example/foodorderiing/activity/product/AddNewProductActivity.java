@@ -189,7 +189,7 @@ public class AddNewProductActivity extends AppCompatActivity {
                             Toast.makeText(AddNewProductActivity.this, " این محصول وجود دارد ", Toast.LENGTH_SHORT).show();
 
                         }else if(dao_grouping.getOneName(categoryProduct) == null){
-//                            dao_grouping.insertGrouping(new Grouping(categoryProduct, R.drawable.hamberger1));
+//                            dao_grouping.insertGrouping(new Grouping(categoryProduct, ""));
                             Toast.makeText(AddNewProductActivity.this,  " دسته بندی "+ categoryProduct + " وجود ندارد ", Toast.LENGTH_SHORT).show();
 
                         }else {

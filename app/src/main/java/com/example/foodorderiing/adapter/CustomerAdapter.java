@@ -144,7 +144,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
             if(orderDao.getid(id) != null){
                 text = " این کاربر دارای سفارش هست ، ایا مایلید انرا حذف کنید؟ ";
             }else {
-                text = " ایا مایلید این مورد را حذف کنید حذف کنید؟";
+                text = " ایا مایلید این مورد را حذف کنید؟";
             }
         }
 
