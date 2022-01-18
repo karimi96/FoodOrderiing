@@ -1,9 +1,7 @@
 package com.example.foodorderiing.helper;
 
-import android.widget.Switch;
-
+import android.widget.Toast;
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -54,7 +52,7 @@ public class Tools {
     public static String dayAgo(){
         PersianCalendar now = new PersianCalendar();
         String dayName = now.getPersianWeekDayName();
-        String date ;
+        String date = "";
 
         switch (dayName){
             case "شنبه" :
@@ -79,7 +77,7 @@ public class Tools {
                 date = getSevenDayAgo(-6);
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " + dayName);
+//                throw new IllegalStateException("Unexpected value: " + dayName);
         }
         return date ;
     }
