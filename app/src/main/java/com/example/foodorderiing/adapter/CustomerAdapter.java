@@ -18,10 +18,8 @@ import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.customer.AddNewCustomerActivity;
 import com.example.foodorderiing.database.DatabaseHelper;
@@ -36,14 +34,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHolder> implements Filterable {
-    Context context;
-    List<Customer> list;
-    List<Customer> list_search;
-    Listener listener;
-    DatabaseHelper database;
-    CustomerDao customerDao;
-    OrderDao orderDao;
-    OrderDetailDao orderDetailDao;
+    private Context context;
+    private List<Customer> list;
+    private List<Customer> list_search;
+    private Listener listener;
+    private DatabaseHelper database;
+    private CustomerDao customerDao;
+    private OrderDao orderDao;
+    private OrderDetailDao orderDetailDao;
+    private String text;
 
 
     public CustomerAdapter(List<Customer> list, Context context, Listener listener) {
@@ -74,12 +73,6 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
         holder.tv_name_customer.setText(customer.name);
         holder.tv_phone.setText(customer.phone);
         holder.tv_address.setText(customer.address);
-        holder.cardSwipe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onClickListener(customer , position , list.get(position).name);
-            }
-        });
     }
 
 
@@ -99,11 +92,15 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
             tv_phone = itemView.findViewById(R.id.tv_phone_customer);
             tv_address = itemView.findViewById(R.id.tv_address_customer);
             cardSwipe = itemView.findViewById(R.id.card_FG);
+            cardSwipe.setOnClickListener(v -> {
+                Customer customer = list.get(getAdapterPosition());
+                listener.onClickListener(customer , getAdapterPosition() , list.get(getAdapterPosition()).name);
+            });
         }
     }
 
 
-        public void showDialogSheet(int pos, String name , int id) {
+    public void showButtonSheet(int pos, String name , int id) {
             final Dialog dialog_sheet = new Dialog(context);
             dialog_sheet.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog_sheet.setContentView(R.layout.bottom_sheet_customer);
@@ -112,78 +109,87 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
             LinearLayout delete = dialog_sheet.findViewById(R.id.linear_delete_c);
             TextView title = dialog_sheet.findViewById(R.id.name_sheet_c);
             title.setText(name);
-
-
-            edit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, AddNewCustomerActivity.class);
-                    intent.putExtra("customer", new Gson().toJson(list.get(pos)));
-                    context.startActivity(intent);
-                    dialog_sheet.dismiss();
-                }
-            });
-            delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    new AlertDialog.Builder(context)
-                            .setTitle("حذف")
-                            .setMessage("ایا مایلید این مورد را حذف کنید؟")
-                            .setPositiveButton("بله", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                    database = DatabaseHelper.getInstance(context.getApplicationContext());
-                                    customerDao = database.customerDao();
-                                    orderDao = database.orderDao();
-                                    List<Order> listOrder = new ArrayList<>();
-                                    listOrder.addAll(orderDao.getOrderList()) ;
-
-                                    if(orderDao.getid(id) != null){
-                                        orderDao.deteteID(id);
-
-                                        deleteOneItem(dialog_sheet , pos);
-//                                        customerDao.deleteCustomer(list.get(pos));
-//                                        list.remove(pos);
-//                                        notifyItemRemoved(pos);
-//                                        notifyItemRangeChanged(pos, list.size());
-//                                        notifyDataSetChanged();
-//                                        dialog_sheet.dismiss();
-//                                        Toast.makeText(context, "با موفقیت حذف شد 😉 ", Toast.LENGTH_LONG).show();
-                                    }else {
-                                        deleteOneItem(dialog_sheet , pos);
-
-//                                        customerDao.deleteCustomer(list.get(pos));
-//                                        list.remove(pos);
-//                                        notifyItemRemoved(pos);
-//                                        notifyItemRangeChanged(pos, list.size());
-//                                        notifyDataSetChanged();
-//                                        dialog_sheet.dismiss();
-//                                        Toast.makeText(context, "با موفقیت حذف شد 😉 ", Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            })
-                            .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                    dialog_sheet.dismiss();
-                                }
-                            })
-                            .create()
-                            .show();
-                }
-            });
             dialog_sheet.show();
             dialog_sheet.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             dialog_sheet.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog_sheet.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationSheet;
             dialog_sheet.getWindow().setGravity(Gravity.BOTTOM);
+
+            edit.setOnClickListener(v -> {
+                    Intent intent = new Intent(context, AddNewCustomerActivity.class);
+                    intent.putExtra("customer", new Gson().toJson(list.get(pos)));
+                    context.startActivity(intent);
+                    dialog_sheet.dismiss();
+            });
+
+            delete.setOnClickListener(v -> {
+               initDataBase();
+               setTextDialog(id);
+               showAlertDialog(id, dialog_sheet, pos, name);
+            });
         }
 
 
-        public void addList(List<Customer> arraylist) {
+    private void initDataBase(){
+            database = DatabaseHelper.getInstance(context.getApplicationContext());
+            customerDao = database.customerDao();
+            orderDao = database.orderDao();
+            orderDetailDao = database.orderDetailDao();
+            List<Order> listOrder = new ArrayList<>();
+            listOrder.addAll(orderDao.getOrderList()) ;
+        }
+
+
+    private void setTextDialog(int id){
+            if(orderDao.getid(id) != null){
+                text = " این کاربر دارای سفارش هست ، ایا مایلید انرا حذف کنید؟ ";
+            }else {
+                text = " ایا مایلید این مورد را حذف کنید حذف کنید؟";
+            }
+        }
+
+
+    private void showAlertDialog(int id , Dialog dialog_sheet , int pos, String name){
+            new AlertDialog.Builder(context)
+                    .setTitle("حذف")
+                    .setMessage(text)
+                    .setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if(orderDao.getid(id) != null){
+                                orderDao.deteteID(id);
+                                orderDetailDao.deleteOneOrderDetail(orderDao.getid(id).code);
+                                deleteOneItem(dialog_sheet, pos, name);
+
+                            }else {
+                                deleteOneItem(dialog_sheet, pos, name);
+                            }
+                        }
+                    })
+                    .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            dialog_sheet.dismiss();
+                        }
+                    })
+                    .create()
+                    .show();
+        }
+
+
+    public void deleteOneItem(Dialog dialog_sheet , int pos, String name){
+        customerDao.deleteCustomer(list.get(pos));
+        list.remove(pos);
+        notifyItemRemoved(pos);
+        notifyItemRangeChanged(pos, list.size());
+        notifyDataSetChanged();
+        dialog_sheet.dismiss();
+        Toast.makeText(context, name+" با موفقیت حذف شد ", Toast.LENGTH_LONG).show();
+    }
+
+
+    public void addList(List<Customer> arraylist) {
             list_search.clear();
             list_search.addAll(arraylist);
             list = new ArrayList<>(list_search);
@@ -196,7 +202,6 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     public Filter getFilter() {
         return newsFilter;
     }
-
     private final Filter newsFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
@@ -230,13 +235,4 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     };
 
 
-    public void deleteOneItem(Dialog dialog_sheet , int pos){
-        customerDao.deleteCustomer(list.get(pos));
-        list.remove(pos);
-        notifyItemRemoved(pos);
-        notifyItemRangeChanged(pos, list.size());
-        notifyDataSetChanged();
-        dialog_sheet.dismiss();
-        Toast.makeText(context, "با موفقیت حذف شد ", Toast.LENGTH_LONG).show();
-    }
 }
