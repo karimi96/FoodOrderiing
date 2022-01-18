@@ -18,6 +18,7 @@ import com.example.foodorderiing.activity.orderDetail.OrderDetail;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.CustomerDao;
 import com.example.foodorderiing.database.dao.OrderDao;
+import com.example.foodorderiing.database.dao.OrderDetailDao;
 import com.example.foodorderiing.model.Order;
 
 import java.util.List;
@@ -26,7 +27,9 @@ import java.util.List;
 public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.ViewHolder> {
     private Context context ;
     private List<Order> list ;
-    DatabaseHelper db = DatabaseHelper.getInstance(context);
+    private DatabaseHelper db = DatabaseHelper.getInstance(context);
+    private OrderDetailDao detailDao;
+    private OrderDao orderDao;
 
 
     public ListOrderAdapter(Context context, List<Order> list ) {
@@ -81,24 +84,21 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.View
             time = itemView.findViewById(R.id.time_listOrdring);
             date = itemView.findViewById(R.id.date_listOrdring);
             delete = itemView.findViewById(R.id.delete_listOrder);
-//            edit = itemView.findViewById(R.id.edit_listOrder);
+
+            itemView.setOnClickListener(this);
+//            itemView.setClickable(true);
 
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    Toast.makeText(context, "hello", Toast.LENGTH_SHORT).show();
                     new AlertDialog.Builder(context)
                             .setTitle("حذف")
-                            .setMessage("ایا می خواهید این سفارش را حذف کنید؟")
+                            .setMessage("ایا مایلید این سفارش را حذف کنید؟")
                             .setPositiveButton("بله", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    OrderDao dao = db.orderDao();
-                                    dao.deleteOrder(list.get(getAdapterPosition()));
-                                    list.remove(getAdapterPosition());
-                                    notifyItemRemoved(getAdapterPosition());
-                                    notifyItemRangeChanged(getAdapterPosition(),list.size());
-                                    notifyDataSetChanged();
+                                    initDataBase();
+                                    initDeleteOneOrder( getAdapterPosition(), list.get(getAdapterPosition()).name );
                                 }
                             })
                             .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
@@ -111,11 +111,6 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.View
                             .show();
                 }
             });
-
-
-            itemView.setOnClickListener(this);
-//            itemView.setClickable(true);
-
         }
 
         @Override
@@ -127,6 +122,29 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.View
             intent.putExtra("total" , list.get(getAdapterPosition()).total);
             context.startActivity(intent);
 
+
+
+
+
+
         }
     }
+
+
+    private void initDataBase(){
+        orderDao = db.orderDao();
+        detailDao = db.orderDetailDao();
+    }
+
+
+    private void initDeleteOneOrder(int pos, String name){
+        detailDao.deleteOneOrderDetail(list.get(pos).code);
+        orderDao.deleteOrder(list.get(pos));
+        list.remove(pos);
+        notifyItemRemoved(pos);
+        notifyItemRangeChanged(pos,list.size());
+        notifyDataSetChanged();
+        Toast.makeText(context," سفارش "+ name + " با موفقیت حذف شد. ", Toast.LENGTH_SHORT).show();
+    }
+
 }
