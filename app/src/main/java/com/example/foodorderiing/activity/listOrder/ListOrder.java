@@ -1,12 +1,11 @@
 package com.example.foodorderiing.activity.listOrder;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.adapter.ListOrderAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
@@ -17,6 +16,7 @@ import com.example.foodorderiing.model.Order;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ListOrder extends AppCompatActivity {
     private RecyclerView recyclerView ;
     private ListOrderAdapter adapter ;
@@ -24,7 +24,6 @@ public class ListOrder extends AppCompatActivity {
     private OrderDao dao ;
     private CustomerDao customerDao;
     private TextView noListOrder;
-    public  List<Order> listOrder;
 
 
     @Override
@@ -35,7 +34,18 @@ public class ListOrder extends AppCompatActivity {
         initDataBase();
         initID();
         initRecycler();
+        setReverseRecycler();
+    }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        List<Order> listorder = new ArrayList<>();
+        listorder.addAll(dao.getOrderList());
+        if(listorder.size() <= 0 || listorder.isEmpty()){
+            noListOrder.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initDataBase(){
@@ -57,12 +67,11 @@ public class ListOrder extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if( dao.getOrderList().size() > 0){
-            noListOrder.setVisibility(View.GONE);
-        }
+    private void setReverseRecycler(){
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setStackFromEnd(true);
+        linearLayoutManager.setReverseLayout(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
     }
+
 }
