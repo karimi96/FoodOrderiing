@@ -45,6 +45,8 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
     private DatabaseHelper database;
     private GroupingDao groupingDao;
     private ProductDao productDao;
+    private int count;
+    private String text;
 
 
     public GroupingAdapter(List<Grouping> list, Context context) {
@@ -106,7 +108,7 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
         
         @Override
         public boolean onLongClick(View v) {
-            showDialogSheet(getAdapterPosition(), list.get(getAdapterPosition()).name);
+            showButtonSheet(getAdapterPosition(), list.get(getAdapterPosition()).name);
             return true;
         }
 
@@ -119,7 +121,7 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
     }
 
 
-    private void showDialogSheet(int pos, String name) {
+    private void showButtonSheet(int pos, String name) {
         final Dialog dialog_sheet = new Dialog(context);
         dialog_sheet.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_sheet.setContentView(R.layout.bottom_sheet_grouping);
@@ -128,66 +130,81 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
         LinearLayout delete = dialog_sheet.findViewById(R.id.linear_delete_g);
         TextView title = dialog_sheet.findViewById(R.id.name_sheet_g);
         title.setText(name);
-
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, AddNewGroupingActivity.class);
-                intent.putExtra("grouping", new Gson().toJson(list.get(pos)));
-                context.startActivity(intent);
-                dialog_sheet.dismiss();
-            }
-        });
-
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-//               productDao = database.productDao();
-//                int count = productDao.get_product_by_category(name).size();
-//                String text ;
-////                if(count == 1){
-////                    text = "ایا مایلید این مورد را حذف کنید؟";
-////                }else {
-////                    text =  "این دسته بندی"+ count + "محصول دارد ایا مایلید انرا حذف کنید؟";
-////                }
-//                text = String.valueOf(count);
-//                Toast.makeText(context, productDao.count(name), Toast.LENGTH_SHORT).show();
-
-                new AlertDialog.Builder(context)
-                        .setTitle("حذف")
-                        .setMessage("ایا مایلید این مورد را حذف کنید؟")
-                        .setIcon(R.drawable.ic_baseline_delete_24)
-                        .setPositiveButton("بله", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                database = DatabaseHelper.getInstance(context.getApplicationContext());
-                                groupingDao = database.groupingDao();
-                                groupingDao.deleteGrouping(list.get(pos));
-                                list.remove(pos);
-                                notifyItemRemoved(pos);
-                                notifyItemRangeChanged(pos, list.size());
-                                notifyDataSetChanged();
-                                dialog_sheet.dismiss();
-                                Toast.makeText(context, name+ "با موفقیت حذف شد", Toast.LENGTH_LONG).show();
-                            }
-                        })
-                        .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                dialog_sheet.dismiss();
-                            }
-                        })
-                        .create()
-                        .show();
-            }
-        });
         dialog_sheet.show();
         dialog_sheet.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog_sheet.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog_sheet.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationSheet;
         dialog_sheet.getWindow().setGravity(Gravity.BOTTOM);
+
+        edit.setOnClickListener(v -> {
+                Intent intent = new Intent(context, AddNewGroupingActivity.class);
+                intent.putExtra("grouping", new Gson().toJson(list.get(pos)));
+                context.startActivity(intent);
+                dialog_sheet.dismiss();
+        });
+
+        delete.setOnClickListener(v -> {
+            initDataBase(name);
+            setTextAlertDialog();
+            showAlertDialog(name, pos, dialog_sheet);
+
+        });
+    }
+
+
+    private void initDataBase(String name){
+        database = DatabaseHelper.getInstance(context.getApplicationContext());
+        groupingDao = database.groupingDao();
+        productDao = database.productDao();
+        count = productDao.get_product_by_category(name).size();
+    }
+
+
+    private void setTextAlertDialog(){
+        if(count >= 1 ){
+            text =  "این دسته بندی "+ " ( "+ count + " ) "+ " محصول دارد ؛ ایا مایلید انرا حذف کنید؟ ";
+        }else {
+            text = "ایا مایلید این مورد را حذف کنید؟";
+        }
+    }
+
+
+    private void showAlertDialog(String name , int pos , Dialog dialog_sheet){
+        new AlertDialog.Builder(context)
+                .setTitle("حذف")
+                .setMessage(text)
+                .setIcon(R.drawable.ic_baseline_delete_24)
+                .setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(count >= 1){
+                            productDao.deleteProductByCategory(name);
+                           deleteOneItem(pos, dialog_sheet, name);
+                        }else {
+                            deleteOneItem(pos, dialog_sheet, name);
+                        }
+                    }
+                })
+                .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        dialog_sheet.dismiss();
+                    }
+                })
+                .create()
+                .show();
+    }
+
+
+    private void deleteOneItem(int pos, Dialog dialog_sheet, String name){
+        groupingDao.deleteGrouping(list.get(pos));
+        list.remove(pos);
+        notifyItemRemoved(pos);
+        notifyItemRangeChanged(pos, list.size());
+        notifyDataSetChanged();
+        dialog_sheet.dismiss();
+        Toast.makeText(context, name+ "با موفقیت حذف شد", Toast.LENGTH_LONG).show();
     }
 
 
@@ -197,7 +214,6 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
         list = new ArrayList<>(list_search);
         notifyDataSetChanged();
     }
-
 
 
     //  For search
