@@ -3,6 +3,7 @@ package com.example.foodorderiing.activity.grouping;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -51,7 +52,7 @@ public class GroupingActivity extends AppCompatActivity {
         set_recyclerView();
         set_fab();
         hide_fab();
-
+        setReverseRecycler();
     }
 
     private void initID(){
@@ -105,6 +106,14 @@ public class GroupingActivity extends AppCompatActivity {
         recyclerView_grouping.setHasFixedSize(true);
         groupingAdapter = new GroupingAdapter(new ArrayList<>(),this);
         recyclerView_grouping.setAdapter(groupingAdapter);
+    }
+
+
+    private void setReverseRecycler(){
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setStackFromEnd(true);
+        linearLayoutManager.setReverseLayout(true);
+        recyclerView_grouping.setLayoutManager(linearLayoutManager);
     }
 
 
