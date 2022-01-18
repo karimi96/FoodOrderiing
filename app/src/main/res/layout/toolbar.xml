@@ -39,6 +39,7 @@
                 android:layout_weight="0.7"
                 android:fontFamily="@font/rezvan"
                 android:gravity="center"
+                android:ellipsize="marquee"
                 android:scrollHorizontally="true"
                 android:text="غذا سرای خادم"
                 android:textColor="@color/white_text"

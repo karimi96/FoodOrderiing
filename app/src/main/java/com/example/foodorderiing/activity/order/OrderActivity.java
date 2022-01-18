@@ -238,9 +238,7 @@ public class OrderActivity extends AppCompatActivity {
 
 
     private void initLottie(){
-        lottie.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        lottie.setOnClickListener(v -> {
                 if(orderDetailList.size() != 0 ){
                     lottie.setRepeatCount(0);
                     lottie.playAnimation();
@@ -250,7 +248,6 @@ public class OrderActivity extends AppCompatActivity {
                 }else {
                     Toast.makeText(OrderActivity.this, "لیست خالی است", Toast.LENGTH_SHORT).show();
                 }
-            }
         });
     }
 
@@ -269,7 +266,6 @@ public class OrderActivity extends AppCompatActivity {
                                     orderDetailList.get(i).amount ,CODE ));
                             Toast.makeText(OrderActivity.this, " سفارش " + customer.name + " با موفقیت ثبت شد", Toast.LENGTH_SHORT).show();
                         }
-//                        db.close();
                         finish();
                         }
         });

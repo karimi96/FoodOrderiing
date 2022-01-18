@@ -7,8 +7,6 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.foodorderiing.model.Order;
-import com.example.foodorderiing.model.OrderDetail;
-import com.example.foodorderiing.model.Product;
 
 import java.util.List;
 
@@ -22,14 +20,14 @@ public interface OrderDao {
    String date( String datte);
 
     @Query("Select total from ordering where date = :datee ")
-    List<String> allTotal( String datee);
+    List<String> dailyTotal( String datee);
 
     @Query("Select * from ordering where name = :name ")
     List<Order> listByName( String name);
 
     @Query("select * from ordering where date >= :date")
     List<Order> getOrderListDate(String date);
-    
+
 
     @Query("Select * from ordering where customerID = :id limit 1 " )
     Order getid( int id);

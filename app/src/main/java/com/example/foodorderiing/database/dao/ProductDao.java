@@ -34,6 +34,9 @@ public interface ProductDao {
     Product getOneName(String name);
 
 
+    @Query("DELETE from product where category = :category")
+    void deleteProductByCategory(String category);
+
 
     @Insert
     void insertProduct(Product product);
