@@ -81,15 +81,22 @@ public class CustomerActivity extends AppCompatActivity {
         searchView.setMaxWidth(Integer.MAX_VALUE);
         searchView.setBackground(getResources().getDrawable(R.drawable.ripple_all));
 
+
         TextView searchText = (TextView) searchView.findViewById(R.id.search_src_text);
         Typeface myCustomFont = Typeface.createFromAsset(getAssets(),"font/iran_sans.ttf");
         searchText.setTypeface(myCustomFont);
         searchText.setTextSize(14);
 
-        searchView.setQueryHint("جستو و جو...");
-        searchView.setIconifiedByDefault(false);
-        searchView.setIconified(false);
 
+        // for underline
+        View v = searchView.findViewById(androidx.appcompat.R.id.search_plate);
+        v.setBackgroundColor(Color.parseColor("#ef4224"));
+
+        // for remove icon hint
+        EditText searchEdit = ((EditText)searchView.findViewById(androidx.appcompat.R.id.search_src_text));
+        searchEdit.setTextColor(getResources().getColor(R.color.white_text));
+        searchEdit.setHintTextColor(getResources().getColor(R.color.white_text));
+        searchEdit.setHint("");
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -111,11 +118,9 @@ public class CustomerActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
             if (adapter != null) {
                 if(dao.getCustomerList().size() < 0 ) {
                     noCustomer.setVisibility(View.VISIBLE);
-//                    recyclerView.setVisibility(View.GONE);
                 }else {
                     noCustomer.setVisibility(View.GONE);
                     adapter.addList(dao.getCustomerList());
@@ -260,5 +265,6 @@ public class CustomerActivity extends AppCompatActivity {
                 });
         recyclerView.addOnItemTouchListener(touchListener);
     }
+
 
 }
