@@ -33,7 +33,7 @@ import java.util.ArrayList;
 public class CustomerActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private RecyclerView recyclerView;
-    private FloatingActionButton fab;
+    private FloatingActionButton fab, fab_gotoEnd;
     private CustomerAdapter adapter;
     private DatabaseHelper db;
     private CustomerDao dao;
@@ -55,11 +55,13 @@ public class CustomerActivity extends AppCompatActivity {
         set_toolBar();
         initID();
         set_fab();
+        set_fab_gotoEnd();
         hide_fab();
+        show_fab_gotoEnd();
         initDataBase();
         set_recyclerView();
         setSwipe();
-//        setText();
+        setReverseRecycler();
     }
 
 
@@ -142,12 +144,11 @@ public class CustomerActivity extends AppCompatActivity {
                     setResult(Activity.RESULT_OK, returnIntent);
                     finish();
                 } else {
-                    adapter.showDialogSheet(pos, name , customer.customer_id);
+                    adapter.showButtonSheet(pos, name , customer.customer_id);
                 }
             }
         });
         recyclerView.setAdapter(adapter);
-
     }
 
 
@@ -155,6 +156,7 @@ public class CustomerActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_customer);
         fab = findViewById(R.id.floating_customer);
         noCustomer = findViewById(R.id.noCustomer);
+        fab_gotoEnd = findViewById(R.id.fab_go_to_end);
     }
 
 
@@ -173,15 +175,47 @@ public class CustomerActivity extends AppCompatActivity {
     }
 
 
-    private void set_fab() {
-        fab.setOnClickListener(new View.OnClickListener() {
+    private void show_fab_gotoEnd() {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onClick(View v) {
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) {
+                    fab_gotoEnd.show();
+                } else {
+                    fab_gotoEnd.hide();
+                }
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+    }
+
+
+
+    private void set_fab() {
+        fab.setOnClickListener(v -> {
                 Intent intent = new Intent(CustomerActivity.this, AddNewCustomerActivity.class);
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            }
         });
+    }
+
+
+    private void set_fab_gotoEnd() {
+        fab_gotoEnd.setOnClickListener(v -> {
+            final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+//            linearLayoutManager.setStackFromEnd(true);
+            linearLayoutManager.setReverseLayout(true);
+            recyclerView.setLayoutManager(linearLayoutManager);
+        });
+    }
+
+
+
+    private void setReverseRecycler(){
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setStackFromEnd(true);
+        linearLayoutManager.setReverseLayout(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
     }
 
 
