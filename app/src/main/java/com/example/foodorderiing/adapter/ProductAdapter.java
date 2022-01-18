@@ -35,12 +35,12 @@ import javax.crypto.ShortBufferException;
 
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> implements Filterable{
-    Context context;
-    List<Product> list;
-    Listener listener;
-    List<Product> list_search;
-    DatabaseHelper database;
-    ProductDao dao;
+    private Context context;
+    private List<Product> list;
+    private Listener listener;
+    private List<Product> list_search;
+    private DatabaseHelper database;
+    private ProductDao dao;
 
     public ProductAdapter(List<Product> list, Context context, Listener listener ) {
         this.context = context;
@@ -48,6 +48,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         this.listener = listener;
         this.list = new ArrayList<>(list_search);
     }
+
 
     public interface Listener{
         void onClick(Product product , int pos , String name );
@@ -70,12 +71,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.tv_name_category.setText(product.category);
         holder.tv_price.setText(product.price);
         holder.img_food_bg.setImageURI(Uri.parse(product.picture));
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                    listener.onClick(product , position , list.get(position).name );
-//            }
-//        });
     }
 
 
@@ -105,7 +100,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
 
-
     public void showDialogSheet(int pos , String name){
         final Dialog dialog_sheet = new Dialog(context);
         dialog_sheet.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -115,56 +109,54 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         LinearLayout delete = dialog_sheet.findViewById(R.id.linear_delete_p);
         TextView title = dialog_sheet.findViewById(R.id.name_sheet_p);
         title.setText(name);
-
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, AddNewProductActivity.class);
-                intent.putExtra("product",new Gson().toJson(list.get(pos)));
-                context.startActivity(intent);
-                dialog_sheet.dismiss();
-
-            }
-        });
-
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                new AlertDialog.Builder(context)
-                        .setTitle("حذف")
-                        .setMessage("ایا مایلید این مورد را حذف کنید؟")
-                        .setPositiveButton("بله", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                database = DatabaseHelper.getInstance(context.getApplicationContext());
-                                dao = database.productDao();
-                                dao.deleteProduct(list.get(pos));
-                                list.remove(pos);
-                                notifyItemRemoved(pos);
-                                notifyItemRangeChanged(pos,list.size());
-                                notifyDataSetChanged();
-                                dialog_sheet.dismiss();
-                                Toast.makeText(context, "با موفقیت حذف شد", Toast.LENGTH_LONG).show();
-                            }
-                        })
-                        .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                dialog_sheet.dismiss();
-                            }
-                        })
-                        .create()
-                        .show();
-            }
-        });
         dialog_sheet.show();
         dialog_sheet.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog_sheet.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog_sheet.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationSheet;
         dialog_sheet.getWindow().setGravity(Gravity.BOTTOM);
+
+        edit.setOnClickListener(v -> {
+                Intent intent = new Intent(context, AddNewProductActivity.class);
+                intent.putExtra("product",new Gson().toJson(list.get(pos)));
+                context.startActivity(intent);
+                dialog_sheet.dismiss();
+        });
+
+        delete.setOnClickListener(v -> {
+            showAlertDialog(pos, dialog_sheet);
+        });
     }
+
+
+    private void showAlertDialog(int pos, Dialog dialog_sheet){
+        new AlertDialog.Builder(context)
+                .setTitle("حذف")
+                .setMessage("ایا مایلید این مورد را حذف کنید؟")
+                .setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        database = DatabaseHelper.getInstance(context.getApplicationContext());
+                        dao = database.productDao();
+                        dao.deleteProduct(list.get(pos));
+                        list.remove(pos);
+                        notifyItemRemoved(pos);
+                        notifyItemRangeChanged(pos,list.size());
+                        notifyDataSetChanged();
+                        dialog_sheet.dismiss();
+                        Toast.makeText(context, "با موفقیت حذف شد", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        dialog_sheet.dismiss();
+                    }
+                })
+                .create()
+                .show();
+    }
+
 
 
     //  For search
