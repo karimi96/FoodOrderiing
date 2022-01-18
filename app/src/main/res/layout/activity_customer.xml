@@ -39,6 +39,7 @@
         android:id="@+id/recycler_customer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:reverseLayout="true"
         android:layout_marginTop="?attr/actionBarSize"
         android:clipToPadding="false"
         android:layoutAnimation="@anim/layout_fall_down"
@@ -60,5 +61,22 @@
         android:tint="@color/white"
         app:borderWidth="0dp"
         app:maxImageSize="35dp" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_go_to_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="@color/red_toolbar"
+        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+        app:fabCustomSize="30dp"
+        app:borderWidth="0dp"
+        app:maxImageSize="30dp"
+        app:tint="@color/white_text" />
+
 
 </RelativeLayout>
