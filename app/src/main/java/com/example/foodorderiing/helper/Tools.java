@@ -1,7 +1,16 @@
 package com.example.foodorderiing.helper;
 
+import android.graphics.Typeface;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.widget.SearchView;
+
+import com.example.foodorderiing.R;
+
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -35,7 +44,7 @@ public class Tools {
         return currentDate;
     }
 
-    public static String getSevenDayAgo(int dayAgo){
+    public static String getDayAgo(int dayAgo){
         PersianCalendar now = new PersianCalendar();
         now.add(PersianCalendar.DAY_OF_YEAR , dayAgo);
         String currentDate = now.getPersianShortDate();
@@ -44,12 +53,18 @@ public class Tools {
 
     public static String getDayName(){
         PersianCalendar now = new PersianCalendar();
-        String currentDate = now.getPersianWeekDayName();
-        return currentDate;
+        String dayName = now.getPersianWeekDayName();
+        return dayName;
+    }
+
+    public static String getMonthName(){
+        PersianCalendar now = new PersianCalendar();
+        String monthName = now.getPersianMonthName();
+        return monthName;
     }
 
 
-    public static String dayAgo(){
+    public static String getSevenDayAgo(){
         PersianCalendar now = new PersianCalendar();
         String dayName = now.getPersianWeekDayName();
         String date = "";
@@ -59,27 +74,37 @@ public class Tools {
                 date = getCurrentDate();
                 break;
             case "یکشنبه" :
-                date = getSevenDayAgo(-1);
+                date = getDayAgo(-1);
                 break;
             case "دوشنبه" :
-                date = getSevenDayAgo(-2);
+                date = getDayAgo(-2);
                 break;
             case "سه شنبه" :
-                date = getSevenDayAgo(-3);
+                date = getDayAgo(-3);
                 break;
             case "چهارشنبه" :
-                date = getSevenDayAgo(-4);
+                date = getDayAgo(-4);
                 break;
             case "پنج شنبه" :
-                date = getSevenDayAgo(-5);
+                date = getDayAgo(-5);
                 break;
             case "جمعه" :
-                date = getSevenDayAgo(-6);
+                date = getDayAgo(-6);
                 break;
             default:
 //                throw new IllegalStateException("Unexpected value: " + dayName);
         }
         return date ;
+    }
+
+
+
+    public static String getThirtyDaysAgo(){
+        PersianCalendar now = new PersianCalendar();
+        int day = now.getPersianDay();
+        int thirtyAgo = (day - ((day * 2)-1)) ;
+        String date = getDayAgo(thirtyAgo);
+        return date;
     }
 
 
