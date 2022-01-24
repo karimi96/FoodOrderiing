@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -82,33 +83,11 @@ public class ProductActivity extends AppCompatActivity {
     }
 
 
-
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search_product, menu);
-        MenuItem item = menu.findItem(R.id.searchProduct);
-        SearchView searchView = (SearchView) item.getActionView();
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-        searchView.setBackground(getResources().getDrawable(R.drawable.ripple_all));
-
-        TextView searchText = (TextView) searchView.findViewById(R.id.search_src_text);
-        Typeface myCustomFont = Typeface.createFromAsset(getAssets(),"font/iran_sans.ttf");
-        searchText.setTypeface(myCustomFont);
-        searchText.setTextSize(14);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                    adapter_pro.getFilter().filter(newText);
-                return false;
-            }
-        });
-        return super.onCreateOptionsMenu(menu);
+    protected void onResume() {
+        super.onResume();
+        initListProduct();
+        set_recycler_category();
     }
 
 
@@ -127,19 +106,49 @@ public class ProductActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search_product, menu);
+        MenuItem item = menu.findItem(R.id.searchProduct);
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setBackground(getResources().getDrawable(R.drawable.ripple_all));
+        searchView.setQueryHint("جست و جو...");
+
+        TextView searchText = (TextView) searchView.findViewById(R.id.search_src_text);
+        Typeface myCustomFont = Typeface.createFromAsset(getAssets(),"font/iran_sans.ttf");
+        searchText.setTypeface(myCustomFont);
+        searchText.setTextSize(14);
+
+        View v = searchView.findViewById(androidx.appcompat.R.id.search_plate);
+        v.setBackgroundColor(Color.parseColor("#ef4224"));
+
+        EditText searchEdit = ((EditText)searchView.findViewById(androidx.appcompat.R.id.search_src_text));
+        searchEdit.setTextColor(getResources().getColor(R.color.white_text));
+        searchEdit.setHintTextColor(getResources().getColor(R.color.white_text));
+        searchEdit.setHint("");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                    adapter_pro.getFilter().filter(newText);
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
     public void set_toolBar(){
         toolbar = findViewById(R.id.toolbar_product);
         toolbar.setTitle("");
         toolbar.setTitleTextColor(getResources().getColor(R.color.white_text));
         setSupportActionBar(toolbar);
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        initListProduct();
-        set_recycler_category();
     }
 
 
@@ -166,7 +175,6 @@ public class ProductActivity extends AppCompatActivity {
     }
 
 
-
     private void initListProduct(){
         Log.e("qqqq" , "initListProduct: " + nameGrouping );
         if(adapter_pro != null ){
@@ -177,7 +185,6 @@ public class ProductActivity extends AppCompatActivity {
             }
         }
     }
-
 
 
     public void set_recycler_product(){

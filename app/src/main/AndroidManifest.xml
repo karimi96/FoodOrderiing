@@ -22,7 +22,7 @@
             android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme" />
         <activity
             android:name=".activity.order.OrderActivity"
-            android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme" />
+            android:theme="@style/CustomOrderActivity" />
         <activity
             android:name=".activity.customer.CustomerActivity"
             android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme"

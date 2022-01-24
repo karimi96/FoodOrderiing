@@ -5,7 +5,6 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
-
 import com.example.foodorderiing.model.Order;
 
 import java.util.List;
@@ -28,30 +27,17 @@ public interface OrderDao {
     @Query("select * from ordering where date >= :date")
     List<Order> getOrderListDate(String date);
 
-
     @Query("Select * from ordering where customerID = :id limit 1 " )
     Order getid( int id);
 
     @Query("DELETE from ordering where customerID = :id " )
     void deteteID(int id);
 
+    @Query("Select date from ordering")
+    List<String> getAllDate();
 
-//    @Query("select * from ordering where date>= datetimee('','','')")
-//    List<Order> gett();
-//
-//    SELECT * FROM MemberInformation WHERE DateOfAd  BETWEEN datetime('now', '-30 days') AND datetime('now');
-//
-//
-//    date(timestring, modifier, modifier, ...)
-//
-//    SELECT date('now','+14 day');
-
-//    @Query("SELECT * FROM fare WHERE createdDateDb >=datetime('now', '-30 day')")
-
-
-
-//    @Query("select * from User where created_date>=datetime('now', :duration)")
-//    LiveData<List<User>> fetchUserByDuration(String duration);
+    @Query("Select total from ordering")
+    List<String> getAllTotal();
 
 
     @Insert

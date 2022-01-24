@@ -54,7 +54,6 @@
                         android:textColor="#676767"
                         android:textStyle="normal" />
 
-
                 </LinearLayout>
 
 
@@ -104,15 +103,36 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.5">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                <LinearLayout
                     android:layout_weight="1"
-                    android:fontFamily="@font/iran_sans"
-                    android:gravity="start|center"
-                    android:text="این ماه :"
-                    android:textColor="#676767"
-                    android:textStyle="bold" />
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/iran_sans"
+                        android:gravity="start|center"
+                        android:text="این ماه :"
+                        android:textColor="#676767"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:id="@+id/monthName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/iran_sans"
+                        android:gravity="start|center"
+                        android:text=" ( اردیبهشت )"
+                        android:textSize="11dp"
+                        android:textColor="#676767"
+                        android:textStyle="normal" />
+
+
+                </LinearLayout>
+
 
                 <TextView
                     android:id="@+id/month"
@@ -149,6 +169,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/allTotal"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1.5"

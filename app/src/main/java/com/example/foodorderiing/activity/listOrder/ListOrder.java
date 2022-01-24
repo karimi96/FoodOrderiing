@@ -14,7 +14,10 @@ import com.example.foodorderiing.database.dao.OrderDao;
 import com.example.foodorderiing.model.Order;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class ListOrder extends AppCompatActivity {
@@ -34,7 +37,7 @@ public class ListOrder extends AppCompatActivity {
         initDataBase();
         initID();
         initRecycler();
-        setReverseRecycler();
+//        setReverseRecycler();
     }
 
 
@@ -63,15 +66,22 @@ public class ListOrder extends AppCompatActivity {
 
     private void initRecycler(){
         recyclerView.setHasFixedSize(true);
+//        Collections.sort(dao.getOrderList(), Order.myName);
+        Collections.sort(dao.getOrderList(), Order.myName);
+
+
         adapter = new ListOrderAdapter(this, dao.getOrderList());
         recyclerView.setAdapter(adapter);
+
+
     }
 
-    private void setReverseRecycler(){
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setStackFromEnd(true);
-        linearLayoutManager.setReverseLayout(true);
-        recyclerView.setLayoutManager(linearLayoutManager);
-    }
+//    private void setReverseRecycler(){
+//        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+//        linearLayoutManager.setStackFromEnd(true);
+//        linearLayoutManager.setReverseLayout(true);
+//        recyclerView.setLayoutManager(linearLayoutManager);
+//    }
+
 
 }

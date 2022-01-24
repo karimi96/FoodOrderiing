@@ -46,7 +46,9 @@ dependencies {
 
 
     // chart
+//    implementation 'com.github.PhilJay:MPAndroidChart:3.1.0'
     implementation 'com.github.PhilJay:MPAndroidChart:3.1.0'
+//    implementation 'com.github.PhilJay:MPAndroidChart:v2.0.9'
 
     implementation 'com.github.fornewid:neumorphism:0.2.1'
 

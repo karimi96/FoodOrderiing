@@ -71,9 +71,6 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
         holder.tv_name_category.setText(grouping.name);
 //        holder.img_food_grouping.setImageURI(Uri.parse(grouping.picture));
 
-
-
-
         try{
             final int takeFlags =  (Intent.FLAG_GRANT_READ_URI_PERMISSION
                     | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);

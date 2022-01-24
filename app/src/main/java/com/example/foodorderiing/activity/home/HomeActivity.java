@@ -27,22 +27,14 @@ import com.example.foodorderiing.database.dao.ProductDao;
 import com.example.foodorderiing.helper.Tools;
 import com.example.foodorderiing.model.ChartModel;
 import com.example.foodorderiing.model.Order;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 
-import ir.hamsaa.persiandatepicker.util.PersianCalendar;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -57,12 +49,9 @@ public class HomeActivity extends AppCompatActivity {
     private CustomerDao dao_c;
     private OrderDao dao_order;
     private ImageView img_ordering;
-    private TextView numOrder ,monthlyTotal ,weeklyTotal , dailyTotal, dayName, monthName, titleHome;
+    private TextView numOrder ,monthlyTotal ,weeklyTotal , dailyTotal, dayName, monthName, alltotal, titleHome;
     private String date;
     private ListOrder listOrder;
-
-    private  List<String> d;
-    private  List<Integer> t;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -79,10 +68,9 @@ public class HomeActivity extends AppCompatActivity {
         gOToProduct();
         goToCustomer();
         goToGrouping();
-//        showBarChart();
-        populateChart();
-        create_chart22();
+
     }
+
 
     @Override
     protected void onResume() {
@@ -91,12 +79,14 @@ public class HomeActivity extends AppCompatActivity {
         num_customer.setText(Integer.toString(dao_c.getCustomerList().size()));
         num_grouping.setText(Integer.toString(dao_g.getGroupingList().size()));
         numberListOrder();
-        getTotalDaily();
-        getTotalWeekly();
-        getTotalMonthly();
+        setTotalDaily();
+        setTotalWeekly();
+        setTotalMonthly();
+        setAllTotal();
         setName();
-//        test();
-//        dd();
+
+        populateChart();
+        create_chart22();
     }
 
 
@@ -125,6 +115,7 @@ public class HomeActivity extends AppCompatActivity {
         dailyTotal = findViewById(R.id.day);
         dayName = findViewById(R.id.dayName);
         monthName = findViewById(R.id.monthName);
+        alltotal = findViewById(R.id.allTotal);
         titleHome = findViewById(R.id.title_home);
     }
 
@@ -175,116 +166,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-
-
-//    private void test(){
-//        d = new ArrayList<>();
-//        t = new ArrayList<>();
-//        d.addAll(dao_order.getAllDate());
-//        for (int i = 0; i < dao_order.getAllDate().size(); i++) {
-//            int a = get(d.get(i));
-//            t.add(i,a);
-//        }
-//    }
-
-
-//    private int get(String dataaaa){
-//        List<String> totall = new ArrayList<>();
-//        int j = 0 ;
-//        try {
-//            totall.addAll(dao_order.dailyTotal(dataaaa));
-//            for (int i = 0; i < dao_order.getOrderList().size() ; i++) {
-//                String t = totall.get(i);
-//                j = j + Tools.convertToPrice(t);
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return j;
-//    }
-
-
-//    private void dd(){
-//        d = new ArrayList<>();
-//        t = new ArrayList<>();
-//
-//        String a;
-//        int cc;
-//
-//        List<Order> x = new ArrayList<>();
-//        x.addAll( dao_order.getOrderList());
-//        for (int i = 0; i < dao_order.getOrderList().size(); i++) {
-//            a = x.get(i).date;
-//            cc = Tools.convertToPrice(x.get(i).total);
-//            d.add(i,a);
-//            for (int j = 0; j < dao_order.getOrderList().size(); j++) {
-//                if(a == dao_order.getOrderList().get(j+1).date){
-//                    cc = cc + Tools.convertToPrice( dao_order.getOrderList().get(j+1).total);
-//                }
-//                t.add(j,cc);
-//            }
-//
-//        }
-//
-//    }
-
-
-//    public void create_chart() {
-//        BarChart bar_chart = findViewById(R.id.chart_bar);
-//
-////        List<String> xDate = new ArrayList<>();
-////        for (int i = 0; i < dao_order.getAllDate().size(); i++) {
-////            xDate.add(dao_order.getAllDate().get(i));
-////        }
-////
-////        List<String> yDate = new ArrayList<>();
-////        for (int i = 0; i < dao_order.getAllTotal().size(); i++) {
-////            yDate.add(dao_order.getAllTotal().get(i));
-////        }
-//
-//
-////        ArrayList<BarEntry> yVals = new ArrayList<>();
-////        for (int i = 0; i < yDate.size(); i++) {
-////            yVals.add(new BarEntry( Integer.valueOf(yDate.get(i)) ,i));
-////        }
-//////
-////        ArrayList<String> xVals = new ArrayList<>();
-////        for (int i = 0; i < xDate.size(); i++) {
-////            xVals.add(xDate.get(i));
-////        }
-//
-//
-//
-//        ArrayList<BarEntry> yVals = new ArrayList<>();
-//        for (int i = 0; i < t.size(); i++) {
-//            yVals.add(new BarEntry( t.get(i) ,i));
-//        }
-////
-//        ArrayList<String> xVals = new ArrayList<>();
-//        for (int i = 0; i < d.size(); i++) {
-//            xVals.add(d.get(i));
-//        }
-//
-
-//        BarDataSet barDataSet = new BarDataSet(yVals, "");
-////        barDataSet.setColors(Color.rgb(241, 92, 65));
-//        barDataSet.setValueTextSize(0f);
-//
-//        BarData barData = new BarData(xVals ,barDataSet);
-//
-////        bar_chart.setFitBars(true);
-//        bar_chart.setData(barData);
-////        bar_chart.getDescription().setText("");
-////        bar_chart.animateY(1000);
-////
-////        XAxis xAxis = bar_chart.getXAxis();
-////        xAxis.setGranularity(1f);
-////        xAxis.setDrawAxisLine(true);
-////        xAxis.setDrawGridLines(false);
-//    }
-
-
-
     private void populateChart(){
         Log.e("qqqqmain", "populateChart: started" );
         ArrayList<Order> list = new ArrayList<>(dao_order.getOrderList());
@@ -313,6 +194,7 @@ public class HomeActivity extends AppCompatActivity {
                     if (list.get(i).date.equals(chartModels.get(c).getDate())){
                         chartModels.get(c).setTotal(chartModels.get(c).getTotal() + Tools.convertToPrice(list.get(i).total));
 //                        return;
+
                     }else {
                         chartModels.add(new ChartModel(list.get(i).date,Tools.convertToPrice(list.get(i).total)));
                     }
@@ -325,25 +207,9 @@ public class HomeActivity extends AppCompatActivity {
         BarChart bar_chart = findViewById(R.id.chart_bar);
         ArrayList<BarEntry> visitor = new ArrayList<>();
 
-//        List<String> xDate = new ArrayList<>();
-//        for (int i = 0; i < dao_order.getAllDate().size(); i++) {
-//            xDate.add(dao_order.getAllDate().get(i));
-//        }
-//
-//        List<String> yTotal = new ArrayList<>();
-//        for (int i = 0; i < dao_order.getAllTotal().size(); i++) {
-//            yTotal.add(dao_order.getAllTotal().get(i));
-//        }
-//
-//        for (int i = 0; i < xDate.size(); i++) {
-//            visitor.add(new BarEntry( i+1 , Tools.convertToPrice(yTotal.get(i)) ));
-//        }
-
         for (int i = 0; i < chartModels.size(); i++) {
-            visitor.add(new BarEntry( i, (int) chartModels.get(i).getTotal() ));
-
+            visitor.add(new BarEntry( i+1 , (int) chartModels.get(i).getTotal() ));
         }
-
 
         BarDataSet barDataSet = new BarDataSet(visitor, "");
         barDataSet.setColors(Color.rgb(241, 92, 65));
@@ -373,7 +239,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    private int getTotalDaily(){
+    private int setTotalDaily(){
         List<String> total = new ArrayList<>();
         int j = 0 ;
             try {
@@ -390,7 +256,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    private void getTotalWeekly(){
+    private void setTotalWeekly(){
         List<Order> total = new ArrayList<>();
         total.addAll(dao_order.getOrderListDate(Tools.getSevenDayAgo()));
         int j = 0 ;
@@ -402,7 +268,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    private void getTotalMonthly(){
+    private void setTotalMonthly(){
         List<Order> total = new ArrayList<>();
         total.addAll(dao_order.getOrderListDate(Tools.getThirtyDaysAgo()));
         int j = 0 ;
@@ -420,4 +286,14 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
+    private void setAllTotal(){
+        List<String> allTotal = new ArrayList<>();
+        allTotal.addAll(dao_order.getAllTotal());
+        int t = 0 ;
+        for (int i = 0; i < allTotal.size() ; i++) {
+            String at = allTotal.get(i);
+            t = t + Tools.convertToPrice(at);
+        }
+        alltotal.setText(Tools.getForamtPrice(String.valueOf(t)));
+    }
 }

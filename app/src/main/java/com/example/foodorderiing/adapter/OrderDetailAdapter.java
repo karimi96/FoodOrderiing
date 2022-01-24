@@ -1,9 +1,14 @@
 package com.example.foodorderiing.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodorderiing.R;
@@ -38,7 +43,20 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         holder.category_detail.setText(orderDetail.category);
         holder.price_detail.setText(orderDetail.price);
         holder.amount_detail.setText(String.valueOf(orderDetail.amount));
-
+        try{
+            final int takeFlags =  (Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            // Check for the freshest data.
+            context.getContentResolver().takePersistableUriPermission(Uri.parse(orderDetail.picture), takeFlags);
+            // convert uri to bitmap
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse(orderDetail.picture));
+            // set bitmap to imageview
+            holder.picture.setImageBitmap(bitmap);
+        }
+        catch (Exception e){
+            //handle exception
+            e.printStackTrace();
+        }
     }
 
 
@@ -53,6 +71,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         TextView category_detail;
         TextView price_detail;
         TextView amount_detail;
+        ImageView picture;
 
 
         public ViewHolder(View itemView) {
@@ -61,6 +80,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
            category_detail = itemView.findViewById(R.id.category_detail1);
            price_detail = itemView.findViewById(R.id.price_detai1);
            amount_detail = itemView.findViewById(R.id.amount_detail);
+           picture = itemView.findViewById(R.id.picture_detail);
         }
     }
 

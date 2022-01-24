@@ -10,76 +10,20 @@
     android:elevation="1dp"
     android:outlineSpotShadowColor="@color/red_toolbar">
 
-    <!--    <ImageView-->
-    <!--        android:id="@+id/delete_listOrder"-->
-    <!--        android:layout_width="20dp"-->
-    <!--        android:layout_height="40dp"-->
-    <!--        android:layout_alignParentRight="true"-->
-    <!--        android:layout_centerInParent="true"-->
-    <!--        android:layout_marginStart="7dp"-->
-    <!--        android:layout_marginEnd="3dp"-->
-    <!--        android:paddingVertical="11dp"-->
-    <!--        android:src="@drawable/bin4" />-->
-
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:outlineSpotShadowColor="@color/white_text"
-        android:layout_margin="10dp"
-        app:cardCornerRadius="15dp">
-
-
-        <TextView
-            android:id="@+id/delete_listOrder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/ripple_all"
-            android:drawableRight="@drawable/delete"
-            android:fontFamily="@font/iran_sans"
-            android:gravity="center"
-            android:paddingVertical="6dp"
-            android:paddingEnd="10dp"
-            android:paddingRight="10dp"
-            android:text="حذف سفارش"
-            android:textColor="#a2a2a2"
-            android:textSize="12dp" />
-    </androidx.cardview.widget.CardView>
-
-
-    <!--    <ImageView-->
-    <!--        android:id="@+id/delete_listOrder"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_alignParentEnd="true"-->
-    <!--        android:background="@drawable/ripple_circle_shop"-->
-    <!--        android:padding="10dp"-->
-    <!--        android:src="@drawable/delete" />-->
-
-    <!--    <ImageView-->
-    <!--        android:id="@+id/edit_listOrder"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_toStartOf="@id/delete_listOrder"-->
-    <!--        android:background="@drawable/ripple_circle_shop"-->
-    <!--        android:padding="10dp"-->
-    <!--        android:src="@drawable/edit" />-->
-
     <TextView
         android:id="@+id/time_listOrdring"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_toRightOf="@id/date_listOrdring"
-        android:drawableRight="@drawable/ic_baseline_access_time_24"
+        android:drawableRight="@drawable/ic_round_access_time_24"
         android:drawablePadding="5dp"
         android:fontFamily="@font/irsansfanum"
-        android:padding="10dp"
+        android:padding="8dp"
+        android:textSize="11dp"
         android:text="10:22"
         android:textColor="#a2a2a2"
         />
-
 
     <TextView
         android:id="@+id/date_listOrdring"
@@ -87,10 +31,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerInParent="true"
-        android:drawableRight="@drawable/ic_baseline_today_24"
+        android:drawableRight="@drawable/ic_round_today_24"
         android:drawablePadding="5dp"
+        android:layout_marginEnd="10dp"
         android:fontFamily="@font/irsansfanum"
-        android:padding="10dp"
+        android:padding="8dp"
+        android:textSize="11dp"
         android:text="1400.3.13"
         android:textColor="#a2a2a2"
         />

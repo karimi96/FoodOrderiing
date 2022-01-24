@@ -24,7 +24,6 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-
     <TextView
         android:id="@+id/noCustomer"
         android:layout_width="match_parent"
@@ -39,11 +38,11 @@
         android:id="@+id/recycler_customer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:reverseLayout="true"
         android:layout_marginTop="?attr/actionBarSize"
         android:clipToPadding="false"
         android:layoutAnimation="@anim/layout_fall_down"
         android:paddingTop="10dp"
+        app:reverseLayout="true"
         tools:listitem="@layout/list_item_customer" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -58,10 +57,9 @@
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/red_toolbar"
         android:src="@drawable/ic_round_add_24"
-        android:tint="@color/white"
         app:borderWidth="0dp"
-        app:maxImageSize="35dp" />
-
+        app:maxImageSize="35dp"
+        app:tint="@color/white_text" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_go_to_end"
@@ -73,8 +71,8 @@
         android:layout_marginBottom="5dp"
         android:backgroundTint="@color/red_toolbar"
         android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-        app:fabCustomSize="30dp"
         app:borderWidth="0dp"
+        app:fabCustomSize="30dp"
         app:maxImageSize="30dp"
         app:tint="@color/white_text" />
 

@@ -25,13 +25,13 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-<!--    -->
-<!--    <ImageView-->
-<!--        android:layout_centerInParent="true"-->
-<!--        android:src="@drawable/noproduct"-->
-<!--        android:layout_above="@+id/noGrouping"-->
-<!--        android:layout_width="100dp"-->
-<!--        android:layout_height="100dp"/>-->
+    <!--    -->
+    <!--    <ImageView-->
+    <!--        android:layout_centerInParent="true"-->
+    <!--        android:src="@drawable/noproduct"-->
+    <!--        android:layout_above="@+id/noGrouping"-->
+    <!--        android:layout_width="100dp"-->
+    <!--        android:layout_height="100dp"/>-->
 
     <TextView
         android:id="@+id/noGrouping"
@@ -69,7 +69,8 @@
         android:backgroundTint="@color/red_toolbar"
         android:src="@drawable/ic_round_add_24"
         app:borderWidth="0dp"
-        app:maxImageSize="35dp" />
+        app:maxImageSize="35dp"
+        app:tint="@color/white_text" />
 
 
 </RelativeLayout>

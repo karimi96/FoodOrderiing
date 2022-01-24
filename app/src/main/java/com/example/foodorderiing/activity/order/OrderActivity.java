@@ -261,9 +261,10 @@ public class OrderActivity extends AppCompatActivity {
                         total.getText()+"" , "با تمام مخلفات " ,tv_datePicker.getText()+"" , tv_timePicker.getText()+"" ));
 
                         for (int i = 0; i < orderDetailList.size(); i++) {
-                            dao_detail.insertOrderDetail(new OrderDetail(orderDetailList.get(i).name , orderDetailList.get(i).category ,
-                                    String.valueOf(Tools.convertToPrice(orderDetailList.get(i).price) * orderDetailList.get(i).amount)  ,
-                                    orderDetailList.get(i).amount ,CODE ));
+                            dao_detail.insertOrderDetail(new OrderDetail(orderDetailList.get(i).name,
+                                  orderDetailList.get(i).category ,
+                                  orderDetailList.get(i).price  ,
+                                  orderDetailList.get(i).amount ,CODE, orderDetailList.get(i).picture ));
                             Toast.makeText(OrderActivity.this, " سفارش " + customer.name + " با موفقیت ثبت شد", Toast.LENGTH_SHORT).show();
                         }
                         finish();
@@ -274,6 +275,10 @@ public class OrderActivity extends AppCompatActivity {
 
     private void datePicker(){
         Typeface typeface = Typeface.createFromAsset(getAssets(), "shabnam-light.ttf");
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.MONTH);
         card_DatePicker.setOnClickListener(v -> {
             picker = new PersianDatePickerDialog(this)
                     .setPositiveButtonString("باشه")
@@ -306,7 +311,6 @@ public class OrderActivity extends AppCompatActivity {
                           });
                         picker.show();
         });
-
     }
 
 

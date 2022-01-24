@@ -48,11 +48,12 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
         holder.tv_name_groupInproduct.setText(grouping.name);
 
             if(row_index == position){
-                holder.cardView.setCardBackgroundColor(Color.parseColor("#ef4224"));
-                holder.tv_name_groupInproduct.setTextColor(Color.parseColor("#f8f3f7"));
-            } else {
-                holder.cardView.setCardBackgroundColor(Color.parseColor("#f8f3f7"));
-                holder.tv_name_groupInproduct.setTextColor(Color.parseColor("#676767"));
+            holder.cardView.setCardBackgroundColor(Color.parseColor("#ef4224"));
+            holder.tv_name_groupInproduct.setTextColor(Color.parseColor("#f8f3f7"));
+        } else {
+            holder.cardView.setCardBackgroundColor(Color.parseColor("#f8f3f7"));
+            holder.tv_name_groupInproduct.setTextColor(Color.parseColor("#676767"));
+
         }
     }
 

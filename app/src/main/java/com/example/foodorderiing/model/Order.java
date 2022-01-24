@@ -6,9 +6,12 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.example.foodorderiing.helper.Tools;
+
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Entity(tableName = "ordering")
@@ -68,5 +71,18 @@ public class Order {
 
     }
 
+//
+//    @Override
+//    public int compareTo(Order order) {
+//        return this.order_id - order.order_id;
+//    }
+//
+//
+    public static Comparator<Order> myName = new Comparator<Order>() {
+        @Override
+        public int compare(Order o1, Order o2) {
+            return o1.name.compareTo(o2.name);
+        }
+    };
 
 }

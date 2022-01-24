@@ -15,9 +15,8 @@
         <!-- Customize your theme here. -->
 
 <!--        add to search-->
-<!--        <item name="android:textColorSecondary">@color/white_text</item>-->
-<!--        <item name="android:editTextColor">@color/white_text</item>-->
-
+        <item name="android:textColorSecondary">@color/white_text</item>
+        <item name="android:editTextColor">@color/white_text</item>
 
         <item name="android:direction">left_to_right</item>
         <item name="android:layoutDirection">rtl</item>
@@ -31,8 +30,6 @@
     </style>
 
 
-
-
     <style
         name="CustomShapeAppearance">
         <item name="neumorph_cornerFamily">rounded</item>
@@ -43,6 +40,7 @@
         <item name="neumorph_cornerSizeBottomLeft">16dp</item>
         <item name="neumorph_cornerSizeBottomRight">16dp</item>
     </style>
+
 
    <style
        name="CustomRation" parent="Widget.AppCompat.RatingBar.Small">
@@ -78,27 +76,26 @@
     </style>
 
 
-    <style name="MyAlertDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
-<!--        <item name="colorPrimary">#ef4224</item>-->
-<!--        <item name="colorAccent">#ef4224</item>-->
-        <item name="fontFamily">@font/iran_sans</item>
-<!--        <item name="boxCornerRadiusTopEnd">50dp</item>-->
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">20dp</item>
+    <!--for OrderActivity-->
+    <style name="CustomOrderActivity" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:textColorSecondary">@color/red_toolbar</item>
+        <item name="android:editTextColor">@color/black</item>
+
+        <item name="android:direction">left_to_right</item>
+        <item name="android:layoutDirection">rtl</item>
+
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/red_toolbar</item>
+        <item name="colorPrimaryVariant">@color/red_toolbar</item>
+        <item name="colorOnPrimary">@color/red_toolbar</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">#dbdbdb</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/tosi_lite</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
     </style>
-
-
-
-    <style name="MaterialAlertDialog_rounded" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
-        <item name="shapeAppearanceOverlay">@style/DialogCorners</item>
-    </style>
-
-    <style name="DialogCorners">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">30dp</item>
-        <item name="fontFamily">@font/iran_sans</item>
-    </style>
-
-
 
 </resources>

@@ -65,6 +65,35 @@ public class CustomerActivity extends AppCompatActivity {
     }
 
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (adapter != null) {
+            if(dao.getCustomerList().size() < 0 ) {
+                noCustomer.setVisibility(View.VISIBLE);
+            }else {
+                noCustomer.setVisibility(View.GONE);
+                adapter.addList(dao.getCustomerList());
+            }
+        }
+    }
+
+
+    private void initDataBase() {
+        db = DatabaseHelper.getInstance(getApplicationContext());
+        dao = db.customerDao();
+    }
+
+
+    private void initID() {
+        recyclerView = findViewById(R.id.recycler_customer);
+        fab = findViewById(R.id.floating_customer);
+        noCustomer = findViewById(R.id.noCustomer);
+        fab_gotoEnd = findViewById(R.id.fab_go_to_end);
+    }
+
+
     public void set_toolBar(){
         toolbar = findViewById(R.id.toolbar_customer);
         toolbar.setTitle("");
@@ -80,7 +109,6 @@ public class CustomerActivity extends AppCompatActivity {
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setMaxWidth(Integer.MAX_VALUE);
         searchView.setBackground(getResources().getDrawable(R.drawable.ripple_all));
-
 
         TextView searchText = (TextView) searchView.findViewById(R.id.search_src_text);
         Typeface myCustomFont = Typeface.createFromAsset(getAssets(),"font/iran_sans.ttf");
@@ -115,25 +143,6 @@ public class CustomerActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-            if (adapter != null) {
-                if(dao.getCustomerList().size() < 0 ) {
-                    noCustomer.setVisibility(View.VISIBLE);
-                }else {
-                    noCustomer.setVisibility(View.GONE);
-                    adapter.addList(dao.getCustomerList());
-                }
-            }
-        }
-
-
-    private void initDataBase() {
-        db = DatabaseHelper.getInstance(getApplicationContext());
-        dao = db.customerDao();
-    }
-
 
     private void set_recyclerView() {
         recyclerView.setHasFixedSize(true);
@@ -157,12 +166,6 @@ public class CustomerActivity extends AppCompatActivity {
     }
 
 
-    private void initID() {
-        recyclerView = findViewById(R.id.recycler_customer);
-        fab = findViewById(R.id.floating_customer);
-        noCustomer = findViewById(R.id.noCustomer);
-        fab_gotoEnd = findViewById(R.id.fab_go_to_end);
-    }
 
 
     private void hide_fab() {

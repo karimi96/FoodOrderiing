@@ -94,9 +94,14 @@ public class AddNewGroupingActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if ( resultCode == RESULT_OK) {
             if (requestCode == PICK_IMAGE){
-                uri = data.getData();
-                imageView_show.setImageURI(uri);
-                imageView_back.setVisibility(View.GONE);
+                try {
+                    uri = data.getData();
+                    imageView_show.setImageURI(uri);
+                    imageView_back.setVisibility(View.GONE);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "try again ... ", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }

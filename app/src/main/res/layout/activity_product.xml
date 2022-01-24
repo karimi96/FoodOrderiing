@@ -7,7 +7,6 @@
     android:background="@color/white_text"
     tools:context=".activity.product.ProductActivity">
 
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_product"
         android:layout_width="match_parent"
@@ -35,7 +34,7 @@
         android:layout_margin="20dp"
         android:backgroundTint="@color/red_toolbar"
         android:src="@drawable/ic_round_add_24"
-        android:tint="@color/red_toolbar"
+        app:tint="@color/white_text"
         app:borderWidth="0dp"
         app:elevation="10dp"
         app:maxImageSize="35dp" />

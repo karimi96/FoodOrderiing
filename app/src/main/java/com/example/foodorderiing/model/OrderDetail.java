@@ -29,22 +29,27 @@ public class OrderDetail {
     @ColumnInfo(name = "code")
     public String code;
 
+    @ColumnInfo(name = "picture")
+    public String picture;
 
-    public OrderDetail(int orderdetail_id, String name, String category, String price, int amount, String code) {
+
+    public OrderDetail(int orderdetail_id, String name, String category, String price, int amount, String code, String picture) {
         this.orderdetail_id = orderdetail_id;
         this.name = name;
         this.category = category;
         this.price = price;
         this.amount = amount;
         this.code = code;
+        this.picture = picture;
     }
 
     @Ignore
-    public OrderDetail(String name, String category, String price, int amount, String code) {
+    public OrderDetail(String name, String category, String price, int amount, String code, String picture) {
         this.name = name;
         this.category = category;
         this.price = price;
         this.amount = amount;
         this.code = code;
+        this.picture = picture;
     }
 }
