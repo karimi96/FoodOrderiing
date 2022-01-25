@@ -15,6 +15,14 @@ public interface OrderDao {
     List<Order> getOrderList();
 
 
+    @Query("Select * from ordering order by date")
+    List<Order> getOrderListByDate();
+
+
+    @Query("Select * from ordering group by total")
+    List<Order> getOrderListByTotal();
+
+
     @Query("Select total from ordering where date = :datte limit 1 " )
    String date( String datte);
 
