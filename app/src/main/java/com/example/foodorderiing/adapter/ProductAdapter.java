@@ -6,9 +6,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,7 +72,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.tv_name_food.setText(product.name);
         holder.tv_name_category.setText(product.category);
         holder.tv_price.setText(product.price);
-        holder.img_food_bg.setImageURI(Uri.parse(product.picture));
+//        holder.img_food_bg.setImageURI(Uri.parse(product.picture));
+
+        try{
+            final int takeFlags =  (Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            context.getContentResolver().takePersistableUriPermission(Uri.parse(product.picture), takeFlags);
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse(product.picture));
+            holder.img_food_bg.setImageBitmap(bitmap);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
