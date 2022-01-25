@@ -16,7 +16,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.home.HomeActivity;
 import com.example.foodorderiing.database.DatabaseHelper;
@@ -166,7 +168,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "این کاربر وجود ندارد", Toast.LENGTH_SHORT).show();
 
             }else {
-                Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
                 finish();
@@ -176,12 +178,3 @@ public class LoginActivity extends AppCompatActivity {
 
 
 }
-
-
-
-
-
-
-
-
-
