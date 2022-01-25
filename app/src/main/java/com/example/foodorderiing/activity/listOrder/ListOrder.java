@@ -66,11 +66,7 @@ public class ListOrder extends AppCompatActivity {
 
     private void initRecycler(){
         recyclerView.setHasFixedSize(true);
-//        Collections.sort(dao.getOrderList(), Order.myName);
-        Collections.sort(dao.getOrderList(), Order.myName);
-
-
-        adapter = new ListOrderAdapter(this, dao.getOrderList());
+        adapter = new ListOrderAdapter(this, dao.getOrderListByDate());
         recyclerView.setAdapter(adapter);
 
 

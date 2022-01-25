@@ -71,18 +71,4 @@ public class Order {
 
     }
 
-//
-//    @Override
-//    public int compareTo(Order order) {
-//        return this.order_id - order.order_id;
-//    }
-//
-//
-    public static Comparator<Order> myName = new Comparator<Order>() {
-        @Override
-        public int compare(Order o1, Order o2) {
-            return o1.name.compareTo(o2.name);
-        }
-    };
-
 }
