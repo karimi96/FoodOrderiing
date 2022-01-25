@@ -46,15 +46,11 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         try{
             final int takeFlags =  (Intent.FLAG_GRANT_READ_URI_PERMISSION
                     | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            // Check for the freshest data.
             context.getContentResolver().takePersistableUriPermission(Uri.parse(orderDetail.picture), takeFlags);
-            // convert uri to bitmap
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse(orderDetail.picture));
-            // set bitmap to imageview
             holder.picture.setImageBitmap(bitmap);
         }
         catch (Exception e){
-            //handle exception
             e.printStackTrace();
         }
     }

@@ -2,8 +2,11 @@ package com.example.foodorderiing.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +21,8 @@ import java.util.List;
 
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
-    Context context;
-    Product product ;
-    List<Product> list;
+    private Context context;
+    private List<Product> list;
     public Listener listener ;
 
 
@@ -47,12 +49,32 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(OrderAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        product = list.get(position);
+        Product product = list.get(position);
         holder.tv_name_food.setText(product.name);
         holder.tv_name_category.setText(product.category);
-        holder.img_food_bg.setImageURI(Uri.parse(product.picture));
         holder.tv_price.setText( Tools.getForamtPrice(Tools.convertToPrice(product.price) * product.amount+"") );
         holder.tv_number_order.setText(product.amount+"");
+
+        holder.img_food_bg.setImageURI(Uri.parse(product.picture));
+
+        try{
+            final int takeFlags =  (Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            // Check for the freshest data.
+            context.getContentResolver().takePersistableUriPermission(Uri.parse(product.picture), takeFlags);
+            // convert uri to bitmap
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse(product.picture));
+            // set bitmap to imageview
+            holder.img_food_bg.setImageBitmap(bitmap);
+        }
+        catch (Exception e){
+            //handle exception
+            e.printStackTrace();
+        }
+
+
+
+
 
         holder.img_Increase.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
@@ -67,17 +89,15 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             public void onClick(View v) {
                 listener.onRemove(position);
             }
-
         });
-    }
 
+    }
 
 
     @Override
     public int getItemCount() {
         return list.size() ;
     }
-
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -97,6 +117,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             img_food_bg = itemView.findViewById(R.id.img_ordring);
         }
     }
+
 
     public  void addList(List<Product> arryList){
         list.clear();
