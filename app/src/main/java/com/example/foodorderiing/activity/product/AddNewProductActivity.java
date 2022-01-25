@@ -17,9 +17,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
@@ -189,8 +191,8 @@ public class AddNewProductActivity extends AppCompatActivity {
                             Toast.makeText(AddNewProductActivity.this, " این محصول وجود دارد ", Toast.LENGTH_SHORT).show();
 
                         }else if(dao_grouping.getOneName(categoryProduct) == null){
-//                            dao_grouping.insertGrouping(new Grouping(categoryProduct, ""));
-                            Toast.makeText(AddNewProductActivity.this,  " دسته بندی "+ categoryProduct + " وجود ندارد ", Toast.LENGTH_SHORT).show();
+                            dao_grouping.insertGrouping(new Grouping(categoryProduct, ""));
+//                            Toast.makeText(AddNewProductActivity.this,  " دسته بندی "+ categoryProduct + " وجود ندارد ", Toast.LENGTH_SHORT).show();
 
                         }else {
                             dao_product.insertProduct(new Product(nameProduct,categoryProduct, priceProduct, uri.toString()));
