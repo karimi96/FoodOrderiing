@@ -64,6 +64,8 @@
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/activity_add_new_grouping.xml" value="0.17753623188405798" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/activity_add_new_product.xml" value="0.19610507246376813" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/activity_customer.xml" value="0.22" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/activity_file.xml" value="0.1" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/activity_file2.xml" value="0.17798913043478262" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/activity_grouping.xml" value="0.18206521739130435" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/activity_home.xml" value="0.20416666666666666" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/activity_list_order.xml" value="0.1897644927536232" />
@@ -81,6 +83,7 @@
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/list_item_grouping.xml" value="0.20416666666666666" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/list_item_list_order.xml" value="0.20416666666666666" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/list_item_order_detail.xml" value="0.20416666666666666" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/list_item_ordering.xml" value="0.17798913043478262" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/list_item_product.xml" value="0.19610507246376813" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/nemodar.xml" value="0.19610507246376813" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/toolbar.xml" value="0.20416666666666666" />

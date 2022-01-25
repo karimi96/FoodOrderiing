@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.foodorderiing">
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    package="com.example.foodorderiing" >
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 
     <application
-        android:allowBackup="true"
         android:name=".helper.App"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FoodOrderiing">
-        <activity android:name=".activity.orderDetail.OrderDetail"></activity>
+        android:theme="@style/Theme.FoodOrderiing" >
+        <activity
+            android:name=".activity.File.FileActivity"
+            android:exported="false" />
+        <activity android:name=".activity.orderDetail.OrderDetail" />
         <activity android:name=".activity.listOrder.ListOrder" />
-
         <activity
             android:name=".activity.customer.AddNewCustomerActivity"
             android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme" />
@@ -26,7 +30,7 @@
         <activity
             android:name=".activity.customer.CustomerActivity"
             android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activity.product.AddNewProductActivity" />
         <activity
             android:name=".activity.grouping.AddNewGroupingActivity"
@@ -34,16 +38,15 @@
         <activity
             android:name=".activity.grouping.GroupingActivity"
             android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.product.ProductActivity"
             android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme"
             android:windowSoftInputMode="adjustPan" />
-
         <activity android:name=".activity.home.HomeActivity" />
-
-        <activity android:name=".activity.login.LoginActivity"
-            android:exported="true">
+        <activity
+            android:name=".activity.login.LoginActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -51,5 +54,6 @@
             </intent-filter>
         </activity>
     </application>
+
 
 </manifest>

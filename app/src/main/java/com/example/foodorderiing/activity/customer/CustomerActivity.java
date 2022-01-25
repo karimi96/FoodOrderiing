@@ -20,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodorderiing.R;
+import com.example.foodorderiing.activity.File.FileActivity;
 import com.example.foodorderiing.adapter.CustomerAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.CustomerDao;
@@ -258,11 +259,16 @@ public class CustomerActivity extends AppCompatActivity {
 
                         switch (viewID) {
                             case R.id.lottie_phone:
-                                String phonnumber = dao.getCustomerList().get(position).phone;
-                                Intent call = new Intent(Intent.ACTION_DIAL);
-                                call.setData(Uri.parse("tel:" + phonnumber));
-                                startActivity(call);
-                                break;
+                                FileActivity file = new FileActivity();
+                                if(file.checkPermission()== true){
+                                    String phonnumber = dao.getCustomerList().get(position).phone;
+                                    Intent call = new Intent(Intent.ACTION_DIAL);
+                                    call.setData(Uri.parse("tel:" + phonnumber));
+                                    startActivity(call);
+                                    break;
+                                }else {
+                                    file.onRequestPermissionsResult(100, null, null);
+                                }
                         }
                     }
                 });
