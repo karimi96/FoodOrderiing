@@ -6,15 +6,24 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import com.bumptech.glide.Glide;
 import com.example.foodorderiing.R;
+import com.example.foodorderiing.helper.Tools;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
+
 import java.io.File;
 
 public class FileActivity extends AppCompatActivity {
@@ -39,6 +48,13 @@ public class FileActivity extends AppCompatActivity {
         if (checkPermission()){
 
         }
+
+        File file1 = new File(Environment.getExternalStorageDirectory()+"/test.png");
+
+        ImageView imageView = findViewById(R.id.imageview);
+
+        Glide.with(this).load(file1).into(imageView);
+
     }
 
 
@@ -48,10 +64,25 @@ public class FileActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+                String save = Tools.saveFile(Tools.getBytes(resultUri), Environment.getExternalStorageDirectory(),"test.png");
+                Log.e("qqqqfile", "onActivityResult: " + save );
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
+        }
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode,@NonNull String[] permissions,@NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == CALL_PERMISSION_CODE) {
+        if (requestCode == STORAGE_PERMISSION_CODE) {
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Storage Permission Granted", Toast.LENGTH_SHORT).show();
@@ -98,6 +129,12 @@ public class FileActivity extends AppCompatActivity {
         return false;
     }
 
+
+    public void show(View view) {
+        CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .start(this);
+    }
 
 }
 

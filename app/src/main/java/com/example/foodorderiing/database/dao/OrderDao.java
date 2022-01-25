@@ -15,7 +15,7 @@ public interface OrderDao {
     List<Order> getOrderList();
 
 
-    @Query("Select * from ordering order by date")
+    @Query("Select * from ordering order by date DESC")
     List<Order> getOrderListByDate();
 
 

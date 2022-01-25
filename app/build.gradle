@@ -88,7 +88,7 @@ dependencies {
     implementation 'com.mohamadamin:persianmaterialdatetimepicker:1.2.1'
 
     // Image Cropper
-    api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
 
 }
 
