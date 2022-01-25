@@ -21,11 +21,13 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
     private List<Grouping> list;
     private Listener listener;
     private int row_index = 0;
+    private String categoryIsChosen = "";
 
 
-    public GroupInProductAdapter(List<Grouping> list, Context context , Listener listener ) {
+    public GroupInProductAdapter(List<Grouping> list, Context context , String category , Listener listener ) {
         this.list = list;
         this.context = context;
+        this.categoryIsChosen = category;
         this.listener = listener;
     }
 
@@ -47,7 +49,7 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
         Grouping grouping = list.get(position);
         holder.tv_name_groupInproduct.setText(grouping.name);
 
-            if(row_index == position){
+            if(row_index == position || grouping.name.equals(categoryIsChosen)){
             holder.cardView.setCardBackgroundColor(Color.parseColor("#ef4224"));
             holder.tv_name_groupInproduct.setTextColor(Color.parseColor("#f8f3f7"));
         } else {
@@ -79,6 +81,7 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
         public void onClick(View v) {
             Grouping grouping = list.get(getAdapterPosition());
             row_index = getAdapterPosition() ;
+            categoryIsChosen = "";
             notifyDataSetChanged();
             listener.onClick(getAdapterPosition() , grouping);
         }
