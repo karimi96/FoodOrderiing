@@ -80,6 +80,7 @@
             android:ems="10"
             android:fontFamily="@font/iran_sans"
             android:gravity="right"
+            android:paddingRight="8dp"
             android:hint="پسورد"
             android:imeOptions="actionDone"
             android:inputType="textPersonName"
