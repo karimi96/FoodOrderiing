@@ -8,11 +8,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.customer.CustomerActivity;
 import com.example.foodorderiing.activity.grouping.GroupingActivity;

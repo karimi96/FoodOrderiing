@@ -1,6 +1,5 @@
 package com.example.foodorderiing.activity.order;
 
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -8,12 +7,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.CalendarView;
-import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -32,17 +28,14 @@ import com.example.foodorderiing.model.Order;
 import com.example.foodorderiing.model.OrderDetail;
 import com.example.foodorderiing.model.Product;
 import com.google.gson.Gson;
-import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
-import com.mohamadamin.persianmaterialdatetimepicker.date.DayPickerView;
 import com.mohamadamin.persianmaterialdatetimepicker.time.RadialPickerLayout;
 import com.mohamadamin.persianmaterialdatetimepicker.time.TimePickerDialog;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
-//import org.jetbrains.annotations.NotNull;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
