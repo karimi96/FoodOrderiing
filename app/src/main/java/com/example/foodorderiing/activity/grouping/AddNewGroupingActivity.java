@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -14,16 +14,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
+import com.example.foodorderiing.helper.Tools;
 import com.example.foodorderiing.model.Grouping;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
-
-import java.io.File;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 
 public class AddNewGroupingActivity extends AppCompatActivity {
@@ -34,7 +34,7 @@ public class AddNewGroupingActivity extends AppCompatActivity {
     private DatabaseHelper db;
     private GroupingDao dao_grouping;
     private TextView tv_save , tv_cancel;
-    private String name ,old_name;
+    private String name ,old_name, save;
     private Grouping g;
     private Uri uri;
 
@@ -78,32 +78,54 @@ public class AddNewGroupingActivity extends AppCompatActivity {
 
     private void initImage(){
         fab.setOnClickListener(v -> {
-            Intent intent = new Intent();
-                intent.setType("image/*");
-//                intent.setDataAndType(uri , "image/*");
-                intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-//                intent.setAction(Intent.ACTION_GET_CONTENT);
-//                intent.setAction(Intent.ACTION_PICK);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+//            Intent intent = new Intent();
+//                intent.setType("image/*");
+////                intent.setDataAndType(uri , "image/*");
+//                intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+////                intent.setAction(Intent.ACTION_GET_CONTENT);
+////                intent.setAction(Intent.ACTION_PICK);
+//                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+
+            CropImage.activity()
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .start(this);
+
         });
     }
+
+
+
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if ( resultCode == RESULT_OK) {
-            if (requestCode == PICK_IMAGE){
-                try {
-                    uri = data.getData();
-                    imageView_show.setImageURI(uri);
-                    imageView_back.setVisibility(View.GONE);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "try again ... ", Toast.LENGTH_SHORT).show();
-                }
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+                save = Tools.saveFile(Tools.getBytes(resultUri), Environment.getExternalStorageDirectory(),"test.png");
+                imageView_show.setImageURI(resultUri);
+                imageView_back.setVisibility(View.GONE);
+                Log.e("qqqqfile", "onActivityResult: " + save );
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
             }
         }
+
+
+//        if ( resultCode == RESULT_OK) {
+//            if (requestCode == PICK_IMAGE){
+//                try {
+//                    uri = data.getData();
+//                    imageView_show.setImageURI(uri);
+//                    imageView_back.setVisibility(View.GONE);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    Toast.makeText(getApplicationContext(), "try again ... ", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        }
     }
 
 
@@ -124,7 +146,7 @@ public class AddNewGroupingActivity extends AppCompatActivity {
                             Toast.makeText(AddNewGroupingActivity.this, "این نام وجود دارد", Toast.LENGTH_LONG).show();
 
                         } else {
-                            dao_grouping.insertGrouping(new Grouping(name , uri.toString()));
+                            dao_grouping.insertGrouping(new Grouping(name, save));
                             Toast.makeText(getApplicationContext(), name + " با موفقیت به لیست اضافه شد ", Toast.LENGTH_LONG).show();
                             finish();
                         }

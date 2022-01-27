@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -27,10 +28,13 @@ import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
 import com.example.foodorderiing.database.dao.ProductDao;
 import com.example.foodorderiing.design.NumberTextWatcherForThousand;
+import com.example.foodorderiing.helper.Tools;
 import com.example.foodorderiing.model.Grouping;
 import com.example.foodorderiing.model.Product;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 public class AddNewProductActivity extends AppCompatActivity {
     private EditText et_name ,et_price ;
@@ -44,6 +48,7 @@ public class AddNewProductActivity extends AppCompatActivity {
     private Product p = null;
     private Uri uri;
     private FloatingActionButton fab;
+    private String save;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -96,10 +101,14 @@ public class AddNewProductActivity extends AppCompatActivity {
 
     private void initPhoto(){
         fab.setOnClickListener(v -> {
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-            startActivityForResult(Intent.createChooser(intent , "Select picture") , 200 );
+            CropImage.activity()
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .start(this);
+
+//            Intent intent = new Intent();
+//            intent.setType("image/*");
+//            intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+//            startActivityForResult(Intent.createChooser(intent , "Select picture") , 200 );
         });
     }
 
@@ -107,13 +116,27 @@ public class AddNewProductActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 200){
-            if(resultCode == RESULT_OK){
-                uri = data.getData();
-                img_show.setImageURI(uri);
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+                save = Tools.saveFile(Tools.getBytes(resultUri), Environment.getExternalStorageDirectory(),"test.png");
+                img_show.setImageURI(resultUri);
                 img.setVisibility(View.GONE);
+                Log.e("qqqqfile", "onActivityResult: " + save );
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
             }
         }
+
+
+//        if(requestCode == 200){
+//            if(resultCode == RESULT_OK){
+//                uri = data.getData();
+//                img_show.setImageURI(uri);
+//                img.setVisibility(View.GONE);
+//            }
+//        }
     }
 
 
@@ -169,7 +192,6 @@ public class AddNewProductActivity extends AppCompatActivity {
 //            autoCompleteTextView.showDropDown();
 //        });
     }
-
 
 
     private void actionSave(){
