@@ -1,10 +1,15 @@
 package com.example.foodorderiing.activity.login;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
@@ -16,8 +21,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.File.FileActivity;
@@ -31,6 +39,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 
 public class LoginActivity extends AppCompatActivity {
+    private static final int STORAGE_PERMISSION_CODE = 101;
+    public static final int CALL_PERMISSION_CODE = 100;
+
     private ImageView img_back;
     private CheckBox checkBox;
     private TextView tv_login , tv_NewAccount;
@@ -51,7 +62,6 @@ public class LoginActivity extends AppCompatActivity {
         hideKeyBoad();
         initLogin();
         setCheckBox();
-
     }
 
 
@@ -152,7 +162,6 @@ public class LoginActivity extends AppCompatActivity {
                     bottomSheetDialog.dismiss();
                 }
             });
-
             bottomSheetDialog.show();
         });
     }
@@ -169,13 +178,69 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "این کاربر وجود ندارد", Toast.LENGTH_SHORT).show();
 
             }else {
-                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                startActivity(intent);
-                overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
-                finish();
+                if(checkPermission()){
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
+                    finish();
+                }
             }
         });
     }
 
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == STORAGE_PERMISSION_CODE ) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Storage Permission Granted", Toast.LENGTH_SHORT).show();
+
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("desc_need_permission");
+                builder.setPositiveButton("ok_permission", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        Uri uri = Uri.fromParts("package", getPackageName(), null);
+                        intent.setData(uri);
+                        startActivityForResult(intent, STORAGE_PERMISSION_CODE);
+                    }
+                });
+                builder.setNegativeButton("exit_app", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        finish();
+                    }
+                });
+                builder.show();
+            }
+        }
+    }
+
+    public Boolean checkPermission() {
+        String[] permission = {Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE};
+        int requestCode = STORAGE_PERMISSION_CODE;
+        int requestCode_call = CALL_PERMISSION_CODE;
+        if (ContextCompat.checkSelfPermission(this, permission[0]) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(this, new String[] { permission[0] }, requestCode);
+        }else if (ContextCompat.checkSelfPermission(this, permission[1]) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(this, new String[]{permission[1]}, requestCode);
+        }else if (ContextCompat.checkSelfPermission(this, permission[2]) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(this, new String[]{permission[2]}, requestCode_call);
+        }
+        else {
+            return true;
+        }
+        return false;
+    }
 
 }
