@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.grouping.AddNewGroupingActivity;
 import com.example.foodorderiing.activity.product.ProductActivity;
@@ -32,9 +33,9 @@ import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
 import com.example.foodorderiing.database.dao.ProductDao;
 import com.example.foodorderiing.model.Grouping;
-import com.github.mikephil.charting.utils.Utils;
 import com.google.gson.Gson;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,22 +70,43 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
     public void onBindViewHolder(GroupingAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Grouping grouping = list.get(position);
         holder.tv_name_category.setText(grouping.name);
-//        holder.img_food_grouping.setImageURI(Uri.parse(grouping.picture));
 
-        try{
-            final int takeFlags =  (Intent.FLAG_GRANT_READ_URI_PERMISSION
-                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            // Check for the freshest data.
-            context.getContentResolver().takePersistableUriPermission(Uri.parse(grouping.picture), takeFlags);
-            // convert uri to bitmap
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse(grouping.picture));
-            // set bitmap to imageview
-            holder.img_food_grouping.setImageBitmap(bitmap);
+
+//        File file = new File(grouping.picture);
+//        Glide.with(context).load(file).into(holder.img_food_grouping);
+//        Log.e("add", "get value picture" + grouping.picture);
+//
+//        File file = new File(grouping.picture);
+////        String path = file.getPath();
+//        Uri uri = Uri.fromFile(file);
+//        holder.img_food_grouping.setImageURI(uri);
+
+//        Glide.with(context).load(new File(grouping.picture)).into(holder.img_food_grouping);
+
+
+        try {
+            if(new File(grouping.picture).exists() && !grouping.picture.isEmpty()){
+                Glide.with(context).load(new File(grouping.picture)).into(holder.img_food_grouping);
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
-        catch (Exception e){
-            //handle exception
-            e.printStackTrace();
-        }
+
+
+//        try{
+//            final int takeFlags =  (Intent.FLAG_GRANT_READ_URI_PERMISSION
+//                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//            // Check for the freshest data.
+//            context.getContentResolver().takePersistableUriPermission(Uri.fromFile(new File(grouping.picture)), takeFlags);
+//            // convert uri to bitmap
+//            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.fromFile(new File(grouping.picture)));
+//            // set bitmap to imageview
+//            holder.img_food_grouping.setImageBitmap(bitmap);
+//        }
+//        catch (Exception e){
+//            //handle exception
+//            e.printStackTrace();
+//        }
 
 
 
