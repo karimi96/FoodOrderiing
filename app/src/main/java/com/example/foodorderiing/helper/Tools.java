@@ -1,6 +1,8 @@
 package com.example.foodorderiing.helper;
 
 import android.net.Uri;
+import android.util.Log;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
