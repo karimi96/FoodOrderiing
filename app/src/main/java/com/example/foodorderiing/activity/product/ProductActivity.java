@@ -157,7 +157,7 @@ public class ProductActivity extends AppCompatActivity {
             recyclerView_category.setHasFixedSize(true);
             LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
             recyclerView_category.setLayoutManager(layoutManager);
-            adapter_gro = new GroupInProductAdapter(groupingArrayList , this,"تست همبرگر", new GroupInProductAdapter.Listener() {
+            adapter_gro = new GroupInProductAdapter(groupingArrayList , this ,nameGrouping , new GroupInProductAdapter.Listener() {
                 @Override
                 public void onClick(int pos , Grouping g) {
                     if(pos == 0 ){
