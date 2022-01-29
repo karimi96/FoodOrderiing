@@ -11,8 +11,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.model.OrderDetail;
+
+import java.io.File;
 import java.util.List;
 
 
@@ -43,16 +47,27 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         holder.category_detail.setText(orderDetail.category);
         holder.price_detail.setText(orderDetail.price);
         holder.amount_detail.setText(String.valueOf(orderDetail.amount));
-        try{
-            final int takeFlags =  (Intent.FLAG_GRANT_READ_URI_PERMISSION
-                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            context.getContentResolver().takePersistableUriPermission(Uri.parse(orderDetail.picture), takeFlags);
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse(orderDetail.picture));
-            holder.picture.setImageBitmap(bitmap);
+
+        try {
+            if(new File(orderDetail.picture).exists() && !orderDetail.picture.isEmpty()){
+                Glide.with(context).load(new File(orderDetail.picture)).into(holder.picture);
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+
+
+//
+//        try{
+//            final int takeFlags =  (Intent.FLAG_GRANT_READ_URI_PERMISSION
+//                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//            context.getContentResolver().takePersistableUriPermission(Uri.parse(orderDetail.picture), takeFlags);
+//            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse(orderDetail.picture));
+//            holder.picture.setImageBitmap(bitmap);
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//        }
     }
 
 
