@@ -25,6 +25,8 @@ import com.google.gson.Gson;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.File;
+
 
 public class AddNewGroupingActivity extends AppCompatActivity {
     private static final int PICK_IMAGE = 100;
@@ -37,6 +39,7 @@ public class AddNewGroupingActivity extends AppCompatActivity {
     private String name ,old_name, save;
     private Grouping g;
     private Uri uri;
+    private String TIMEMILLISSECOND = String.valueOf(System.currentTimeMillis());
 
 
     @Override
@@ -93,10 +96,6 @@ public class AddNewGroupingActivity extends AppCompatActivity {
         });
     }
 
-
-
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -104,7 +103,10 @@ public class AddNewGroupingActivity extends AppCompatActivity {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
-                save = Tools.saveFile(Tools.getBytes(resultUri), Environment.getExternalStorageDirectory(),"test.png");
+                Log.e("iiii", "resultUri: " + resultUri );
+
+                save = Tools.saveFile(Tools.getBytes(resultUri), new File(Environment.getExternalStorageDirectory() + "/DCIM/Foods"),TIMEMILLISSECOND + ".jpg");
+//                save = Tools.saveFile(Tools.getBytes(resultUri), Environment.getExternalStorageDirectory(),"test.png");
                 imageView_show.setImageURI(resultUri);
                 imageView_back.setVisibility(View.GONE);
                 Log.e("qqqqfile", "onActivityResult: " + save );
