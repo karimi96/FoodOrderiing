@@ -14,9 +14,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.helper.Tools;
 import com.example.foodorderiing.model.Product;
+
+import java.io.File;
 import java.util.List;
 
 
@@ -55,22 +59,42 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         holder.tv_price.setText( Tools.getForamtPrice(Tools.convertToPrice(product.price) * product.amount+"") );
         holder.tv_number_order.setText(product.amount+"");
 
-        holder.img_food_bg.setImageURI(Uri.parse(product.picture));
+        try {
+            if(new File(product.picture).exists() && !product.picture.isEmpty()){
+                Glide.with(context).load(new File(product.picture)).into(holder.img_food_bg);
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
 
-        try{
-            final int takeFlags =  (Intent.FLAG_GRANT_READ_URI_PERMISSION
-                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            // Check for the freshest data.
-            context.getContentResolver().takePersistableUriPermission(Uri.parse(product.picture), takeFlags);
-            // convert uri to bitmap
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse(product.picture));
-            // set bitmap to imageview
-            holder.img_food_bg.setImageBitmap(bitmap);
-        }
-        catch (Exception e){
-            //handle exception
-            e.printStackTrace();
-        }
+
+
+
+//        holder.img_food_bg.setImageURI(Uri.parse(product.picture));
+//
+//        try{
+//            final int takeFlags =  (Intent.FLAG_GRANT_READ_URI_PERMISSION
+//                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//            // Check for the freshest data.
+//            context.getContentResolver().takePersistableUriPermission(Uri.parse(product.picture), takeFlags);
+//            // convert uri to bitmap
+//            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse(product.picture));
+//            // set bitmap to imageview
+//            holder.img_food_bg.setImageBitmap(bitmap);
+//        }
+//        catch (Exception e){
+//            //handle exception
+//            e.printStackTrace();
+//        }
+
+
+
+
+
+
+
+
+
 
 
 
