@@ -16,9 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodOrderiing" >
-        <activity
-            android:name=".activity.File.FileActivity"
-            android:exported="false" />
+
         <activity android:name=".activity.orderDetail.OrderDetail" />
         <activity android:name=".activity.listOrder.ListOrder" />
         <activity
@@ -44,6 +42,7 @@
             android:theme="@style/Theme.FoodOrderiing.SlidrActivityTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activity.home.HomeActivity" />
+
         <activity
             android:name=".activity.login.LoginActivity"
             android:exported="true" >

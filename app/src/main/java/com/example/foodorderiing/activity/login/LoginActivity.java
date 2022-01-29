@@ -28,7 +28,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.foodorderiing.R;
-import com.example.foodorderiing.activity.File.FileActivity;
 import com.example.foodorderiing.activity.home.HomeActivity;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.UserDao;

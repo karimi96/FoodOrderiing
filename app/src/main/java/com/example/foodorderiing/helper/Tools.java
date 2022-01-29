@@ -1,8 +1,6 @@
 package com.example.foodorderiing.helper;
 
 import android.net.Uri;
-import android.util.Log;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,7 +9,6 @@ import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
-
 
 
 public class Tools {
@@ -138,10 +135,4 @@ public class Tools {
         }
         return null;
     }
-
-
-
-
-
-
 }
