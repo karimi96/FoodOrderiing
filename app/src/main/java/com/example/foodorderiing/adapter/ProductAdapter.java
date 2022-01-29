@@ -23,6 +23,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.product.AddNewProductActivity;
 import com.example.foodorderiing.database.DatabaseHelper;
@@ -30,6 +32,7 @@ import com.example.foodorderiing.database.dao.ProductDao;
 import com.example.foodorderiing.model.Product;
 import com.google.gson.Gson;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,16 +77,26 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.tv_price.setText(product.price);
 //        holder.img_food_bg.setImageURI(Uri.parse(product.picture));
 
-        try{
-            final int takeFlags =  (Intent.FLAG_GRANT_READ_URI_PERMISSION
-                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            context.getContentResolver().takePersistableUriPermission(Uri.parse(product.picture), takeFlags);
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse(product.picture));
-            holder.img_food_bg.setImageBitmap(bitmap);
+        try {
+            if(new File(product.picture).exists() && !product.picture.isEmpty()){
+                Glide.with(context).load(new File(product.picture)).into(holder.img_food_bg);
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+
+
+
+//        try{
+//            final int takeFlags =  (Intent.FLAG_GRANT_READ_URI_PERMISSION
+//                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//            context.getContentResolver().takePersistableUriPermission(Uri.parse(product.picture), takeFlags);
+//            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse(product.picture));
+//            holder.img_food_bg.setImageBitmap(bitmap);
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//        }
     }
 
 
