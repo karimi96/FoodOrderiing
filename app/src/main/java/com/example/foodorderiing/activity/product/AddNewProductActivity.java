@@ -36,6 +36,8 @@ import com.google.gson.Gson;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.File;
+
 public class AddNewProductActivity extends AppCompatActivity {
     private EditText et_name ,et_price ;
     private ImageView img_show ,img ;
@@ -49,6 +51,7 @@ public class AddNewProductActivity extends AppCompatActivity {
     private Uri uri;
     private FloatingActionButton fab;
     private String save;
+    private String TIMEMILLISECOND = String.valueOf(System.currentTimeMillis());
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -120,7 +123,7 @@ public class AddNewProductActivity extends AppCompatActivity {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
-                save = Tools.saveFile(Tools.getBytes(resultUri), Environment.getExternalStorageDirectory(),"test.png");
+                save = Tools.saveFile(Tools.getBytes(resultUri), new File(Environment.getExternalStorageDirectory() + "/DCIM/Foods"),TIMEMILLISECOND + ".jpg");
                 img_show.setImageURI(resultUri);
                 img.setVisibility(View.GONE);
                 Log.e("qqqqfile", "onActivityResult: " + save );
@@ -130,13 +133,6 @@ public class AddNewProductActivity extends AppCompatActivity {
         }
 
 
-//        if(requestCode == 200){
-//            if(resultCode == RESULT_OK){
-//                uri = data.getData();
-//                img_show.setImageURI(uri);
-//                img.setVisibility(View.GONE);
-//            }
-//        }
     }
 
 
@@ -214,10 +210,9 @@ public class AddNewProductActivity extends AppCompatActivity {
 
                         }else if(dao_grouping.getOneName(categoryProduct) == null){
                             dao_grouping.insertGrouping(new Grouping(categoryProduct, ""));
-//                            Toast.makeText(AddNewProductActivity.this,  " دسته بندی "+ categoryProduct + " وجود ندارد ", Toast.LENGTH_SHORT).show();
 
                         }else {
-                            dao_product.insertProduct(new Product(nameProduct,categoryProduct, priceProduct, uri.toString()));
+                            dao_product.insertProduct(new Product(nameProduct,categoryProduct, priceProduct, save));
                             Toast.makeText(getApplicationContext(), nameProduct + " با موفقیت به لیست اضافه شد ", Toast.LENGTH_LONG).show();
                             finish();
                         }
