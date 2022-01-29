@@ -249,7 +249,11 @@ public class HomeActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        dailyTotal.setText(Tools.getForamtPrice(String.valueOf(j)));
+        if(j == 0){
+            dailyTotal.setText(" _ ");
+        }else {
+            dailyTotal.setText(Tools.getForamtPrice(String.valueOf(j)));
+        }
         return j;
     }
 
@@ -262,7 +266,11 @@ public class HomeActivity extends AppCompatActivity {
             String t = total.get(i).total;
             j = j + Tools.convertToPrice(t);
         }
-        weeklyTotal.setText(Tools.getForamtPrice(String.valueOf(j)));
+        if(j == 0){
+            weeklyTotal.setText(" _ ");
+        }else {
+            weeklyTotal.setText(Tools.getForamtPrice(String.valueOf(j)));
+        }
     }
 
 
@@ -274,7 +282,11 @@ public class HomeActivity extends AppCompatActivity {
             String t = total.get(i).total;
             j = j + Tools.convertToPrice(t);
         }
-        monthlyTotal.setText(Tools.getForamtPrice(String.valueOf(j)));
+        if(j == 0){
+            monthlyTotal.setText(" _ ");
+        }else {
+            monthlyTotal.setText(Tools.getForamtPrice(String.valueOf(j)));
+        }
     }
 
 
@@ -291,6 +303,11 @@ public class HomeActivity extends AppCompatActivity {
         for (int i = 0; i < allTotal.size() ; i++) {
             String at = allTotal.get(i);
             t = t + Tools.convertToPrice(at);
+        }
+        if (t == 0) {
+            alltotal.setText(" _ ");
+        }else {
+
         }
         alltotal.setText(Tools.getForamtPrice(String.valueOf(t)));
     }
