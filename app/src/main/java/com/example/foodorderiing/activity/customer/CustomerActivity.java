@@ -1,12 +1,16 @@
 package com.example.foodorderiing.activity.customer;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,9 +18,15 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodorderiing.R;
@@ -24,6 +34,7 @@ import com.example.foodorderiing.adapter.CustomerAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.CustomerDao;
 import com.example.foodorderiing.design.RecyclerTouchListener;
+import com.example.foodorderiing.helper.Tools;
 import com.example.foodorderiing.model.Customer;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
@@ -42,6 +53,7 @@ public class CustomerActivity extends AppCompatActivity {
     private RecyclerTouchListener touchListener;
     private Customer customerr;
     private int poss;
+    private static final int CALL_PERMISSION_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,7 +196,7 @@ public class CustomerActivity extends AppCompatActivity {
 
 
     private void show_fab_gotoEnd() {
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 if (dy > 0) {
@@ -258,16 +270,67 @@ public class CustomerActivity extends AppCompatActivity {
 
                         switch (viewID) {
                             case R.id.lottie_phone:
-                                    String phonnumber = dao.getCustomerList().get(position).phone;
-                                    Intent call = new Intent(Intent.ACTION_DIAL);
-                                    call.setData(Uri.parse("tel:" + phonnumber));
-                                    startActivity(call);
-                                    break;
+                               if(checkPermission()){
+                                   String phonnumber = dao.getCustomerList().get(position).phone;
+                                   Intent call = new Intent(Intent.ACTION_VIEW);
+                                   call.setData(Uri.parse("tel:" + phonnumber));
+                                   startActivity(call);
+                               }
+                               break;
                         }
                     }
                 });
         recyclerView.addOnItemTouchListener(touchListener);
     }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == CALL_PERMISSION_CODE ) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+//                Toast.makeText(this, "Storage Permission Granted", Toast.LENGTH_SHORT).show();
+
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(" دسترسی به مجوزها ");
+                builder.setPositiveButton("برو به تنظیمات", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        Uri uri = Uri.fromParts("package", getPackageName(), null);
+                        intent.setData(uri);
+                        startActivityForResult(intent, CALL_PERMISSION_CODE);
+                    }
+                });
+                builder.setNegativeButton("بستن", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+//                        finish();
+                    }
+                });
+                builder.show();
+            }
+        }
+    }
+
+
+
+    public Boolean checkPermission() {
+        String permition = Manifest.permission.CALL_PHONE;
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE ) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(this, new String[]{permition}, CALL_PERMISSION_CODE);
+        }
+        else {
+            return true;
+        }
+        return false;
+    }
+
 
 
 }
