@@ -29,6 +29,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.foodorderiing.Permition;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.adapter.CustomerAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
@@ -270,7 +272,14 @@ public class CustomerActivity extends AppCompatActivity {
 
                         switch (viewID) {
                             case R.id.lottie_phone:
-                               if(checkPermission()){
+                                Permition permition;
+                                permition = new Permition(200,getApplicationContext(),CustomerActivity.this) {
+                                    @Override
+                                    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+                                        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                                    }
+                                };
+                               if(permition.checkPermission()){
                                    String phonnumber = dao.getCustomerList().get(position).phone;
                                    Intent call = new Intent(Intent.ACTION_VIEW);
                                    call.setData(Uri.parse("tel:" + phonnumber));
@@ -284,52 +293,19 @@ public class CustomerActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == CALL_PERMISSION_CODE ) {
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-//                Toast.makeText(this, "Storage Permission Granted", Toast.LENGTH_SHORT).show();
-
-            } else {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage(" دسترسی به مجوزها ");
-                builder.setPositiveButton("برو به تنظیمات", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                        Uri uri = Uri.fromParts("package", getPackageName(), null);
-                        intent.setData(uri);
-                        startActivityForResult(intent, CALL_PERMISSION_CODE);
-                    }
-                });
-                builder.setNegativeButton("بستن", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-//                        finish();
-                    }
-                });
-                builder.show();
-            }
-        }
-    }
 
 
 
-    public Boolean checkPermission() {
-        String permition = Manifest.permission.CALL_PHONE;
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE ) == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(this, new String[]{permition}, CALL_PERMISSION_CODE);
-        }
-        else {
-            return true;
-        }
-        return false;
-    }
+///    public Boolean checkPermission() {
+//        String permition = Manifest.permission.CALL_PHONE;
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE ) == PackageManager.PERMISSION_DENIED) {
+//            ActivityCompat.requestPermissions(this, new String[]{permition}, CALL_PERMISSION_CODE);
+//        }
+//        else {
+//            return true;
+//        }
+//        return false;
+//    }
 
 
 
