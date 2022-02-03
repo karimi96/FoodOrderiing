@@ -4,13 +4,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.customer.CustomerActivity;
 import com.example.foodorderiing.activity.grouping.GroupingActivity;
@@ -50,6 +51,8 @@ public class HomeActivity extends AppCompatActivity {
     private TextView numOrder ,monthlyTotal ,weeklyTotal , dailyTotal, dayName, monthName, alltotal, titleHome;
     private String date;
     private ListOrder listOrder;
+
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -115,12 +118,12 @@ public class HomeActivity extends AppCompatActivity {
         monthName = findViewById(R.id.monthName);
         alltotal = findViewById(R.id.allTotal);
         titleHome = findViewById(R.id.title_home);
+
     }
 
 
     public void toolbar() {
         title = findViewById(R.id.title_home);
-        title.setEllipsize(TextUtils.TruncateAt.MARQUEE);
         title.setSelected(true);
     }
 
@@ -168,38 +171,44 @@ public class HomeActivity extends AppCompatActivity {
         Log.e("qqqqmain", "populateChart: started" );
         ArrayList<Order> list = new ArrayList<>(dao_order.getOrderList());
         chartModels = new ArrayList<>();
+      //  chartModels.addAll(dao_chart.getListChart());
 
         Log.e("qqqqmain", "populateChart: "+list.size() + "-"+ chartModels.size() );
 
-        for (int i = 0; i < list.size(); i++) {
-
+        for (int i =0 ; i < list.size() ; i++) {
 
             Log.e("qqqqmain2", "populateChart: for list is started \n"
-            + list.get(i).date
-            );
+            + list.get(i).date );
 
             if (chartModels.size() == 0){
                 Log.e("qqqqmain", "populateChart: chartModels.size() == 0" );
 
-                chartModels.add(new ChartModel(list.get(i).date,Tools.convertToPrice(list.get(i).total)));
+//                dao_chart.insertChart(new ChartModel(list.get(i).date, Tools.convertToPrice(list.get(i).total)));
+                chartModels.add(new ChartModel(list.get(i).date, Tools.convertToPrice(list.get(i).total)));
+                Log.e("qqqqmain", "populateChart: chartModels " + chartModels.get(i).date );
             }else {
                 Log.e("qqqqmain", "populateChart: chartModels.size() > 0" );
 
-                for (int c = 0; c < chartModels.size(); c++) {
-                    Log.e("qqqqmain2", "populateChart: for chart model is started\n"
-                            + chartModels.get(c).getDate() );
+                for (int c =0 ; c < chartModels.size() ; c++) {
+                    Log.e("qqqqmain2", "populateChart: for chart model is started \n "
+                            + chartModels.get(c).getDate());
 
                     if (list.get(i).date.equals(chartModels.get(c).getDate())){
-                        chartModels.get(c).setTotal(chartModels.get(c).getTotal() + Tools.convertToPrice(list.get(i).total));
-//                        return;
+                        Log.e("qqqqmain", "populateChart: chart model" + list.get(i).date + "=" + chartModels.get(c).date  );
+                            chartModels.get(c).setTotal(chartModels.get(c).getTotal() + Tools.convertToPrice(list.get(i).total));
 
-                    }else {
-                        chartModels.add(new ChartModel(list.get(i).date,Tools.convertToPrice(list.get(i).total)));
+//                    if (chartModels.get(c).getDate().equals(list.get(i).date)) {
+//                        return;
                     }
+
                 }
+                chartModels.add(new ChartModel(list.get(i).date,Tools.convertToPrice(list.get(i).total)));
+//
+//                dao_chart.insertChart(new ChartModel(list.get(i).date,Tools.convertToPrice(list.get(i).total)));
             }
         }
     }
+
 
     public void create_chart22() {
         BarChart bar_chart = findViewById(R.id.chart_bar);
@@ -226,7 +235,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-
     private void numberListOrder(){
         if (dao_order.getOrderList().size() >= 1){
             int count = dao_order.getOrderList().size();
@@ -250,7 +258,7 @@ public class HomeActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         if(j == 0){
-            dailyTotal.setText(" _ ");
+            dailyTotal.setText("  _ ");
         }else {
             dailyTotal.setText(Tools.getForamtPrice(String.valueOf(j)));
         }
@@ -267,7 +275,7 @@ public class HomeActivity extends AppCompatActivity {
             j = j + Tools.convertToPrice(t);
         }
         if(j == 0){
-            weeklyTotal.setText(" _ ");
+            weeklyTotal.setText("  _ ");
         }else {
             weeklyTotal.setText(Tools.getForamtPrice(String.valueOf(j)));
         }
@@ -283,7 +291,7 @@ public class HomeActivity extends AppCompatActivity {
             j = j + Tools.convertToPrice(t);
         }
         if(j == 0){
-            monthlyTotal.setText(" _ ");
+            monthlyTotal.setText("  _ ");
         }else {
             monthlyTotal.setText(Tools.getForamtPrice(String.valueOf(j)));
         }
@@ -305,10 +313,10 @@ public class HomeActivity extends AppCompatActivity {
             t = t + Tools.convertToPrice(at);
         }
         if (t == 0) {
-            alltotal.setText(" _ ");
+            alltotal.setText("  _ ");
         }else {
-
+            alltotal.setText(Tools.getForamtPrice(String.valueOf(t)));
         }
-        alltotal.setText(Tools.getForamtPrice(String.valueOf(t)));
     }
+
 }
