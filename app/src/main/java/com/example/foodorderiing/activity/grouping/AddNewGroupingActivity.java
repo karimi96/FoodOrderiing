@@ -15,7 +15,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.foodorderiing.Permition;
 import com.example.foodorderiing.R;
+import com.example.foodorderiing.activity.product.AddNewProductActivity;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
 import com.example.foodorderiing.helper.Tools;
@@ -56,7 +59,10 @@ public class AddNewGroupingActivity extends AppCompatActivity {
             String getGrouping =getIntent().getStringExtra("grouping");
             g = new Gson().fromJson(getGrouping, Grouping.class);
             old_name = g.name;
-            editText_category.setText(g.name); }
+            editText_category.setText(g.name);
+            imageView_show.setImageURI(Uri.parse(g.picture));
+            imageView_back.setVisibility(View.GONE);
+       }
 
         click_save();
         click_cancel();
@@ -89,10 +95,13 @@ public class AddNewGroupingActivity extends AppCompatActivity {
 ////                intent.setAction(Intent.ACTION_PICK);
 //                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
 
-            CropImage.activity()
-                    .setGuidelines(CropImageView.Guidelines.ON)
-                    .start(this);
-
+            Permition permition;
+            permition = new Permition(100,getApplicationContext(), AddNewGroupingActivity.this);
+            if(permition.checkPermission()) {
+                CropImage.activity()
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .start(this);
+            }
         });
     }
 
@@ -114,20 +123,6 @@ public class AddNewGroupingActivity extends AppCompatActivity {
                 Exception error = result.getError();
             }
         }
-
-
-//        if ( resultCode == RESULT_OK) {
-//            if (requestCode == PICK_IMAGE){
-//                try {
-//                    uri = data.getData();
-//                    imageView_show.setImageURI(uri);
-//                    imageView_back.setVisibility(View.GONE);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    Toast.makeText(getApplicationContext(), "try again ... ", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        }
     }
 
 
@@ -154,6 +149,7 @@ public class AddNewGroupingActivity extends AppCompatActivity {
                         }
                 }else {
                     g.name = name;
+                    g.picture = save;
                     dao_grouping.updateGrouping(g);
                     Toast.makeText(getApplicationContext(),  old_name + " با موفقیت به " + name + " تغییر کرد", Toast.LENGTH_LONG).show();
                     finish();
