@@ -46,6 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar_product"
         android:clipToPadding="false"
+        android:visibility="gone"
         android:orientation="horizontal"
         android:paddingEnd="10dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
