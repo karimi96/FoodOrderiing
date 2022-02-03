@@ -3,16 +3,18 @@ package com.example.foodorderiing.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.model.Grouping;
+
 import java.util.List;
 
 
@@ -49,14 +51,15 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
         Grouping grouping = list.get(position);
         holder.tv_name_groupInproduct.setText(grouping.name);
 
+
             if(row_index == position || grouping.name.equals(categoryIsChosen)){
             holder.cardView.setCardBackgroundColor(Color.parseColor("#ef4224"));
             holder.tv_name_groupInproduct.setTextColor(Color.parseColor("#f8f3f7"));
         } else {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#f8f3f7"));
             holder.tv_name_groupInproduct.setTextColor(Color.parseColor("#676767"));
-
         }
+
     }
 
 
@@ -80,13 +83,12 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
         @Override
         public void onClick(View v) {
             Grouping grouping = list.get(getAdapterPosition());
+            Log.e("ppp", "ViewHolder: send position " + getAdapterPosition());
+            listener.onClick(getAdapterPosition(), grouping);
             row_index = getAdapterPosition() ;
             categoryIsChosen = "";
             notifyDataSetChanged();
-            listener.onClick(getAdapterPosition() , grouping);
+            Log.e("poo", "ViewHolder: send position " + getAdapterPosition());
         }
     }
-
-
-
 }
