@@ -98,4 +98,42 @@
         <!-- Customize your theme here. -->
     </style>
 
+
+
+
+    <style name="TimePicker" parent="Theme.AppCompat.Light.NoActionBar">
+<!--         Primary brand color. -->
+        <item name="colorPrimary">@color/red_toolbar</item>
+        <item name="colorPrimaryVariant">@color/red_toolbar</item>
+        <item name="colorOnPrimary">@color/red_toolbar</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">#dbdbdb</item>
+        <item name="colorSecondaryVariant">@color/red_toolbar</item>
+        <item name="colorOnSecondary">@color/tosi_lite</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+
+        <!--        add to search-->
+        <item name="android:textColorSecondary">@color/white_text</item>
+        <item name="android:editTextColor">@color/white_text</item>
+
+        <item name="android:direction">left_to_right</item>
+        <item name="android:layoutDirection">rtl</item>
+        <item name="android:timePickerStyle">@style/MyTimePickerLight</item>
+
+    </style>
+
+
+<!--    timePicker-->
+    <!-- Light Time Picker-->
+    <style name="MyTimePickerLight" parent="android:Widget.Material.Light.TimePicker">
+        <item name="android:headerBackground">#FF5722</item>
+        <item name="android:numbersTextColor">#673AB7</item>
+        <item name="android:numbersSelectorColor">@color/red_toolbar</item>
+        <item name="android:numbersBackgroundColor">@color/red_toolbar</item>
+        <item name="android:background">@color/red_toolbar</item>
+    </style>
+
 </resources>
