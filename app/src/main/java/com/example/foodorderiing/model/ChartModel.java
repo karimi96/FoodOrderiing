@@ -1,8 +1,16 @@
 package com.example.foodorderiing.model;
 
+import androidx.room.Ignore;
+
 public class ChartModel {
     public String date;
     public double total;
+
+    @Ignore
+    public ChartModel(String date, double total) {
+        this.date = date;
+        this.total = total;
+    }
 
     public String getDate() {
         return date;
