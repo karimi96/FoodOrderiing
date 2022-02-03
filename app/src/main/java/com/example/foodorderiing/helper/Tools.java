@@ -1,6 +1,7 @@
 package com.example.foodorderiing.helper;
 
 import android.net.Uri;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,10 +9,12 @@ import java.io.FileOutputStream;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
+
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 
 
 public class Tools {
+
     public static Integer convertToPrice(String value){
         return Integer.valueOf(value.replace(".","")
                 .replace(",","")
