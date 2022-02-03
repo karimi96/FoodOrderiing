@@ -23,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.foodorderiing.Permition;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
@@ -104,14 +105,13 @@ public class AddNewProductActivity extends AppCompatActivity {
 
     private void initPhoto(){
         fab.setOnClickListener(v -> {
-            CropImage.activity()
+            Permition permition;
+            permition = new Permition(100,getApplicationContext(), AddNewProductActivity.this);
+            if(permition.checkPermission()){
+                CropImage.activity()
                     .setGuidelines(CropImageView.Guidelines.ON)
                     .start(this);
-
-//            Intent intent = new Intent();
-//            intent.setType("image/*");
-//            intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-//            startActivityForResult(Intent.createChooser(intent , "Select picture") , 200 );
+            }
         });
     }
 
@@ -157,6 +157,7 @@ public class AddNewProductActivity extends AppCompatActivity {
             }
         });
 
+
         autoTextView_grouing.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -180,13 +181,13 @@ public class AddNewProductActivity extends AppCompatActivity {
             }
         });
 
-//        autoCompleteTextView.setOnFocusChangeListener((v, hasFocus) -> {
-//            if (hasFocus) autoCompleteTextView.showDropDown();
-//        });
-//
-//        autoCompleteTextView.setOnClickListener(v -> {
-//            autoCompleteTextView.showDropDown();
-//        });
+        autoTextView_grouing.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) autoTextView_grouing.showDropDown();
+        });
+
+        autoTextView_grouing.setOnClickListener(v -> {
+            autoTextView_grouing.showDropDown();
+        });
     }
 
 
@@ -221,7 +222,7 @@ public class AddNewProductActivity extends AppCompatActivity {
                     p.name = nameProduct;
                     p.category = categoryProduct;
                     p.price = priceProduct ;
-                    p.picture = uri.toString();
+                    p.picture = save;
                     Log.e("qqqq", "onClick: update product=" + p.product_id );
                     dao_product.updateProduct(p);
                     Toast.makeText(getApplicationContext()," با موفقیت تغییر کرد " , Toast.LENGTH_LONG).show();
