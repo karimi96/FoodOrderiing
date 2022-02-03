@@ -1,13 +1,8 @@
 package com.example.foodorderiing.model;
 
 public class ChartModel {
-    private String date;
-    private double total;
-
-    public ChartModel(String date, double total) {
-        this.date = date;
-        this.total = total;
-    }
+    public String date;
+    public double total;
 
     public String getDate() {
         return date;
