@@ -1,62 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="?attr/actionBarSize"
+    android:backgroundTint="@color/red_toolbar"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/toolbar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:backgroundTint="@color/red_toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="1">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/img_shoping"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:weightSum="1">
+            android:layout_gravity="center"
+            android:layout_weight="0.15"
+            android:background="@drawable/ripple_circle_shop"
+            android:paddingVertical="15dp"
+            android:src="@drawable/add_shoping" />
 
-            <ImageView
-                android:id="@+id/img_shoping"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="0.15"
-                android:background="@drawable/ripple_circle_shop"
-                android:paddingVertical="15dp"
-                android:paddingEnd="4dp"
-                android:src="@drawable/add_shoping" />
+        <TextView
+            android:id="@+id/title_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.7"
+            android:fontFamily="@font/rezvan"
+            android:gravity="center"
+            android:scrollHorizontally="true"
+            android:text="غذا سرای خادم"
+            android:textColor="@color/white_text"
+            android:textSize="25dp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/title_home"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="0.7"
-                android:fontFamily="@font/rezvan"
-                android:gravity="center"
-                android:ellipsize="marquee"
-                android:scrollHorizontally="true"
-                android:text="غذا سرای خادم"
-                android:textColor="@color/white_text"
-                android:textSize="25dp"
-                android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/img_menu"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="0.15"
+            android:background="@drawable/ripple_circle_shop"
+            android:paddingVertical="15dp"
+            android:paddingEnd="5dp"
+            android:paddingRight="7dp"
+            android:src="@drawable/ic_round_menu_24" />
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="0.15"
-                android:paddingVertical="15dp"
-                android:paddingRight="7dp"
-                android:src="@drawable/ic_round_settings_24" />
+    </LinearLayout>
 
-        </LinearLayout>
+</androidx.cardview.widget.CardView>
 
-    </androidx.cardview.widget.CardView>
-
-</LinearLayout>
