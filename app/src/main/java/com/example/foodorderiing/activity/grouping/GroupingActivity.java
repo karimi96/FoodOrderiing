@@ -23,6 +23,8 @@ import com.example.foodorderiing.R;
 import com.example.foodorderiing.adapter.GroupingAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
+import com.example.foodorderiing.helper.App;
+import com.example.foodorderiing.helper.Tools;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
@@ -88,7 +90,7 @@ public class GroupingActivity extends AppCompatActivity {
         EditText searchEdit = ((EditText) searchView.findViewById(androidx.appcompat.R.id.search_src_text));
         searchEdit.setTextColor(getResources().getColor(R.color.white_text));
         searchEdit.setHintTextColor(getResources().getColor(R.color.white_text));
-        searchEdit.setHint("");
+        searchEdit.setHint("جست وجو کنید...");
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -107,7 +109,7 @@ public class GroupingActivity extends AppCompatActivity {
 
 
     public void set_recyclerView() {
-        db = DatabaseHelper.getInstance(getApplicationContext());
+        db = App.getDatabase();
         dao_group = db.groupingDao();
         recyclerView_grouping.setHasFixedSize(true);
         groupingAdapter = new GroupingAdapter(new ArrayList<>(), this);
@@ -116,21 +118,14 @@ public class GroupingActivity extends AppCompatActivity {
 
 
     private void setReverseRecycler() {
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setStackFromEnd(true);
-        linearLayoutManager.setReverseLayout(true);
-        recyclerView_grouping.setLayoutManager(linearLayoutManager);
+        Tools.setReverseRecycler(this,recyclerView_grouping);
     }
 
 
     public void set_fab() {
-        fab_grouping.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(GroupingActivity.this, AddNewGroupingActivity.class);
-                startActivity(intent);
+        fab_grouping.setOnClickListener(v -> {
+                startActivity(new Intent(GroupingActivity.this, AddNewGroupingActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            }
         });
     }
 
@@ -139,11 +134,8 @@ public class GroupingActivity extends AppCompatActivity {
         recyclerView_grouping.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (dy > 0) {
-                    fab_grouping.hide();
-                } else {
-                    fab_grouping.show();
-                }
+                if (dy > 0) fab_grouping.hide();
+                 else fab_grouping.show();
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
@@ -151,20 +143,12 @@ public class GroupingActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (db != null) db.close();
-    }
-
-
-    @Override
     protected void onResume() {
         super.onResume();
         if (groupingAdapter != null) {
-            groupingAdapter.addList(dao_group.getGroupingList());
-        }
-        if (dao_group.getGroupingList().size() > 0) {
-            noGrouping.setVisibility(View.GONE);
+            if (dao_group.getGroupingList().size() != 0 ) {groupingAdapter.addList(dao_group.getGroupingList());
+            noGrouping.setVisibility(View.GONE);}
+            else noGrouping.setVisibility(View.VISIBLE);
         }
     }
 
@@ -177,6 +161,4 @@ public class GroupingActivity extends AppCompatActivity {
         recyclerView.getAdapter().notifyDataSetChanged();
         recyclerView.scheduleLayoutAnimation();
     }
-
-
 }

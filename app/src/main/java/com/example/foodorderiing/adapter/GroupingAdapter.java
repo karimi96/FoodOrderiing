@@ -6,11 +6,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
-import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +30,7 @@ import com.example.foodorderiing.activity.product.ProductActivity;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
 import com.example.foodorderiing.database.dao.ProductDao;
+import com.example.foodorderiing.helper.App;
 import com.example.foodorderiing.model.Grouping;
 import com.google.gson.Gson;
 
@@ -71,19 +70,6 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
         Grouping grouping = list.get(position);
         holder.tv_name_category.setText(grouping.name);
 
-
-//        File file = new File(grouping.picture);
-//        Glide.with(context).load(file).into(holder.img_food_grouping);
-//        Log.e("add", "get value picture" + grouping.picture);
-//
-//        File file = new File(grouping.picture);
-////        String path = file.getPath();
-//        Uri uri = Uri.fromFile(file);
-//        holder.img_food_grouping.setImageURI(uri);
-
-//        Glide.with(context).load(new File(grouping.picture)).into(holder.img_food_grouping);
-
-
         try {
             if(new File(grouping.picture).exists() && !grouping.picture.isEmpty()){
                 Glide.with(context).load(new File(grouping.picture)).into(holder.img_food_grouping);
@@ -91,7 +77,6 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-
 
 //        try{
 //            final int takeFlags =  (Intent.FLAG_GRANT_READ_URI_PERMISSION
@@ -107,28 +92,6 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
 //            //handle exception
 //            e.printStackTrace();
 //        }
-
-
-
-
-
-
-
-//        if(grouping.picture.isEmpty() || grouping.picture == null){
-//            holder.img_food_grouping.setImageResource(R.drawable.hamberger1);
-//        }else {
-//            holder.img_food_grouping.setImageURI(Uri.parse(grouping.picture));
-//        }
-
-//        Uri uri =Uri.parse(grouping.picture);
-//        File file = new File(grouping.picture);
-//        Uri uri =Uri.fromFile(file);
-
-//        Glide.with(context)
-//                .load(new File(uri.getPath()))
-//                .into(holder.img_food_grouping);
-////
-
     }
 
 
@@ -197,7 +160,7 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
 
 
     private void initDataBase(String name){
-        database = DatabaseHelper.getInstance(context.getApplicationContext());
+        database = App.getDatabase();
         groupingDao = database.groupingDao();
         productDao = database.productDao();
         count = productDao.get_product_by_category(name).size();
@@ -284,6 +247,7 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
             FilterResults results = new FilterResults();
             results.values = filterdNewList;
             results.count = filterdNewList.size();
+            if(results.count == 0 ) Toast.makeText(context, "موردی یافت نشد", Toast.LENGTH_SHORT).show();
             return results;
         }
         @Override
@@ -293,6 +257,4 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
             notifyDataSetChanged();
         }
     };
-
-
 }
