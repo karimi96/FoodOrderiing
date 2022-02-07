@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodOrderiing">
-
+        <activity
+            android:name=".activity.setting.SettingActivity"
+            android:exported="false" />
         <activity android:name=".activity.orderDetail.OrderDetail" />
         <activity android:name=".activity.listOrder.ListOrder" />
         <activity

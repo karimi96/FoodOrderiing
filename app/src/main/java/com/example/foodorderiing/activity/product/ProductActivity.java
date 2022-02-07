@@ -30,7 +30,6 @@ import com.example.foodorderiing.database.dao.ProductDao;
 import com.example.foodorderiing.helper.App;
 import com.example.foodorderiing.helper.Tools;
 import com.example.foodorderiing.model.Grouping;
-import com.example.foodorderiing.model.Product;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
@@ -48,9 +47,9 @@ public class ProductActivity extends AppCompatActivity {
     private DatabaseHelper db;
     private ProductDao dao_product;
     private GroupingDao dao_grouping;
-    private Boolean for_order = false ;
-    private TextView noProduct ;
-    private String nameGrouping ;
+    private Boolean for_order = false;
+    private TextView noProduct;
+    private String nameGrouping;
 
 
     @Override
@@ -58,13 +57,13 @@ public class ProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
-        if(getIntent().getExtras() != null){
+        if (getIntent().getExtras() != null) {
             for_order = getIntent().getBooleanExtra("for_order", false);
 
         }
-        if(getIntent().getStringExtra("groupingToproduct") != null){
+        if (getIntent().getStringExtra("groupingToproduct") != null) {
             String for_grouping = getIntent().getStringExtra("groupingToproduct");
-            Grouping grouping = new Gson().fromJson(for_grouping , Grouping.class);
+            Grouping grouping = new Gson().fromJson(for_grouping, Grouping.class);
             nameGrouping = grouping.name;
         }
 
@@ -87,12 +86,13 @@ public class ProductActivity extends AppCompatActivity {
     }
 
 
-    private void initID(){
+    private void initID() {
         recyclerView_category = findViewById(R.id.recycler_grouping_product_page);
         recyclerView_product = findViewById(R.id.recycler_product);
         fab = findViewById(R.id.fab_product);
         noProduct = findViewById(R.id.noProduct);
     }
+
 
     private void initDataBase() {
         db = App.getDatabase();
@@ -110,14 +110,14 @@ public class ProductActivity extends AppCompatActivity {
         searchView.setBackground(getResources().getDrawable(R.drawable.ripple_all));
 
         TextView searchText = (TextView) searchView.findViewById(R.id.search_src_text);
-        Typeface myCustomFont = Typeface.createFromAsset(getAssets(),"font/iran_sans.ttf");
+        Typeface myCustomFont = Typeface.createFromAsset(getAssets(), "font/iran_sans.ttf");
         searchText.setTypeface(myCustomFont);
         searchText.setTextSize(14);
 
         View v = searchView.findViewById(androidx.appcompat.R.id.search_plate);
         v.setBackgroundColor(Color.parseColor("#ef4224"));
 
-        EditText searchEdit = ((EditText)searchView.findViewById(androidx.appcompat.R.id.search_src_text));
+        EditText searchEdit = ((EditText) searchView.findViewById(androidx.appcompat.R.id.search_src_text));
         searchEdit.setTextColor(getResources().getColor(R.color.white_text));
         searchEdit.setHintTextColor(getResources().getColor(R.color.white_text));
         searchEdit.setHint("جست و جو کنید...");
@@ -130,7 +130,7 @@ public class ProductActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                    adapter_pro.getFilter().filter(newText);
+                adapter_pro.getFilter().filter(newText);
                 return false;
             }
         });
@@ -138,7 +138,7 @@ public class ProductActivity extends AppCompatActivity {
     }
 
 
-    public void set_toolBar(){
+    public void set_toolBar() {
         toolbar = findViewById(R.id.toolbar_product);
         toolbar.setTitle("");
         toolbar.setTitleTextColor(getResources().getColor(R.color.white_text));
@@ -146,41 +146,42 @@ public class ProductActivity extends AppCompatActivity {
     }
 
 
-    public void set_recycler_category(){
-            ArrayList<Grouping> groupingArrayList = new ArrayList<>();
-            groupingArrayList.add(0, new Grouping("همه محصولات " , ""));
-            groupingArrayList.addAll(dao_grouping.getGroupingList());
+    public void set_recycler_category() {
+        ArrayList<Grouping> groupingArrayList = new ArrayList<>();
+        groupingArrayList.add(0, new Grouping("همه محصولات ", ""));
+        groupingArrayList.addAll(dao_grouping.getGroupingList());
 
-            recyclerView_category.setHasFixedSize(true);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
-            recyclerView_category.setLayoutManager(layoutManager);
-            adapter_gro = new GroupInProductAdapter(groupingArrayList , this ,nameGrouping , new GroupInProductAdapter.Listener() {
-                @Override
-                public void onClick(int pos , Grouping g) {
-                    Log.e("asd", "product: get position " + pos );
-                    if(pos == 0 ){
-                        nameGrouping = null;
-                    }else {
-                        nameGrouping = g.name;
-                    }
-                    initListProduct();
+        recyclerView_category.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView_category.setLayoutManager(layoutManager);
+        adapter_gro = new GroupInProductAdapter(groupingArrayList, this, nameGrouping, new GroupInProductAdapter.Listener() {
+            @Override
+            public void onClick(int pos, Grouping g) {
+                Log.e("asd", "product: get position " + pos);
+                if (pos == 0) {
+                    nameGrouping = null;
+                } else {
+                    nameGrouping = g.name;
                 }
-            });
-            recyclerView_category.setAdapter(adapter_gro);
+                initListProduct();
+            }
+        });
+        recyclerView_category.setAdapter(adapter_gro);
     }
 
 
-    private void initListProduct(){
-        Log.e("qqqq" , "initListProduct: " + nameGrouping );
-        if(adapter_pro != null ) {
-            if (dao_product.getProductList().size() != 0) {
+    private void initListProduct() {
+        Log.e("qqqq", "initListProduct: " + nameGrouping);
+        if (adapter_pro != null) {
+            if (dao_product.getProductList().size() >= 0) {
                 recyclerView_category.setVisibility(View.VISIBLE);
 
-//                if(dao_product.getProductList().size() == 0 || dao_product.get_product_by_category(nameGrouping).size() == 0) noProduct.setVisibility(View.VISIBLE);
-//                recyclerView_category.setVisibility(View.GONE);
-
-                if (nameGrouping == null || nameGrouping.isEmpty()) adapter_pro.addList(dao_product.getProductList());
-                else adapter_pro.addList(dao_product.get_product_by_category(nameGrouping));
+                if (nameGrouping == null || nameGrouping.isEmpty())
+                    adapter_pro.addList(dao_product.getProductList());
+                else {
+//                    if(dao_product.get_product_by_category(nameGrouping).size() == 0) noProduct.setVisibility(View.VISIBLE);
+                    adapter_pro.addList(dao_product.get_product_by_category(nameGrouping));
+                }
 
             } else {
                 recyclerView_category.setVisibility(View.GONE);
@@ -190,41 +191,40 @@ public class ProductActivity extends AppCompatActivity {
     }
 
 
+    public void set_recycler_product() {
+        recyclerView_product.setHasFixedSize(true);
+        adapter_pro = new ProductAdapter(new ArrayList<>(), ProductActivity.this, (product, pos, name) -> {
+            if (for_order) {
+                for_order = getIntent().getBooleanExtra("for_order", false);
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("json_product", new Gson().toJson(product));
+                setResult(Activity.RESULT_OK, returnIntent);
+                finish();
+            } else adapter_pro.showButtonSheet(pos, name);
 
-    public void set_recycler_product(){
-                recyclerView_product.setHasFixedSize(true);
-                adapter_pro = new ProductAdapter(new ArrayList<>(), ProductActivity.this , (product, pos, name) -> {
-                        if(for_order){
-                            for_order = getIntent().getBooleanExtra("for_order",false);
-                            Intent returnIntent = new Intent();
-                            returnIntent.putExtra("json_product", new Gson().toJson(product));
-                            setResult(Activity.RESULT_OK, returnIntent);
-                            finish();
-                        }else adapter_pro.showButtonSheet(pos , name );
-
-                });
-                recyclerView_product.setAdapter(adapter_pro);
-            }
-
-
-    private void setReverseRecycler(){
-        Tools.setReverseRecycler(this,recyclerView_product);
+        });
+        recyclerView_product.setAdapter(adapter_pro);
     }
 
 
-    public void click_fab(){
+    private void setReverseRecycler() {
+        Tools.setReverseRecycler(this, recyclerView_product);
+    }
+
+
+    public void click_fab() {
         fab.setOnClickListener(v -> {
-                startActivity(new Intent(ProductActivity.this,AddNewProductActivity.class));
-                overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
+            startActivity(new Intent(ProductActivity.this, AddNewProductActivity.class));
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
     }
 
 
-    public void hide_fab(){
+    public void hide_fab() {
         recyclerView_product.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if(dy >0 )fab.hide();
+                if (dy > 0) fab.hide();
                 else fab.show();
                 super.onScrolled(recyclerView, dx, dy);
             }
@@ -232,12 +232,13 @@ public class ProductActivity extends AppCompatActivity {
     }
 
 
-    private void layoutAnimation(RecyclerView recyclerView){
+    private void layoutAnimation(RecyclerView recyclerView) {
         Context context = recyclerView.getContext();
-        LayoutAnimationController layoutAnimationController = AnimationUtils.loadLayoutAnimation(context,R.anim.layout_slide_right);
+        LayoutAnimationController layoutAnimationController = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_slide_right);
         recyclerView.setLayoutAnimation(layoutAnimationController);
         recyclerView.getAdapter().notifyDataSetChanged();
         recyclerView.scheduleLayoutAnimation();
     }
+
 
 }
