@@ -154,11 +154,6 @@ public class GroupingActivity extends AppCompatActivity {
 
 
     private void layoutAnimation(RecyclerView recyclerView) {
-        Context context = recyclerView.getContext();
-        LayoutAnimationController layoutAnimationController = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_fall_down);
-
-        recyclerView.setLayoutAnimation(layoutAnimationController);
-        recyclerView.getAdapter().notifyDataSetChanged();
-        recyclerView.scheduleLayoutAnimation();
+       Tools.layoutAnimationRecycler(recyclerView);
     }
 }

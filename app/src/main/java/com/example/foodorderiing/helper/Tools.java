@@ -3,11 +3,15 @@ package com.example.foodorderiing.helper;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.foodorderiing.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -233,5 +237,15 @@ public class Tools {
             }
         });
     }
+
+
+    public static void layoutAnimationRecycler(RecyclerView recyclerView) {
+        Context context = recyclerView.getContext();
+        LayoutAnimationController layoutAnimationController = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_fall_down);
+        recyclerView.setLayoutAnimation(layoutAnimationController);
+        recyclerView.getAdapter().notifyDataSetChanged();
+        recyclerView.scheduleLayoutAnimation();
+    }
+
 
 }
