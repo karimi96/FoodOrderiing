@@ -6,11 +6,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.customer.CustomerActivity;
@@ -23,6 +26,9 @@ import com.example.foodorderiing.database.dao.CustomerDao;
 import com.example.foodorderiing.database.dao.GroupingDao;
 import com.example.foodorderiing.database.dao.OrderDao;
 import com.example.foodorderiing.database.dao.ProductDao;
+import com.example.foodorderiing.helper.App;
+import com.example.foodorderiing.helper.CustomDialog;
+import com.example.foodorderiing.helper.Session;
 import com.example.foodorderiing.helper.Tools;
 import com.example.foodorderiing.model.ChartModel;
 import com.example.foodorderiing.model.Order;
@@ -41,17 +47,18 @@ public class HomeActivity extends AppCompatActivity {
     private ArrayList<ChartModel> chartModels;
 
     private CardView cardView_product ,cardView_customer ,cardView_grouping ,cardView_ListOrder,waiting;
-    private TextView title ,num_product ,num_customer ,num_grouping;
+    private TextView num_product ,num_customer ,num_grouping;
     private DatabaseHelper db;
     private ProductDao dao_p;
     private GroupingDao dao_g;
     private CustomerDao dao_c;
     private OrderDao dao_order;
-    private ImageView img_ordering;
-    private TextView numOrder ,monthlyTotal ,weeklyTotal , dailyTotal, dayName, monthName, alltotal, titleHome;
+    private ImageView img_ordering, img_menu;
+    private TextView numOrder ,monthlyTotal ,weeklyTotal , dailyTotal, dayName, monthName, alltotal, titleHome, titleDrawer;
     private String date;
     private ListOrder listOrder;
-
+    private DrawerLayout drawer;
+    private LinearLayout setting_drawer, aboutUs_drawer, guid_drawer, exit_drawer;
 
 
 
@@ -63,36 +70,35 @@ public class HomeActivity extends AppCompatActivity {
 
         initDataBase();
         initID();
-        toolbar();
         initGetOrder();
         initListOrder();
         gOToProduct();
         goToCustomer();
         goToGrouping();
-
+        setNavigationDrawer();
+        setDrawer();
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        num_product.setText(Integer.toString(dao_p.getProductList().size()));
-        num_customer.setText(Integer.toString(dao_c.getCustomerList().size()));
-        num_grouping.setText(Integer.toString(dao_g.getGroupingList().size()));
+        setNumberOf_Product_Customer_Grouping();
         numberListOrder();
         setTotalDaily();
         setTotalWeekly();
         setTotalMonthly();
         setAllTotal();
         setName();
-
         populateChart();
         create_chart22();
+        setNameTitle();
+        setNavigationDrawer();
     }
 
 
     private void initDataBase(){
-        db = DatabaseHelper.getInstance(getApplicationContext());
+        db = App.getDatabase();
         dao_p = db.productDao();
         dao_c = db.customerDao();
         dao_g = db.groupingDao();
@@ -118,13 +124,40 @@ public class HomeActivity extends AppCompatActivity {
         monthName = findViewById(R.id.monthName);
         alltotal = findViewById(R.id.allTotal);
         titleHome = findViewById(R.id.title_home);
-
+        titleDrawer = findViewById(R.id.title_myDrawer);
+        img_menu = findViewById(R.id.img_menu);
+        drawer = findViewById(R.id.myDrawer);
+        setting_drawer = findViewById(R.id.setting_nav);
+        aboutUs_drawer = findViewById(R.id.about_nav);
+        guid_drawer = findViewById(R.id.guid_nav);
+        exit_drawer = findViewById(R.id.exist_nav);
     }
 
 
-    public void toolbar() {
-        title = findViewById(R.id.title_home);
-        title.setSelected(true);
+    private void setNumberOf_Product_Customer_Grouping(){
+        if(dao_p.getProductList().size() == 0) num_product.setText("");
+        else num_product.setText(Integer.toString(dao_p.getProductList().size()));
+
+        if(dao_c.getCustomerList().size() == 0) num_customer.setText("");
+        else num_customer.setText(Integer.toString(dao_c.getCustomerList().size()));
+
+        if( dao_g.getGroupingList().size() == 0) num_grouping.setText("");
+        else num_grouping.setText(Integer.toString(dao_g.getGroupingList().size()));
+    }
+
+
+    private void setNameTitle(){
+        if(Session.getInstance().getString("name") != null){
+            titleHome.setText( "غذای سرای " + Session.getInstance().getString("name"));
+            titleDrawer.setText( "غذای سرای " + Session.getInstance().getString("name"));
+        }
+    }
+
+
+    private void setNavigationDrawer(){
+        img_menu.setOnClickListener(v -> {
+            drawer.openDrawer(GravityCompat.END);
+        });
     }
 
 
@@ -236,20 +269,16 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private void numberListOrder(){
-        if (dao_order.getOrderList().size() >= 1){
-            int count = dao_order.getOrderList().size();
-            numOrder.setText("( " + count + " ) ");
-        }else {
-            numOrder.setText("");
-        }
+        if (dao_order.getOrderList().size() >= 1)
+        numOrder.setText("( " + dao_order.getOrderList().size() + " ) ");
+        else numOrder.setText("");
     }
 
 
     private int setTotalDaily(){
-        List<String> total = new ArrayList<>();
+        List<String> total = new ArrayList<>(dao_order.dailyTotal(Tools.getCurrentDate()));
         int j = 0 ;
             try {
-                total.addAll(dao_order.dailyTotal(Tools.getCurrentDate()));
                 for (int i = 0; i < dao_order.getOrderList().size() ; i++) {
                     String t = total.get(i);
                     j = j + Tools.convertToPrice(t);
@@ -257,44 +286,34 @@ public class HomeActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        if(j == 0){
-            dailyTotal.setText("  _ ");
-        }else {
-            dailyTotal.setText(Tools.getForamtPrice(String.valueOf(j)));
-        }
+        if(j == 0)dailyTotal.setText("  _ ");
+            else dailyTotal.setText(Tools.getForamtPrice(String.valueOf(j)));
+
         return j;
     }
 
 
     private void setTotalWeekly(){
-        List<Order> total = new ArrayList<>();
-        total.addAll(dao_order.getOrderListDate(Tools.getSevenDayAgo()));
+        List<Order> total = new ArrayList<>(dao_order.getOrderListDate(Tools.getSevenDayAgo()));
         int j = 0 ;
         for (int i = 0; i < total.size() ; i++) {
             String t = total.get(i).total;
             j = j + Tools.convertToPrice(t);
         }
-        if(j == 0){
-            weeklyTotal.setText("  _ ");
-        }else {
-            weeklyTotal.setText(Tools.getForamtPrice(String.valueOf(j)));
-        }
+        if(j == 0) weeklyTotal.setText("  _ ");
+            else weeklyTotal.setText(Tools.getForamtPrice(String.valueOf(j)));
     }
 
 
     private void setTotalMonthly(){
-        List<Order> total = new ArrayList<>();
-        total.addAll(dao_order.getOrderListDate(Tools.getThirtyDaysAgo()));
+        List<Order> total = new ArrayList<>(dao_order.getOrderListDate(Tools.getThirtyDaysAgo()));
         int j = 0 ;
         for (int i = 0; i < total.size() ; i++) {
             String t = total.get(i).total;
             j = j + Tools.convertToPrice(t);
         }
-        if(j == 0){
-            monthlyTotal.setText("  _ ");
-        }else {
-            monthlyTotal.setText(Tools.getForamtPrice(String.valueOf(j)));
-        }
+        if(j == 0) monthlyTotal.setText("  _ ");
+        else monthlyTotal.setText(Tools.getForamtPrice(String.valueOf(j)));
     }
 
 
@@ -305,18 +324,35 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private void setAllTotal(){
-        List<String> allTotal = new ArrayList<>();
-        allTotal.addAll(dao_order.getAllTotal());
+        List<String> allTotal = new ArrayList<>(dao_order.getAllTotal());
         int t = 0 ;
         for (int i = 0; i < allTotal.size() ; i++) {
             String at = allTotal.get(i);
             t = t + Tools.convertToPrice(at);
         }
-        if (t == 0) {
-            alltotal.setText("  _ ");
-        }else {
-            alltotal.setText(Tools.getForamtPrice(String.valueOf(t)));
-        }
+        if (t == 0) alltotal.setText("  _ ");
+        else alltotal.setText(Tools.getForamtPrice(String.valueOf(t)));
     }
+
+
+    private void setDrawer(){
+        setting_drawer.setOnClickListener(v -> {
+
+        });
+
+        guid_drawer.setOnClickListener(v -> {
+            new CustomDialog().showDialog(HomeActivity.this , R.layout.dialog_guid , drawer);
+        });
+
+        aboutUs_drawer.setOnClickListener(v -> {
+            new CustomDialog().showDialog(HomeActivity.this , R.layout.dialog_about_us , drawer);
+        });
+
+        exit_drawer.setOnClickListener(v -> {
+            drawer.closeDrawers();
+        });
+    }
+
+
 
 }
