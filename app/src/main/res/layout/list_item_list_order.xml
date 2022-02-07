@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:foreground="@drawable/ripple_all">
 
 
     <LinearLayout
@@ -25,45 +25,33 @@
             <TextView
                 android:id="@+id/name_record"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_gravity="right|center"
                 android:layout_marginStart="5dp"
+                android:layout_weight="1"
                 android:fontFamily="@font/iran_sans"
                 android:gravity="right"
-                android:layout_gravity="right|center"
                 android:paddingVertical="5dp"
                 android:paddingEnd="5dp"
                 android:text="رقیه کریمی"
                 android:textColor="@color/black" />
 
-<!--            <androidx.cardview.widget.CardView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_margin="7dp"-->
-<!--                android:outlineSpotShadowColor="@color/white_text"-->
-<!--                app:cardCornerRadius="15dp">-->
-
-                <TextView
-                    android:id="@+id/delete_listOrder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_margin="10dp"
-                    android:background="@drawable/border_delete_list_order"
-                    android:drawableRight="@drawable/delete"
-                    android:fontFamily="@font/iran_sans"
-                    android:gravity="center"
-                    android:paddingVertical="6dp"
-                    android:paddingEnd="10dp"
-                    android:paddingRight="10dp"
-                    android:text="حذف سفارش"
-                    android:textColor="#a2a2a2"
-                    android:textSize="12dp" />
-
-<!--            </androidx.cardview.widget.CardView>-->
-
-
-
+            <TextView
+                android:id="@+id/delete_listOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="10dp"
+                android:background="@drawable/border_delete_list_order"
+                android:drawableRight="@drawable/delete"
+                android:fontFamily="@font/iran_sans"
+                android:gravity="center"
+                android:paddingVertical="6dp"
+                android:paddingEnd="10dp"
+                android:paddingRight="10dp"
+                android:text="حذف سفارش"
+                android:textColor="#a2a2a2"
+                android:textSize="12dp" />
 
         </LinearLayout>
 
@@ -152,8 +140,8 @@
 
         </LinearLayout>
 
+        <include layout="@layout/box_listorder" />
+
     </LinearLayout>
 
-    <include layout="@layout/box_listorder" />
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>

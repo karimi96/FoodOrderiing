@@ -3,21 +3,20 @@ package com.example.foodorderiing.activity.listOrder;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.adapter.ListOrderAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.CustomerDao;
 import com.example.foodorderiing.database.dao.OrderDao;
+import com.example.foodorderiing.helper.App;
 import com.example.foodorderiing.model.Order;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 public class ListOrder extends AppCompatActivity {
@@ -37,7 +36,6 @@ public class ListOrder extends AppCompatActivity {
         initDataBase();
         initID();
         initRecycler();
-//        setReverseRecycler();
     }
 
 
@@ -45,14 +43,13 @@ public class ListOrder extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         List<Order> listorder = new ArrayList<>();
-        listorder.addAll(dao.getOrderList());
-        if(listorder.size() <= 0 || listorder.isEmpty()){
+        if(listorder.size() == 0 || listorder.isEmpty())
             noListOrder.setVisibility(View.VISIBLE);
-        }
+        else listorder.addAll(dao.getOrderList());
     }
 
     private void initDataBase(){
-        db = DatabaseHelper.getInstance(getApplicationContext());
+        db = App.getDatabase();
         dao = db.orderDao() ;
         customerDao= db.customerDao();
     }
@@ -68,16 +65,5 @@ public class ListOrder extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         adapter = new ListOrderAdapter(this, dao.getOrderListByDate());
         recyclerView.setAdapter(adapter);
-
-
     }
-
-//    private void setReverseRecycler(){
-//        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-//        linearLayoutManager.setStackFromEnd(true);
-//        linearLayoutManager.setReverseLayout(true);
-//        recyclerView.setLayoutManager(linearLayoutManager);
-//    }
-
-
 }
