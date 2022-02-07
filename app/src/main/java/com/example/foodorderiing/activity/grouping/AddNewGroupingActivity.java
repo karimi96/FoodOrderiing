@@ -1,9 +1,12 @@
 package com.example.foodorderiing.activity.grouping;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -13,7 +16,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.database.DatabaseHelper;
@@ -57,7 +64,10 @@ public class AddNewGroupingActivity extends AppCompatActivity {
             g = new Gson().fromJson(getGrouping, Grouping.class);
             old_name = g.name;
             editText_category.setText(g.name);
-            imageView_show.setImageURI(Uri.parse(g.picture));
+            if (g.picture.isEmpty())
+                imageView_show.setImageDrawable(getDrawable(R.drawable.defult_pic));
+            else
+                imageView_show.setImageURI(Uri.parse(g.picture));
             imageView_back.setVisibility(View.GONE);
         }
 
@@ -85,9 +95,7 @@ public class AddNewGroupingActivity extends AppCompatActivity {
 
     private void initImage() {
         fab.setOnClickListener(v -> {
-            Permition permition;
-            permition = new Permition(100, getApplicationContext(), AddNewGroupingActivity.this);
-            if (permition.checkPermission()) {
+            if (new Permition().checkStoregPermition(getApplicationContext(), AddNewGroupingActivity.this)) {
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .start(this);
@@ -128,7 +136,10 @@ public class AddNewGroupingActivity extends AppCompatActivity {
                     Toast.makeText(AddNewGroupingActivity.this, "این نام وجود دارد", Toast.LENGTH_LONG).show();
 
                 } else {
-                    dao_grouping.insertGrouping(new Grouping(name, save));
+                    if (save.isEmpty())
+                        Toast.makeText(getApplicationContext(), " لطفا یک عکس انتخاب کنید ", Toast.LENGTH_SHORT).show();
+                    else
+                        dao_grouping.insertGrouping(new Grouping(name, save));
                     Toast.makeText(getApplicationContext(), name + " با موفقیت به لیست اضافه شد ", Toast.LENGTH_LONG).show();
                     finish();
                 }
@@ -155,5 +166,47 @@ public class AddNewGroupingActivity extends AppCompatActivity {
     private void hideKeyBord() {
         Tools.hideKeyBord(editText_category, this);
     }
+
+
+    public Boolean checkStoregPermition() {
+        String[] permission = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+        if (ContextCompat.checkSelfPermission(this, permission[0]) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(AddNewGroupingActivity.this, new String[]{permission[0]}, 200);
+        } else if (ContextCompat.checkSelfPermission(this, permission[1]) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(AddNewGroupingActivity.this, new String[]{permission[1]}, 200);
+        } else {
+            return true;
+        }
+        return false;
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 200) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                Toast.makeText(this, "Storage Permission Granted", Toast.LENGTH_SHORT).show();
+
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(" دسترسی به مجوزها ");
+                builder.setPositiveButton("برو به تنظیمات", (dialog, which) -> {
+                    dialog.cancel();
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    Uri uri = Uri.fromParts("package", getPackageName(), null);
+                    intent.setData(uri);
+                    startActivityForResult(intent, 200);
+                });
+                builder.setNegativeButton("بستن", (dialog, which) -> {
+                    dialog.cancel();
+//                        finish();
+                });
+                builder.show();
+            }
+        }
+    }
+
 
 }
