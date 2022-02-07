@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="280dp"
     android:background="#676767"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:padding="15dp"
     android:rotation="180">
@@ -16,12 +18,10 @@
         android:orientation="vertical"
         android:rotation="180">
 
-
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.Design.TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:hint="نام"
             android:textColorHint="@color/tosi_lite"
             app:endIconMode="clear_text"
@@ -72,6 +72,7 @@
                 android:hint="پسورد"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
+                android:paddingRight="8dp"
                 android:paddingBottom="15dp"
                 android:textColor="@color/white_text"
                 android:textColorHint="@color/tosi_lite"
@@ -80,13 +81,14 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <Button
+        <TextView
             android:id="@+id/sign_up"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginHorizontal="50dp"
             android:layout_marginTop="20dp"
-            android:backgroundTint="@color/red_toolbar"
+            android:background="@drawable/ripple_sheet_sign_up"
             android:fontFamily="@font/iran_sans"
             android:gravity="center"
             android:paddingHorizontal="40dp"
