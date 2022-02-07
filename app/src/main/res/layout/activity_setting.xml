@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_text"
+    tools:context=".activity.setting.SettingActivity">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@color/white"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Design.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="نام"
+                android:textColorHint="@color/tosi_lite"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/tosi_lite"
+                app:hintTextColor="@color/tosi_lite">
+
+                <EditText
+                    android:id="@+id/et_name_signup"
+                    style="@style/Widget.AppCompat.EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/tosi_lite"
+                    android:drawableStart="@drawable/ic_outline_account_circle_24"
+                    android:drawablePadding="10dp"
+                    android:ems="10"
+                    android:fontFamily="@font/iran_sans"
+                    android:gravity="right"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPersonName"
+                    android:paddingBottom="15dp"
+                    android:singleLine="true"
+                    android:textColor="#252525"
+
+                    android:textSize="18dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Design.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/tosi_lite"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/tosi_lite"
+                app:hintTextColor="@color/tosi_lite">
+
+                <EditText
+                    android:id="@+id/et_pass_signup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/tosi_lite"
+                    android:drawableStart="@drawable/ic_outline_vpn_key_24"
+                    android:drawablePadding="10dp"
+                    android:ems="10"
+                    android:fontFamily="@font/iran_sans"
+                    android:gravity="right"
+                    android:hint="پسورد"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="15dp"
+                    android:textColor="#252525"
+                    android:textColorHint="@color/tosi_lite"
+                    android:textSize="18dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:id="@+id/sign_up"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ripple_sheet_sign_up"
+                android:fontFamily="@font/iran_sans"
+                android:gravity="center"
+                android:paddingHorizontal="40dp"
+                android:paddingVertical="10dp"
+                android:text="ثبت تغییرات"
+                android:textColor="@color/white_text"
+                android:textSize="18dp" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
