@@ -1,15 +1,12 @@
 package com.example.foodorderiing.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -55,19 +52,6 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-
-
-//
-//        try{
-//            final int takeFlags =  (Intent.FLAG_GRANT_READ_URI_PERMISSION
-//                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-//            context.getContentResolver().takePersistableUriPermission(Uri.parse(orderDetail.picture), takeFlags);
-//            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse(orderDetail.picture));
-//            holder.picture.setImageBitmap(bitmap);
-//        }
-//        catch (Exception e){
-//            e.printStackTrace();
-//        }
     }
 
 
@@ -83,7 +67,6 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         TextView price_detail;
         TextView amount_detail;
         ImageView picture;
-
 
         public ViewHolder(View itemView) {
             super(itemView);
