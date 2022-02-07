@@ -3,10 +3,8 @@ package com.example.foodorderiing.activity.customer;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -19,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.CustomerDao;
+import com.example.foodorderiing.helper.App;
+import com.example.foodorderiing.helper.Tools;
 import com.example.foodorderiing.model.Customer;
 import com.google.gson.Gson;
 
@@ -40,7 +40,6 @@ public class AddNewCustomerActivity extends AppCompatActivity {
 
         initDataBase();
         init();
-//        initGradiant();
         hideKayBord();
 
         if (getIntent().getExtras() != null){
@@ -52,12 +51,11 @@ public class AddNewCustomerActivity extends AppCompatActivity {
 
         actionSave();
         actionCancel();
-        phone.addTextChangedListener(new PhoneNumberFormattingTextWatcher("IR"));
     }
 
 
     private void initDataBase(){
-        db = DatabaseHelper.getInstance(getApplicationContext());
+        db = App.getDatabase();
         dao = db.customerDao();
     }
 
@@ -68,7 +66,6 @@ public class AddNewCustomerActivity extends AppCompatActivity {
         address = findViewById(R.id.et_get_address_customer);
         save = findViewById(R.id.tv_save_customer);
         cancel = findViewById(R.id.tv_cancel_customer);
-//        mainBack = findViewById(R.id.mainRelative);
     }
 
 
@@ -81,9 +78,7 @@ public class AddNewCustomerActivity extends AppCompatActivity {
 
 
     private void actionSave(){
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        save.setOnClickListener(v -> {
                 String cName = name.getText().toString();
                 String cPhone = phone.getText().toString();
                 String cAddress = address.getText().toString();
@@ -110,62 +105,21 @@ public class AddNewCustomerActivity extends AppCompatActivity {
                     finish();
                 }
                 overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
-            }
-
         });
     }
 
 
     private void actionCancel(){
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        cancel.setOnClickListener(v -> {
                 finish();
                 overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
-            }
         });
     }
 
 
     private void hideKayBord(){
-            name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (!hasFocus) {
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(v.getWindowToken() , 0);
-                    }
-
-                }
-            });
-
-            phone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (!hasFocus) {
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(v.getWindowToken() , 0);
-                    }
-
-                }
-            });
-
-            address.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (!hasFocus) {
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(v.getWindowToken() , 0);
-                    }
-
-                }
-            });
+        Tools.hideKeyBord(name, this);
+        Tools.hideKeyBord(phone, this);
+        Tools.hideKeyBord(address, this);
         }
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        }
-
 }

@@ -23,12 +23,13 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.foodorderiing.Permition;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
 import com.example.foodorderiing.database.dao.ProductDao;
 import com.example.foodorderiing.design.NumberTextWatcherForThousand;
+import com.example.foodorderiing.helper.App;
+import com.example.foodorderiing.helper.Permition;
 import com.example.foodorderiing.helper.Tools;
 import com.example.foodorderiing.model.Grouping;
 import com.example.foodorderiing.model.Product;
@@ -49,7 +50,6 @@ public class AddNewProductActivity extends AppCompatActivity {
     private ProductDao dao_product;
     private GroupingDao dao_grouping;
     private Product p = null;
-    private Uri uri;
     private FloatingActionButton fab;
     private String save;
     private String TIMEMILLISECOND = String.valueOf(System.currentTimeMillis());
@@ -85,7 +85,7 @@ public class AddNewProductActivity extends AppCompatActivity {
 
 
     private void initDataBase(){
-        db = DatabaseHelper.getInstance(getApplicationContext());
+        db = App.getDatabase();
         dao_product = db.productDao();
         dao_grouping = db.groupingDao();
     }
@@ -111,6 +111,7 @@ public class AddNewProductActivity extends AppCompatActivity {
                 CropImage.activity()
                     .setGuidelines(CropImageView.Guidelines.ON)
                     .start(this);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         });
     }
@@ -131,54 +132,23 @@ public class AddNewProductActivity extends AppCompatActivity {
                 Exception error = result.getError();
             }
         }
-
-
     }
 
 
     private void hideKeyBord(){
-        et_name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(v.getWindowToken() , 0);
-                }
-            }
-        });
-
-        et_price.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(v.getWindowToken() , 0);
-                }
-            }
-        });
-
-
-        autoTextView_grouing.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(v.getWindowToken() , 0);
-                }
-            }
-        });
+        Tools.hideKeyBord(et_name, this);
+        Tools.hideKeyBord(et_price, this);
+        Tools.hideKeyBord(autoTextView_grouing, this);
     }
+
 
 
     private void initOutoTextView(){
         adapter_autocomplete = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_dropdown_item_1line,dao_grouping.getname());
         autoTextView_grouing.setAdapter(adapter_autocomplete);
         autoTextView_grouing.setThreshold(0);
-        autoTextView_grouing.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        autoTextView_grouing.setOnItemClickListener((parent, view, position, id) -> {
 //                parent.getItemAtPosition(position)
-            }
         });
 
         autoTextView_grouing.setOnFocusChangeListener((v, hasFocus) -> {
@@ -193,7 +163,6 @@ public class AddNewProductActivity extends AppCompatActivity {
 
     private void actionSave(){
         tv_save.setOnClickListener(v -> {
-
                 String nameProduct = et_name.getText().toString();
                 String categoryProduct = autoTextView_grouing.getText().toString();
                 String priceProduct = et_price.getText().toString();
@@ -234,14 +203,9 @@ public class AddNewProductActivity extends AppCompatActivity {
 
 
     private void actionCancel(){
-        tv_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        tv_cancel.setOnClickListener(v -> {
                 finish();
                 overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
-            }
         });
     }
-
-
 }
