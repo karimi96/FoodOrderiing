@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginHorizontal="20dp"
+    app:cardCornerRadius="15dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="10dp">
+
+        <com.uncopt.android.widget.text.justify.JustifiedTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/iran_sans"
+            android:text="راهنما"
+            android:textColor="#696A6A"
+            android:textSize="18dp" />
+
+        <com.uncopt.android.widget.text.justify.JustifiedTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/iran_sans"
+            android:text="ابزاری بسیار ساده برای مدیریت اطلاعات رستوران!"
+            android:textColor="#696A6A"
+            android:textSize="16dp" />
+
+        <com.uncopt.android.widget.text.justify.JustifiedTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/iran_sans"
+            android:text="نکته : جهت حذف و ویرایش محصولات و مشتریان و یا دسته بندی ها از لیست هر کدام از موارد‌‌‌ ،  بر روی یکی از آیتم های لیست کلیک کرده تا پنجره حذف و ادیت نمایش داده شود."
+            android:textColor="#696A6A"
+            android:textSize="16dp" />
+
+        <com.uncopt.android.widget.text.justify.JustifiedTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/iran_sans"
+            android:text="توجه : در حذف آیتم ها و اطلاعات این نکته را به خاطر داشته باشید که اطلاعات سیستم وابسته به یکدیگر هستند و ممکن است با حذف برخی اطلاعات مرتبط ، برخی دیگر اطلاعات دیگر حذف شود."
+            android:textColor="#696A6A"
+            android:textSize="16dp" />
+
+        <!--    <TextView-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:text="گروه برنامه نویسی بامکوک"-->
+        <!--        android:textSize="16dp"-->
+        <!--        android:fontFamily="@font/iran_sans"-->
+        <!--        android:layout_marginTop="20dp"/>-->
+        <!--    <TextView-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:text="bamcooc.ir"-->
+        <!--        android:textSize="16dp"-->
+        <!--        android:fontFamily="@font/iran_sans"-->
+        <!--        />-->
+
+
+        <TextView
+            android:id="@+id/close_dialog_guid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/iran_sans"
+            android:text="بستن"
+            android:textColor="@color/red_toolbar"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
