@@ -17,6 +17,7 @@
         android:paddingBottom="10dp">
 
         <com.uncopt.android.widget.text.justify.JustifiedTextView
+            android:id="@+id/text11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/iran_sans"
@@ -25,47 +26,34 @@
             android:textSize="18dp" />
 
         <com.uncopt.android.widget.text.justify.JustifiedTextView
+            android:id="@+id/text22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/iran_sans"
             android:text="ابزاری بسیار ساده برای مدیریت اطلاعات رستوران!"
             android:textColor="#696A6A"
-            android:textSize="16dp" />
+            android:textSize="14dp" />
 
         <com.uncopt.android.widget.text.justify.JustifiedTextView
+            android:id="@+id/text33"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/iran_sans"
             android:text="نکته : جهت حذف و ویرایش محصولات و مشتریان و یا دسته بندی ها از لیست هر کدام از موارد‌‌‌ ،  بر روی یکی از آیتم های لیست کلیک کرده تا پنجره حذف و ادیت نمایش داده شود."
             android:textColor="#696A6A"
-            android:textSize="16dp" />
+            android:textSize="14dp" />
 
         <com.uncopt.android.widget.text.justify.JustifiedTextView
+            android:id="@+id/text44"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/iran_sans"
             android:text="توجه : در حذف آیتم ها و اطلاعات این نکته را به خاطر داشته باشید که اطلاعات سیستم وابسته به یکدیگر هستند و ممکن است با حذف برخی اطلاعات مرتبط ، برخی دیگر اطلاعات دیگر حذف شود."
             android:textColor="#696A6A"
-            android:textSize="16dp" />
-
-        <!--    <TextView-->
-        <!--        android:layout_width="wrap_content"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:text="گروه برنامه نویسی بامکوک"-->
-        <!--        android:textSize="16dp"-->
-        <!--        android:fontFamily="@font/iran_sans"-->
-        <!--        android:layout_marginTop="20dp"/>-->
-        <!--    <TextView-->
-        <!--        android:layout_width="wrap_content"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:text="bamcooc.ir"-->
-        <!--        android:textSize="16dp"-->
-        <!--        android:fontFamily="@font/iran_sans"-->
-        <!--        />-->
-
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/close_dialog_guid"
@@ -76,7 +64,7 @@
             android:fontFamily="@font/iran_sans"
             android:text="بستن"
             android:textColor="@color/red_toolbar"
-            android:textSize="16dp" />
+            android:textSize="14dp" />
 
     </LinearLayout>
 

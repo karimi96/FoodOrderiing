@@ -21,6 +21,7 @@ import com.example.foodorderiing.activity.grouping.GroupingActivity;
 import com.example.foodorderiing.activity.listOrder.ListOrder;
 import com.example.foodorderiing.activity.order.OrderActivity;
 import com.example.foodorderiing.activity.product.ProductActivity;
+import com.example.foodorderiing.activity.setting.SettingActivity;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.CustomerDao;
 import com.example.foodorderiing.database.dao.GroupingDao;
@@ -337,15 +338,15 @@ public class HomeActivity extends AppCompatActivity {
 
     private void setDrawer(){
         setting_drawer.setOnClickListener(v -> {
-
+            startActivity(new Intent(HomeActivity.this, SettingActivity.class));
         });
 
         guid_drawer.setOnClickListener(v -> {
-            new CustomDialog().showDialog(HomeActivity.this , R.layout.dialog_guid , drawer);
+            new CustomDialog().showDialog(HomeActivity.this , R.layout.dialog_guid , drawer, this);
         });
 
         aboutUs_drawer.setOnClickListener(v -> {
-            new CustomDialog().showDialog(HomeActivity.this , R.layout.dialog_about_us , drawer);
+            new CustomDialog().showDialog(HomeActivity.this , R.layout.dialog_about_us , drawer, this);
         });
 
         exit_drawer.setOnClickListener(v -> {
