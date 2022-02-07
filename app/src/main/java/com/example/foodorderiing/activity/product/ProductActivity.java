@@ -27,6 +27,8 @@ import com.example.foodorderiing.adapter.ProductAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
 import com.example.foodorderiing.database.dao.ProductDao;
+import com.example.foodorderiing.helper.App;
+import com.example.foodorderiing.helper.Tools;
 import com.example.foodorderiing.model.Grouping;
 import com.example.foodorderiing.model.Product;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -46,18 +48,15 @@ public class ProductActivity extends AppCompatActivity {
     private DatabaseHelper db;
     private ProductDao dao_product;
     private GroupingDao dao_grouping;
-    private GroupInProductAdapter groupInProductAdapter;
     private Boolean for_order = false ;
     private TextView noProduct ;
-    private String nameGrouping;
-//    private int row_index = 0, position;
+    private String nameGrouping ;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
-
 
         if(getIntent().getExtras() != null){
             for_order = getIntent().getBooleanExtra("for_order", false);
@@ -95,9 +94,8 @@ public class ProductActivity extends AppCompatActivity {
         noProduct = findViewById(R.id.noProduct);
     }
 
-
-    private void initDataBase(){
-        db = DatabaseHelper.getInstance(getApplicationContext());
+    private void initDataBase() {
+        db = App.getDatabase();
         dao_grouping = db.groupingDao();
         dao_product = db.productDao();
     }
@@ -110,7 +108,6 @@ public class ProductActivity extends AppCompatActivity {
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setMaxWidth(Integer.MAX_VALUE);
         searchView.setBackground(getResources().getDrawable(R.drawable.ripple_all));
-        searchView.setQueryHint("جست و جو...");
 
         TextView searchText = (TextView) searchView.findViewById(R.id.search_src_text);
         Typeface myCustomFont = Typeface.createFromAsset(getAssets(),"font/iran_sans.ttf");
@@ -123,7 +120,7 @@ public class ProductActivity extends AppCompatActivity {
         EditText searchEdit = ((EditText)searchView.findViewById(androidx.appcompat.R.id.search_src_text));
         searchEdit.setTextColor(getResources().getColor(R.color.white_text));
         searchEdit.setHintTextColor(getResources().getColor(R.color.white_text));
-        searchEdit.setHint("");
+        searchEdit.setHint("جست و جو کنید...");
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -160,8 +157,9 @@ public class ProductActivity extends AppCompatActivity {
             adapter_gro = new GroupInProductAdapter(groupingArrayList , this ,nameGrouping , new GroupInProductAdapter.Listener() {
                 @Override
                 public void onClick(int pos , Grouping g) {
+                    Log.e("asd", "product: get position " + pos );
                     if(pos == 0 ){
-                        nameGrouping = null ;
+                        nameGrouping = null;
                     }else {
                         nameGrouping = g.name;
                     }
@@ -174,52 +172,50 @@ public class ProductActivity extends AppCompatActivity {
 
     private void initListProduct(){
         Log.e("qqqq" , "initListProduct: " + nameGrouping );
-        if(adapter_pro != null ){
-            if(nameGrouping == null || nameGrouping.isEmpty()) {
-                adapter_pro.addList(dao_product.getProductList());
-            }else {
-                adapter_pro.addList(dao_product.get_product_by_category(nameGrouping));
+        if(adapter_pro != null ) {
+            if (dao_product.getProductList().size() != 0) {
+                recyclerView_category.setVisibility(View.VISIBLE);
+
+//                if(dao_product.getProductList().size() == 0 || dao_product.get_product_by_category(nameGrouping).size() == 0) noProduct.setVisibility(View.VISIBLE);
+//                recyclerView_category.setVisibility(View.GONE);
+
+                if (nameGrouping == null || nameGrouping.isEmpty()) adapter_pro.addList(dao_product.getProductList());
+                else adapter_pro.addList(dao_product.get_product_by_category(nameGrouping));
+
+            } else {
+                recyclerView_category.setVisibility(View.GONE);
+                noProduct.setVisibility(View.VISIBLE);
             }
         }
     }
 
 
+
     public void set_recycler_product(){
                 recyclerView_product.setHasFixedSize(true);
-                adapter_pro = new ProductAdapter(new ArrayList<>(), ProductActivity.this , new ProductAdapter.Listener() {
-                    @Override
-                    public void onClick(Product product , int pos , String name ) {
+                adapter_pro = new ProductAdapter(new ArrayList<>(), ProductActivity.this , (product, pos, name) -> {
                         if(for_order){
                             for_order = getIntent().getBooleanExtra("for_order",false);
                             Intent returnIntent = new Intent();
                             returnIntent.putExtra("json_product", new Gson().toJson(product));
                             setResult(Activity.RESULT_OK, returnIntent);
                             finish();
-                        }else {
-                            adapter_pro.showDialogSheet(pos , name );
-                        }
-                    }
+                        }else adapter_pro.showButtonSheet(pos , name );
+
                 });
                 recyclerView_product.setAdapter(adapter_pro);
             }
 
 
     private void setReverseRecycler(){
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setStackFromEnd(true);
-        linearLayoutManager.setReverseLayout(true);
-        recyclerView_product.setLayoutManager(linearLayoutManager);
+        Tools.setReverseRecycler(this,recyclerView_product);
     }
 
 
     public void click_fab(){
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(ProductActivity.this,AddNewProductActivity.class);
-                startActivity(intent);
+        fab.setOnClickListener(v -> {
+                startActivity(new Intent(ProductActivity.this,AddNewProductActivity.class));
                 overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
-            }
         });
     }
 
@@ -228,11 +224,8 @@ public class ProductActivity extends AppCompatActivity {
         recyclerView_product.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if(dy >0 ){
-                    fab.hide();
-                }else {
-                    fab.show();
-                }
+                if(dy >0 )fab.hide();
+                else fab.show();
                 super.onScrolled(recyclerView, dx, dy);
             }
         });

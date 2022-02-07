@@ -6,11 +6,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.product.AddNewProductActivity;
@@ -35,8 +31,6 @@ import com.google.gson.Gson;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.crypto.ShortBufferException;
 
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> implements Filterable{
@@ -126,7 +120,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
 
-    public void showDialogSheet(int pos , String name){
+    public void showButtonSheet(int pos , String name){
         final Dialog dialog_sheet = new Dialog(context);
         dialog_sheet.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_sheet.setContentView(R.layout.bottom_sheet_product);
@@ -149,12 +143,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         });
 
         delete.setOnClickListener(v -> {
-            showAlertDialog(pos, dialog_sheet);
+            showAlertDialog(pos, dialog_sheet ,name);
         });
     }
 
 
-    private void showAlertDialog(int pos, Dialog dialog_sheet){
+    private void showAlertDialog(int pos, Dialog dialog_sheet, String name){
         new AlertDialog.Builder(context)
                 .setTitle("حذف")
                 .setMessage("ایا مایلید این مورد را حذف کنید؟")
@@ -169,7 +163,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                         notifyItemRangeChanged(pos,list.size());
                         notifyDataSetChanged();
                         dialog_sheet.dismiss();
-                        Toast.makeText(context, "با موفقیت حذف شد", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, name + " با موفقیت حذف شد ", Toast.LENGTH_LONG).show();
                     }
                 })
                 .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
@@ -209,6 +203,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             FilterResults results = new FilterResults();
             results.values = filterdNewList;
             results.count = filterdNewList.size();
+            if(results.count == 0 ) Toast.makeText(context, "موردی یافت نشد", Toast.LENGTH_SHORT).show();
             return results;
         }
 
@@ -229,10 +224,25 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
 
-    public  void clear(){
-        list_search.clear();
+    public void add(Product product){
+        list.add(list.size(),product);
+        notifyItemInserted(list.size());
+    }
+
+    public void update(Product product, int pos){
+//        list.get(0) = product;
+        notifyItemChanged(pos,product);
+    }
+
+    public void remove(int pos){
+        list.remove(pos);
+        notifyItemRemoved(pos);
+    }
+
+    public void clear(){
         list.clear();
         notifyDataSetChanged();
     }
+
 
 }
