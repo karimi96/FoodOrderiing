@@ -5,31 +5,28 @@
     android:layout_height="wrap_content"
     android:background="@color/white_text">
 
-
     <androidx.cardview.widget.CardView
         android:id="@+id/neumorphCardView1"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="230dp"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="3dp"
         android:layout_marginBottom="7dp"
-        app:cardElevation="4dp"
         android:foreground="@drawable/ripple_all"
         android:outlineSpotShadowColor="@color/red_toolbar"
-        app:cardCornerRadius="8dp">
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp">
 
         <ImageView
             android:id="@+id/img_back_product"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:src="@drawable/lizania" />
-
+            android:src="@drawable/defult_pic" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -38,19 +35,18 @@
                 android:background="@drawable/design_product_activity">
 
                 <LinearLayout
-                    android:weightSum="3"
                     android:id="@+id/linear_name"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
 
                     <TextView
                         android:id="@+id/tv_name_food_product"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="5dp"
-                        android:layout_weight="2.3"
                         android:fontFamily="@font/iran_sans"
                         android:gravity="right|center_vertical"
                         android:text="پاستا"
@@ -58,65 +54,85 @@
                         android:textSize="18dp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_weight="0.7"
-                        android:id="@+id/tv_price_product"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="10dp"
-                        android:gravity="end"
-                        android:fontFamily="@font/irsansfanum"
-                        android:text="39"
-                        android:textColor="@color/tosi_lite"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
+                    <!--                    <TextView-->
+                    <!--                        android:layout_weight="0.7"-->
+                    <!--                        android:id="@+id/tv_price_product"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="match_parent"-->
+                    <!--                        android:layout_marginTop="5dp"-->
+                    <!--                        android:layout_marginEnd="10dp"-->
+                    <!--                        android:gravity="end"-->
+                    <!--                        android:fontFamily="@font/irsansfanum"-->
+                    <!--                        android:text="39"-->
+                    <!--                        android:textColor="@color/tosi_lite"-->
+                    <!--                        android:textSize="18dp"-->
+                    <!--                        android:textStyle="bold" />-->
 
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_below="@id/linear_name"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/linear_name"
+                    android:orientation="horizontal">
 
                     <TextView
-                        android:layout_weight="2"
                         android:id="@+id/tv_kind_of_food"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
+                        android:layout_weight="1"
                         android:fontFamily="@font/iran_sans"
-                        android:text="ایتالیایی"
                         android:gravity="right"
                         android:paddingBottom="5dp"
+                        android:text="ایتالیایی"
                         android:textColor="@color/tosi_lite"
-                        android:textSize="13dp" />
+                        android:textSize="14dp" />
 
-                    <RatingBar
-                        android:id="@+id/ratingBar"
-                        style="@style/Widget.AppCompat.RatingBar.Small"
+                    <!--                    <RatingBar-->
+                    <!--                        android:id="@+id/ratingBar"-->
+                    <!--                        style="@style/Widget.AppCompat.RatingBar.Small"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_alignParentEnd="true"-->
+                    <!--                        android:layout_alignParentBottom="true"-->
+                    <!--                        android:layout_marginEnd="10dp"-->
+                    <!--                        android:numStars="6"-->
+                    <!--                        android:progressBackgroundTint="@color/white_text"-->
+                    <!--                        android:progressTint="@color/red_toolbar"-->
+                    <!--                        android:rating="3.3"-->
+                    <!--                        android:stepSize="0.5" />-->
+
+                    <TextView
+                        android:id="@+id/tv_price_product"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
+                        android:layout_height="match_parent"
                         android:layout_marginEnd="10dp"
-                        android:numStars="6"
-                        android:progressBackgroundTint="@color/white_text"
-                        android:progressTint="@color/red_toolbar"
-                        android:rating="3.3"
-                        android:stepSize="0.5" />
+                        android:fontFamily="@font/irsansfanum"
+                        android:gravity="end|center"
+                        android:text="39,000"
+                        android:textColor="@color/tosi_lite"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/iran_sans"
+                        android:gravity="end"
+                        android:text="تومان"
+                        android:textColor="@color/red_toolbar"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
             </RelativeLayout>
 
-
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
-
 
 </RelativeLayout>
