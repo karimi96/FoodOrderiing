@@ -1,16 +1,12 @@
 package com.example.foodorderiing.activity.customer;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,24 +14,21 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodorderiing.Permition;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.adapter.CustomerAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.CustomerDao;
 import com.example.foodorderiing.design.RecyclerTouchListener;
+import com.example.foodorderiing.helper.App;
+import com.example.foodorderiing.helper.Permition;
 import com.example.foodorderiing.helper.Tools;
 import com.example.foodorderiing.model.Customer;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -62,9 +55,7 @@ public class CustomerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer);
 
-        if (getIntent() != null) {
-            for_order = getIntent().getBooleanExtra("for_order", false);
-        }
+        if (getIntent() != null) for_order = getIntent().getBooleanExtra("for_order", false);
 
         set_toolBar();
         initID();
@@ -79,23 +70,18 @@ public class CustomerActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onResume() {
         super.onResume();
         if (adapter != null) {
-            if(dao.getCustomerList().size() < 0 ) {
-                noCustomer.setVisibility(View.VISIBLE);
-            }else {
-                noCustomer.setVisibility(View.GONE);
-                adapter.addList(dao.getCustomerList());
-            }
+            if(dao.getCustomerList().size() != 0 ) { noCustomer.setVisibility(View.GONE);
+            adapter.addList(dao.getCustomerList());}
+            else noCustomer.setVisibility(View.VISIBLE);
         }
     }
 
-
     private void initDataBase() {
-        db = DatabaseHelper.getInstance(getApplicationContext());
+        db = App.getDatabase();
         dao = db.customerDao();
     }
 
@@ -129,7 +115,6 @@ public class CustomerActivity extends AppCompatActivity {
         searchText.setTypeface(myCustomFont);
         searchText.setTextSize(14);
 
-
         // for underline
         View v = searchView.findViewById(androidx.appcompat.R.id.search_plate);
         v.setBackgroundColor(Color.parseColor("#ef4224"));
@@ -138,8 +123,7 @@ public class CustomerActivity extends AppCompatActivity {
         EditText searchEdit = ((EditText)searchView.findViewById(androidx.appcompat.R.id.search_src_text));
         searchEdit.setTextColor(getResources().getColor(R.color.white_text));
         searchEdit.setHintTextColor(getResources().getColor(R.color.white_text));
-        searchEdit.setHint("");
-
+        searchEdit.setHint("جست وجو کنید...");
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -157,40 +141,29 @@ public class CustomerActivity extends AppCompatActivity {
     }
 
 
-
     private void set_recyclerView() {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new CustomerAdapter(new ArrayList<>(), this, new CustomerAdapter.Listener() {
-            @Override
-            public void onClickListener(Customer customer, int pos, String name) {
-                customerr = customer;
-                poss = pos;
-                if (for_order) {
-                    Intent returnIntent = new Intent();
-                    returnIntent.putExtra("json_customer", new Gson().toJson(customer));
-                    setResult(Activity.RESULT_OK, returnIntent);
-                    finish();
-                } else {
-                    adapter.showButtonSheet(pos, name , customer.customer_id);
-                }
-            }
+        adapter = new CustomerAdapter(new ArrayList<>(), this, (customer, pos, name) -> {
+                    customerr = customer;
+                    poss = pos;
+                    if (for_order) {
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra("json_customer", new Gson().toJson(customer));
+                        setResult(Activity.RESULT_OK, returnIntent);
+                        finish();
+                    } else adapter.showButtonSheet(pos, name , customer.customer_id);
         });
         recyclerView.setAdapter(adapter);
     }
-
-
 
 
     private void hide_fab() {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (dy > 0) {
-                    fab.hide();
-                } else {
-                    fab.show();
-                }
+                if (dy > 0) fab.hide();
+                else fab.show();
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
@@ -201,22 +174,17 @@ public class CustomerActivity extends AppCompatActivity {
             recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (dy > 0) {
-                    fab_gotoEnd.show();
-                } else {
-                    fab_gotoEnd.hide();
-                }
+                if (dy > 0) fab_gotoEnd.show();
+                else fab_gotoEnd.hide();
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
     }
 
 
-
     private void set_fab() {
         fab.setOnClickListener(v -> {
-                Intent intent = new Intent(CustomerActivity.this, AddNewCustomerActivity.class);
-                startActivity(intent);
+                startActivity( new Intent(CustomerActivity.this, AddNewCustomerActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
     }
@@ -232,12 +200,8 @@ public class CustomerActivity extends AppCompatActivity {
     }
 
 
-
     private void setReverseRecycler(){
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setStackFromEnd(true);
-        linearLayoutManager.setReverseLayout(true);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        Tools.setReverseRecycler(this,recyclerView);
     }
 
 
@@ -291,22 +255,4 @@ public class CustomerActivity extends AppCompatActivity {
                 });
         recyclerView.addOnItemTouchListener(touchListener);
     }
-
-
-
-
-
-///    public Boolean checkPermission() {
-//        String permition = Manifest.permission.CALL_PHONE;
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE ) == PackageManager.PERMISSION_DENIED) {
-//            ActivityCompat.requestPermissions(this, new String[]{permition}, CALL_PERMISSION_CODE);
-//        }
-//        else {
-//            return true;
-//        }
-//        return false;
-//    }
-
-
-
 }

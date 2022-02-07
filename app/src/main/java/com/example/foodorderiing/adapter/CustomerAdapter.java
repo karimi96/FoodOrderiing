@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.CustomerDao;
 import com.example.foodorderiing.database.dao.OrderDao;
 import com.example.foodorderiing.database.dao.OrderDetailDao;
+import com.example.foodorderiing.helper.App;
 import com.example.foodorderiing.model.Customer;
 import com.example.foodorderiing.model.Order;
 import com.google.gson.Gson;
@@ -131,7 +133,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
 
 
     private void initDataBase(){
-            database = DatabaseHelper.getInstance(context.getApplicationContext());
+            database = App.getDatabase();
             customerDao = database.customerDao();
             orderDao = database.orderDao();
             orderDetailDao = database.orderDetailDao();
@@ -175,6 +177,9 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
                     })
                     .create()
                     .show();
+        TextView textView = (TextView) dialog_sheet.findViewById(android.R.id.message);
+        Typeface face=Typeface.createFromAsset(context.getAssets(),"fonts/FONT");
+        textView.setTypeface(face);
         }
 
 
@@ -223,6 +228,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
             FilterResults results = new FilterResults();
             results.values = filterdNewList;
             results.count = filterdNewList.size();
+            if(results.count == 0 ) Toast.makeText(context, "موردی یافت نشد", Toast.LENGTH_SHORT).show();
             return results;
         }
 
