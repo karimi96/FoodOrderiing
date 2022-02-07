@@ -1,6 +1,13 @@
 package com.example.foodorderiing.helper;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -108,7 +115,12 @@ public class Tools {
     public static byte[] getBytes(Uri uri)  {
         ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
 
+//Bitmap bi= null;
+
         try {
+//            bi.compress(Bitmap.CompressFormat.JPEG, 100, byteBuffer);
+//            Log.d("TAG", "Width :" + bi.getWidth() + " Height :" + bi.getHeight());
+
             FileInputStream file = new FileInputStream(uri.getPath());
             int bufferSize = 1024;
             byte[] buffer = new byte[bufferSize];
@@ -125,11 +137,15 @@ public class Tools {
 
 
     public static String saveFile(byte[] data,File DESTINY_DIR, String fileName) {
+        Bitmap bitmap = null;
         if (!DESTINY_DIR.exists()) DESTINY_DIR.mkdirs();
 
         File mainPicture = new File(DESTINY_DIR, fileName);
         try {
             FileOutputStream fos = new FileOutputStream(mainPicture);
+//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+//            Log.d("TAG", "Width :" + bitmap.getWidth() + " Height :" + bitmap.getHeight());
+
             fos.write(data);
             fos.close();
             return mainPicture.getPath();
@@ -138,4 +154,84 @@ public class Tools {
         }
         return null;
     }
+
+//
+//    private Bitmap decodeFile(File f) {
+//        Bitmap b = null;
+//
+//        //Decode image size
+//        BitmapFactory.Options o = new BitmapFactory.Options();
+//        o.inJustDecodeBounds = true;
+//
+//        FileInputStream fis = null;
+//        try {
+//            fis = new FileInputStream(f);
+//            BitmapFactory.decodeStream(fis, null, o);
+//            fis.close();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        int IMAGE_MAX_SIZE = 1024;
+//        int scale = 1;
+//        if (o.outHeight > IMAGE_MAX_SIZE || o.outWidth > IMAGE_MAX_SIZE) {
+//            scale = (int) Math.pow(2, (int) Math.ceil(Math.log(IMAGE_MAX_SIZE /
+//                    (double) Math.max(o.outHeight, o.outWidth)) / Math.log(0.5)));
+//        }
+//
+//        //Decode with inSampleSize
+//        BitmapFactory.Options o2 = new BitmapFactory.Options();
+//        o2.inSampleSize = scale;
+//        try {
+//            fis = new FileInputStream(f);
+//            b = BitmapFactory.decodeStream(fis, null, o2);
+//            fis.close();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        Log.d("TAG", "Width :" + b.getWidth() + " Height :" + b.getHeight());
+//
+//        destFile = new File(file, "img_"
+//                + dateFormatter.format(new Date()).toString() + ".png");
+//        try {
+//            FileOutputStream out = new FileOutputStream(destFile);
+//            b.compress(Bitmap.CompressFormat.PNG, 100, out);
+//            File file = new File(String.valueOf(b));
+//            out.flush();
+//            out.close();
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return b;
+//    }
+//
+//
+//    private void j(){
+//    }
+
+
+
+    public static void setReverseRecycler(Context context, RecyclerView recyclerView){
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+        linearLayoutManager.setStackFromEnd(true);
+        linearLayoutManager.setReverseLayout(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
+    }
+
+
+    public static void hideKeyBord(EditText editText, Context context) {
+        editText.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
+        });
+    }
+
 }
