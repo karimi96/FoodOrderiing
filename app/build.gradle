@@ -90,6 +90,9 @@ dependencies {
     // Image Cropper
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
 
+    //justified
+    implementation 'com.uncopt:android.justified:1.0'
+
 }
 
 
