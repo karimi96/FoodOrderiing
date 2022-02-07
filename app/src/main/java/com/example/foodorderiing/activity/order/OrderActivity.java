@@ -1,19 +1,26 @@
 package com.example.foodorderiing.activity.order;
 
+import android.annotation.SuppressLint;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.customer.CustomerActivity;
@@ -22,6 +29,7 @@ import com.example.foodorderiing.adapter.OrderAdapter;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.OrderDao;
 import com.example.foodorderiing.database.dao.OrderDetailDao;
+import com.example.foodorderiing.helper.App;
 import com.example.foodorderiing.helper.Tools;
 import com.example.foodorderiing.model.Customer;
 import com.example.foodorderiing.model.Order;
@@ -29,7 +37,6 @@ import com.example.foodorderiing.model.OrderDetail;
 import com.example.foodorderiing.model.Product;
 import com.google.gson.Gson;
 import com.mohamadamin.persianmaterialdatetimepicker.time.RadialPickerLayout;
-import com.mohamadamin.persianmaterialdatetimepicker.time.TimePickerDialog;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
@@ -67,9 +74,6 @@ public class OrderActivity extends AppCompatActivity {
     private static final String TAG = "OrderActivity";
 
 
-
-
-
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,14 +92,6 @@ public class OrderActivity extends AppCompatActivity {
         datePicker();
         getCurrentTime();
         timePicker();
-
-//        TODO (Change color in picker)
-//        CalendarView calendarView;
-//        NumberPicker numberPicker = new NumberPicker(this);
-//        numberPicker.setTextColor(getResources().getColor(R.color.red_toolbar));
-//        PersianDatePickerDialog dd = new PersianDatePickerDialog(this);
-//        DatePickerDialog d = new DatePickerDialog();
-//        d.setThemeDark(true);
     }
 
 
@@ -167,7 +163,7 @@ public class OrderActivity extends AppCompatActivity {
 
 
     private void initDataBase(){
-        db = DatabaseHelper.getInstance(getApplicationContext());
+        db = App.getDatabase();
         dao_order = db.orderDao();
         dao_detail = db.orderDetailDao();
     }
@@ -269,9 +265,6 @@ public class OrderActivity extends AppCompatActivity {
     private void datePicker(){
         Typeface typeface = Typeface.createFromAsset(getAssets(), "shabnam-light.ttf");
         Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.MONTH);
         card_DatePicker.setOnClickListener(v -> {
             picker = new PersianDatePickerDialog(this)
                     .setPositiveButtonString("باشه")
@@ -307,22 +300,52 @@ public class OrderActivity extends AppCompatActivity {
     }
 
 
+//
+//    @SuppressLint("UseCompatLoadingForDrawables")
+//    private void timePicker(){
+//        card_timePicker.setOnClickListener(v -> {
+//            PersianCalendar now = new PersianCalendar();
+//            TimePickerDialog tpd = TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
+//                @Override
+//                public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
+//                    String time = hourOfDay+":"+minute;
+//                    tv_timePicker.setText(time);
+//                }
+//                },
+//                    now.get(PersianCalendar.HOUR_OF_DAY),
+//                    now.get(PersianCalendar.MINUTE),
+//                    true);
+//            tpd.show(getFragmentManager(),"tpd");
+//        });
+//    }
+
+
+
     private void timePicker(){
         card_timePicker.setOnClickListener(v -> {
             PersianCalendar now = new PersianCalendar();
-            TimePickerDialog tpd = TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
+            TimePickerDialog tpd = new TimePickerDialog(OrderActivity.this, R.style.MyTimePickerlight2, new TimePickerDialog.OnTimeSetListener() {
                 @Override
-                public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
+                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                     String time = hourOfDay+":"+minute;
                     tv_timePicker.setText(time);
                 }
-                },
+            },
                     now.get(PersianCalendar.HOUR_OF_DAY),
                     now.get(PersianCalendar.MINUTE),
                     true);
-                    tpd.show(getFragmentManager(),"tpd");
+            tpd.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+            TextView textView = (TextView) tpd.findViewById(android.R.id.message);
+            Typeface face=Typeface.createFromAsset(getAssets(),"fonts/FONT");
+            textView.setTypeface(face);
+//            tpd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            tpd.show();
         });
     }
+
+
+
+
 
 
     private void getCurrentDate(){
