@@ -72,7 +72,7 @@
         android:alpha="0.3"
         android:backgroundTint="@color/red_toolbar"
         android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-        android:visibility="visible"
+        android:visibility="gone"
         app:borderWidth="0dp"
         app:fabCustomSize="30dp"
         app:maxImageSize="30dp"

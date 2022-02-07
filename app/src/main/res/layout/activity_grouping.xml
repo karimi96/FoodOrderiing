@@ -42,7 +42,7 @@
         android:fontFamily="@font/iran_sans"
         android:gravity="center"
         android:text="دسته بندی وجود ندارد"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_grouping"
