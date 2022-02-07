@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="@drawable/ripple_all">
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginBottom="10dp"
+    app:cardCornerRadius="15dp">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:background="@drawable/border_list_order_up"
+        android:background="@drawable/ripple_all"
         android:elevation="1dp"
         android:orientation="vertical"
         android:outlineSpotShadowColor="@color/red_toolbar">
@@ -18,7 +19,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/border_name_up"
+            android:background="#d3d3d3"
             android:orientation="horizontal"
             android:paddingStart="9dp">
 
@@ -139,6 +140,11 @@
                 android:textColor="#747474" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/white_text" />
 
         <include layout="@layout/box_listorder" />
 

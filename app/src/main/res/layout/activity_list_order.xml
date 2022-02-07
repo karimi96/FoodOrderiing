@@ -7,14 +7,15 @@
     android:background="@color/white_text"
     tools:context=".activity.listOrder.ListOrder">
 
-    <include android:id="@+id/toolbar_listOrder"
-        layout="@layout/toolbar_list_order"/>
+    <include
+        android:id="@+id/toolbar_listOrder"
+        layout="@layout/toolbar_list_order" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@id/toolbar_listOrder"
         android:id="@+id/recycler_recordOrdring"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_listOrder"
         android:clipToPadding="false"
         android:paddingTop="10dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -22,12 +23,12 @@
 
     <TextView
         android:id="@+id/noListOrder"
-        android:text="سفارشی ثبت نشده است"
-        android:gravity="center"
-        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
         android:fontFamily="@font/iran_sans"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:gravity="center"
+        android:text="سفارشی ثبت نشده است"
+        android:visibility="gone" />
 
 </RelativeLayout>

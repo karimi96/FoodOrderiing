@@ -46,6 +46,7 @@ public class ListOrder extends AppCompatActivity {
         if(listorder.size() == 0 || listorder.isEmpty())
             noListOrder.setVisibility(View.VISIBLE);
         else listorder.addAll(dao.getOrderList());
+        noListOrder.setVisibility(View.GONE);
     }
 
     private void initDataBase(){
