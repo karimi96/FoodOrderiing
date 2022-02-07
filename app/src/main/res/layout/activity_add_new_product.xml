@@ -42,11 +42,11 @@
         app:backgroundTint="@color/white_text"
         app:borderWidth="0dp"
         app:elevation="10dp"
-        app:rippleColor="#cccccc"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2"
         app:maxImageSize="30dp"
+        app:rippleColor="#cccccc"
         app:tint="@color/red_toolbar" />
 
 
@@ -79,7 +79,6 @@
                 android:fontFamily="@font/iran_sans"
                 android:gravity="right|center"
                 android:hint="اسم محصول"
-                android:imeOptions="actionNext"
                 android:inputType="textPersonName"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="12dp"
@@ -100,7 +99,6 @@
                 android:fontFamily="@font/iran_sans"
                 android:gravity="right|center"
                 android:hint="دسته بندی"
-                android:imeOptions="actionNext"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="12dp"
                 android:singleLine="true"
