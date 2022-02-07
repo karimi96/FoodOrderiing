@@ -19,8 +19,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingHorizontal="50dp">
+        android:layout_height="match_parent">
 
 
         <ImageView
@@ -28,18 +27,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/chef_red"
-            app:layout_constraintBottom_toTopOf="@+id/textView"
-            app:layout_constraintEnd_toEndOf="@+id/textView"
-            app:layout_constraintStart_toStartOf="@+id/textView" />
+            app:layout_constraintBottom_toTopOf="@+id/tv_title_login"
+            app:layout_constraintEnd_toEndOf="@+id/tv_title_login"
+            app:layout_constraintStart_toStartOf="@+id/tv_title_login" />
 
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tv_title_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mj_noor"
             android:gravity="center"
-            android:text="غذا سرای خادم"
+            android:text="غذا سرا"
             android:textColor="@color/white_text"
             android:textSize="50dp"
             android:textStyle="bold"
@@ -53,13 +52,13 @@
             style="@style/Widget.AppCompat.EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="50dp"
             android:backgroundTint="@color/tosi_lite"
             android:drawableStart="@drawable/ic_outline_account_circle_24"
             android:drawablePadding="10dp"
             android:ems="10"
             android:fontFamily="@font/iran_sans"
-            android:hint="نام"
-            android:imeOptions="actionNext"
+            android:hint="نام فروشگاه"
             android:inputType="textPersonName"
             android:paddingBottom="15dp"
             android:singleLine="true"
@@ -74,17 +73,18 @@
             android:id="@+id/et_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="50dp"
             android:backgroundTint="@color/tosi_lite"
             android:drawableStart="@drawable/ic_outline_vpn_key_24"
             android:drawablePadding="10dp"
             android:ems="10"
             android:fontFamily="@font/iran_sans"
             android:gravity="right"
-            android:paddingRight="8dp"
             android:hint="پسورد"
             android:imeOptions="actionDone"
-            android:inputType="textPersonName"
+            android:inputType="textPassword"
             android:maxLength="11"
+            android:paddingRight="8dp"
             android:paddingBottom="15dp"
             android:textColor="@color/white_text"
             android:textColorHint="@color/tosi_lite"
@@ -97,8 +97,8 @@
             android:id="@+id/checkBox_loging"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:checked="false"
             android:layout_marginBottom="8dp"
+            android:checked="false"
             app:layout_constraintBottom_toTopOf="@+id/linear_login"
             app:layout_constraintStart_toStartOf="@+id/linear_login" />
 
@@ -118,6 +118,7 @@
             android:id="@+id/linear_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="50dp"
             android:layout_marginTop="75dp"
             android:background="@drawable/ripple_login"
             android:gravity="center|center_horizontal"
@@ -181,15 +182,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.5" />
+            app:layout_constraintGuide_percent="0.500684" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.2599179" />
-
+            app:layout_constraintGuide_percent="0.28" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline6"
