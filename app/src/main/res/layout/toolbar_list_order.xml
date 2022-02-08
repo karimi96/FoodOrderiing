@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/red_toolbar"
+    android:background="@color/red_toolbar"
+    android:id="@+id/toolbar_list"
+    app:menu="@menu/search_listorder"
     android:layout_height="?attr/actionBarSize">
 
     <TextView
@@ -17,4 +19,4 @@
         android:layout_height="wrap_content"/>
 
 
-</androidx.cardview.widget.CardView>
+</androidx.appcompat.widget.Toolbar>

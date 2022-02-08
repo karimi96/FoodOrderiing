@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,19 +14,23 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodorderiing.R;
+import com.example.foodorderiing.activity.listOrder.ListOrder;
 import com.example.foodorderiing.activity.orderDetail.OrderDetail;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.OrderDao;
 import com.example.foodorderiing.database.dao.OrderDetailDao;
 import com.example.foodorderiing.helper.App;
+import com.example.foodorderiing.model.Customer;
 import com.example.foodorderiing.model.Order;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.ViewHolder> {
+public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.ViewHolder> implements Filterable {
     private Context context;
+    private List<Order> list_search;
     private List<Order> list;
     private DatabaseHelper db = App.getDatabase();
     private OrderDetailDao detailDao;
@@ -33,7 +39,8 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.View
 
     public ListOrderAdapter(Context context, List<Order> list) {
         this.context = context;
-        this.list = list;
+        this.list_search = list;
+        this.list = new ArrayList<>(list_search);
     }
 
     @Override
@@ -124,4 +131,43 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.View
         notifyDataSetChanged();
         Toast.makeText(context, " سفارش " + name + " با موفقیت حذف شد. ", Toast.LENGTH_SHORT).show();
     }
+
+
+    //  For search
+    @Override
+    public Filter getFilter() {
+        return newsFilter;
+    }
+
+    private final Filter newsFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            List<Order> filterdNewList = new ArrayList<>();
+            if (constraint == null || constraint.length() == 0) {
+                filterdNewList.addAll(list_search);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for (Order order : list_search) {
+
+                    if (order.name.toLowerCase().contains(filterPattern))
+                        filterdNewList.add(order);
+                }
+                }
+                FilterResults results = new FilterResults();
+                results.values = filterdNewList;
+                results.count = filterdNewList.size();
+                if (results.count == 0)
+                    Toast.makeText(context, "موردی یافت نشد", Toast.LENGTH_SHORT).show();
+                return results;
+            }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            list.clear();
+            list.addAll((ArrayList) results.values);
+            notifyDataSetChanged();
+        }
+    };
+
 }
