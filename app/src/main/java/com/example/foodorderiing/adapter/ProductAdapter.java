@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -19,12 +18,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.product.AddNewProductActivity;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.ProductDao;
+import com.example.foodorderiing.helper.CustomDialog;
 import com.example.foodorderiing.model.Product;
 import com.google.gson.Gson;
 
@@ -33,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> implements Filterable{
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> implements Filterable {
     private Context context;
     private List<Product> list;
     private Listener listener;
@@ -41,7 +43,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     private DatabaseHelper database;
     private ProductDao dao;
 
-    public ProductAdapter(List<Product> list, Context context, Listener listener ) {
+    public ProductAdapter(List<Product> list, Context context, Listener listener) {
         this.context = context;
         this.list_search = list;
         this.listener = listener;
@@ -49,15 +51,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
 
-    public interface Listener{
-        void onClick(Product product , int pos , String name );
+    public interface Listener {
+        void onClick(Product product, int pos, String name);
     }
 
 
     @Override
-    public ProductAdapter.ViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
+    public ProductAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.list_item_product,parent,false);
+        View view = layoutInflater.inflate(R.layout.list_item_product, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -72,25 +74,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 //        holder.img_food_bg.setImageURI(Uri.parse(product.picture));
 
         try {
-            if(new File(product.picture).exists() && !product.picture.isEmpty()){
+            if (new File(product.picture).exists() && !product.picture.isEmpty()) {
                 Glide.with(context).load(new File(product.picture)).into(holder.img_food_bg);
-            }
+            } else holder.img_food_bg.setImageDrawable(context.getDrawable(R.drawable.defult_pic));
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-
-
-
-//        try{
-//            final int takeFlags =  (Intent.FLAG_GRANT_READ_URI_PERMISSION
-//                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-//            context.getContentResolver().takePersistableUriPermission(Uri.parse(product.picture), takeFlags);
-//            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse(product.picture));
-//            holder.img_food_bg.setImageBitmap(bitmap);
-//        }
-//        catch (Exception e){
-//            e.printStackTrace();
-//        }
     }
 
 
@@ -100,8 +89,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView tv_name_food, tv_name_category , tv_price;
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView tv_name_food, tv_name_category, tv_price;
         ImageView img_food_bg;
 
         public ViewHolder(View itemView) {
@@ -112,15 +101,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             img_food_bg = itemView.findViewById(R.id.img_back_product);
             itemView.setOnClickListener(this);
         }
+
         @Override
         public void onClick(View v) {
             Product product = list.get(getAdapterPosition());
-            listener.onClick(product , getAdapterPosition() , list.get(getAdapterPosition()).name );
+            listener.onClick(product, getAdapterPosition(), list.get(getAdapterPosition()).name);
         }
     }
 
 
-    public void showButtonSheet(int pos , String name){
+    public void showButtonSheet(int pos, String name) {
         final Dialog dialog_sheet = new Dialog(context);
         dialog_sheet.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_sheet.setContentView(R.layout.bottom_sheet_product);
@@ -136,47 +126,42 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         dialog_sheet.getWindow().setGravity(Gravity.BOTTOM);
 
         edit.setOnClickListener(v -> {
-                Intent intent = new Intent(context, AddNewProductActivity.class);
-                intent.putExtra("product",new Gson().toJson(list.get(pos)));
-                context.startActivity(intent);
-                dialog_sheet.dismiss();
+            Intent intent = new Intent(context, AddNewProductActivity.class);
+            intent.putExtra("product", new Gson().toJson(list.get(pos)));
+            context.startActivity(intent);
+            dialog_sheet.dismiss();
         });
 
         delete.setOnClickListener(v -> {
-            showAlertDialog(pos, dialog_sheet ,name);
+            showAlertDialog(pos, dialog_sheet, name);
         });
     }
 
 
-    private void showAlertDialog(int pos, Dialog dialog_sheet, String name){
-        new AlertDialog.Builder(context)
+    private void showAlertDialog(int pos, Dialog dialog_sheet, String name) {
+        AlertDialog dialog = new AlertDialog.Builder(context)
                 .setTitle("حذف")
                 .setMessage("ایا مایلید این مورد را حذف کنید؟")
-                .setPositiveButton("بله", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        database = DatabaseHelper.getInstance(context.getApplicationContext());
-                        dao = database.productDao();
-                        dao.deleteProduct(list.get(pos));
-                        list.remove(pos);
-                        notifyItemRemoved(pos);
-                        notifyItemRangeChanged(pos,list.size());
-                        notifyDataSetChanged();
-                        dialog_sheet.dismiss();
-                        Toast.makeText(context, name + " با موفقیت حذف شد ", Toast.LENGTH_LONG).show();
-                    }
-                })
-                .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        dialog_sheet.dismiss();
-                    }
-                })
-                .create()
-                .show();
-    }
+                .setPositiveButton("بله", (dialog1, which) -> {
+                    database = DatabaseHelper.getInstance(context.getApplicationContext());
+                    dao = database.productDao();
+                    dao.deleteProduct(list.get(pos));
+                    list.remove(pos);
+                    notifyItemRemoved(pos);
+                    notifyItemRangeChanged(pos, list.size());
+                    notifyDataSetChanged();
+                    dialog_sheet.dismiss();
+                    Toast.makeText(context, name + " با موفقیت حذف شد ", Toast.LENGTH_LONG).show();
 
+                })
+                .setNegativeButton("خیر", (dialog1, which) -> {
+                    dialog1.dismiss();
+                    dialog_sheet.dismiss();
+
+                })
+                .show();
+        CustomDialog.setTypeFaceAlertDialog(dialog, context);
+    }
 
 
     //  For search
@@ -190,33 +175,34 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         protected FilterResults performFiltering(CharSequence constraint) {
 
             List<Product> filterdNewList = new ArrayList<>();
-            if(constraint == null || constraint.length() == 0){
+            if (constraint == null || constraint.length() == 0) {
                 filterdNewList.addAll(list_search);
-            }else {
+            } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
-                for(Product product : list_search){
+                for (Product product : list_search) {
 
-                    if(product.name.toLowerCase().contains(filterPattern))
+                    if (product.name.toLowerCase().contains(filterPattern))
                         filterdNewList.add(product);
                 }
             }
             FilterResults results = new FilterResults();
             results.values = filterdNewList;
             results.count = filterdNewList.size();
-            if(results.count == 0 ) Toast.makeText(context, "موردی یافت نشد", Toast.LENGTH_SHORT).show();
+            if (results.count == 0)
+                Toast.makeText(context, "موردی یافت نشد", Toast.LENGTH_SHORT).show();
             return results;
         }
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             list.clear();
-            list.addAll((ArrayList)results.values);
+            list.addAll((ArrayList) results.values);
             notifyDataSetChanged();
         }
     };
 
 
-    public  void addList(List<Product> arryList){
+    public void addList(List<Product> arryList) {
         list_search.clear();
         list_search.addAll(arryList);
         list = new ArrayList<>(list_search);
@@ -224,22 +210,22 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
 
-    public void add(Product product){
-        list.add(list.size(),product);
+    public void add(Product product) {
+        list.add(list.size(), product);
         notifyItemInserted(list.size());
     }
 
-    public void update(Product product, int pos){
+    public void update(Product product, int pos) {
 //        list.get(0) = product;
-        notifyItemChanged(pos,product);
+        notifyItemChanged(pos, product);
     }
 
-    public void remove(int pos){
+    public void remove(int pos) {
         list.remove(pos);
         notifyItemRemoved(pos);
     }
 
-    public void clear(){
+    public void clear() {
         list.clear();
         notifyDataSetChanged();
     }
