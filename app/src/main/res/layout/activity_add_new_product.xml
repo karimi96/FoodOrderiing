@@ -66,6 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:layout_marginTop="25dp"
             android:orientation="vertical">
 
             <EditText
@@ -115,7 +116,7 @@
                 android:background="@drawable/border_editext_product"
                 android:drawableRight="@drawable/ic_baseline_attach_money_24"
                 android:drawablePadding="10dp"
-                android:fontFamily="@font/iran_sans"
+                android:fontFamily="@font/irsansfanum"
                 android:gravity="center_vertical"
                 android:hint="قیمت"
                 android:imeOptions="actionDone"
