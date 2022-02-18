@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:paddingRight="20dp"
+    android:paddingVertical="10dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:text="نام خود را وارد کنید"
+        android:fontFamily="@font/iran_sans"
+        android:textColor="#C1C0C0"
+        android:textSize="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/et_name_setting"
+        android:gravity="right"
+        android:textSize="14dp"
+        android:selectAllOnFocus="true"
+        android:backgroundTint="#676767"
+        android:fontFamily="@font/iran_sans"
+        android:textColor="#676767"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_gravity="end"
+        android:layout_marginEnd="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_saveName_setting"
+            android:text="ذخیره"
+            android:padding="10dp"
+            android:background="?attr/selectableItemBackground"
+            android:textColor="@color/red_toolbar"
+            android:fontFamily="@font/iran_sans"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:id="@+id/tv_cancelName_setting"
+            android:text="لغو"
+            android:padding="10dp"
+            android:background="?attr/selectableItemBackground"
+            android:layout_marginRight="15dp"
+            android:textColor="@color/red_toolbar"
+            android:fontFamily="@font/iran_sans"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

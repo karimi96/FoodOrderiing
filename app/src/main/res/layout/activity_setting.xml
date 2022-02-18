@@ -5,104 +5,229 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_text"
+    android:orientation="vertical"
     tools:context=".activity.setting.SettingActivity">
 
-    <androidx.cardview.widget.CardView
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@color/white"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="5dp">
+        android:fontFamily="@font/iran_sans"
+        android:background="#dbdbdb"
+        android:paddingVertical="10dp"
+        android:text="پروفایل"
+        android:paddingRight="58dp"
+        android:textColor="@color/red_toolbar" />
+
+
+    <LinearLayout
+        android:id="@+id/linear_name_sitting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:paddingVertical="10dp"
+        android:weightSum="1">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.15"
+            android:src="@drawable/person_setting" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.Design.TextInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="نام"
-                android:textColorHint="@color/tosi_lite"
-                app:endIconMode="clear_text"
-                app:endIconTint="@color/tosi_lite"
-                app:hintTextColor="@color/tosi_lite">
-
-                <EditText
-                    android:id="@+id/et_name_signup"
-                    style="@style/Widget.AppCompat.EditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/tosi_lite"
-                    android:drawableStart="@drawable/ic_outline_account_circle_24"
-                    android:drawablePadding="10dp"
-                    android:ems="10"
-                    android:fontFamily="@font/iran_sans"
-                    android:gravity="right"
-                    android:imeOptions="actionNext"
-                    android:inputType="textPersonName"
-                    android:paddingBottom="15dp"
-                    android:singleLine="true"
-                    android:textColor="#252525"
-
-                    android:textSize="18dp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.Design.TextInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColorHint="@color/tosi_lite"
-                app:endIconMode="password_toggle"
-                app:endIconTint="@color/tosi_lite"
-                app:hintTextColor="@color/tosi_lite">
-
-                <EditText
-                    android:id="@+id/et_pass_signup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/tosi_lite"
-                    android:drawableStart="@drawable/ic_outline_vpn_key_24"
-                    android:drawablePadding="10dp"
-                    android:ems="10"
-                    android:fontFamily="@font/iran_sans"
-                    android:gravity="right"
-                    android:hint="پسورد"
-                    android:imeOptions="actionDone"
-                    android:inputType="textPassword"
-                    android:paddingRight="8dp"
-                    android:paddingBottom="15dp"
-                    android:textColor="#252525"
-                    android:textColorHint="@color/tosi_lite"
-                    android:textSize="18dp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/sign_up"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="50dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/ripple_sheet_sign_up"
+                android:textSize="12dp"
                 android:fontFamily="@font/iran_sans"
-                android:gravity="center"
-                android:paddingHorizontal="40dp"
-                android:paddingVertical="10dp"
-                android:text="ثبت تغییرات"
-                android:textColor="@color/white_text"
-                android:textSize="18dp" />
+                android:text="نام"
+                android:textColor="#dbdbdb" />
+
+            <TextView
+                android:id="@+id/tv_name_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/iran_sans"
+                tools:text="رقیه کریمی"
+                android:textColor="#676767" />
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.15"
+            android:src="@drawable/ic_baseline_edit_24" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginRight="55dp"
+        android:background="#dbdbdb" />
+
+
+    <LinearLayout
+        android:id="@+id/linear_pass_sitting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:paddingVertical="10dp"
+        android:weightSum="1">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.15"
+            android:src="@drawable/key_setting" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/iran_sans"
+                android:text="پسورد"
+                android:textSize="12dp"
+                android:textColor="#dbdbdb" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/iran_sans"
+                android:text="****"
+                android:textColor="#676767" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.15"
+            android:src="@drawable/ic_baseline_edit_24" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginRight="55dp"
+        android:background="#dbdbdb"/>
+
+
+    <!--    <androidx.cardview.widget.CardView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_margin="20dp"-->
+    <!--        android:background="@color/white"-->
+    <!--        app:cardCornerRadius="15dp"-->
+    <!--        app:cardElevation="5dp">-->
+
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:gravity="center"-->
+    <!--            android:orientation="vertical"-->
+    <!--            android:padding="10dp">-->
+
+    <!--            <com.google.android.material.textfield.TextInputLayout-->
+    <!--                style="@style/Widget.Design.TextInputLayout"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:hint="نام"-->
+    <!--                android:textColorHint="@color/tosi_lite"-->
+    <!--                app:endIconMode="clear_text"-->
+    <!--                app:endIconTint="@color/tosi_lite"-->
+    <!--                app:hintTextColor="@color/tosi_lite">-->
+
+    <!--                <EditText-->
+    <!--                    android:id="@+id/et_name_signup"-->
+    <!--                    style="@style/Widget.AppCompat.EditText"-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:backgroundTint="@color/tosi_lite"-->
+    <!--                    android:drawableStart="@drawable/ic_outline_account_circle_24"-->
+    <!--                    android:drawablePadding="10dp"-->
+    <!--                    android:ems="10"-->
+    <!--                    android:fontFamily="@font/iran_sans"-->
+    <!--                    android:gravity="right"-->
+    <!--                    android:imeOptions="actionNext"-->
+    <!--                    android:inputType="textPersonName"-->
+    <!--                    android:paddingBottom="15dp"-->
+    <!--                    android:singleLine="true"-->
+    <!--                    android:textColor="#252525"-->
+
+    <!--                    android:textSize="18dp" />-->
+
+    <!--            </com.google.android.material.textfield.TextInputLayout>-->
+
+
+    <!--            <com.google.android.material.textfield.TextInputLayout-->
+    <!--                style="@style/Widget.Design.TextInputLayout"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:textColorHint="@color/tosi_lite"-->
+    <!--                app:endIconMode="password_toggle"-->
+    <!--                app:endIconTint="@color/tosi_lite"-->
+    <!--                app:hintTextColor="@color/tosi_lite">-->
+
+    <!--                <EditText-->
+    <!--                    android:id="@+id/et_pass_signup"-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:backgroundTint="@color/tosi_lite"-->
+    <!--                    android:drawableStart="@drawable/ic_outline_vpn_key_24"-->
+    <!--                    android:drawablePadding="10dp"-->
+    <!--                    android:ems="10"-->
+    <!--                    android:fontFamily="@font/iran_sans"-->
+    <!--                    android:gravity="right"-->
+    <!--                    android:hint="پسورد"-->
+    <!--                    android:imeOptions="actionDone"-->
+    <!--                    android:inputType="textPassword"-->
+    <!--                    android:paddingRight="8dp"-->
+    <!--                    android:paddingBottom="15dp"-->
+    <!--                    android:textColor="#252525"-->
+    <!--                    android:textColorHint="@color/tosi_lite"-->
+    <!--                    android:textSize="18dp" />-->
+
+    <!--            </com.google.android.material.textfield.TextInputLayout>-->
+
+
+    <!--            <TextView-->
+    <!--                android:id="@+id/sign_up"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_gravity="center"-->
+    <!--                android:layout_marginHorizontal="50dp"-->
+    <!--                android:layout_marginTop="20dp"-->
+    <!--                android:background="@drawable/ripple_sheet_sign_up"-->
+    <!--                android:fontFamily="@font/iran_sans"-->
+    <!--                android:gravity="center"-->
+    <!--                android:paddingHorizontal="40dp"-->
+    <!--                android:paddingVertical="10dp"-->
+    <!--                android:text="ثبت تغییرات"-->
+    <!--                android:textColor="@color/white_text"-->
+    <!--                android:textSize="18dp" />-->
+
+    <!--        </LinearLayout>-->
+
+    <!--    </androidx.cardview.widget.CardView>-->
 
 </LinearLayout>
