@@ -1,7 +1,6 @@
 package com.example.foodorderiing.activity.product;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -10,8 +9,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -41,7 +38,7 @@ public class ProductActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private RecyclerView recyclerView_product;
     private RecyclerView recyclerView_category;
-    private FloatingActionButton fab;
+    private FloatingActionButton fab, fab_gotoEnd;
     private ProductAdapter adapter_pro = null;
     private GroupInProductAdapter adapter_gro;
     private DatabaseHelper db;
@@ -73,6 +70,8 @@ public class ProductActivity extends AppCompatActivity {
         set_recycler_category();
         set_recycler_product();
         click_fab();
+        show_fab_gotoEnd();
+        goToEndItem();
         hide_fab();
         setReverseRecycler();
     }
@@ -90,6 +89,7 @@ public class ProductActivity extends AppCompatActivity {
         recyclerView_category = findViewById(R.id.recycler_grouping_product_page);
         recyclerView_product = findViewById(R.id.recycler_product);
         fab = findViewById(R.id.fab_product);
+        fab_gotoEnd = findViewById(R.id.fab_go_to_end_p);
         noProduct = findViewById(R.id.noProduct);
     }
 
@@ -154,7 +154,7 @@ public class ProductActivity extends AppCompatActivity {
         recyclerView_category.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView_category.setLayoutManager(layoutManager);
-        adapter_gro = new GroupInProductAdapter(groupingArrayList, this, nameGrouping, new GroupInProductAdapter.Listener() {
+        adapter_gro = new GroupInProductAdapter(groupingArrayList, this, nameGrouping , new GroupInProductAdapter.Listener() {
             @Override
             public void onClick(int pos, Grouping g) {
                 Log.e("asd", "product: get position " + pos);
@@ -173,8 +173,10 @@ public class ProductActivity extends AppCompatActivity {
     private void initListProduct() {
         Log.e("qqqq", "initListProduct: " + nameGrouping);
         if (adapter_pro != null) {
-            if (dao_product.getProductList().size() >= 0) {
+            if (dao_product.getProductList().size() > 0) {
                 recyclerView_category.setVisibility(View.VISIBLE);
+                noProduct.setVisibility(View.GONE);
+
 
                 if (nameGrouping == null || nameGrouping.isEmpty())
                     adapter_pro.addList(dao_product.getProductList());
@@ -213,10 +215,24 @@ public class ProductActivity extends AppCompatActivity {
 
 
     public void click_fab() {
-        fab.setOnClickListener(v -> {
-            startActivity(new Intent(ProductActivity.this, AddNewProductActivity.class));
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        Tools.setFloatingActionButton(fab, this, ProductActivity.this, AddNewProductActivity.class);
+    }
+
+
+    private void show_fab_gotoEnd() {
+        recyclerView_product.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) fab_gotoEnd.show();
+                else fab_gotoEnd.hide();
+                super.onScrolled(recyclerView, dx, dy);
+            }
         });
+    }
+
+
+    private void goToEndItem() {
+        Tools.goToEndItem(fab_gotoEnd,this, recyclerView_product);
     }
 
 

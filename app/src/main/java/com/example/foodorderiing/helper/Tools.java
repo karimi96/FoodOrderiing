@@ -1,6 +1,8 @@
 package com.example.foodorderiing.helper;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.view.animation.AnimationUtils;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodorderiing.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -119,8 +122,6 @@ public class Tools {
     public static byte[] getBytes(Uri uri)  {
         ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
 
-//Bitmap bi= null;
-
         try {
 //            bi.compress(Bitmap.CompressFormat.JPEG, 100, byteBuffer);
 //            Log.d("TAG", "Width :" + bi.getWidth() + " Height :" + bi.getHeight());
@@ -142,8 +143,8 @@ public class Tools {
 
     public static String saveFile(byte[] data,File DESTINY_DIR, String fileName) {
         Bitmap bitmap = null;
-        if (!DESTINY_DIR.exists()) DESTINY_DIR.mkdirs();
 
+        if (!DESTINY_DIR.exists()) DESTINY_DIR.mkdirs();
         File mainPicture = new File(DESTINY_DIR, fileName);
         try {
             FileOutputStream fos = new FileOutputStream(mainPicture);
@@ -245,6 +246,25 @@ public class Tools {
         recyclerView.setLayoutAnimation(layoutAnimationController);
         recyclerView.getAdapter().notifyDataSetChanged();
         recyclerView.scheduleLayoutAnimation();
+    }
+
+
+    public static void goToEndItem(FloatingActionButton fab, Context context, RecyclerView recyclerView) {
+        fab.setOnClickListener(v -> {
+            final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+//            linearLayoutManager.setStackFromEnd(true);
+            linearLayoutManager.setReverseLayout(true);
+            recyclerView.setLayoutManager(linearLayoutManager);
+        });
+    }
+
+
+
+    public static void setFloatingActionButton(FloatingActionButton fab, Context context, Activity activity, Class activity1) {
+        fab.setOnClickListener(v -> {
+            context.startActivity(new Intent(activity , activity1));
+            activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        });
     }
 
 

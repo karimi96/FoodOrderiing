@@ -67,7 +67,7 @@ public class CustomerActivity extends AppCompatActivity {
         set_toolBar();
         initID();
         set_fab();
-        set_fab_gotoEnd();
+        goToEndItem();
         hide_fab();
         show_fab_gotoEnd();
         initDataBase();
@@ -191,20 +191,12 @@ public class CustomerActivity extends AppCompatActivity {
 
 
     private void set_fab() {
-        fab.setOnClickListener(v -> {
-            startActivity(new Intent(CustomerActivity.this, AddNewCustomerActivity.class));
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        });
+        Tools.setFloatingActionButton(fab, this, CustomerActivity.this, AddNewCustomerActivity.class);
     }
 
 
-    private void set_fab_gotoEnd() {
-        fab_gotoEnd.setOnClickListener(v -> {
-            final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-//            linearLayoutManager.setStackFromEnd(true);
-            linearLayoutManager.setReverseLayout(true);
-            recyclerView.setLayoutManager(linearLayoutManager);
-        });
+    private void goToEndItem() {
+        Tools.goToEndItem(fab_gotoEnd,this, recyclerView);
     }
 
 
@@ -277,7 +269,6 @@ public class CustomerActivity extends AppCompatActivity {
                     Uri uri = Uri.fromParts("package", getPackageName(), null);
                     intent.setData(uri);
                     startActivityForResult(intent, 100);
-
                 });
                 builder.setNegativeButton("بستن", (dialog, which) -> {
                     dialog.cancel();

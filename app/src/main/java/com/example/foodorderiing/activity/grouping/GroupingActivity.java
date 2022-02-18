@@ -1,22 +1,17 @@
 package com.example.foodorderiing.activity.grouping;
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodorderiing.R;
@@ -34,7 +29,7 @@ import java.util.ArrayList;
 
 public class GroupingActivity extends AppCompatActivity {
     private Toolbar toolbar;
-    private FloatingActionButton fab_grouping;
+    private FloatingActionButton fab_grouping, fab_gotoEnd;
     private RecyclerView recyclerView_grouping;
     private GroupingAdapter groupingAdapter;
     private DatabaseHelper db;
@@ -52,6 +47,8 @@ public class GroupingActivity extends AppCompatActivity {
         set_toolBar();
         set_recyclerView();
         set_fab();
+        show_fab_gotoEnd();
+        goToEndItem();
         hide_fab();
         setReverseRecycler();
     }
@@ -59,6 +56,7 @@ public class GroupingActivity extends AppCompatActivity {
     private void initID() {
         recyclerView_grouping = findViewById(R.id.recycler_grouping);
         fab_grouping = findViewById(R.id.floating_add_grouping);
+        fab_gotoEnd = findViewById(R.id.fab_go_to_end_g);
         noGrouping = findViewById(R.id.noGrouping);
     }
 
@@ -123,10 +121,24 @@ public class GroupingActivity extends AppCompatActivity {
 
 
     public void set_fab() {
-        fab_grouping.setOnClickListener(v -> {
-                startActivity(new Intent(GroupingActivity.this, AddNewGroupingActivity.class));
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        Tools.setFloatingActionButton(fab_grouping, this, GroupingActivity.this, AddNewGroupingActivity.class);
+    }
+
+
+    private void show_fab_gotoEnd() {
+        recyclerView_grouping.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) fab_gotoEnd.show();
+                else fab_gotoEnd.hide();
+                super.onScrolled(recyclerView, dx, dy);
+            }
         });
+    }
+
+
+    private void goToEndItem() {
+        Tools.goToEndItem(fab_gotoEnd,this, recyclerView_grouping);
     }
 
 

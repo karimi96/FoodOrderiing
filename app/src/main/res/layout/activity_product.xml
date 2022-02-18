@@ -40,6 +40,23 @@
         app:maxImageSize="35dp" />
 
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_go_to_end_p"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="#9C9B9B"
+        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+        android:visibility="gone"
+        app:borderWidth="0dp"
+        app:fabCustomSize="30dp"
+        app:maxImageSize="30dp"
+        app:tint="@color/white_text" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_grouping_product_page"
         android:layout_width="match_parent"
