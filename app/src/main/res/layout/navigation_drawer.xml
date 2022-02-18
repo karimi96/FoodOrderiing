@@ -18,7 +18,10 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:padding="25dp"
+            android:paddingHorizontal="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="8dp"
+            android:src="@drawable/logo00"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -137,11 +140,10 @@
             android:textSize="14dp" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:rotation="180"
-            android:src="@drawable/ic_round_exit_to_app_24" />
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_margin="11dp"
+            android:src="@drawable/export" />
 
     </LinearLayout>
 
