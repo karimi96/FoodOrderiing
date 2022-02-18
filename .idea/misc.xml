@@ -69,6 +69,7 @@
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/border_delete_list_order.xml" value="0.1935185185185185" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/border_detail.xml" value="0.13703703703703704" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/border_editext_product.xml" value="0.2203125" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/border_forgetpass.xml" value="0.2203125" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/border_image.xml" value="0.13703703703703704" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/border_linear.xml" value="0.13703703703703704" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/border_list_order_up.xml" value="0.13703703703703704" />
@@ -107,8 +108,10 @@
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.13703703703703704" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/ic_baseline_today_24.xml" value="0.2203125" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/ic_launcher_background.xml" value="0.13703703703703704" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/ic_logo22.xml" value="0.2203125" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/ic_outline_account_circle_24.xml" value="0.13703703703703704" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/ic_outline_add_a_photo_24.xml" value="0.13703703703703704" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/ic_outline_cancel_24.xml" value="0.2203125" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/ic_outline_perm_identity_24.xml" value="0.13703703703703704" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/ic_outline_phone_enabled_24.xml" value="0.13703703703703704" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/ic_outline_vpn_key_24.xml" value="0.13703703703703704" />
@@ -123,6 +126,7 @@
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/ic_round_call_24.xml" value="0.13703703703703704" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/ic_round_double_arrow_24.xml" value="0.13703703703703704" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/ic_round_edit_24.xml" value="0.13703703703703704" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/ic_round_exit_to_app_24.xml" value="0.2203125" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/ic_round_fastfood_24.xml" value="0.13703703703703704" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/ic_round_home_24.xml" value="0.13703703703703704" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/ic_round_more_vert_24.xml" value="0.13703703703703704" />
@@ -141,6 +145,7 @@
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/img_back.xml" value="0.13703703703703704" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/ripple_all.xml" value="0.13703703703703704" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/ripple_circle_shop.xml" value="0.13703703703703704" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/ripple_forgetpass.xml" value="0.2203125" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/ripple_login.xml" value="0.2203125" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/ripple_sheet.xml" value="0.21614583333333334" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/drawable/ripple_sheet_sign_up.xml" value="0.2203125" />
@@ -151,21 +156,27 @@
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/activity_customer.xml" value="0.22" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/activity_file.xml" value="0.1" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/activity_file2.xml" value="0.17798913043478262" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/activity_forget_pass.xml" value="0.18614130434782608" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/activity_forget_pass4.xml" value="0.1816123188405797" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/activity_grouping.xml" value="0.18206521739130435" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/activity_home.xml" value="0.25" />
-        <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/activity_list_order.xml" value="0.67" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/activity_list_order.xml" value="0.6376210235131397" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/activity_order.xml" value="0.16" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/activity_order_detail.xml" value="0.5" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/activity_product.xml" value="0.20416666666666666" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/activity_setting.xml" value="0.33" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/activity_time_picker.xml" value="0.2" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/bottom_sheet_customer.xml" value="0.18206521739130435" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/bottom_sheet_name_setting.xml" value="0.5987012987012987" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/bottom_sheet_pass_setting.xml" value="0.67" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/bottom_sheet_product.xml" value="0.13768115942028986" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/bottomsheet_sign_up.xml" value="0.25" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/box_listorder.xml" value="0.20416666666666666" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/boxuser_detail.xml" value="1.25" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/chart.xml" value="0.20416666666666666" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/date_picker.xml" value="0.33" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/dialog_about_us.xml" value="0.18478260869565216" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/dialog_guid.xml" value="0.18342391304347827" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/list_drawer.xml" value="0.18342391304347827" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/list_item_customer.xml" value="0.20416666666666666" />
@@ -182,12 +193,16 @@
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/nemodar.xml" value="0.19610507246376813" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/sabt.xml" value="0.19429347826086957" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/test.xml" value="0.18342391304347827" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/text.xml" value="0.20416666666666666" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/toast_layout.xml" value="0.22" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/toolbar.xml" value="0.20416666666666666" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/toolbar_list_order.xml" value="0.20416666666666666" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/toolbar_ordring.xml" value="0.1897644927536232" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/layout/user_detail.xml" value="0.20416666666666666" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/menu/search_customer.xml" value="0.1" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/menu/search_listOrder.xml" value="0.20416666666666666" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/menu/search_product.xml" value="0.20416666666666666" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/foodorderiing/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2203125" />
       </map>
     </option>
   </component>

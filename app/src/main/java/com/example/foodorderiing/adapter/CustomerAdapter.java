@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
@@ -30,6 +31,9 @@ import com.example.foodorderiing.database.dao.CustomerDao;
 import com.example.foodorderiing.database.dao.OrderDao;
 import com.example.foodorderiing.database.dao.OrderDetailDao;
 import com.example.foodorderiing.helper.App;
+import com.example.foodorderiing.helper.CustomDialog;
+import com.example.foodorderiing.helper.Test;
+import com.example.foodorderiing.helper.Tools;
 import com.example.foodorderiing.model.Customer;
 import com.example.foodorderiing.model.Order;
 import com.google.gson.Gson;
@@ -154,28 +158,30 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
 
 
     private void showAlertDialog(int id, Dialog dialog_sheet, int pos, String name) {
-        new AlertDialog.Builder(context)
-                .setTitle("حذف")
+        Typeface face = Typeface.createFromAsset(context.getAssets(), "font/iran_sans.ttf");
+        TextView tv = new TextView(context);
+        tv.setText("حذف");
+        tv.setTypeface(face);
+//        tv.setGravity(Gravity.RIGHT);
+        AlertDialog dialog = new AlertDialog.Builder(context)
+                .setCustomTitle(tv)
                 .setMessage(text)
-                .setPositiveButton("بله", (dialog, which) -> {
-                        if (orderDao.getid(id) != null) {
-                            orderDao.deteteID(id);
-                            orderDetailDao.deleteOneOrderDetail(orderDao.getid(id).code);
-                            deleteOneItem(dialog_sheet, pos, name);
+                .setPositiveButton("بله", (dialog1, which) -> {
+            if (orderDao.getid(id) != null) {
+                orderDao.deteteID(id);
+                orderDetailDao.deleteOneOrderDetail(orderDao.getid(id).code);
+                deleteOneItem(dialog_sheet, pos, name);
 
-                        } else {
-                            deleteOneItem(dialog_sheet, pos, name);
-                    }
-                })
-                .setNegativeButton("خیر",(dialog, which) -> {
-                        dialog.dismiss();
-                        dialog_sheet.dismiss();
-                })
-                .create()
-                .show();
-        TextView textView = (TextView) dialog_sheet.findViewById(android.R.id.message);
-        Typeface face = Typeface.createFromAsset(context.getAssets(), "fonts/FONT");
-        textView.setTypeface(face);
+            } else {
+                deleteOneItem(dialog_sheet, pos, name);
+            }
+
+        }).setNegativeButton("خیر", (dialog1, which) -> {
+            dialog1.dismiss();
+            dialog_sheet.dismiss();
+
+        }).show();
+        CustomDialog.setTypeFaceAlertDialog(dialog, context);
     }
 
 

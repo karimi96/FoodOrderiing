@@ -1,8 +1,11 @@
 package com.example.foodorderiing.activity.grouping;
 
 import android.Manifest;
+import android.app.assist.AssistStructure;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -10,6 +13,7 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewParent;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -64,10 +68,11 @@ public class AddNewGroupingActivity extends AppCompatActivity {
             g = new Gson().fromJson(getGrouping, Grouping.class);
             old_name = g.name;
             editText_category.setText(g.name);
-            if (g.picture.isEmpty())
-                imageView_show.setImageDrawable(getDrawable(R.drawable.defult_pic));
-            else
+            try {
                 imageView_show.setImageURI(Uri.parse(g.picture));
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
             imageView_back.setVisibility(View.GONE);
         }
 
@@ -95,7 +100,7 @@ public class AddNewGroupingActivity extends AppCompatActivity {
 
     private void initImage() {
         fab.setOnClickListener(v -> {
-            if (new Permition().checkStoregPermition(getApplicationContext(), AddNewGroupingActivity.this)) {
+            if (checkStoregPermition()) {
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .start(this);
@@ -113,6 +118,15 @@ public class AddNewGroupingActivity extends AppCompatActivity {
                 Uri resultUri = result.getUri();
                 Log.e("iiii", "resultUri: " + resultUri);
                 save = Tools.saveFile(Tools.getBytes(resultUri), new File(Environment.getExternalStorageDirectory() + "/DCIM/Foods"), TIMEMILLISSECOND + ".jpg");
+
+
+//                File image = new File(Environment.getExternalStorageDirectory() + "/DCIM/Foods", TIMEMILLISSECOND + ".jpg");
+//                BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+//                Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(),bmOptions);
+//                bitmap = Bitmap.createScaledBitmap(bitmap, getWallpaperDesiredMinimumWidth(),getWallpaperDesiredMinimumHeight(),true);
+//                imageView_show.setImageBitmap(bitmap);
+
+
                 imageView_show.setImageURI(resultUri);
                 imageView_back.setVisibility(View.GONE);
                 Log.e("qqqqfile", "onActivityResult: " + save);
@@ -136,19 +150,24 @@ public class AddNewGroupingActivity extends AppCompatActivity {
                     Toast.makeText(AddNewGroupingActivity.this, "این نام وجود دارد", Toast.LENGTH_LONG).show();
 
                 } else {
-                    if (save.isEmpty())
-                        Toast.makeText(getApplicationContext(), " لطفا یک عکس انتخاب کنید ", Toast.LENGTH_SHORT).show();
-                    else
-                        dao_grouping.insertGrouping(new Grouping(name, save));
+                    dao_grouping.insertGrouping(new Grouping(name, save));
                     Toast.makeText(getApplicationContext(), name + " با موفقیت به لیست اضافه شد ", Toast.LENGTH_LONG).show();
                     finish();
                 }
             } else {
-                g.name = name;
-                g.picture = save;
-                dao_grouping.updateGrouping(g);
-                Toast.makeText(getApplicationContext(), old_name + " با موفقیت به " + name + " تغییر کرد", Toast.LENGTH_LONG).show();
-                finish();
+
+                if(save == null){
+//                if(imageView_show.getDrawable() == null){
+                    g.picture = g.picture;
+                } else if (imageView_show.getDrawable() == null){
+                    g.picture = "";
+                } else{
+                    g.picture = save;
+                }
+                    g.name = name;
+                    dao_grouping.updateGrouping(g);
+                    Toast.makeText(getApplicationContext(), old_name + " با موفقیت به " + name + " تغییر کرد", Toast.LENGTH_LONG).show();
+                    finish();
             }
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });

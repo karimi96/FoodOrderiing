@@ -22,26 +22,26 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
     private Context context;
     private List<Grouping> list;
     private Listener listener;
-    private int row_index = 0;
+    private int row_index = 0 ;
     private String categoryIsChosen = "";
 
 
-    public GroupInProductAdapter(List<Grouping> list, Context context , String category , Listener listener ) {
+    public GroupInProductAdapter(List<Grouping> list, Context context, String category, Listener listener) {
         this.list = list;
         this.context = context;
         this.categoryIsChosen = category;
         this.listener = listener;
     }
 
-    public interface Listener{
-        void onClick(int position , Grouping grouping);
+    public interface Listener {
+        void onClick(int position, Grouping grouping);
     }
 
 
     @Override
     public GroupInProductAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.list_item_group_product,parent,false);
+        View view = layoutInflater.inflate(R.layout.list_item_group_product, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -51,8 +51,12 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
         Grouping grouping = list.get(position);
         holder.tv_name_groupInproduct.setText(grouping.name);
 
+        if (grouping.name.equals(categoryIsChosen)) {
+            Log.e("aaa", "onBindViewHolder: raw index " + row_index);
+            holder.cardView.setCardBackgroundColor(Color.parseColor("#ef4224"));
+            holder.tv_name_groupInproduct.setTextColor(Color.parseColor("#f8f3f7"));
 
-            if(row_index == position || grouping.name.equals(categoryIsChosen)){
+        } else if (row_index == position) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#ef4224"));
             holder.tv_name_groupInproduct.setTextColor(Color.parseColor("#f8f3f7"));
         } else {
@@ -60,8 +64,8 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
             holder.tv_name_groupInproduct.setTextColor(Color.parseColor("#676767"));
         }
 
-    }
 
+    }
 
 
     @Override
@@ -70,7 +74,7 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView tv_name_groupInproduct ;
+        TextView tv_name_groupInproduct;
         CardView cardView;
 
         public ViewHolder(View itemView) {
@@ -80,15 +84,18 @@ public class GroupInProductAdapter extends RecyclerView.Adapter<GroupInProductAd
             itemView.setOnClickListener(this);
         }
 
+
         @Override
         public void onClick(View v) {
             Grouping grouping = list.get(getAdapterPosition());
             Log.e("ppp", "ViewHolder: send position " + getAdapterPosition());
             listener.onClick(getAdapterPosition(), grouping);
-            row_index = getAdapterPosition() ;
+            row_index = getAdapterPosition();
             categoryIsChosen = "";
             notifyDataSetChanged();
             Log.e("poo", "ViewHolder: send position " + getAdapterPosition());
         }
+
+
     }
 }

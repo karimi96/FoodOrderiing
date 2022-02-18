@@ -4,11 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +29,7 @@ import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.GroupingDao;
 import com.example.foodorderiing.database.dao.ProductDao;
 import com.example.foodorderiing.helper.App;
+import com.example.foodorderiing.helper.CustomDialog;
 import com.example.foodorderiing.model.Grouping;
 import com.google.gson.Gson;
 
@@ -70,28 +69,34 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
         Grouping grouping = list.get(position);
         holder.tv_name_category.setText(grouping.name);
 
+
+//        File sd = Environment.getExternalStorageDirectory();
+//        File image = new File(sd, "1.png");
+//        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+//        Bitmap bitmap = BitmapFactory.decodeFile(grouping.picture,bmOptions);
+//        bitmap = Bitmap.createScaledBitmap(bitmap,context.getWallpaperDesiredMinimumWidth(),context.getWallpaperDesiredMinimumHeight(),true);
+//        Bitmap bitmap2;
+//        byte[] BYTE;
+//        ByteArrayOutputStream bytearrayoutputstream;
+//        bytearrayoutputstream = new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.PNG, 100, bytearrayoutputstream);
+//        BYTE = bytearrayoutputstream.toByteArray();
+//        bitmap2 = BitmapFactory.decodeByteArray(BYTE,0,BYTE.length);
+//
+//        Glide.with(context).load(bitmap2).into(holder.img_food_grouping);
+
+
+
+
         try {
             if(new File(grouping.picture).exists() && !grouping.picture.isEmpty()){
                 Glide.with(context).load(new File(grouping.picture)).into(holder.img_food_grouping);
+            }else {
+                holder.img_food_grouping.setImageDrawable(context.getDrawable(R.drawable.defult_pic));
             }
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-
-//        try{
-//            final int takeFlags =  (Intent.FLAG_GRANT_READ_URI_PERMISSION
-//                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-//            // Check for the freshest data.
-//            context.getContentResolver().takePersistableUriPermission(Uri.fromFile(new File(grouping.picture)), takeFlags);
-//            // convert uri to bitmap
-//            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.fromFile(new File(grouping.picture)));
-//            // set bitmap to imageview
-//            holder.img_food_grouping.setImageBitmap(bitmap);
-//        }
-//        catch (Exception e){
-//            //handle exception
-//            e.printStackTrace();
-//        }
     }
 
 
@@ -177,30 +182,25 @@ public class GroupingAdapter extends RecyclerView.Adapter<GroupingAdapter.ViewHo
 
 
     private void showAlertDialog(String name , int pos , Dialog dialog_sheet){
-        new AlertDialog.Builder(context)
+        AlertDialog dialog = new AlertDialog.Builder(context)
                 .setTitle("حذف")
                 .setMessage(text)
                 .setIcon(R.drawable.ic_baseline_delete_24)
-                .setPositiveButton("بله", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                .setPositiveButton("بله", (dialog1, which) -> {
                         if(count >= 1){
                             productDao.deleteProductByCategory(name);
                            deleteOneItem(pos, dialog_sheet, name);
                         }else {
                             deleteOneItem(pos, dialog_sheet, name);
-                        }
                     }
                 })
-                .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                .setNegativeButton("خیر", (dialog1, which) -> {
+                        dialog1.dismiss();
                         dialog_sheet.dismiss();
-                    }
+
                 })
-                .create()
                 .show();
+        CustomDialog.setTypeFaceAlertDialog(dialog,context);
     }
 
 

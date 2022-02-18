@@ -16,24 +16,25 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 public class Permition extends AppCompatActivity {
+    //    public static String CALL_PHONE =  ContextCompat.checkSelfPermission(context, permission[0]) == PackageManager.PERMISSION_DENIED
     public int code;
     public Context context;
     public Activity activity;
 
-    public Permition(int code, Context context, Activity activity) {
-        this.code = code;
-        this.context = context;
-        this.activity = activity;
-    }
+//    public Permition(int code, Context context, Activity activity) {
+//        this.code = code;
+//        this.context = context;
+//        this.activity = activity;
+//    }
 
-    public Permition(int contentLayoutId, int code, Context context, Activity activity) {
-        super(contentLayoutId);
-        this.code = code;
-        this.context = context;
-        this.activity = activity;
-    }
+//    public Permition(int contentLayoutId, int code, Context context, Activity activity) {
+//        super(contentLayoutId);
+//        this.code = code;
+//        this.context = context;
+//        this.activity = activity;
+//    }
 
-    public  Boolean checkPermission() {
+    public Boolean checkPermission() {
         String[] permission = {Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE};
         int requestCode = 0;
         int requestCode_call = 0;
@@ -49,6 +50,33 @@ public class Permition extends AppCompatActivity {
             ActivityCompat.requestPermissions(activity, new String[]{permission[1]}, requestCode);
         }else if (ContextCompat.checkSelfPermission(context, permission[2]) == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(activity, new String[]{permission[2]}, requestCode_call);
+        }
+        else {
+            return true;
+        }
+        return false;
+
+    }
+
+
+    public Boolean checkCallPermition(Context context, Activity activity){
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CALL_PHONE}, 200);
+        }else {
+            return true;
+        }
+        return false;
+    }
+
+
+
+    public Boolean checkStoregPermition(Context context, Activity activity) {
+        String[] permission = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+
+        if (ContextCompat.checkSelfPermission(context, permission[0]) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(activity, new String[]{permission[0]}, 100);
+        } else if (ContextCompat.checkSelfPermission(context, permission[1]) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(activity, new String[]{permission[1]}, 100);
         }
         else {
             return true;

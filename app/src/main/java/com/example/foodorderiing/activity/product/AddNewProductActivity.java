@@ -190,7 +190,8 @@ public class AddNewProductActivity extends AppCompatActivity {
                 p.name = nameProduct;
                 p.category = categoryProduct;
                 p.price = priceProduct;
-                p.picture = save;
+                if(save == null) p.picture = p.picture;
+                else  p.picture = save;
                 Log.e("qqqq", "onClick: update product=" + p.product_id);
                 dao_product.updateProduct(p);
                 Toast.makeText(getApplicationContext(), " با موفقیت تغییر کرد ", Toast.LENGTH_LONG).show();
