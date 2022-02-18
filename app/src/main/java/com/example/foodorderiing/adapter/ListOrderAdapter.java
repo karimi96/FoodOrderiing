@@ -1,5 +1,6 @@
 package com.example.foodorderiing.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -10,17 +11,15 @@ import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodorderiing.R;
-import com.example.foodorderiing.activity.listOrder.ListOrder;
 import com.example.foodorderiing.activity.orderDetail.OrderDetail;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.OrderDao;
 import com.example.foodorderiing.database.dao.OrderDetailDao;
 import com.example.foodorderiing.helper.App;
-import com.example.foodorderiing.model.Customer;
+import com.example.foodorderiing.helper.CustomDialog;
 import com.example.foodorderiing.model.Order;
 import com.google.gson.Gson;
 
@@ -92,18 +91,18 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.View
             itemView.setOnClickListener(this);
 
             delete.setOnClickListener(v -> {
-                new AlertDialog.Builder(context)
+                android.app.AlertDialog dialog = new AlertDialog.Builder(context)
                         .setTitle("حذف")
                         .setMessage("ایا مایلید این سفارش را حذف کنید؟")
-                        .setPositiveButton("بله",(dialog, which) -> {
+                        .setPositiveButton("بله",(dialog1, which) -> {
                                 initDataBase();
                                 initDeleteOneOrder(getAdapterPosition(), list.get(getAdapterPosition()).name);
                         })
-                        .setNegativeButton("خیر", (dialog, which) -> {
-                                dialog.dismiss();
+                        .setNegativeButton("خیر", (dialog1, which) -> {
+                            dialog1.dismiss();
                         })
-                        .create()
                         .show();
+                CustomDialog.setTypeFaceAlertDialog(dialog, context);
             });
         }
 

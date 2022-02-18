@@ -27,10 +27,10 @@ import java.util.List;
 
 
 public class ListOrder extends AppCompatActivity {
-    private RecyclerView recyclerView ;
-    private ListOrderAdapter adapter ;
-    private DatabaseHelper db ;
-    private OrderDao dao ;
+    private RecyclerView recyclerView;
+    private ListOrderAdapter adapter;
+    private DatabaseHelper db;
+    private OrderDao dao;
     private CustomerDao customerDao;
     private TextView noListOrder;
     private Toolbar toolbar;
@@ -51,17 +51,14 @@ public class ListOrder extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        List<Order> listorder = new ArrayList<>();
-        if(listorder.size() == 0 || listorder.isEmpty())
-            noListOrder.setVisibility(View.VISIBLE);
-        else listorder.addAll(dao.getOrderList());
-        noListOrder.setVisibility(View.GONE);
+        if (dao.getOrderList().size() == 0) noListOrder.setVisibility(View.VISIBLE);
+        else noListOrder.setVisibility(View.GONE);
     }
 
-    private void initDataBase(){
+    private void initDataBase() {
         db = App.getDatabase();
-        dao = db.orderDao() ;
-        customerDao= db.customerDao();
+        dao = db.orderDao();
+        customerDao = db.customerDao();
     }
 
 
@@ -86,11 +83,9 @@ public class ListOrder extends AppCompatActivity {
         searchText.setTypeface(myCustomFont);
         searchText.setTextSize(14);
 
-        // for underline
         View v = searchView.findViewById(androidx.appcompat.R.id.search_plate);
         v.setBackgroundColor(Color.parseColor("#ef4224"));
 
-        // for remove icon hint
         EditText searchEdit = ((EditText) searchView.findViewById(androidx.appcompat.R.id.search_src_text));
         searchEdit.setTextColor(getResources().getColor(R.color.white_text));
         searchEdit.setHintTextColor(getResources().getColor(R.color.white_text));
@@ -112,15 +107,14 @@ public class ListOrder extends AppCompatActivity {
     }
 
 
-
-    private void initID (){
+    private void initID() {
         recyclerView = findViewById(R.id.recycler_recordOrdring);
         noListOrder = findViewById(R.id.noListOrder);
         toolbar = findViewById(R.id.toolbar_listOrder);
     }
 
 
-    private void initRecycler(){
+    private void initRecycler() {
         recyclerView.setHasFixedSize(true);
         adapter = new ListOrderAdapter(this, dao.getOrderListByDate());
         recyclerView.setAdapter(adapter);

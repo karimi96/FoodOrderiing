@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.foodorderiing.R;
+import com.example.foodorderiing.activity.forgetPass.ForgetPassActivity;
 import com.example.foodorderiing.activity.home.HomeActivity;
 import com.example.foodorderiing.database.DatabaseHelper;
 import com.example.foodorderiing.database.dao.UserDao;
@@ -32,7 +34,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 public class LoginActivity extends AppCompatActivity {
     private ImageView img_back;
     private CheckBox checkBox;
-    private TextView tv_login, tv_NewAccount, tv_title;
+    private TextView tv_login, tv_NewAccount, tv_title, forgetPass;
     private EditText et_name, et_password;
     private DatabaseHelper db;
     private UserDao dao;
@@ -51,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         initLogin();
         setCheckBox();
         setNameTitle();
+        setForgetPass();
     }
 
 
@@ -75,6 +78,15 @@ public class LoginActivity extends AppCompatActivity {
         tv_NewAccount = findViewById(R.id.tv_newAcount);
         checkBox = findViewById(R.id.checkBox_loging);
         tv_title = findViewById(R.id.tv_title_login);
+        forgetPass = findViewById(R.id.tv_forgetPass);
+    }
+
+
+    private void setForgetPass() {
+        forgetPass.setOnClickListener(v -> {
+            startActivity(new Intent(LoginActivity.this , ForgetPassActivity.class));
+
+        });
     }
 
 
@@ -161,19 +173,20 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "این کاربر وجود ندارد", Toast.LENGTH_SHORT).show();
 
             } else {
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    finish();
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
             }
         });
     }
 
 
-    private void setNameTitle(){
-        if(Session.getInstance().getString("name") != null){
-            tv_title.setText( "غذا سرای " + Session.getInstance().getString("name"));
-        }else tv_title.setText("غذا سرا");
+    private void setNameTitle() {
+        if (Session.getInstance().getString("name") != null) {
+            tv_title.setText("غذا سرای " + Session.getInstance().getString("name"));
+        } else tv_title.setText("غذا سرا");
     }
+
 
 }
