@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.foodorderiing.R;
 import com.example.foodorderiing.activity.customer.CustomerActivity;
 import com.example.foodorderiing.activity.grouping.GroupingActivity;
@@ -47,21 +49,20 @@ public class HomeActivity extends AppCompatActivity {
 
     private ArrayList<ChartModel> chartModels;
 
-    private CardView cardView_product ,cardView_customer ,cardView_grouping ,cardView_ListOrder,waiting;
-    private TextView num_product ,num_customer ,num_grouping;
+    private CardView cardView_product, cardView_customer, cardView_grouping, cardView_ListOrder, waiting;
+    private TextView num_product, num_customer, num_grouping;
     private DatabaseHelper db;
     private ProductDao dao_p;
     private GroupingDao dao_g;
     private CustomerDao dao_c;
     private OrderDao dao_order;
     private ImageView img_ordering, img_menu;
-    private TextView numOrder ,monthlyTotal ,weeklyTotal , dailyTotal, dayName, monthName, alltotal, titleHome, titleDrawer;
+    private TextView numOrder, monthlyTotal, weeklyTotal, dailyTotal, dayName, monthName, alltotal, titleHome, titleDrawer;
     private String date;
     private ListOrder listOrder;
     private DrawerLayout drawer;
     private LinearLayout setting_drawer, aboutUs_drawer, guid_drawer, exit_drawer;
-
-
+    private LottieAnimationView lottie_chart;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -98,7 +99,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    private void initDataBase(){
+    private void initDataBase() {
         db = App.getDatabase();
         dao_p = db.productDao();
         dao_c = db.customerDao();
@@ -107,7 +108,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    private void initID(){
+    private void initID() {
         cardView_grouping = findViewById(R.id.cardView_grouping);
         cardView_customer = findViewById(R.id.cardview_customer);
         cardView_product = findViewById(R.id.cardView_product);
@@ -132,30 +133,31 @@ public class HomeActivity extends AppCompatActivity {
         aboutUs_drawer = findViewById(R.id.about_nav);
         guid_drawer = findViewById(R.id.guid_nav);
         exit_drawer = findViewById(R.id.exist_nav);
+        lottie_chart = findViewById(R.id.lottie_chart);
     }
 
 
-    private void setNumberOf_Product_Customer_Grouping(){
-        if(dao_p.getProductList().size() == 0) num_product.setText("");
+    private void setNumberOf_Product_Customer_Grouping() {
+        if (dao_p.getProductList().size() == 0) num_product.setText("");
         else num_product.setText(Integer.toString(dao_p.getProductList().size()));
 
-        if(dao_c.getCustomerList().size() == 0) num_customer.setText("");
+        if (dao_c.getCustomerList().size() == 0) num_customer.setText("");
         else num_customer.setText(Integer.toString(dao_c.getCustomerList().size()));
 
-        if( dao_g.getGroupingList().size() == 0) num_grouping.setText("");
+        if (dao_g.getGroupingList().size() == 0) num_grouping.setText("");
         else num_grouping.setText(Integer.toString(dao_g.getGroupingList().size()));
     }
 
 
-    private void setNameTitle(){
-        if(Session.getInstance().getString("name") != null){
-            titleHome.setText( "غذای سرای " + Session.getInstance().getString("name"));
-            titleDrawer.setText( "غذای سرای " + Session.getInstance().getString("name"));
+    private void setNameTitle() {
+        if (Session.getInstance().getString("name") != null) {
+            titleHome.setText("غذای سرای " + Session.getInstance().getString("name"));
+            titleDrawer.setText("غذای سرای " + Session.getInstance().getString("name"));
         }
     }
 
 
-    private void setNavigationDrawer(){
+    private void setNavigationDrawer() {
         img_menu.setOnClickListener(v -> {
             drawer.openDrawer(GravityCompat.END);
         });
@@ -164,92 +166,140 @@ public class HomeActivity extends AppCompatActivity {
 
     private void initGetOrder() {
         img_ordering.setOnClickListener(v -> {
-                startActivity(new Intent(HomeActivity.this, OrderActivity.class));
+            startActivity(new Intent(HomeActivity.this, OrderActivity.class));
         });
     }
 
 
-    private void gOToProduct(){
+    private void gOToProduct() {
         cardView_product.setOnClickListener(v -> {
-                startActivity(new Intent(HomeActivity.this, ProductActivity.class));
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            startActivity(new Intent(HomeActivity.this, ProductActivity.class));
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
     }
 
 
-    private void goToCustomer(){
-        cardView_customer.setOnClickListener(v ->  {
-                startActivity(new Intent(HomeActivity.this, CustomerActivity.class));
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    private void goToCustomer() {
+        cardView_customer.setOnClickListener(v -> {
+            startActivity(new Intent(HomeActivity.this, CustomerActivity.class));
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
     }
 
 
-    private void goToGrouping(){
+    private void goToGrouping() {
         cardView_grouping.setOnClickListener(v -> {
-                startActivity(new Intent(HomeActivity.this, GroupingActivity.class));
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            startActivity(new Intent(HomeActivity.this, GroupingActivity.class));
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
     }
 
 
-    private void initListOrder(){
+    private void initListOrder() {
         cardView_ListOrder.setOnClickListener(v -> {
-                startActivity(new Intent(HomeActivity.this, ListOrder.class));
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            startActivity(new Intent(HomeActivity.this, ListOrder.class));
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
     }
 
+//
+//    private void populateChart() {
+//        Log.e("qqqqmain", "populateChart: started");
+//        ArrayList<Order> list = new ArrayList<>(dao_order.getOrderList());
+//        chartModels = new ArrayList<>();
+//        //  chartModels.addAll(dao_chart.getListChart());
+//
+//        Log.e("qqqqmain", "populateChart: " + list.size() + "-" + chartModels.size());
+//
+//        for (int i = 0; i < list.size(); i++) {
+//
+//            Log.e("qqqqmain2", "populateChart: for list is started \n"
+//                    + list.get(i).date);
+//
+//            if (chartModels.size() == 0) {
+//                Log.e("qqqqmain", "populateChart: chartModels.size() == 0");
+//
+////                dao_chart.insertChart(new ChartModel(list.get(i).date, Tools.convertToPrice(list.get(i).total)));
+//                chartModels.add(new ChartModel(list.get(i).date, Tools.convertToPrice(list.get(i).total)));
+//                Log.e("qqqmain", "populateChart:  chartModels  " + chartModels.size() );
+//                Log.e("qqqqmain", "populateChart: chartModels " + chartModels.get(i).date);
+//            } else {
+//                Log.e("qqqqmain", "populateChart: chartModels.size() > 0");
+//
+//                for (int c = 0; c < chartModels.size(); c++) {
+//                    Log.e("qqqqmain2", "populateChart: for chart model is started \n "
+//                            + chartModels.get(c).getDate());
+//                    if (list.get(i).date.equals(chartModels.get(c).getDate())) {
+//                        Log.e("qqqqmain", "populateChart: chart model" + list.get(i).date + "=" + chartModels.get(c).date);
+//                        chartModels.get(c).setTotal(chartModels.get(c).getTotal() + Tools.convertToPrice(list.get(i).total));
+//                    }
+//                }
+//                Log.e("qqqqmain", "populateChart: finish halghe "  );
+//
+//                chartModels.add(new ChartModel(list.get(i).date, Tools.convertToPrice(list.get(i).total)));
+//            }
+//        }
+//    }
 
-    private void populateChart(){
-        Log.e("qqqqmain", "populateChart: started" );
+
+
+    private void populateChart() {
+        Log.e("qqqqmain", "populateChart: started");
         ArrayList<Order> list = new ArrayList<>(dao_order.getOrderList());
         chartModels = new ArrayList<>();
-      //  chartModels.addAll(dao_chart.getListChart());
 
-        Log.e("qqqqmain", "populateChart: "+list.size() + "-"+ chartModels.size() );
+        Log.e("qqqqmain", "populateChart: " + list.size() + "-" + chartModels.size());
 
-        for (int i =0 ; i < list.size() ; i++) {
+        for (int i = 0; i < list.size(); i++) {
 
             Log.e("qqqqmain2", "populateChart: for list is started \n"
-            + list.get(i).date );
+                    + list.get(i).date);
 
-            if (chartModels.size() == 0){
-                Log.e("qqqqmain", "populateChart: chartModels.size() == 0" );
+            if (chartModels.size() < 1) {
+                Log.e("qqqqmain", "populateChart: chartModels.size() == 0");
 
 //                dao_chart.insertChart(new ChartModel(list.get(i).date, Tools.convertToPrice(list.get(i).total)));
-                chartModels.add(new ChartModel(list.get(i).date, Tools.convertToPrice(list.get(i).total)));
-                Log.e("qqqqmain", "populateChart: chartModels " + chartModels.get(i).date );
-            }else {
-                Log.e("qqqqmain", "populateChart: chartModels.size() > 0" );
+                chartModels.add(new ChartModel(list.get(0).date, Tools.convertToPrice(list.get(i).total)));
 
-                for (int c =0 ; c < chartModels.size() ; c++) {
+                Log.e("qqqmain", "populateChart:  chartModels  " + chartModels.size() );
+                Log.e("qqqqmain", "populateChart: chartModels " + chartModels.get(i).date);
+
+            } else {
+
+                Log.e("qqqqmain", "populateChart: chartModels.size() > 0");
+
+                for (int c = 0; c < chartModels.size(); c++) {
                     Log.e("qqqqmain2", "populateChart: for chart model is started \n "
                             + chartModels.get(c).getDate());
+                    if (list.get(i).date.equals(chartModels.get(c).getDate())) {
 
-                    if (list.get(i).date.equals(chartModels.get(c).getDate())){
-                        Log.e("qqqqmain", "populateChart: chart model" + list.get(i).date + "=" + chartModels.get(c).date  );
-                            chartModels.get(c).setTotal(chartModels.get(c).getTotal() + Tools.convertToPrice(list.get(i).total));
-
-//                    if (chartModels.get(c).getDate().equals(list.get(i).date)) {
-//                        return;
+                        chartModels.get(c).setTotal(chartModels.get(c).getTotal() + Tools.convertToPrice(list.get(i).total));
+                    }else {
+                        chartModels.add(new ChartModel(list.get(i).date, Tools.convertToPrice(list.get(i).total)));
                     }
-
                 }
-                chartModels.add(new ChartModel(list.get(i).date,Tools.convertToPrice(list.get(i).total)));
-//
-//                dao_chart.insertChart(new ChartModel(list.get(i).date,Tools.convertToPrice(list.get(i).total)));
             }
+
         }
     }
 
 
     public void create_chart22() {
+
         BarChart bar_chart = findViewById(R.id.chart_bar);
         ArrayList<BarEntry> visitor = new ArrayList<>();
 
+        if(dao_order.getOrderList().size() == 0) {
+            lottie_chart.setVisibility(View.VISIBLE);
+            bar_chart.setVisibility(View.GONE);
+        }else {
+            bar_chart.setVisibility(View.VISIBLE);
+            lottie_chart.setVisibility(View.GONE);
+        }
+
+
         for (int i = 0; i < chartModels.size(); i++) {
-            visitor.add(new BarEntry( i+1 , (int) chartModels.get(i).getTotal() ));
+            visitor.add(new BarEntry(i + 1, (int) chartModels.get(i).getTotal()));
         }
 
         BarDataSet barDataSet = new BarDataSet(visitor, "");
@@ -269,91 +319,103 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    private void numberListOrder(){
+    private void numberListOrder() {
         if (dao_order.getOrderList().size() >= 1)
-        numOrder.setText("( " + dao_order.getOrderList().size() + " ) ");
+            numOrder.setText("( " + dao_order.getOrderList().size() + " ) ");
         else numOrder.setText("");
     }
 
 
-    private int setTotalDaily(){
+    private int setTotalDaily() {
         List<String> total = new ArrayList<>(dao_order.dailyTotal(Tools.getCurrentDate()));
-        int j = 0 ;
-            try {
-                for (int i = 0; i < dao_order.getOrderList().size() ; i++) {
-                    String t = total.get(i);
-                    j = j + Tools.convertToPrice(t);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+        int j = 0;
+        try {
+            for (int i = 0; i < dao_order.getOrderList().size(); i++) {
+                String t = total.get(i);
+                j = j + Tools.convertToPrice(t);
             }
-        if(j == 0)dailyTotal.setText("  _ ");
-            else dailyTotal.setText(Tools.getForamtPrice(String.valueOf(j)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (j == 0) dailyTotal.setText("  _ ");
+        else dailyTotal.setText(Tools.getForamtPrice(String.valueOf(j)));
 
         return j;
     }
 
 
-    private void setTotalWeekly(){
+    private void setTotalWeekly() {
         List<Order> total = new ArrayList<>(dao_order.getOrderListDate(Tools.getSevenDayAgo()));
-        int j = 0 ;
-        for (int i = 0; i < total.size() ; i++) {
-            String t = total.get(i).total;
-            j = j + Tools.convertToPrice(t);
+        int j = 0;
+        try {
+            for (int i = 0; i < total.size(); i++) {
+                String t = total.get(i).total;
+                j = j + Tools.convertToPrice(t);
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
-        if(j == 0) weeklyTotal.setText("  _ ");
-            else weeklyTotal.setText(Tools.getForamtPrice(String.valueOf(j)));
+        if (j == 0) weeklyTotal.setText("  _ ");
+        else weeklyTotal.setText(Tools.getForamtPrice(String.valueOf(j)));
     }
 
 
-    private void setTotalMonthly(){
+    private void setTotalMonthly() {
         List<Order> total = new ArrayList<>(dao_order.getOrderListDate(Tools.getThirtyDaysAgo()));
-        int j = 0 ;
-        for (int i = 0; i < total.size() ; i++) {
-            String t = total.get(i).total;
-            j = j + Tools.convertToPrice(t);
+        int j = 0;
+        try {
+            for (int i = 0; i < total.size(); i++) {
+                String t = total.get(i).total;
+                j = j + Tools.convertToPrice(t);
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
-        if(j == 0) monthlyTotal.setText("  _ ");
+        if (j == 0) monthlyTotal.setText("  _ ");
         else monthlyTotal.setText(Tools.getForamtPrice(String.valueOf(j)));
     }
 
 
-    private void setName(){
+    private void setName() {
         dayName.setText(" ( " + Tools.getDayName() + " ) ");
         monthName.setText(" ( " + Tools.getMonthName() + " ) ");
     }
 
 
-    private void setAllTotal(){
+    private void setAllTotal() {
         List<String> allTotal = new ArrayList<>(dao_order.getAllTotal());
-        int t = 0 ;
-        for (int i = 0; i < allTotal.size() ; i++) {
-            String at = allTotal.get(i);
-            t = t + Tools.convertToPrice(at);
+        int t = 0;
+        try {
+            for (int i = 0; i < allTotal.size(); i++) {
+                String at = allTotal.get(i);
+                t = t + Tools.convertToPrice(at);
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
         if (t == 0) alltotal.setText("  _ ");
         else alltotal.setText(Tools.getForamtPrice(String.valueOf(t)));
     }
 
 
-    private void setDrawer(){
+    private void setDrawer() {
         setting_drawer.setOnClickListener(v -> {
             startActivity(new Intent(HomeActivity.this, SettingActivity.class));
+            drawer.closeDrawers();
         });
 
         guid_drawer.setOnClickListener(v -> {
-            new CustomDialog().showDialog(HomeActivity.this , R.layout.dialog_guid , drawer, this);
+            new CustomDialog().showDialogGuid(HomeActivity.this, R.layout.dialog_guid, drawer, this);
         });
 
         aboutUs_drawer.setOnClickListener(v -> {
-            new CustomDialog().showDialog(HomeActivity.this , R.layout.dialog_about_us , drawer, this);
+            new CustomDialog().showDialogAboutUs(HomeActivity.this, R.layout.dialog_about_us, drawer, this);
         });
 
         exit_drawer.setOnClickListener(v -> {
             drawer.closeDrawers();
         });
     }
-
 
 
 }
