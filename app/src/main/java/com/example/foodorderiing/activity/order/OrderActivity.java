@@ -1,11 +1,9 @@
 package com.example.foodorderiing.activity.order;
 
-import android.annotation.SuppressLint;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,7 +34,6 @@ import com.example.foodorderiing.model.Order;
 import com.example.foodorderiing.model.OrderDetail;
 import com.example.foodorderiing.model.Product;
 import com.google.gson.Gson;
-import com.mohamadamin.persianmaterialdatetimepicker.time.RadialPickerLayout;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
@@ -52,18 +49,17 @@ import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 import ir.hamsaa.persiandatepicker.util.PersianCalendarUtils;
 
 
-
 public class OrderActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private OrderAdapter ordringAdapter;
     private DatabaseHelper db;
     private OrderDao dao_order;
-    private OrderDetailDao dao_detail ;
+    private OrderDetailDao dao_detail;
     private View box_customer;
     private SlidrInterface slidr;
     private LottieAnimationView lottie;
     private List<Product> orderDetailList;
-    private TextView add_order, name_customer ,number_order, total, save_order , noOrder ;
+    private TextView add_order, name_customer, number_order, total, save_order, noOrder;
     private Customer customer;
     private CardView card_number;
     private String CODE = String.valueOf(System.currentTimeMillis());
@@ -95,25 +91,24 @@ public class OrderActivity extends AppCompatActivity {
     }
 
 
-
     @Override
-    protected void onActivityResult( int requestCode, int resultCode ,  Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK){
-            switch (requestCode){
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
 
                 case 100:
-                        String json_customer = data.getExtras().getString("json_customer");
-                        customer = new Gson().fromJson(json_customer,Customer.class);
-                        name_customer.setText(customer.name);
-                        break;
+                    String json_customer = data.getExtras().getString("json_customer");
+                    customer = new Gson().fromJson(json_customer, Customer.class);
+                    name_customer.setText(customer.name);
+                    break;
 
                 case 200:
                     noOrder.setVisibility(View.GONE);
                     recyclerView.setVisibility(View.VISIBLE);
                     relative_total.setVisibility(View.VISIBLE);
                     String json_product = data.getExtras().getString("json_product");
-                    Product product = new Gson().fromJson(json_product,Product.class);
+                    Product product = new Gson().fromJson(json_product, Product.class);
                     insertToOrderList(product);
                     break;
             }
@@ -121,9 +116,9 @@ public class OrderActivity extends AppCompatActivity {
     }
 
 
-    private void insertToOrderList(Product product){
+    private void insertToOrderList(Product product) {
         for (int i = 0; i < orderDetailList.size(); i++) {
-            if(orderDetailList.get(i).product_id == product.product_id){
+            if (orderDetailList.get(i).product_id == product.product_id) {
                 orderDetailList.get(i).amount = orderDetailList.get(i).amount + 1;
                 ordringAdapter.notifyDataSetChanged();
                 initCounter();
@@ -136,7 +131,7 @@ public class OrderActivity extends AppCompatActivity {
     }
 
 
-    private void initRecycler(){
+    private void initRecycler() {
         orderDetailList = new ArrayList<>();
         ordringAdapter = new OrderAdapter(orderDetailList, this, new OrderAdapter.Listener() {
             @Override
@@ -145,12 +140,13 @@ public class OrderActivity extends AppCompatActivity {
                 ordringAdapter.notifyItemChanged(pos);
                 initCounter();
             }
+
             @Override
             public void onRemove(int pos) {
-                if (orderDetailList.get(pos).amount > 1){
+                if (orderDetailList.get(pos).amount > 1) {
                     orderDetailList.get(pos).amount = orderDetailList.get(pos).amount - 1;
                     ordringAdapter.notifyItemChanged(pos);
-                }else {
+                } else {
                     orderDetailList.remove(pos);
                     ordringAdapter.notifyDataSetChanged();
                 }
@@ -162,14 +158,14 @@ public class OrderActivity extends AppCompatActivity {
     }
 
 
-    private void initDataBase(){
+    private void initDataBase() {
         db = App.getDatabase();
         dao_order = db.orderDao();
         dao_detail = db.orderDetailDao();
     }
 
 
-    private void initID(){
+    private void initID() {
         add_order = findViewById(R.id.add_order);
         box_customer = findViewById(R.id.box_customer);
         name_customer = findViewById(R.id.name);
@@ -181,88 +177,88 @@ public class OrderActivity extends AppCompatActivity {
         card_number = findViewById(R.id.card_number);
         relative_total = findViewById(R.id.relative_order);
         noOrder = findViewById(R.id.noOrder);
-        tv_datePicker =findViewById(R.id.tv_DatePicker);
-        card_timePicker =findViewById(R.id.card_TimePicker);
-        card_DatePicker =findViewById(R.id.card_DatePicker);
+        tv_datePicker = findViewById(R.id.tv_DatePicker);
+        card_timePicker = findViewById(R.id.card_TimePicker);
+        card_DatePicker = findViewById(R.id.card_DatePicker);
         tv_timePicker = findViewById(R.id.tv_TimePicker);
     }
 
 
-    private void initBoxCustomer(){
-        box_customer.setOnClickListener(v ->{
+    private void initBoxCustomer() {
+        box_customer.setOnClickListener(v -> {
             Intent intent = new Intent(this, CustomerActivity.class);
             intent.putExtra("for_order", true);
-           startActivityForResult(intent,100);
+            startActivityForResult(intent, 100);
         });
     }
 
 
-    private void initBoxProduct(){
-        add_order.setOnClickListener(v ->{
+    private void initBoxProduct() {
+        add_order.setOnClickListener(v -> {
             Intent intent = new Intent(this, ProductActivity.class);
             intent.putExtra("for_order", true);
-            startActivityForResult(intent,200);
+            startActivityForResult(intent, 200);
         });
     }
 
 
-    private void initCounter(){
-        if(orderDetailList.size() > 0){
+    private void initCounter() {
+        if (orderDetailList.size() > 0) {
             card_number.setVisibility(View.VISIBLE);
-            number_order.setText(orderDetailList.size()+"");
-        }else {
+            number_order.setText(orderDetailList.size() + "");
+        } else {
             card_number.setVisibility(View.GONE);
         }
-        total.setText(Tools.getForamtPrice(getTotalPrice()+""));
+        total.setText(Tools.getForamtPrice(getTotalPrice() + ""));
     }
 
 
-    private Integer getTotalPrice(){
+    private Integer getTotalPrice() {
         int p = 0;
         for (int i = 0; i < orderDetailList.size(); i++) {
-        p = p + (Tools.convertToPrice(orderDetailList.get(i).price) * orderDetailList.get(i).amount);
+            p = p + (Tools.convertToPrice(orderDetailList.get(i).price) * orderDetailList.get(i).amount);
         }
         return p;
     }
 
 
-    private void initLottie(){
+    private void initLottie() {
         lottie.setOnClickListener(v -> {
-                if(orderDetailList.size() != 0 ){
-                    lottie.setRepeatCount(0);
-                    lottie.playAnimation();
-                    orderDetailList.clear();
-                    ordringAdapter.notifyDataSetChanged();
-                    relative_total.setVisibility(View.GONE);
-                }else {
-                    Toast.makeText(OrderActivity.this, "لیست خالی است", Toast.LENGTH_SHORT).show();
-                }
+            if (orderDetailList.size() != 0) {
+                lottie.setRepeatCount(0);
+                lottie.playAnimation();
+                orderDetailList.clear();
+                ordringAdapter.notifyDataSetChanged();
+                relative_total.setVisibility(View.GONE);
+            } else {
+                Toast.makeText(OrderActivity.this, "لیست خالی است", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
 
-    private void initSaveOrder(){
+    private void initSaveOrder() {
         save_order.setOnClickListener(view -> {
-                    if( customer == null ){
-                        Toast.makeText(this, "مشتری را انتخاب کنید", Toast.LENGTH_SHORT).show();
-                    }else {
-                        dao_order.insertOrder(new Order(customer.name , CODE , customer.customer_id , 1 ,
-                        total.getText()+"" , "با تمام مخلفات " ,tv_datePicker.getText()+"" , tv_timePicker.getText()+"" ));
+            if (customer == null) {
+                Toast.makeText(this, "مشتری را انتخاب کنید", Toast.LENGTH_SHORT).show();
+            } else {
+                dao_order.insertOrder(new Order(customer.name, CODE, customer.customer_id, 1,
+                        total.getText() + "", "با تمام مخلفات ", tv_datePicker.getText() + "", tv_timePicker.getText() + ""));
 
-                        for (int i = 0; i < orderDetailList.size(); i++) {
-                            dao_detail.insertOrderDetail(new OrderDetail(orderDetailList.get(i).name,
-                                  orderDetailList.get(i).category ,
-                                  orderDetailList.get(i).price  ,
-                                  orderDetailList.get(i).amount ,CODE, orderDetailList.get(i).picture ));
-                            Toast.makeText(OrderActivity.this, " سفارش " + customer.name + " با موفقیت ثبت شد", Toast.LENGTH_SHORT).show();
-                        }
-                        finish();
-                        }
+                for (int i = 0; i < orderDetailList.size(); i++) {
+                    dao_detail.insertOrderDetail(new OrderDetail(orderDetailList.get(i).name,
+                            orderDetailList.get(i).category,
+                            orderDetailList.get(i).price,
+                            orderDetailList.get(i).amount, CODE, orderDetailList.get(i).picture));
+                    Toast.makeText(OrderActivity.this, " سفارش " + customer.name + " با موفقیت ثبت شد", Toast.LENGTH_SHORT).show();
+                }
+                finish();
+            }
         });
     }
 
 
-    private void datePicker(){
+    private void datePicker() {
         Typeface typeface = Typeface.createFromAsset(getAssets(), "shabnam-light.ttf");
         Calendar c = Calendar.getInstance();
         card_DatePicker.setOnClickListener(v -> {
@@ -282,80 +278,52 @@ public class OrderActivity extends AppCompatActivity {
                     .setShowInBottomSheet(true)
                     .setListener(new PersianPickerListener() {
                         @Override
-                        public void onDateSelected( PersianPickerDate persianPickerDate) {
+                        public void onDateSelected(PersianPickerDate persianPickerDate) {
                             Log.d(TAG, "onDateSelected: " + persianPickerDate.getTimestamp());//675930448000
                             Log.d(TAG, "onDateSelected: " + persianPickerDate.getGregorianDate());//Mon Jun 03 10:57:28 GMT+04:30 1991
                             Log.d(TAG, "onDateSelected: " + persianPickerDate.getPersianLongDate());// دوشنبه  13  خرداد  1370
                             Log.d(TAG, "onDateSelected: " + persianPickerDate.getPersianMonthName());//خرداد
                             Log.d(TAG, "onDateSelected: " + PersianCalendarUtils.isPersianLeapYear(persianPickerDate.getPersianYear()));//true
 
-                            tv_datePicker.setText(persianPickerDate.getPersianYear() + "/" + persianPickerDate.getPersianMonth() + "/" + persianPickerDate.getPersianDay() );
+                            tv_datePicker.setText(persianPickerDate.getPersianYear() + "/" + persianPickerDate.getPersianMonth() + "/" + persianPickerDate.getPersianDay());
                         }
-                            @Override
-                            public void onDismissed() {
-                            }
-                          });
-                        picker.show();
+
+                        @Override
+                        public void onDismissed() {
+                        }
+                    });
+            picker.show();
         });
     }
 
 
-//
-//    @SuppressLint("UseCompatLoadingForDrawables")
-//    private void timePicker(){
-//        card_timePicker.setOnClickListener(v -> {
-//            PersianCalendar now = new PersianCalendar();
-//            TimePickerDialog tpd = TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
-//                @Override
-//                public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
-//                    String time = hourOfDay+":"+minute;
-//                    tv_timePicker.setText(time);
-//                }
-//                },
-//                    now.get(PersianCalendar.HOUR_OF_DAY),
-//                    now.get(PersianCalendar.MINUTE),
-//                    true);
-//            tpd.show(getFragmentManager(),"tpd");
-//        });
-//    }
-
-
-
-    private void timePicker(){
+    private void timePicker() {
         card_timePicker.setOnClickListener(v -> {
             PersianCalendar now = new PersianCalendar();
             TimePickerDialog tpd = new TimePickerDialog(OrderActivity.this, R.style.MyTimePickerlight2, new TimePickerDialog.OnTimeSetListener() {
                 @Override
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                    String time = hourOfDay+":"+minute;
+                    String time = hourOfDay + ":" + minute;
                     tv_timePicker.setText(time);
                 }
             },
                     now.get(PersianCalendar.HOUR_OF_DAY),
                     now.get(PersianCalendar.MINUTE),
                     true);
-            tpd.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-            TextView textView = (TextView) tpd.findViewById(android.R.id.message);
-            Typeface face=Typeface.createFromAsset(getAssets(),"fonts/FONT");
-            textView.setTypeface(face);
-//            tpd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            tpd.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             tpd.show();
         });
     }
 
 
-
-
-
-
-    private void getCurrentDate(){
+    private void getCurrentDate() {
         PersianCalendar now = new PersianCalendar();
         String currentDate = now.getPersianShortDate();
         tv_datePicker.setText(currentDate);
     }
 
 
-    private void getCurrentTime(){
+    private void getCurrentTime() {
         Calendar c = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss ");
         String datetime = dateFormat.format(c.getTime());
