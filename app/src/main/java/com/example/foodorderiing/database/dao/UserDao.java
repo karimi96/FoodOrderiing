@@ -14,6 +14,18 @@ public interface UserDao {
     @Query("Select * from user where name = :name AND password= :password   limit 1 ")
     User getUser(String name , String password);
 
+    @Query("Select name from user limit 1")
+    String getUserName();
+
+    @Query("Select password from user limit 1")
+    String getUserPass();
+
+    @Query("UPDATE user SET name = :userName")
+    void updateUserName(String userName);
+
+    @Query("UPDATE user SET password = :pass")
+    void updateUserPass(String pass);
+
 
     @Insert
     void insertUser(User user);
