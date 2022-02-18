@@ -24,7 +24,7 @@
             android:layout_gravity="center"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/phone3" />
+            app:lottie_rawRes="@raw/phone2" />
     </LinearLayout>
 
 
@@ -119,7 +119,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:fontFamily="@font/iran_sans"
+                    android:fontFamily="@font/irsansfanum"
                     android:gravity="center_vertical"
                     android:maxLength="11"
                     android:paddingRight="5dp"
@@ -154,7 +154,7 @@
                     android:id="@+id/tv_address_customer"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/iran_sans"
+                    android:fontFamily="@font/irsansfanum"
                     android:gravity="center_vertical"
                     android:paddingRight="5dp"
                     android:text="روحانی کوچه 30"

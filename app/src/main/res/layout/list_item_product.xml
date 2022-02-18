@@ -38,8 +38,7 @@
                     android:id="@+id/linear_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_name_food_product"
@@ -108,7 +107,7 @@
                         android:id="@+id/tv_price_product"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginEnd="8dp"
                         android:fontFamily="@font/irsansfanum"
                         android:gravity="end|center"
                         android:text="39,000"
@@ -121,10 +120,10 @@
                         android:layout_height="match_parent"
                         android:layout_marginEnd="10dp"
                         android:fontFamily="@font/iran_sans"
-                        android:gravity="end"
+                        android:gravity="end|center"
                         android:text="تومان"
                         android:textColor="@color/red_toolbar"
-                        android:textSize="18dp"
+                        android:textSize="14dp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
