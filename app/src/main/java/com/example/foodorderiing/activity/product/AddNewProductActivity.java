@@ -81,7 +81,7 @@ public class AddNewProductActivity extends AppCompatActivity {
         }
 
         et_price.addTextChangedListener(new NumberTextWatcherForThousand(et_price));
-        initOutoTextView();
+        initAutoTextView();
         actionSave();
         actionCancel();
     }
@@ -125,7 +125,8 @@ public class AddNewProductActivity extends AppCompatActivity {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
-                save = Tools.saveFile(Tools.getBytes(resultUri), new File(Environment.getExternalStorageDirectory() + "/DCIM/Foods"), TIMEMILLISECOND + ".jpg");
+                save = Tools.saveFile(Tools.getBytes(resultUri), new File(Environment.getExternalStorageDirectory() + "/FoodOrdering/image"), TIMEMILLISECOND + ".jpg");
+//                save = Tools.saveFile(Tools.getBytes(resultUri), new File(Environment.getExternalStorageDirectory() + "/DCIM/Foods"), TIMEMILLISECOND + ".jpg");
                 img_show.setImageURI(resultUri);
                 img.setVisibility(View.GONE);
                 Log.e("qqqqfile", "onActivityResult: " + save);
@@ -143,7 +144,7 @@ public class AddNewProductActivity extends AppCompatActivity {
     }
 
 
-    private void initOutoTextView() {
+    private void initAutoTextView() {
         adapter_autocomplete = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, dao_grouping.getname());
         autoTextView_grouing.setAdapter(adapter_autocomplete);
         autoTextView_grouing.setThreshold(0);

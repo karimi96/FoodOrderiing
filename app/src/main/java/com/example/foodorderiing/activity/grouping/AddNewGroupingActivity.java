@@ -117,7 +117,7 @@ public class AddNewGroupingActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
                 Log.e("iiii", "resultUri: " + resultUri);
-                save = Tools.saveFile(Tools.getBytes(resultUri), new File(Environment.getExternalStorageDirectory() + "/DCIM/Foods"), TIMEMILLISSECOND + ".jpg");
+                save = Tools.saveFile(Tools.getBytes(resultUri), new File(Environment.getExternalStorageDirectory() + "/FoodOrdering/image"), TIMEMILLISSECOND + ".jpg");
 
 
 //                File image = new File(Environment.getExternalStorageDirectory() + "/DCIM/Foods", TIMEMILLISSECOND + ".jpg");
