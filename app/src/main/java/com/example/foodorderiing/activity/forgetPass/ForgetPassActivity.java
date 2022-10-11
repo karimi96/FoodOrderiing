@@ -19,7 +19,7 @@ public class ForgetPassActivity extends AppCompatActivity {
 
         layout = findViewById(R.id.linear_forgetPass);
         layout.setOnClickListener(v -> {
-            Intent call = new Intent(Intent.ACTION_VIEW,Uri.parse("tel:" + "09334659477"));
+            Intent call = new Intent(Intent.ACTION_VIEW,Uri.parse("tel:" + "09123456789"));
 //            call.setData(Uri.parse("tel:" + "phonnumber"));
             startActivity(call);
         });
